@@ -1,0 +1,51 @@
+ 
+ 
+<div id="wrapper"> 
+  <div class="mt-5">
+  <div class="card card-authentication1 mx-auto">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="card-body">
+     <div class="card-content">
+       <div class="text-center pb-4">
+          <img src="../../../assets/images/logo-icon.png" alt="logo icon"/>
+       </div>
+      <div class="row"> 
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="input-11">Email ID</label>
+            <input type="email" class="form-control form-control-square" formControlName="Contractor_email" id="Contractor_email" name="Contractor_email" 
+            placeholder="Your registered Email ID">
+            <div *ngIf="loginForm.controls['Contractor_email'].invalid 
+            && (loginForm.controls['Contractor_email'].dirty || loginForm.controls['Contractor_email'].touched)"  class="error-message">
+            Please enter your Email ID</div>
+           </div>
+        </div> 
+        </div>
+  
+      <div class="row"> 
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="input-11">Password</label>
+            <input type="password" class="form-control form-control-square" formControlName="Contractor_password" id="Contractor_password" 
+            name="Contractor_password" placeholder="Password For Your Account">
+            <div *ngIf="loginForm.controls['Contractor_password'].invalid 
+            && (loginForm.controls['Contractor_password'].dirty || loginForm.controls['Contractor_password'].touched)"  class="error-message">
+            Please enter your password</div>
+           </div>
+        </div> 
+  
+      </div>
+      <span *ngIf="loginstatus" class="error-message"> Invalid login credentials ! </span>
+  
+      <button type="submit" class="btn btn-info btn-block btn-round"  >Login now</button> 
+   
+        </div>
+      </div>
+      
+      </form>
+       </div>
+   </div>
+        
+  <br><br><br>
+  
+  </div> 

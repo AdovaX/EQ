@@ -1,0 +1,24 @@
+.card-authentication1{
+    width: 36rem;
+   }
+   .successClass{
+       display: block;
+   }
+   .notSucess{
+       display: none;
+   }
+   .cus_bg{
+       background-color: white;
+   }
+ 
+  .error-message {
+    color: #cc0033;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 5px 0 0;
+  }
+.cus_success{
+    color: white;
+    background-color: #04AA6D;
+}

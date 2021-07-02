@@ -1,0 +1,155 @@
+ 
+
+<!-- Start wrapper-->
+<div id="wrapper">
+
+    <!-- registration box 1 -->
+    
+  <div class="mt-5">
+  <div class="card card-authentication1 mx-auto">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
+    <div class="card-body">
+     <div class="card-content">
+       <div class="text-center pb-4">
+          <img src="../../../assets/images/logo-icon.png" alt="logo icon"/>
+       </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="input-11">Company Name</label>
+            <input type="text" class="form-control form-control-square" formControlName="C_full_name" id="C_full_name" name="C_full_name" placeholder="Company Legel Name">
+
+            <div *ngIf="registerForm.controls['C_full_name'].invalid 
+            && (registerForm.controls['C_full_name'].dirty || registerForm.controls['C_full_name'].touched)"  class="error-message">
+            Username is a required field.</div> 
+        </div>  
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-11">Short Name</label>
+            <input type="text" class="form-control form-control-square" formControlName="C_short_name" id="C_short_name" name="C_short_name" 
+            placeholder="Company Short Name">
+            <div *ngIf="registerForm.controls['C_short_name'].invalid 
+            && (registerForm.controls['C_short_name'].dirty || registerForm.controls['C_short_name'].touched)"  class="error-message">
+            Short Name is a required field.</div>
+
+           </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-11">No Of Employees</label>
+            <input type="number" class="form-control form-control-square" formControlName="No_employees" id="No_employees" name="No_employees" 
+            placeholder="Number of Employees">
+            <div *ngIf="registerForm.controls['No_employees'].invalid 
+            && (registerForm.controls['No_employees'].dirty || registerForm.controls['No_employees'].touched)"  class="error-message">
+            No Of Employees is a required field.</div>
+           </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-11">Website</label>
+            <input type="text" class="form-control form-control-square" formControlName="Website" id="Website" name="Website" 
+            placeholder="Company Website URL">
+            <div *ngIf="registerForm.controls['Contract_designation'].invalid 
+            && (registerForm.controls['Contract_designation'].dirty || registerForm.controls['Contract_designation'].touched)"  class="error-message">
+            Websiteis a required field.</div>
+           </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-11">Designation</label>
+            <input type="text" class="form-control form-control-square" formControlName="Contract_designation" id="Contract_designation" 
+            name="Contract_designation" placeholder="Your Designation">
+            <div *ngIf="registerForm.controls['Contract_designation'].invalid 
+            && (registerForm.controls['Contract_designation'].dirty || registerForm.controls['Contract_designation'].touched)"  class="error-message">
+            Designation a required field.</div>
+           </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-11"> Email ID</label>
+            <input type="email" class="form-control form-control-square" formControlName="Contractor_email" id="Contractor_email" 
+            name="Contractor_email" placeholder="Your Email ID">
+            <div *ngIf="registerForm.controls['Contractor_email'].invalid 
+            && (registerForm.controls['Contractor_email'].dirty || registerForm.controls['Contractor_email'].touched)"  class="error-message">
+            Your Email ID a required field.</div>
+           </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-11"> Contact Number</label>
+            <input type="text" class="form-control form-control-square" formControlName="Contract_phone"  id="Contract_phone" 
+            name="Contract_phone" placeholder="Your Contact Number">
+            <div *ngIf="registerForm.controls['Contract_phone'].invalid 
+            && (registerForm.controls['Contract_phone'].dirty || registerForm.controls['Contract_phone'].touched)"  class="error-message">
+            Your Contact Number a required field.</div>
+           </div> 
+           </div> 
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-11">Password</label>
+            <input type="password" class="form-control form-control-square" formControlName="Contractor_password" id="Contractor_password" 
+            name="Contractor_password" placeholder="Password For Your Account">
+            <div *ngIf="registerForm.controls['Contractor_password'].invalid 
+            && (registerForm.controls['Contractor_password'].dirty || registerForm.controls['Contractor_password'].touched)"  class="error-message">
+            Password a required field.</div>
+           </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-11">Confirm Password</label>
+            <input type="password" class="form-control form-control-square" formControlName="Contract_password2" id="Contract_password2" 
+            name="Contract_password2" placeholder="Confirm your Password">
+            <div *ngIf="registerForm.controls['Contract_password2'].invalid 
+            && (registerForm.controls['Contract_password2'].dirty || registerForm.controls['Contract_password2'].touched)"  class="error-message">
+            Confirm Password a required field.</div>
+           </div>
+        </div> 
+        <div class="col-sm-12">
+          <div class="form-group">
+            <re-captcha
+            (resolved)="resolved($event)"
+            siteKey="6LfHglwbAAAAAPoVBi_kK8DFpGSg95QjelATmeOT"
+          ></re-captcha>
+          </div>
+        </div> 
+  
+      </div>
+      <div id="notSucess" class="{{isRegistred ? 'successClass' : 'notSucess'}}">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-success alert-dismissible cus_success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <div class="alert-icon">
+             <i class="zmdi zmdi-check-circle"></i>
+            </div>
+            <div class="alert-message">
+              <span><strong>Success! </strong> Thank you for your Registration.</span>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+        
+         <div class="form-group"> 
+           <div class="icheck-material-dark">
+                   <input type="checkbox" id="input4" checked="" />
+                   <label for="input4">I Agree With Terms & Conditions</label>
+           </div>
+          </div>
+        
+       <button type="submit" class="btn btn-info btn-block btn-round" [disabled]="disabled">Sign Up</button> 
+       </div>
+      </div>
+      <div class="card-footer text-center py-3 bg-transparent">
+        <p class="mb-0">Already have an account? <a [routerLink]="[ '/company/Login' ]">  Sign In here</a></p>
+      </div>
+      </form>
+       </div>
+   </div>
+       
+  
+  
+  <br><br><br>
+  
+  </div><!--wrapper-->
