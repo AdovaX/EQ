@@ -11,6 +11,7 @@ import { Contractor } from '../../class/Contractor';
 export class DashboardComponent implements OnInit {
 profileData = new Contractor();
 Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
+Company_id = "";
 Contractor_email ="";
 Contractor_phone :number;
 Contractor_designation="";
@@ -40,6 +41,7 @@ updateContractorForm: FormGroup;
   
     });  
      this.getProfileData(this.Contractor_id); 
+     console.log("Compnay"+this.Company_id);
    }
    get f() { return this.updateContractorForm.controls; }
 
@@ -54,11 +56,7 @@ updateContractorForm: FormGroup;
         this.isUpdated = true;
      
       }); 
-    } 
-    
-
-
-
+    }  
    }
 
 
@@ -73,13 +71,15 @@ updateContractorForm: FormGroup;
       this.Contractor_email = data[0].Contractor_email;
       this.Contractor_phone = data[0].Contract_phone; 
       this.Company_name = data[0]['CompanyTb'].C_short_name;
+      this.Company_id = data[0]['CompanyTb'].Company_id;
+      sessionStorage.setItem("COMPANY_ID", this.Company_id); 
       if(data[0].hasOwnProperty('Contractor_firstName')){
         this.Contractor_firstName = data[0].Contractor_firstName;  
       }
       if(data[0].hasOwnProperty('Contractor_secondName')){
         this.Contractor_secondName = data[0].Contractor_secondName;  
       }
-      
+      console.log("Co :" + sessionStorage.getItem('COMPANY_ID'));
 
  
     });

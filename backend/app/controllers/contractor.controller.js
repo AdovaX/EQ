@@ -1,6 +1,7 @@
 const db = require("../models");
 const companyTb = db.companyTb;
 const contractorTb = db.contractownerTb;
+const delegateTb = db.delegateTb;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 
@@ -97,8 +98,7 @@ exports.getMyCompany= async (req, res) => {
      message: "Content can not be empty!"
    });
    return;
- } 
-  
+ }  
  async function getCompanyData() {
   return await contractorTb.findAll({
     where: {
@@ -110,11 +110,62 @@ exports.getMyCompany= async (req, res) => {
     },
 
   });   
-}
- 
+} 
 const myCompanyData =  await getCompanyData(); 
      res.status(200).send(myCompanyData);
-     return;
+     return; 
+};  
+
+exports.CreateDelegate= async (req, res) => {
+  if (!req.body.Company_id) {
+   res.status(400).send({
+     message: "Content can not be empty!"
+   });
+   return;
+ }  
+ var passwordHash = bcrypt.hashSync(req.body.Delegate_password , 10);
+
+ const delegateData = {
+  Delegate_name: req.body.Delegate_name,
+  Delegate_email: req.body.Delegate_email,
+  Delegate_designation: req.body.Delegate_designation,
+  Delegate_phone: req.body.Delegate_phone,
+  Delegate_password: passwordHash,
+  Company_id: req.body.Company_id,
+  Delegate_status: req.body.Delegate_status 
+};
+ 
+  delegateTb.create(delegateData)
+  .then(data => {  
+  // var respos = {
+  //   "status" : "Success"
+  // }
+  res.status(200).send(data); 
+       
+  })
+  .catch(err => {
+      return err.message ;
+  });
+ 
  
 };  
 
+exports.getDelegates = async (req, res) => { 
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }  
+  delegateTb.findAll({where : {Company_id:req.body.Company_id}})
+    .then(data => {
+      res.status(200).send(data); 
+
+    })
+    .catch(err => {
+      res.send(err);
+
+    });
+
+};
+  

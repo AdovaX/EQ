@@ -1,1 +1,177 @@
-<p>delegate works!</p>
+<app-menubar></app-menubar>
+ <div class="content-wrapper">
+    <div class="container-fluid">
+ 
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+                <h4 class="page-title">Delegate Management</h4> 
+           </div> 
+         </div>   
+
+         <div class="delegate_sec">
+            <div class="row">
+                <div class="col-lg-12">
+                   <div class="card">
+                      <div class="card-body"> 
+                        <ul class="nav nav-pills nav-pills-dark nav-justified" role="tablist">
+                          <li class="nav-item">
+                            <a class="nav-link active" data-toggle="pill" href="#piil-13" (click)="getDelegatesList()"><i class="icon-home"></i> 
+                                <span class="hidden-xs">Current Delegates</span></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link " data-toggle="pill" href="#piil-14"><i class="icon-user"></i> 
+                                <span class="hidden-xs">Create Delegate</span></a>
+                          </li>
+                         
+                        </ul>
+        
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                          <div id="piil-13" class="container tab-pane active"> 
+                              <div class="delegate_list">  
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                            <div class="table-responsive">
+                                          <table id="default-datatable" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Designation</th>
+                                                    <th>Phone</th>
+                                                    <th>Status</th> 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of delegateData">
+                                                    <th>{{ item.Delegate_name }}</th>
+                                                    <td>{{ item.Delegate_email }}</td>
+                                                    <td>{{ item.Delegate_designation }}</td>
+                                                    <td>{{ item.Delegate_phone }}</td>
+                                                    <td>{{ item.Delegate_status }}</td> 
+                                                </tr>
+                                            </tbody> 
+                                        </table>
+                                        </div> 
+                                     </div>
+                                  </div> 
+                              </div>
+
+                          </div>
+                          <div id="piil-14" class="container tab-pane fade">
+                            <form [formGroup]="delegateForm" (ngSubmit)="onSubmit()">
+                                <div class="row"> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Delegate Full name</label>
+                                        <input type="text" class="form-control form-control-square" formControlName="Delegate_fullname" id="Delegate_fullname" 
+                                        name="Delegate_fullname"  placeholder="Your Delegate fullname">
+                                        <div *ngIf="submitted && f.Delegate_fullname.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Delegate_fullname.errors.required">First name is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Email ID</label>
+                                        <input type="email" class="form-control form-control-square" formControlName="Delegate_email" id="Delegate_email" 
+                                        name="Delegate_email"  placeholder="Your Delegate Email ID">
+                                        <div *ngIf="submitted && f.Delegate_email.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Delegate_email.errors.required">Email ID is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Delegate Designation</label>
+                                        <input type="text" class="form-control form-control-square" formControlName="Delegate_designation" id="Delegate_designation" 
+                                        name="Delegate_designation"  placeholder="Your Delegate Designation">
+                                        <div *ngIf="submitted && f.Delegate_designation.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Delegate_designation.errors.required">Designation is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Delegate Phone</label>
+                                        <input type="text" class="form-control form-control-square" formControlName="Delegate_phone" id="Delegate_phone" 
+                                        name="Delegate_phone"  placeholder="Your Delegate Designation">
+                                        <div *ngIf="submitted && f.Delegate_phone.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Delegate_phone.errors.required">Phone is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Delegate Password </label>
+                                        <input type="password" class="form-control form-control-square" formControlName="Delegate_password" id="Delegate_password" 
+                                        name="Delegate_password"  placeholder="Your Delegate Password">
+                                        <div *ngIf="submitted && f.Delegate_password.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Delegate_password.errors.required">Password is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Confirm Password </label>
+                                        <input type="password" class="form-control form-control-square" formControlName="Delegate_password2" id="Delegate_password2" 
+                                        name="Delegate_password2"  placeholder="Confirm Password">
+                                        <div *ngIf="submitted && f.Delegate_password2.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Delegate_password2.errors.required">Password is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Delegate Status </label> 
+                                        <select  class="form-control" formControlName="Delegate_status" id="Delegate_status" name="Delegate_status">
+                                            <option value="PENDING" selected> Pending </option>
+                                            <option value="VERIFIED">Verified</option>
+                                            <option value="NONVERIFIED">Non-Verified</option>
+                                        </select>
+                                        <div *ngIf="submitted && f.Delegate_status.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Delegate_status.errors.required">Delegate_status is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group"> 
+                                        <label for="input-11">You are about to create a new Delegate now. </label> <br>
+                                        <button type="submit" class="btn btn-info btn-square m-1">Click to add</button>
+                                       </div>
+                                    </div> 
+
+                                    </div>
+
+                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                               <i class="zmdi zmdi-check-circle"></i>
+                              </div>
+                              <div class="alert-message">
+                                <span><strong>Success! </strong> Ypu have created a Delegate.</span>
+                              </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                            </form>
+                        </div> 
+                        </div>
+                      </div>
+                   </div>
+                </div> 
+              </div>
+
+         </div>
+
+
+
+
+        <div class="overlay toggle-menu"></div> 
+        </div>
+        </div> 
+<app-footer></app-footer>

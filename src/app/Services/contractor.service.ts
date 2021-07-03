@@ -4,11 +4,14 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Company } from '../class/Company';
 import { Contractor } from '../class/Contractor';
+import { Delegate } from '../class/Delegate';
 
  @Injectable({
   providedIn: 'root'
 })
 export class ContractorService {
+  Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
+  Company_id = sessionStorage.getItem('COMPANY_ID');  
 
   private REST_API_SERVER = "http://localhost:8080";
   constructor(private http: HttpClient) { }
@@ -44,5 +47,25 @@ export class ContractorService {
     }
    return this.http.put<Contractor[]>(this.REST_API_SERVER + '/contractor/updateProfile/', profileData);
  } 
+ createDelegate(delegate): Observable<Delegate[]>{
+     var data = {
+      "Delegate_name" : delegate.Delegate_fullname,
+      "Delegate_email" : delegate.Delegate_email,
+      "Delegate_designation" : delegate.Delegate_designation,
+      "Delegate_phone" : delegate.Delegate_phone,
+      "Delegate_password" : delegate.Delegate_password,
+      "Company_id" : this.Company_id,
+      "Delegate_status" : delegate.Delegate_status,
+     }
+    return this.http.post<Delegate[]>(this.REST_API_SERVER + '/contractor/delegateCreation/', data);
+  } 
+
+  getDelegatesList(){
+    var data ={
+      Company_id:this.Company_id
+    }
+    return this.http.post<Delegate[]>(this.REST_API_SERVER + '/contractor/delegateList/', data);
+  
+  }
 
 }
