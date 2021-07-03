@@ -1,6 +1,7 @@
 const db = require("../models");
 const companyTb = db.companyTb;
 const contractorTb = db.contractownerTb;
+const spocTb = db.spocTb;
 const delegateTb = db.delegateTb;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
@@ -158,6 +159,64 @@ exports.getDelegates = async (req, res) => {
     return;
   }  
   delegateTb.findAll({where : {Company_id:req.body.Company_id}})
+    .then(data => {
+      res.status(200).send(data); 
+
+    })
+    .catch(err => {
+      res.send(err);
+
+    });
+
+};
+  
+
+
+
+
+
+exports.CreateSpoc= async (req, res) => {
+  if (!req.body.Company_id) {
+   res.status(400).send({
+     message: "Content can not be empty!"
+   });
+   return;
+ }  
+ var passwordHash = bcrypt.hashSync(req.body.Spoc_password , 10);
+
+ const spocData = {
+  Spoc_name: req.body.Spoc_name,
+  Spoc_email: req.body.Spoc_email,
+  Spoc_designation: req.body.Spoc_designation,
+  Spoc_phone: req.body.Spoc_phone,
+  Spoc_password: passwordHash,
+  Company_id: req.body.Company_id,
+  Spoc_status: req.body.Spoc_status 
+};
+ 
+spocTb.create(spocData)
+  .then(data => {  
+  // var respos = {
+  //   "status" : "Success"
+  // }
+  res.status(200).send(data); 
+       
+  })
+  .catch(err => {
+      return err.message ;
+  });
+ 
+ 
+};  
+
+exports.getSpocs = async (req, res) => { 
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }  
+  spocTb.findAll({where : {Company_id:req.body.Company_id}})
     .then(data => {
       res.status(200).send(data); 
 

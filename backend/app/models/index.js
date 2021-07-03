@@ -55,4 +55,8 @@ db.companyTb.hasOne(db.delegateTb, {foreignKey: 'Company_id'});
 db.delegateTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
 
 
+db.companyTb.hasOne(db.spocTb, {foreignKey: 'Company_id'}); 
+db.spocTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
+
+
 module.exports = db;

@@ -17,6 +17,7 @@ Contractor_phone :number;
 Contractor_designation="";
 Contractor_firstName="";
 Contractor_secondName="";
+Contractor_name="";
 Company_name="";
 submitted = false;
 isUpdated = false;
@@ -54,7 +55,7 @@ updateContractorForm: FormGroup;
       this.ContractorService.updateContractorProfile(this.Contractor_id , this.updateContractorForm.value).subscribe(data =>{
         console.log(data);
         this.isUpdated = true;
-     
+        this.getProfileData(this.Contractor_id);  
       }); 
     }  
    }
@@ -78,10 +79,10 @@ updateContractorForm: FormGroup;
       }
       if(data[0].hasOwnProperty('Contractor_secondName')){
         this.Contractor_secondName = data[0].Contractor_secondName;  
+      } 
+      if(this.Contractor_firstName != null){
+        this.Contractor_name = data[0].Contractor_firstName + " " + data[0].Contractor_secondName;
       }
-      console.log("Co :" + sessionStorage.getItem('COMPANY_ID'));
-
- 
     });
   }
 

@@ -5,6 +5,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { Company } from '../class/Company';
 import { Contractor } from '../class/Contractor';
 import { Delegate } from '../class/Delegate';
+import { Spoc } from '../class/Spoc';
 
  @Injectable({
   providedIn: 'root'
@@ -47,6 +48,7 @@ export class ContractorService {
     }
    return this.http.put<Contractor[]>(this.REST_API_SERVER + '/contractor/updateProfile/', profileData);
  } 
+
  createDelegate(delegate): Observable<Delegate[]>{
      var data = {
       "Delegate_name" : delegate.Delegate_fullname,
@@ -67,5 +69,26 @@ export class ContractorService {
     return this.http.post<Delegate[]>(this.REST_API_SERVER + '/contractor/delegateList/', data);
   
   }
+
+ createSpoc(spoc): Observable<Spoc[]>{
+  var data = {
+   "Spoc_name" : spoc.Spoc_fullname,
+   "Spoc_email" : spoc.Spoc_email,
+   "Spoc_designation" : spoc.Spoc_designation,
+   "Spoc_phone" : spoc.Spoc_phone,
+   "Spoc_password" : spoc.Spoc_password,
+   "Company_id" : this.Company_id,
+   "Spoc_status" : spoc.Spoc_status,
+  }
+ return this.http.post<Spoc[]>(this.REST_API_SERVER + '/contractor/spocCreation/', data);
+} 
+
+getSpocList(){
+ var data ={
+   Company_id:this.Company_id
+ }
+ return this.http.post<Spoc[]>(this.REST_API_SERVER + '/contractor/spocList/', data);
+
+}
 
 }

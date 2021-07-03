@@ -1,1 +1,177 @@
-<p>create-spoc works!</p>
+<app-menubar></app-menubar>
+ <div class="content-wrapper">
+    <div class="container-fluid">
+ 
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+                <h4 class="page-title">Location Spoc Management</h4> 
+           </div> 
+         </div>   
+
+         <div class="Spoc_sec">
+            <div class="row">
+                <div class="col-lg-12">
+                   <div class="card">
+                      <div class="card-body"> 
+                        <ul class="nav nav-pills nav-pills-dark nav-justified" role="tablist">
+                          <li class="nav-item">
+                            <a class="nav-link active" data-toggle="pill" href="#piil-13" ><i class="icon-home"></i> 
+                                <span class="hidden-xs">Current Spoc</span></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link " data-toggle="pill" href="#piil-14"><i class="icon-user"></i> 
+                                <span class="hidden-xs">Create Spoc</span></a>
+                          </li>
+                         
+                        </ul>
+        
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                          <div id="piil-13" class="container tab-pane active"> 
+                              <div class="Spoc_list">  
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                            <div class="table-responsive">
+                                          <table id="default-datatable" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Designation</th>
+                                                    <th>Phone</th>
+                                                    <th>Status</th> 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of Spoc_Data">
+                                                    <th>{{ item.Spoc_name }}</th>
+                                                    <td>{{ item.Spoc_email }}</td>
+                                                    <td>{{ item.Spoc_designation }}</td>
+                                                    <td>{{ item.Spoc_phone }}</td>
+                                                    <td>{{ item.Spoc_status }}</td> 
+                                                </tr>
+                                            </tbody> 
+                                        </table>
+                                        </div> 
+                                     </div>
+                                  </div> 
+                              </div>
+
+                          </div>
+                          <div id="piil-14" class="container tab-pane fade">
+                            <form [formGroup]="Spoc_Form" (ngSubmit)="onSubmit()">
+                                <div class="row"> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Spoc Full name</label>
+                                        <input type="text" class="form-control form-control-square" formControlName="Spoc_fullname" id="Spoc_fullname" 
+                                        name="Spoc_fullname"  placeholder="Your Delegate fullname">
+                                        <div *ngIf="submitted && f.Spoc_fullname.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Spoc_fullname.errors.required">First name is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Email ID</label>
+                                        <input type="email" class="form-control form-control-square" formControlName="Spoc_email" id="Spoc_email" 
+                                        name="Spoc_email"  placeholder="Your Delegate Email ID">
+                                        <div *ngIf="submitted && f.Spoc_email.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Spoc_email.errors.required">Email ID is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Spoc Designation</label>
+                                        <input type="text" class="form-control form-control-square" formControlName="Spoc_designation" id="Spoc_designation" 
+                                        name="Spoc_designation"  placeholder="Your Delegate Designation">
+                                        <div *ngIf="submitted && f.Spoc_designation.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Spoc_designation.errors.required">Designation is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Spoc Phone</label>
+                                        <input type="text" class="form-control form-control-square" formControlName="Spoc_phone" id="Spoc_phone" 
+                                        name="Spoc_phone"  placeholder="Your Delegate Designation">
+                                        <div *ngIf="submitted && f.Spoc_phone.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Spoc_phone.errors.required">Phone is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Spoc Password </label>
+                                        <input type="password" class="form-control form-control-square" formControlName="Spoc_password" id="Spoc_password" 
+                                        name="Spoc_password"  placeholder="Your Delegate Password">
+                                        <div *ngIf="submitted && f.Spoc_password.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Spoc_password.errors.required">Password is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Confirm Password </label>
+                                        <input type="password" class="form-control form-control-square" formControlName="Spoc_password2" id="Spoc_password2" 
+                                        name="Spoc_password2"  placeholder="Confirm Password">
+                                        <div *ngIf="submitted && f.Spoc_password2.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Spoc_password2.errors.required">Password is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label for="input-11">Spoc Status </label> 
+                                        <select  class="form-control" formControlName="Spoc_status" id="Spoc_status" name="Spoc_status">
+                                            <option value="PENDING" selected> Pending </option>
+                                            <option value="VERIFIED">Verified</option>
+                                            <option value="NONVERIFIED">Non-Verified</option>
+                                        </select>
+                                        <div *ngIf="submitted && f.Spoc_status.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Spoc_status.errors.required">Spoc_status is a required field.</div> 
+                                          </div> 
+                                       </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      <div class="form-group"> 
+                                        <label for="input-11">You are about to create a new Spoc now. </label> <br>
+                                        <button type="submit" class="btn btn-info btn-square m-1">Click to add</button>
+                                       </div>
+                                    </div> 
+
+                                    </div>
+
+                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                               <i class="zmdi zmdi-check-circle"></i>
+                              </div>
+                              <div class="alert-message">
+                                <span><strong>Success! </strong> You have created a Spoc.</span>
+                              </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                            </form>
+                        </div> 
+                        </div>
+                      </div>
+                   </div>
+                </div> 
+              </div>
+
+         </div>
+
+
+
+
+        <div class="overlay toggle-menu"></div> 
+        </div>
+        </div> 
+<app-footer></app-footer>

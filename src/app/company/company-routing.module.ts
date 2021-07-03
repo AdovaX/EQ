@@ -21,6 +21,9 @@ const routes: Routes = [
   } , 
   {
     path : 'CreateDelegate', component:DelegateComponent
+  } , 
+  {
+    path : 'ForgotPassword', component:DelegateComponent
   } 
 ];
 @NgModule({

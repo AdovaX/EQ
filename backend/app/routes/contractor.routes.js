@@ -9,6 +9,9 @@ module.exports = app => {
    router.post("/delegateCreation", contractor.CreateDelegate);  
    router.post("/delegateList", contractor.getDelegates);  
  
+   router.post("/spocCreation", contractor.CreateSpoc);  
+   router.post("/spocList", contractor.getSpocs);  
+ 
    //app.use('/spoc/signup', router);
    app.use('/contractor', router);
 };  
