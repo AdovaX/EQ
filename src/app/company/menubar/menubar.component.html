@@ -13,25 +13,43 @@
    
    <ul class="sidebar-menu">
       <li class="sidebar-header">MAIN NAVIGATION</li>
-      <li>
+      <li [routerLinkActive]="['active']">
         <a [routerLink]="[ '/company/Dashboard' ]"> 
           <i class="zmdi zmdi-home"></i>
 		  <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
-      <li>
+      <li [routerLinkActive]="['active']">
         <a [routerLink]="[ '/company/CreateSpoc' ]"> 
           <i class="zmdi zmdi-pin-drop"></i>
 		  <span>Location Spoc</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
-      <li>
+      <li [routerLinkActive]="['active']">
         <a [routerLink]="[ '/company/CreateDelegate' ]"> 
           <i class="zmdi zmdi-flight-takeoff"></i>
 		  <span>Delegate</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
-      <li>
+      <li [routerLinkActive]="['active']">
+        <a href="#"> 
+          <i class="zmdi zmdi-accounts-list"></i>
+		  <span>Listing Managers</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+      <li [routerLinkActive]="['active']">
+        <a href="#"> 
+          <i class="zmdi zmdi-border-color"></i>
+		  <span>Hiring Managers</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+      <li [routerLinkActive]="['active']">
+        <a href="#"> 
+          <i class="zmdi zmdi-accounts-alt"></i>
+		  <span>Resource Lists</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+      <li [routerLinkActive]="['active']">
         <a [routerLink]="[ '/company/Dashboard' ]"> 
           <i class="zmdi zmdi-account-circle"></i>
 		  <span>Profile</span><i class="fa fa-angle-left pull-right"></i>

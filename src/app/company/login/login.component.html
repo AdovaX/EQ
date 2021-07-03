@@ -26,25 +26,34 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label for="input-11">Password</label>
-              <input type="password" class="form-control form-control-square" formControlName="Contractor_password" id="Contractor_password" 
+              <input [type]="fieldTextType ? 'text' : 'password'"
+              class="form-control form-control-square" formControlName="Contractor_password" id="Contractor_password" 
               name="Contractor_password" placeholder="Password For Your Account">
+              
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="icheck-material-primary">
+                    <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
+                    <label for="primary">Hide password</label>
+                    <label for="primary" style="float: right;">  <a [routerLink]="[ '/company/ForgotPassword/']" >Reset Password</a></label>
+                  </div>  
+                </div> 
+              </div> 
+        <span *ngIf="loginstatus" class="error-message"> Invalid login credentials ! </span>
               <div *ngIf="loginForm.controls['Contractor_password'].invalid 
               && (loginForm.controls['Contractor_password'].dirty || loginForm.controls['Contractor_password'].touched)"  class="error-message">
               Please enter your password</div>
-             </div>
-          </div> 
-    
+             </div> 
+          </div>  
         </div>
   
         <div class="row"> 
-          <div class="col-sm-12">
-            <a [routerLink]="[ '/company/ForgotPassword/']">Reset Password</a>
-          </div> 
-    
+          <div class="col-sm-2"> </div>
+            <div class="col-sm-8">
+            <button type="submit" class="btn btn-primary btn-block btn-round"  >Login now</button> 
+          </div>   
+          <div class="col-sm-2"> </div> 
         </div>
-      <span *ngIf="loginstatus" class="error-message"> Invalid login credentials ! </span>
-  
-      <button type="submit" class="btn btn-info btn-block btn-round"  >Login now</button> 
    
         </div>
       </div>

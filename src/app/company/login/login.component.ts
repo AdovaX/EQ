@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   Contractor: Contractor[];
   loginstatus = false;
+  fieldTextType: boolean;
+
 
   constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder,private router:Router ) { 
 
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['company/Dashboard']);
          }
          else{  
-           alert("Invalid Credential"); 
+           this.loginstatus = true;
          }
 
        });
@@ -57,6 +59,9 @@ export class LoginComponent implements OnInit {
       
     }
 
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 
 }

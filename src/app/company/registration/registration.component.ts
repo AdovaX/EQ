@@ -13,7 +13,8 @@ export class RegistrationComponent implements OnInit {
   
   registerForm: FormGroup;
   submitted = false; 
-  isRegistred= false;  
+  isRegistred= false;   
+  fieldTextType: boolean;
 
   constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder , private router:Router) { }
  
@@ -86,6 +87,9 @@ export class RegistrationComponent implements OnInit {
       
     }
 
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
     
 }

@@ -88,8 +88,12 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input-11">Password</label>
-            <input type="password" class="form-control form-control-square" formControlName="Contractor_password" id="Contractor_password" 
-            name="Contractor_password" placeholder="Password For Your Account">
+            <input  [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="Contractor_password" id="Contractor_password" 
+            name="Contractor_password" placeholder="Password For Your Account"> 
+            <div class="icheck-material-primary">
+              <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
+              <label for="primary">Hide password</label>
+            </div> 
             <div *ngIf="registerForm.controls['Contractor_password'].invalid 
             && (registerForm.controls['Contractor_password'].dirty || registerForm.controls['Contractor_password'].touched)"  class="error-message">
             Password a required field.</div>
@@ -98,7 +102,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input-11">Confirm Password</label>
-            <input type="password" class="form-control form-control-square" formControlName="Contract_password2" id="Contract_password2" 
+            <input  [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="Contract_password2" id="Contract_password2" 
             name="Contract_password2" placeholder="Confirm your Password">
             <div *ngIf="registerForm.controls['Contract_password2'].invalid 
             && (registerForm.controls['Contract_password2'].dirty || registerForm.controls['Contract_password2'].touched)"  class="error-message">
@@ -137,13 +141,19 @@
                    <label for="input4">I Agree With Terms & Conditions</label>
            </div>
           </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-primary btn-block btn-round" [disabled]="disabled">Sign Up</button>  
+            </div>
+            <div class="col-sm-6">
+              <button class="mb-0" class="btn btn-primary btn-block btn-round" [routerLink]="[ '/company/Login' ]">   Sign In  </button>
+            </div>
+          </div>
         
-       <button type="submit" class="btn btn-info btn-block btn-round" [disabled]="disabled">Sign Up</button> 
        </div>
       </div>
       <div class="card-footer text-center py-3 bg-transparent">
-        <p class="mb-0">Already have an account? <a [routerLink]="[ '/company/Login' ]">  Sign In here</a></p>
-      </div>
+       </div>
       </form>
        </div>
    </div>
