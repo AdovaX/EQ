@@ -5,7 +5,7 @@ module.exports = app => {
  
    router.put("/updateProfile", contractor.updateContractor);  
    router.put("/updateCompany", contractor.updateCompany);  
-   router.get("/getMyCompany", contractor.getMyCompany);  
+   router.post("/getMyCompany", contractor.getMyCompany);  
  
    //app.use('/spoc/signup', router);
    app.use('/contractor', router);

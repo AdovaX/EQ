@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule} from '@angular/forms' 
+import { FormsModule } from '@angular/forms';
 
 import { CompanyRoutingModule } from './company-routing.module';
 import { RegistrationComponent } from './registration/registration.component';
@@ -19,7 +20,9 @@ import { DelegateComponent } from './delegate/delegate.component';
     CommonModule,
     CompanyRoutingModule,
     RecaptchaModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
+    
   ]
 })
 export class CompanyModule { }

@@ -15,7 +15,10 @@ export class LoginComponent implements OnInit {
   Contractor: Contractor[];
   loginstatus = false;
 
-  constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder,private router:Router ) { }
+  constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder,private router:Router ) { 
+
+    sessionStorage.clear();
+  }
   hide = true;
 
   ngOnInit(): void { 
@@ -40,14 +43,13 @@ export class LoginComponent implements OnInit {
           console.log(data);
          if(typeof data === 'undefined'){
           this.loginstatus=true;
-         }else if(data['status'] ===1)
+         }else if(data['status'] > 0)
          {
+          sessionStorage.setItem("CONTRACTOR_ID", data['status']); 
           this.router.navigate(['company/Dashboard']);
-
          }
          else{  
-          this.loginstatus=true; 
-
+           alert("Invalid Credential"); 
          }
 
        });

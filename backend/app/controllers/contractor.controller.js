@@ -51,14 +51,13 @@ exports.updateContractor= async (req, res) => {
    });
    return;
  } 
- var passwordHash = bcrypt.hashSync(req.body.Contract_password , 10);
-
+ 
  const contractorData = {
-  Contract_name: req.body.Contract_name,
-  Contract_email: req.body.Contract_email,
-  Contract_password: passwordHash,
+  Contractor_firstName: req.body.Contractor_firstName,
+  Contractor_secondName: req.body.Contractor_secondName,
+  Contractor_email: req.body.Contractor_email, 
   Contract_designation: req.body.Contract_designation,
-  Contract_phone : req.body.Contract_phone
+  Contract_phone : req.body.Contractor_phone
   }; 
   async function updateContractorProfile() {
      return await contractorTb.update(contractorData, {
@@ -78,7 +77,16 @@ exports.updateContractor= async (req, res) => {
    }
    const isUpdated =  await updateContractorProfile();
    if(isUpdated){
-     res.status(200).send("Updated successfully");
+     var result = {
+       "status" : "Success"
+     }
+     res.status(200).send(JSON.stringify(result));
+   }else{
+    var result = {
+      "status" : "Failed"
+    }
+    res.status(200).send(JSON.stringify(result));
+
    }
 };  
  

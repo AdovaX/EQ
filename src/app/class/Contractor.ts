@@ -1,5 +1,7 @@
 export class Contractor{
-    Contract_id : number; 
+    Contractor_id : number; 
+    Contractor_firstName : string;
+    Contractor_secondName : string;
     Contractor_email : string;
     Contractor_password : string;
 Contract_designation : string;

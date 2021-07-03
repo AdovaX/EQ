@@ -5,7 +5,10 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      Contract_name: {
+      Contractor_firstName: {
+        type: Sequelize.STRING
+      },
+      Contractor_secondName: {
         type: Sequelize.STRING
       },
       Contractor_email: {

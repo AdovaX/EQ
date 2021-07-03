@@ -95,22 +95,21 @@ exports.create = async (req, res) => {
       .then(data => {
         if(bcrypt.compareSync(req.body.Contractor_password, data[0].Contractor_password)){ 
            var respos = {
-            status: 1
+            "status": data[0].Contractor_id
           }
           res.send(JSON.stringify(respos));
         }else{
           var respos = {
-            "status" : "Failed"
+            "status" : "Passwords do not match"
           }
           res.send(respos);
         }
       })
       .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
-        });
+        res.send(err);
+
       });
+
   };
  
 
