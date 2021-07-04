@@ -65,5 +65,16 @@ Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');
     }); 
 
   }
+  deleteDelegate(Delegate_id){
+    this.ContractorService.deleteDelegate(Delegate_id).subscribe(data =>{
+     console.log(data);  
+     this.get_delegatesList();
+   
+   }); 
+
+ }
+  resetForm(){ 
+    this.delegateForm.reset();  
+  }
 
 }

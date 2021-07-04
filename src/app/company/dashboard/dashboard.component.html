@@ -25,7 +25,10 @@
                      <div class="profile-card py-5">
                        <img src="https://via.placeholder.com/110X110" class="rounded-circle" alt="user avatar">
                      </div>
-                     <h5 class="text-uppercase">{{Contractor_name}}</h5>
+                     <h5 class="text-uppercase"> 
+                      <span *ngIf="Contractor_firstName"> {{Contractor_firstName}}</span>
+                      <span *ngIf="Contractor_secondName"> {{Contractor_secondName}}</span>
+                      </h5>
                      <p class="">{{Contractor_designation}} at {{Company_name}}</p>  
                         <div class="list-inline mt-4">
                          <a href="javascript:void()" class="btn-social btn-social-circle btn-facebook m-1"><i class="fa fa-facebook"></i></a>
@@ -80,7 +83,7 @@
                             <input type="text" id="input-username" class="form-control" formControlName="Contract_phone_Crl" 
                             placeholder="Phone number" value="{{Contractor_phone}}" required>
                             <div *ngIf="submitted && f.Contract_phone_Crl.errors" class="invalid-feedback">
-                              <div *ngIf="f.Contract_phone_Crl.errors.required">Last name is a required field.</div> 
+                              <div *ngIf="f.Contract_phone_Crl.errors.required">Contact Number is a required field.</div> 
                             </div> 
                           </div>
                         </div>
@@ -90,7 +93,7 @@
                             <input type="email" id="input-email" class="form-control" formControlName="Contractor_email_Crl" 
                             placeholder="gracie@example.com"  value="{{Contractor_email}}" required>
                             <div *ngIf="submitted && f.Contractor_email_Crl.errors" class="invalid-feedback">
-                              <div *ngIf="f.Contractor_email_Crl.errors.required">Last name is a required field.</div> 
+                              <div *ngIf="f.Contractor_email_Crl.errors.required">Email is a required field.</div> 
                           </div>
                         </div>
                       </div>
@@ -102,7 +105,7 @@
                             <input type="text" id="input-username" class="form-control" formControlName="Contract_designation_Crl" 
                             placeholder="Phone number" value="{{Contractor_designation}}" required>
                             <div *ngIf="submitted && f.Contract_designation_Crl.errors" class="invalid-feedback">
-                              <div *ngIf="f.Contract_designation_Crl.errors.required">Last name is a required field.</div> 
+                              <div *ngIf="f.Contract_designation_Crl.errors.required">Designation is a required field.</div> 
                           </div>
                         </div> 
                       </div>

@@ -14,7 +14,8 @@ export class CreateSpocComponent implements OnInit {
   Spoc_Form: FormGroup;
   isUpdated = false;
   submitted = false;
-  Spoc_Data = [];
+  Spoc_Data = []; 
+  fieldTextType: boolean;
 
   constructor(private formBuilder: FormBuilder, private ContractorService:ContractorService) { }
 
@@ -51,7 +52,7 @@ export class CreateSpocComponent implements OnInit {
       this.ContractorService.createSpoc(this.Spoc_Form.value).subscribe(data =>{
         console.log(data);
         this.isUpdated = true;
-        this.getSpocList();
+        this.getSpocList(); 
      
       }); 
     }
@@ -63,6 +64,20 @@ export class CreateSpocComponent implements OnInit {
    
     }); 
 
+  }
+  deleteSpoc(Spoc_id){
+     this.ContractorService.deleteSpoc(Spoc_id).subscribe(data =>{
+      console.log(data);  
+      this.getSpocList();
+    
+    }); 
+
+  }
+  resetForm(){ 
+    this.Spoc_Form.reset();  
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 
 }

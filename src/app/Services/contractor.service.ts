@@ -13,7 +13,7 @@ import { Spoc } from '../class/Spoc';
 export class ContractorService {
   Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID');  
-
+ 
   private REST_API_SERVER = "http://localhost:8080";
   constructor(private http: HttpClient) { }
   httpOptions = {
@@ -85,10 +85,23 @@ export class ContractorService {
 
 getSpocList(){
  var data ={
-   Company_id:this.Company_id
+   'Company_id':this.Company_id
  }
  return this.http.post<Spoc[]>(this.REST_API_SERVER + '/contractor/spocList/', data);
-
+}
+deleteSpoc(Spoc_id){
+  var spocData ={
+    'Company_id':this.Company_id,
+    'Spoc_id' : Spoc_id
+  } 
+  return this.http.put<any>(this.REST_API_SERVER + '/contractor/spocDeletion/', spocData);
+}
+deleteDelegate(Delegate_id){
+  var delegateData ={
+    'Company_id':this.Company_id,
+    'Delegate_id' : Delegate_id
+  } 
+  return this.http.put<any>(this.REST_API_SERVER + '/contractor/delegateDeletion/', delegateData);
 }
 
 }

@@ -158,7 +158,7 @@ exports.getDelegates = async (req, res) => {
     });
     return;
   }  
-  delegateTb.findAll({where : {Company_id:req.body.Company_id}})
+  delegateTb.findAll({where : {Company_id:req.body.Company_id, Delegate_active:1}})
     .then(data => {
       res.status(200).send(data); 
 
@@ -171,9 +171,7 @@ exports.getDelegates = async (req, res) => {
 };
   
 
-
-
-
+ 
 
 exports.CreateSpoc= async (req, res) => {
   if (!req.body.Company_id) {
@@ -216,7 +214,7 @@ exports.getSpocs = async (req, res) => {
     });
     return;
   }  
-  spocTb.findAll({where : {Company_id:req.body.Company_id}})
+  spocTb.findAll({where : {Company_id:req.body.Company_id , Spoc_active :1}})
     .then(data => {
       res.status(200).send(data); 
 
@@ -228,3 +226,64 @@ exports.getSpocs = async (req, res) => {
 
 };
   
+exports.deleteSpoc = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  var data ={
+    "Spoc_active" : 0, 
+  }
+
+  spocTb.update(data, {
+    where: { Spoc_id: req.body.Spoc_id }
+  }).then(num => {
+      if (num == 1) {
+        res.send({
+          status: true
+        });
+      } else {
+        res.send({
+          message: 'Cannot Delete'
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};
+  
+exports.deleteDelegate = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  var data ={
+    "Delegate_active" : 0, 
+  }
+
+  delegateTb.update(data, {
+    where: { Delegate_id: req.body.Delegate_id }
+  }).then(num => {
+      if (num == 1) {
+        res.send({
+          status: true
+        });
+      } else {
+        res.send({
+          message: 'Cannot Delete'
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};

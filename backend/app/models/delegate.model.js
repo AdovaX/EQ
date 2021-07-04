@@ -20,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
       Delegate_phone: {
         type: Sequelize.STRING
       },
+      Delegate_active: {
+        type: Sequelize.INTEGER,
+        defaultValue : 1
+      },
       Company_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -32,8 +36,8 @@ module.exports = (sequelize, Sequelize) => {
       },
       Delegate_status: {
         type: Sequelize.ENUM,
-        values:['PENDING', 'VERIFIED', 'NONVERIFIED'],
-        defaultValue : 'PENDING'
+        values:[ 'VERIFIED', 'NONVERIFIED'],
+        defaultValue : 'VERIFIED'
       }
     });
   

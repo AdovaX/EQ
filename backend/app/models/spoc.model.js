@@ -17,6 +17,10 @@ module.exports = (sequelize, Sequelize) => {
       Spoc_phone: {
         type: Sequelize.STRING
       },
+      Spoc_active: {
+        type: Sequelize.INTEGER,
+        defaultValue : 1
+      },
       Company_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -29,8 +33,8 @@ module.exports = (sequelize, Sequelize) => {
       },
       Spoc_status: {
         type: Sequelize.ENUM,
-        values:['PENDING', 'VERIFIED', 'NONVERIFIED'],
-        defaultValue : 'PENDING'
+        values:['VERIFIED', 'NONVERIFIED'],
+        defaultValue : 'NONVERIFIED'
       }
     });
   

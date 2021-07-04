@@ -16,3 +16,9 @@
 .notSucess{
   display: none;
 } 
+.noShodow{
+    box-shadow:none;
+}
+.redColor{
+    color: red;;
+}

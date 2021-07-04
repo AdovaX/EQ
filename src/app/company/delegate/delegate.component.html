@@ -40,6 +40,7 @@
                                                     <th>Designation</th>
                                                     <th>Phone</th>
                                                     <th>Status</th> 
+                                                    <th>Action</th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -49,6 +50,14 @@
                                                     <td>{{ item.Delegate_designation }}</td>
                                                     <td>{{ item.Delegate_phone }}</td>
                                                     <td>{{ item.Delegate_status }}</td> 
+                                                    <td> 
+                                                    <div class="btn-group m-1">
+                                                        <button type="button" class="btn btn-outline-primary">
+                                                            <span class="fa fa-edit"> </span> Edit</button>
+                                                        <button class="btn btn-outline-danger" (click)="deleteDelegate(item.Delegate_id)">
+                                                            <span class="fa fa-trash"> </span> Delete</button> 
+                                                        </div> 
+                                                        </td>
                                                 </tr>
                                             </tbody> 
                                         </table>
@@ -63,7 +72,7 @@
                                 <div class="row"> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Delegate Full name</label>
+                                        <label for="input-11">Delegate Full name<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="Delegate_fullname" id="Delegate_fullname" 
                                         name="Delegate_fullname"  placeholder="Your Delegate fullname">
                                         <div *ngIf="submitted && f.Delegate_fullname.errors" class="invalid-feedback">
@@ -73,7 +82,7 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Email ID</label>
+                                        <label for="input-11">Email ID<span class="redColor">*</span></label>
                                         <input type="email" class="form-control form-control-square" formControlName="Delegate_email" id="Delegate_email" 
                                         name="Delegate_email"  placeholder="Your Delegate Email ID">
                                         <div *ngIf="submitted && f.Delegate_email.errors" class="invalid-feedback">
@@ -83,7 +92,7 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Delegate Designation</label>
+                                        <label for="input-11">Delegate Designation<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="Delegate_designation" id="Delegate_designation" 
                                         name="Delegate_designation"  placeholder="Your Delegate Designation">
                                         <div *ngIf="submitted && f.Delegate_designation.errors" class="invalid-feedback">
@@ -93,7 +102,7 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Delegate Phone</label>
+                                        <label for="input-11">Delegate Phone<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="Delegate_phone" id="Delegate_phone" 
                                         name="Delegate_phone"  placeholder="Your Delegate Designation">
                                         <div *ngIf="submitted && f.Delegate_phone.errors" class="invalid-feedback">
@@ -103,7 +112,7 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Delegate Password </label>
+                                        <label for="input-11">Delegate Password<span class="redColor">*</span> </label>
                                         <input type="password" class="form-control form-control-square" formControlName="Delegate_password" id="Delegate_password" 
                                         name="Delegate_password"  placeholder="Your Delegate Password">
                                         <div *ngIf="submitted && f.Delegate_password.errors" class="invalid-feedback">
@@ -113,7 +122,7 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Confirm Password </label>
+                                        <label for="input-11">Confirm Password<span class="redColor">*</span> </label>
                                         <input type="password" class="form-control form-control-square" formControlName="Delegate_password2" id="Delegate_password2" 
                                         name="Delegate_password2"  placeholder="Confirm Password">
                                         <div *ngIf="submitted && f.Delegate_password2.errors" class="invalid-feedback">
@@ -123,10 +132,9 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Delegate Status </label> 
+                                        <label for="input-11">Delegate Status<span class="redColor">*</span> </label> 
                                         <select  class="form-control" formControlName="Delegate_status" id="Delegate_status" name="Delegate_status">
-                                            <option value="PENDING" selected> Pending </option>
-                                            <option value="VERIFIED">Verified</option>
+                                             <option value="VERIFIED">Verified</option>
                                             <option value="NONVERIFIED">Non-Verified</option>
                                         </select>
                                         <div *ngIf="submitted && f.Delegate_status.errors" class="invalid-feedback">
@@ -135,10 +143,16 @@
                                        </div>
                                     </div> 
                                     <div class="col-sm-6">
-                                      <div class="form-group"> 
-                                        <label for="input-11">You are about to create a new Delegate now. </label> <br>
-                                        <button type="submit" class="btn btn-info btn-square m-1">Click to add</button>
-                                       </div>
+                                        <div class="btn-group noShodow">
+                                            <div class="form-group"> 
+                                                <label for="input-11">Click to proceed </label> <br>
+                                                <button type="submit" class="btn btn-primary btn-square m-1">Click to add</button>
+                                               </div> 
+                                            <div class="form-group"> 
+                                                <label for="input-11">Reset form </label> <br>
+                                                <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">Reset</button>
+                                               </div>
+                                        </div> 
                                     </div> 
 
                                     </div>
