@@ -29,9 +29,13 @@ exports.updateCompany = async (req, res) => {
          where: { Company_id: req.body.Company_id }
        }).then(num => {
            if (num == 1) {
-              return true;
+            res.send({
+              status: true
+            });
            } else {
-              return false;
+            res.send({
+              status: false
+            });
            }
          })
          .catch(err => {

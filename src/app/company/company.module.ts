@@ -12,10 +12,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecaptchaModule } from "ng-recaptcha";
 import { FooterComponent } from './footer/footer.component';
 import { DelegateComponent } from './delegate/delegate.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
 
 
 @NgModule({
-  declarations: [RegistrationComponent, MenubarComponent, LoginComponent, CreateSpocComponent, DashboardComponent, FooterComponent, DelegateComponent],
+  declarations: [RegistrationComponent, MenubarComponent, LoginComponent, CreateSpocComponent, DashboardComponent, FooterComponent, DelegateComponent, CompanyProfileComponent],
   imports: [
     CommonModule,
     CompanyRoutingModule,

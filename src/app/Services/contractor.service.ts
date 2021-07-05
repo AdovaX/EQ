@@ -103,5 +103,20 @@ deleteDelegate(Delegate_id){
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/contractor/delegateDeletion/', delegateData);
 }
+updateCompany(Contractor_id,Company_id,Companydata): Observable<Company[]>{
+    
+  var Company:any = {
+      'C_full_name' : Companydata.Company_fullname,
+      'C_short_name' :Companydata.Company_shortname,
+      'Website' :Companydata.Company_website,
+      'No_employees' :Companydata.Company_noemployees,
+      'Founded' :Companydata.Company_found,
+      'About' :Companydata.Company_about,
+      'Company_email' :Companydata.Company_email,
+      'Company_id' : Company_id,
+      'Contractor_id' : Contractor_id
+  } 
+ return this.http.put<Company[]>(this.REST_API_SERVER + '/contractor/updateCompany/', Company);
+} 
 
 }

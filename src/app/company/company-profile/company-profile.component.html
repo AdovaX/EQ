@@ -1,0 +1,140 @@
+<app-menubar></app-menubar>
+ <div class="content-wrapper">
+    <div class="container-fluid">
+ 
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+                <h4 class="page-title">Company Profile</h4> 
+           </div> 
+         </div>   
+
+         <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                   <div class="card-body"> 
+                     <ul class="nav nav-tabs nav-tabs-primary">
+                       <li class="nav-item">
+                         <a class="nav-link active" data-toggle="tab" href="#tabe-1"><i class="zmdi zmdi-assignment-o"></i> 
+                            <span class="hidden-xs">Profile</span></a>
+                       </li> 
+                     </ul> 
+                     <div class="tab-content">
+                       <div id="tabe-1" class="container tab-pane active">
+                        <form [formGroup]="Company_Form" (ngSubmit)="onSubmit()">
+                            <div class="row"> 
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="input-11">Company full name<span class="redColor">*</span> </label>
+                                    <input type="text" class="form-control form-control-square" formControlName="Company_fullname" id="Company_fullname" 
+                                    name="Company_fullname"  placeholder="Company Legel full name" >
+                                    <div *ngIf="submitted && f.Company_fullname.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Company_fullname.errors.required">Company fullname is a required field.</div> 
+                                      </div> 
+                                   </div>
+                                </div>  
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="input-11">Company short name<span class="redColor">*</span> </label>
+                                    <input type="text" class="form-control form-control-square" formControlName="Company_shortname" id="Company_shortname" 
+                                    name="Company_shortname"  placeholder="Company short name">
+                                    <div *ngIf="submitted && f.Company_shortname.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Company_shortname.errors.required">Company short is a required field.</div> 
+                                      </div> 
+                                   </div>
+                                </div>  
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="input-11">Number of employees<span class="redColor">*</span> </label>
+                                    <input type="number" class="form-control form-control-square" formControlName="Company_noemployees" id="Company_noemployees" 
+                                    name="Company_noemployees"  placeholder="Number of total employeees">
+                                    <div *ngIf="submitted && f.Company_noemployees.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Company_noemployees.errors.required">Number of employees is a required field.</div> 
+                                      </div> 
+                                   </div>
+                                </div>  
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="input-11">Company Email ID<span class="redColor">*</span> </label>
+                                    <input type="email" class="form-control form-control-square" formControlName="Company_email" 
+                                    id="Company_email" name="Company_email"  placeholder="Number of total employeees">
+                                    <div *ngIf="submitted && f.Company_email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Company_email.errors.required">Company mail is a required field.</div> 
+                                      </div> 
+                                   </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="input-11">Founded On </label>
+                                    <input type="date" class="form-control form-control-square" formControlName="Company_found" id="Company_found" 
+                                    name="Company_found"  placeholder="Company founded date">
+                                    <div *ngIf="submitted && f.Company_found.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Company_found.errors.required">Valid date is a required field.</div> 
+                                      </div> 
+                                   </div>
+                                </div> 
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="input-11">Website<span class="redColor">*</span> </label>
+                                    <input type="text" class="form-control form-control-square" formControlName="Company_website" id="Company_website" 
+                                    name="Company_website"  placeholder="Company founded date">
+                                    <div *ngIf="submitted && f.Company_website.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Company_website.errors.required">Website is a required field.</div> 
+                                      </div> 
+                                   </div>
+                                </div> 
+                                <div class="col-sm-12">
+                                  <div class="form-group">
+                                    <label for="input-11">About<span class="redColor">*</span> </label> 
+                                    <textarea class="form-control form-control-square" formControlName="Company_about" id="Company_about" 
+                                    name="Company_about"  placeholder="About your company"></textarea>
+                                    <div *ngIf="submitted && f.Company_about.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Company_about.errors.required">About data is not valid.</div> 
+                                      </div> 
+                                   </div>
+                                </div>    
+
+                                <div class="col-sm-6">
+                                    <div class="btn-group noShodow">
+                                        <div class="form-group">   
+                                            <button type="submit" class="btn btn-primary btn-square m-1">
+                                              Click to Update</button>
+                                           </div> 
+                                        <div class="form-group">   
+                                            <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">
+                                              Reset</button>
+                                           </div>
+                                    </div> 
+                                </div>  
+                                </div>
+
+                  <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                          <button type="button" class="close" data-dismiss="alert">×</button>
+                          <div class="alert-icon">
+                           <i class="zmdi zmdi-check-circle"></i>
+                          </div>
+                          <div class="alert-message">
+                            <span><strong>Success! </strong> You have updated your company.</span>
+                          </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                        </form>
+                        </div> 
+                     </div>
+                   </div>
+                </div>
+     
+             </div>
+         </div>
+
+
+
+
+<div class="overlay toggle-menu"></div> 
+</div>
+</div> 
+<app-footer></app-footer>

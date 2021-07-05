@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SpocDelegateService } from '../../Services/spoc-delegate.service';
+import {Router} from "@angular/router"
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +10,9 @@ import { SpocDelegateService } from '../../Services/spoc-delegate.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private SpocDelegateService:SpocDelegateService) { }
+  constructor(private formBuilder: FormBuilder, private SpocDelegateService:SpocDelegateService , private router:Router) {
+    sessionStorage.clear();
+   }
 
   loginForm: FormGroup; 
   loginstatus = false;
@@ -33,12 +37,17 @@ export class LoginComponent implements OnInit {
          this.loginstatus=true;
         }else if(data['status'] === "SPOC"){
           this.loginstatus = false; 
-          alert("Spoc");
+          sessionStorage.setItem("SPOC_ID", data['spoc_id']);  
+          this.router.navigate(['manager/Spoc']); 
+          console.log("session set Spoc");
 
         }else if(data['status'] === "DELEGATE"){
+          console.log("session set");
           this.loginstatus = false; 
-          alert("DELEGATE");
-        }
+          sessionStorage.setItem("DELEGATE_ID", data['delegate_id']); 
+          console.log("session set");
+          this.router.navigate(['manager/Delegate']); 
+         }
         else{  
           this.loginstatus = true;
         }

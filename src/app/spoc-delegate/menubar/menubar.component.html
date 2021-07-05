@@ -19,18 +19,12 @@
          <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li>
-     <li [routerLinkActive]="['active']">
+     <li [routerLinkActive]="['active']"   [style.display]="isSpoc ? 'none' : 'block'"> 
        <a [routerLink]="[ '/company/CreateSpoc' ]"> 
          <i class="zmdi zmdi-pin-drop"></i>
          <span>Location Spoc</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
-     </li>
-     <li [routerLinkActive]="['active']">
-       <a [routerLink]="[ '/company/CreateDelegate' ]"> 
-         <i class="zmdi zmdi-flight-takeoff"></i>
-         <span>Delegate</span><i class="fa fa-angle-left pull-right"></i>
-       </a> 
-     </li>
+     </li> 
      <li [routerLinkActive]="['active']">
        <a href="#"> 
          <i class="zmdi zmdi-accounts-list"></i>
@@ -50,7 +44,7 @@
        </a> 
      </li>
      <li [routerLinkActive]="['active']">
-       <a [routerLink]="[ '/company/Dashboard' ]"> 
+       <a [routerLink]="[ '/manager/Delegate/Profile' ]"> 
          <i class="zmdi zmdi-account-circle"></i>
          <span>Profile</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
@@ -79,7 +73,7 @@
  </ul>
  <ul class="navbar-nav align-items-center right-nav-link">
    <li class="nav-item dropdown-lg">
-     <a [routerLink]="[ '/company/Login']"><i class="icon-power mr-2"></i> Logout </a>
+     <a [routerLink]="[ '/manager/Login']"><i class="icon-power mr-2"></i> Logout </a>
    </li> 
      </ul>   
 </nav>

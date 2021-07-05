@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DelegateComponent } from './delegate/delegate.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,12 @@ const routes: Routes = [
   } , 
   {
     path : 'ForgotPassword', component:DelegateComponent
+  } , 
+  {
+    path : 'ForgotPassword', component:DelegateComponent
+  } , 
+  {
+    path : 'Companyupdate', component:CompanyProfileComponent
   } 
 ];
 @NgModule({
