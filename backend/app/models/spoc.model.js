@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
       Spoc_email: {
         type: Sequelize.STRING
       },
+      Spoc_password: {
+        type: Sequelize.STRING
+      },
       Spoc_designation: {
         type: Sequelize.STRING
       },
@@ -34,7 +37,7 @@ module.exports = (sequelize, Sequelize) => {
       Spoc_status: {
         type: Sequelize.ENUM,
         values:['VERIFIED', 'NONVERIFIED'],
-        defaultValue : 'NONVERIFIED'
+        defaultValue : 'VERIFIED'
       }
     });
   

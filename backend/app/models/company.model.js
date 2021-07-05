@@ -6,7 +6,9 @@ module.exports = (sequelize, Sequelize) => {
         autoIncrement: true
       },
       C_short_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       C_full_name: {
         type: Sequelize.STRING,
@@ -14,11 +16,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       Company_email: {
         type: Sequelize.STRING,
-        allowNull: true,
         unique: true
       },
       Website: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       No_employees: {
         type: Sequelize.INTEGER

@@ -7,9 +7,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DelegateComponent } from './delegate/delegate.component';
 
 const routes: Routes = [
-  {
-    path : '', component:RegistrationComponent
-  }, 
+    {
+      path : '', component:RegistrationComponent
+    }, 
   {
     path : 'Dashboard', component:DashboardComponent
   }, 

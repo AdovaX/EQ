@@ -20,6 +20,7 @@ Contractor_secondName="";
 Company_name="";
 submitted = false;
 isUpdated = false;
+invalid = false;
 updateContractorForm: FormGroup;
 
   constructor(private ContractorService:ContractorService,private formBuilder: FormBuilder) { }
@@ -54,7 +55,12 @@ updateContractorForm: FormGroup;
     }else{
       this.ContractorService.updateContractorProfile(this.Contractor_id , this.updateContractorForm.value).subscribe(data =>{
         console.log(data);
-        this.isUpdated = true;
+         if(data['status'] == "Failed"){
+          this.invalid = true;
+        }else{
+          this.invalid = false;
+          this.isUpdated = true; 
+        }
         this.getProfileData(this.Contractor_id);  
       }); 
     }  
@@ -64,7 +70,7 @@ updateContractorForm: FormGroup;
   getProfileData(id){
      var Contractor_id = id;
      this.ContractorService.getProfileData(Contractor_id).subscribe(data =>{
-      console.log(data);
+      console.log(data); 
 
       // this.Contractor_firstName = data[0].Contractor_firstName; 
       // this.Contractor_secondName = data[0].Contractor_secondName; 

@@ -9,7 +9,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       Delegate_email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       Delegate_password: {
         type: Sequelize.STRING

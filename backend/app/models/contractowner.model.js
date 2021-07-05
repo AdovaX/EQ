@@ -12,7 +12,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       Contractor_email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       Contractor_password: {
         type: Sequelize.TEXT,
@@ -26,7 +28,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       Company_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: { 
           model: 'CompanyTbs',
           key: 'Company_id'
@@ -36,7 +38,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       User_roles_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: { 
           model: 'UserRolesTbs',
           key: 'User_roles_id'

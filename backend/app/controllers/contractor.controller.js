@@ -72,9 +72,11 @@ exports.updateContractor= async (req, res) => {
            }
          })
          .catch(err => {
-           res.status(500).send({
-             message: "Error updating"
-           });
+           var errorMsg = {
+             error : 0
+           }
+           //res.status(500).send(errorMsg);
+           return false;
          });
    }
    const isUpdated =  await updateContractorProfile();
@@ -145,6 +147,7 @@ exports.CreateDelegate= async (req, res) => {
        
   })
   .catch(err => {
+    res.status(400).send(err); 
       return err.message ;
   });
  
@@ -191,16 +194,15 @@ exports.CreateSpoc= async (req, res) => {
   Company_id: req.body.Company_id,
   Spoc_status: req.body.Spoc_status 
 };
+console.log(spocData);
  
-spocTb.create(spocData)
-  .then(data => {  
+spocTb.create(spocData).then(data => {  
   // var respos = {
   //   "status" : "Success"
   // }
   res.status(200).send(data); 
        
-  })
-  .catch(err => {
+  }).catch(err => {
       return err.message ;
   });
  
