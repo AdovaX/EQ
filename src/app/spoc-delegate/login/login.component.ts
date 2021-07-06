@@ -35,17 +35,21 @@ export class LoginComponent implements OnInit {
          console.log(data);
         if(typeof data === 'undefined'){
          this.loginstatus=true;
-        }else if(data['status'] === "SPOC"){
+        }else if(data[0].status === "SPOC"){
           this.loginstatus = false; 
-          sessionStorage.setItem("SPOC_ID", data['spoc_id']);  
+          sessionStorage.setItem("SPOC_ID", data[0].Spoc_id); 
+          sessionStorage.setItem("COMPANY_ID", data[1]['CompanyTb'].Company_id);  
+          console.log("session set Spoc :" + data[1].Spoc_id);
+          console.log("COMPANY_ID : " +  data[1]['CompanyTb'].Company_id); 
           this.router.navigate(['manager/Spoc']); 
-          console.log("session set Spoc");
 
-        }else if(data['status'] === "DELEGATE"){
+        }else if(data[0].status === "DELEGATE"){
           console.log("session set");
           this.loginstatus = false; 
-          sessionStorage.setItem("DELEGATE_ID", data['delegate_id']); 
-          console.log("session set");
+          sessionStorage.setItem("DELEGATE_ID", data[0].Delegate_id); 
+          sessionStorage.setItem("COMPANY_ID", data[1]['CompanyTb'].Company_id); 
+          console.log("DELEGATE_ID : " + data[0].Delegate_id);
+          console.log("COMPANY_ID : " +  data[1]['CompanyTb'].Company_id); 
           this.router.navigate(['manager/Delegate']); 
          }
         else{  

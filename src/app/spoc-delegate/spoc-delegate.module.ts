@@ -10,10 +10,12 @@ import { SpocDashboardComponent } from './spoc-dashboard/spoc-dashboard.componen
 import { DelegateDashboardComponent } from './delegate-dashboard/delegate-dashboard.component';
 import { FooterComponent } from './footer/footer.component';
 import { DelegateProfileComponent } from './delegate-profile/delegate-profile.component';
+import { CreateSpocComponent } from './create-spoc/create-spoc.component';
+import { SpocProfileComponent } from './spoc-profile/spoc-profile.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, MenubarComponent, SpocDashboardComponent, DelegateDashboardComponent, FooterComponent, DelegateProfileComponent],
+  declarations: [LoginComponent, MenubarComponent, SpocDashboardComponent, DelegateDashboardComponent, FooterComponent, DelegateProfileComponent, CreateSpocComponent, SpocProfileComponent],
   imports: [
     CommonModule,
     SpocDelegateRoutingModule,

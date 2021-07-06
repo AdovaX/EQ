@@ -4,6 +4,8 @@ module.exports = app => {
     var router = require("express").Router();
    
     router.post("/userCheck", spoc.checkManagerType); 
+    router.post("/getMyCompany", spoc.getMyCompany);     
+    router.put("/updateProfile", spoc.updateProfile);   
   
     //app.use('/spoc/signup', router);
     app.use('/spoc', router);

@@ -3,7 +3,8 @@ const spocTb = db.spocTb;
 const delegateTb = db.delegateTb;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
- 
+const companyTb = db.companyTb;
+
 
 
 exports.checkManagerType =  async(req, res) => {
@@ -14,13 +15,22 @@ exports.checkManagerType =  async(req, res) => {
     return;
   }  
  async function isSpoc(email) {
-  return await spocTb.findOne({ where: {Spoc_email : email} }).then(data => {
+  return await spocTb.findOne({ where: {Spoc_email : email},
+    include: {
+      model: companyTb ,
+      required: true
+    }, }).then(data => {
         if (data.Spoc_email === email && bcrypt.compareSync(req.body.password, data.Spoc_password)) {
-          var result = {
+          var id = data.Spoc_id;
+          id = id.toString();
+          var auth = {
             "status": "SPOC",
-            "spoc_id" : data.Spoc_id
-          }
-           return result;
+            "Spoc_id" : id
+          } 
+          var result = new Array();
+          result.push(auth);
+          result.push(data); 
+          return result;
         } else {
            return false;
         }
@@ -30,35 +40,111 @@ exports.checkManagerType =  async(req, res) => {
       }); 
 }
 async function isDelegate(email) {
- return await delegateTb.findOne({ where: {Delegate_email : email} }).then(data => {
-       if (data.Delegate_email === email && bcrypt.compareSync(req.body.password, data.Delegate_password)) {
-         var result = {
-           "status": "DELEGATE",
-           "delegate_id" : data.Delegate_id
-         }
+  return await delegateTb.findOne({ where: {Delegate_email : email},
+    include: {
+      model: companyTb ,
+      required: true
+    } }).then(data => {
+        if (data.Delegate_email === email && bcrypt.compareSync(req.body.password, data.Delegate_password)) {
+          var id = data.Delegate_id;
+          id = id.toString();
+          var auth = {
+            "status": "DELEGATE",
+            "Delegate_id" : id
+          }  
+          var result = new Array();
+          result.push(auth);
+          result.push(data); 
           return result;
-       } else {
-          return false;
-       }
-     }).catch(err => {
-       return false;
-     }); 
+        } else {
+           return false;
+        }
+      })
+      .catch(err => { 
+        return false;
+      }); 
 }
+
 const spocFlag =  await isSpoc(req.body.email);
 const delegateFlag =await isDelegate(req.body.email);
 
-   if(spocFlag.status === "SPOC"){ 
+if(!spocFlag && !delegateFlag){ 
+  var result = {
+    status : 'FALSE'
+  }  
+  res.status(401).send(result); 
+   }else if(spocFlag[0] ){ 
      res.status(200).send(spocFlag);
-   }else if(delegateFlag.status === "DELEGATE"){
+     return true;
+   }else if(delegateFlag[0]){
     res.status(200).send(delegateFlag);
-   }else{
-    var result = {
-      status : 'FALSE'
-    }
-    res.status(401).send(result);
-    return false;
-
+    return true;
    }
+   else{ 
+    res.status(401).send("Contact Admin - Not Working\n");
+    return false;
+ 
+   } 
+};
 
-  
+
+exports.getMyCompany= async (req, res) => {
+  if (!req.body.Spoc_id) {
+   res.status(400).send({
+     message: "Content can not be empty!"
+   });
+   return;
+ }  
+ async function getCompanyData() {
+  return await spocTb.findAll({
+    where: {
+      Spoc_id: req.body.Spoc_id
+    },
+    include: {
+      model: companyTb ,
+      required: true
+    },
+
+  });   
+} 
+const myCompanyData =  await getCompanyData(); 
+     res.status(200).send(myCompanyData);
+     return; 
+};  
+
+
+
+exports.updateProfile = (req, res) => {
+  if (!req.body.Spoc_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    } 
+
+const profileData = {
+  Spoc_name: req.body.Spoc_name,
+  Spoc_email: req.body.Spoc_email,
+  Spoc_designation: req.body.Spoc_designation, 
+  Spoc_phone: req.body.Spoc_phone 
+  }; 
+  console.log(profileData);
+
+  spocTb.update(profileData, {
+    where: { Spoc_id: req.body.Spoc_id }
+  }).then(num => {
+      if (num == 1) {
+        res.send({
+          status: "true"
+        });
+      } else {
+        res.send({
+          status: "false"
+        });
+      }
+    }).catch(err => {
+      res.status(500).send({
+        message: err
+      });
+    });
 };

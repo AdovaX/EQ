@@ -24,6 +24,9 @@ export class MenubarComponent implements OnInit {
       }else{ 
         this.router.navigate(['manager/Login']);  
       }
+      if(this.Spoc_id == 'undefined' && this.Delegate_id == 'undefined'){
+        this.router.navigate(['manager/Login']);  
+      }
 
      } 
     ngOnInit(): void {
