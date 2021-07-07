@@ -1,0 +1,67 @@
+ 
+ 
+<div id="wrapper"> 
+    <div class="mt-5">
+    <div class="card card-authentication1 mx-auto">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="card-body">
+       <div class="card-content">
+         <div class="text-center pb-4">
+            <img src="../../../assets/images/logo-icon.png" alt="logo icon"/>
+         </div>
+        <div class="row"> 
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="input-11">Email ID</label>
+              <input type="email" class="form-control form-control-square" formControlName="email" id="email" name="email" 
+              placeholder="Your registered Email ID">
+              <div *ngIf="loginForm.controls['email'].invalid 
+              && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)"  class="error-message">
+              Please enter your Email ID</div>
+             </div>
+          </div> 
+          </div>
+    
+          <div class="row"> 
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="input-11">Password</label>
+                <input [type]="fieldTextType ? 'text' : 'password'"
+                class="form-control form-control-square" formControlName="password" id="password" 
+                name="password" placeholder="Password For Your Account">
+                
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="icheck-material-primary">
+                      <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
+                      <label for="primary">Hide password</label>
+                      <label for="primary" style="float: right;">  <a [routerLink]="[ '/company/ForgotPassword/']" >Reset Password</a></label>
+                    </div>  
+                  </div> 
+                </div> 
+          <span *ngIf="loginstatus" class="error-message"> Invalid login credentials ! </span>
+                <div *ngIf="loginForm.controls['password'].invalid 
+                && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"  class="error-message">
+                Please enter your password</div>
+               </div> 
+            </div>  
+          </div>
+    
+          <div class="row"> 
+            <div class="col-sm-2"> </div>
+              <div class="col-sm-8">
+              <button type="submit" class="btn btn-primary btn-block btn-round"  >Login now</button> 
+            </div>   
+            <div class="col-sm-2"> </div> 
+          </div>
+     
+          </div>
+        </div>
+        
+        </form>
+         </div>
+     </div>
+          
+    <br><br><br>
+    
+    </div> 
