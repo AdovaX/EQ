@@ -13,10 +13,11 @@ import { DelegateProfileComponent } from './delegate-profile/delegate-profile.co
 import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { SpocProfileComponent } from './spoc-profile/spoc-profile.component';
 import { CreateListingManagerComponent } from './create-listing-manager/create-listing-manager.component';
+import { CreateHiringManagerComponent } from './create-hiring-manager/create-hiring-manager.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, MenubarComponent, SpocDashboardComponent, DelegateDashboardComponent, FooterComponent, DelegateProfileComponent, CreateSpocComponent, SpocProfileComponent, CreateListingManagerComponent],
+  declarations: [LoginComponent, MenubarComponent, SpocDashboardComponent, DelegateDashboardComponent, FooterComponent, DelegateProfileComponent, CreateSpocComponent, SpocProfileComponent, CreateListingManagerComponent, CreateHiringManagerComponent],
   imports: [
     CommonModule,
     SpocDelegateRoutingModule,

@@ -5,6 +5,7 @@ const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 const companyTb = db.companyTb;
 const LManagerTb = db.LManagerTb;
+const HManagerTb = db.HManagerTb;
 
 
 
@@ -236,6 +237,99 @@ exports.LMDeletion = (req, res) => {
       }
     })
     .catch(err => {
+      res.status(500).send({
+        message: "Error updating  with id"
+      });
+    });
+};
+
+
+exports.createHiringManager = async (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  var passwordHash = bcrypt.hashSync(req.body.HManager_password , 10);
+  // Create a Tutorial
+  const HData = {
+    HManager_name: req.body.HManager_name,
+    HManager_email: req.body.HManager_email,
+    HManager_password: passwordHash,
+    HManager_designation: req.body.HManager_designation,
+    HManager_phone: req.body.HManager_phone,
+    HManager_active: req.body.HManager_active,
+    HManager_status: req.body.HManager_status, 
+    Company_id: req.body.Company_id, 
+  };
+ 
+  HManagerTb.create(HData)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+};
+
+exports.getHiringManagers = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  HManagerTb.findAll({ where: {
+    Company_id: req.body.Company_id , HManager_active:1
+      },
+      include: {
+        model: companyTb ,
+        required: true
+      }, })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+
+exports.HMDeletion = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  var data ={
+    "HManager_active" : 0, 
+  }
+
+  HManagerTb.update(data, {
+    where: { HManager_id: req.body.HManager_id }
+  }).then(num => {
+      if (num == 1) {
+        res.send({
+          status: true
+        });
+      } else {
+        res.send({
+          message: 'Cannot Delete'
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
       res.status(500).send({
         message: "Error updating  with id"
       });

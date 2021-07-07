@@ -7,6 +7,7 @@ import { DelegateProfileComponent } from './delegate-profile/delegate-profile.co
 import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { SpocProfileComponent } from './spoc-profile/spoc-profile.component';
 import { CreateListingManagerComponent } from './create-listing-manager/create-listing-manager.component';
+import { CreateHiringManagerComponent } from './create-hiring-manager/create-hiring-manager.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,8 @@ const routes: Routes = [
     path : 'Spoc/Profile', component:SpocProfileComponent
   },{
     path : 'Spoc/Listingmanagers', component:CreateListingManagerComponent
+  },{
+    path : 'Spoc/Hiringmanagers', component:CreateHiringManagerComponent
   },
 ];
 

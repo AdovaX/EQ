@@ -5,6 +5,7 @@ import { Delegate } from '../class/Delegate';
 import { Company } from '../class/Company';
 import { Spoc } from '../class/Spoc';
 import { ListingManager } from '../class/ListingManager';
+import { HiringManager } from '../class/HiringManager';
 
 @Injectable({
   providedIn: 'root'
@@ -78,8 +79,35 @@ deleteLM(LM_id){
   return this.http.put<any>(this.REST_API_SERVER + '/spoc/LMDeletion/', LMData);
 }
 
+createHManager(HManager): Observable<HiringManager[]>{
+  var data = {
+   "HManager_name" : HManager.HM_fullname,
+   "HManager_email" : HManager.HM_email,
+   "HManager_designation" : HManager.HM_designation,
+   "HManager_phone" : HManager.HM_phone,
+   "HManager_password" : HManager.HM_password,
+   "Company_id" : this.Company_id,
+   "HManager_status" : HManager.HM_status,
+  }
+ return this.http.post<HiringManager[]>(this.REST_API_SERVER + '/spoc/createHiringManager/', data);
+} 
 
 
+
+getHiringManagers(): Observable<HiringManager[]>{
+  var data = {
+     "Company_id" : this.Company_id
+ }
+return this.http.post<HiringManager[]>(this.REST_API_SERVER + '/spoc/getHiringManagers', data);
+} 
+
+deleteHM(HM_id){
+  var HMData ={
+    'Company_id':this.Company_id,
+    'HManager_id' : HM_id
+  } 
+  return this.http.put<any>(this.REST_API_SERVER + '/spoc/HMDeletion/', HMData);
+}
 
 
 }

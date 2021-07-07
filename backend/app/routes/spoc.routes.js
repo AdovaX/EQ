@@ -9,6 +9,10 @@ module.exports = app => {
     router.post("/createListingManager", spoc.createListingManager);  
     router.post("/getListingManagers", spoc.getListingManagers);   
     router.put("/LMDeletion", spoc.LMDeletion);   
+
+    router.post("/createHiringManager", spoc.createHiringManager); 
+    router.post("/getHiringManagers", spoc.getHiringManagers);   
+    router.put("/HMDeletion", spoc.HMDeletion);   
   
     //app.use('/spoc/signup', router);
     app.use('/spoc', router);
