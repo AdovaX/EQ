@@ -6,6 +6,7 @@ import { DelegateDashboardComponent } from './delegate-dashboard/delegate-dashbo
 import { DelegateProfileComponent } from './delegate-profile/delegate-profile.component';
 import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { SpocProfileComponent } from './spoc-profile/spoc-profile.component';
+import { CreateListingManagerComponent } from './create-listing-manager/create-listing-manager.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,8 @@ const routes: Routes = [
     path : 'Delegate/CreateSpoc', component:CreateSpocComponent
   }, {
     path : 'Spoc/Profile', component:SpocProfileComponent
+  },{
+    path : 'Spoc/Listingmanagers', component:CreateListingManagerComponent
   },
 ];
 

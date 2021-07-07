@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Delegate } from '../class/Delegate';
 import { Company } from '../class/Company';
 import { Spoc } from '../class/Spoc';
+import { ListingManager } from '../class/ListingManager';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,35 @@ updateSpoc(Spoc_id , profileData): Observable<Spoc[]>{
  return this.http.put<Spoc[]>(this.REST_API_SERVER + '/spoc/updateProfile/', profile);
 } 
  
- 
+
+createLManager(LManager): Observable<ListingManager[]>{
+  var data = {
+   "LManager_name" : LManager.LM_fullname,
+   "LManager_email" : LManager.LM_email,
+   "LManager_designation" : LManager.LM_designation,
+   "LManager_phone" : LManager.LM_phone,
+   "LManager_password" : LManager.LM_password,
+   "Company_id" : this.Company_id,
+   "LManager_status" : LManager.LM_status,
+  }
+ return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/spoc/createListingManager/', data);
+} 
+
+getListingManagers(): Observable<ListingManager[]>{
+  var data = {
+     "Company_id" : this.Company_id
+ }
+return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/spoc/getListingManagers', data);
+} 
+
+deleteLM(LM_id){
+  var LMData ={
+    'Company_id':this.Company_id,
+    'LManager_id' : LM_id
+  } 
+  return this.http.put<any>(this.REST_API_SERVER + '/spoc/LMDeletion/', LMData);
+}
+
 
 
 

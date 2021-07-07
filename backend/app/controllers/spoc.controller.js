@@ -4,6 +4,7 @@ const delegateTb = db.delegateTb;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 const companyTb = db.companyTb;
+const LManagerTb = db.LManagerTb;
 
 
 
@@ -145,6 +146,98 @@ const profileData = {
     }).catch(err => {
       res.status(500).send({
         message: err
+      });
+    });
+};
+ 
+exports.createListingManager = async (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  var passwordHash = bcrypt.hashSync(req.body.LManager_password , 10);
+  // Create a Tutorial
+  const LData = {
+    LManager_name: req.body.LManager_name,
+    LManager_email: req.body.LManager_email,
+    LManager_password: passwordHash,
+    LManager_designation: req.body.LManager_designation,
+    LManager_phone: req.body.LManager_phone,
+    LManager_active: req.body.LManager_active,
+    LManager_status: req.body.LManager_status, 
+    Company_id: req.body.Company_id, 
+  };
+ 
+  LManagerTb.create(LData)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+};
+
+
+exports.getListingManagers = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  LManagerTb.findAll({ where: {
+    Company_id: req.body.Company_id , LManager_active:1
+      },
+      include: {
+        model: companyTb ,
+        required: true
+      }, })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+
+exports.LMDeletion = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  var data ={
+    "LManager_active" : 0, 
+  }
+
+  LManagerTb.update(data, {
+    where: { LManager_id: req.body.LManager_id }
+  }).then(num => {
+      if (num == 1) {
+        res.send({
+          status: true
+        });
+      } else {
+        res.send({
+          message: 'Cannot Delete'
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating  with id"
       });
     });
 };

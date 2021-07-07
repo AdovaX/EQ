@@ -12,10 +12,11 @@ import { FooterComponent } from './footer/footer.component';
 import { DelegateProfileComponent } from './delegate-profile/delegate-profile.component';
 import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { SpocProfileComponent } from './spoc-profile/spoc-profile.component';
+import { CreateListingManagerComponent } from './create-listing-manager/create-listing-manager.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, MenubarComponent, SpocDashboardComponent, DelegateDashboardComponent, FooterComponent, DelegateProfileComponent, CreateSpocComponent, SpocProfileComponent],
+  declarations: [LoginComponent, MenubarComponent, SpocDashboardComponent, DelegateDashboardComponent, FooterComponent, DelegateProfileComponent, CreateSpocComponent, SpocProfileComponent, CreateListingManagerComponent],
   imports: [
     CommonModule,
     SpocDelegateRoutingModule,

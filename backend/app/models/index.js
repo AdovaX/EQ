@@ -45,6 +45,7 @@ db.user = require("./user.model.js")(sequelize, Sequelize);
 db.resourceSkill = require("./resourceskill.model.js")(sequelize, Sequelize);
 db.auditTrailTb = require("./audittrail.model")(sequelize, Sequelize);
 db.delegateTb = require("./delegate.model")(sequelize, Sequelize);
+db.LManagerTb = require("./listingmanager.model")(sequelize, Sequelize);
 
  
 db.companyTb.hasOne(db.contractownerTb, {foreignKey: 'Company_id'});  
@@ -57,6 +58,9 @@ db.delegateTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Com
 
 db.companyTb.hasOne(db.spocTb, {foreignKey: 'Company_id'}); 
 db.spocTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
+
+db.companyTb.hasOne(db.LManagerTb, {foreignKey: 'Company_id'}); 
+db.LManagerTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
 
 
 module.exports = db;

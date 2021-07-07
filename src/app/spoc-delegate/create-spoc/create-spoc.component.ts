@@ -9,8 +9,7 @@ import { DelegateService } from '../../Services/delegate.service';
   templateUrl: './create-spoc.component.html',
   styleUrls: ['./create-spoc.component.css']
 })
-export class CreateSpocComponent implements OnInit {
-  Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
+export class CreateSpocComponent implements OnInit {  
   Spoc_Form: FormGroup;
   isUpdated = false;
   submitted = false;
