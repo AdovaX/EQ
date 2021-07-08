@@ -5,16 +5,6 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      User_roles_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { 
-          model: 'UserRolesTbs',
-          key: 'User_roles_id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
       Company_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -25,60 +15,57 @@ module.exports = (sequelize, Sequelize) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      Name: {
+      Resource_name: {
         type: Sequelize.STRING
       },
-      Experience: {
+      Resource_Experience: {
         type: Sequelize.INTEGER
       },
-      Email: {
+      Resource_Email: {
+        type: Sequelize.STRING,
+        unique: true
+      }, 
+      Resource_Password: {
         type: Sequelize.STRING
-      },
-      Who_filled: {
-        type: Sequelize.ENUM,
-        values : ['Yes','NO'],
-        defaultValue : 'YES'
-      },
-      Summery: {
+      }, 
+      Resource_Designation: {
+        type: Sequelize.STRING
+      }, 
+      Resource_summery: {
         type: Sequelize.TEXT
       },
-      Masked: {
-        type: Sequelize.INTEGER
+      Resource_masked: {
+        type: Sequelize.BOOLEAN,
+        defaultValue : false
       },
-      Stack: {
-        type: Sequelize.ENUM,
-        values : ['FULL', 'FRONTEND', 'BACKEND', 'NULL'],
-        defaultValue : 'NULL'
+      Resource_active: {
+        type: Sequelize.INTEGER,
+        defaultValue : 1
       },
-      Status: {
+      Resource_stack: {
         type: Sequelize.ENUM,
-        values : ['VERIFIED', 'PENDIG', 'UNVERIFIED'],
-        defaultValue : 'PENDIG'
+        values : ['FULL', 'FRONTEND', 'BACKEND', 'OTHERS'],
+        defaultValue : 'OTHERS'
+      },
+      Resource_status: {
+        type: Sequelize.ENUM,
+        values : ['VERIFIED', 'PENDING', 'UNVERIFIED'],
+        defaultValue : 'PENDING'
       },
       Is_remote: {
         type: Sequelize.ENUM,
         values : ['YES', 'NO', 'BOTH'],
         defaultValue : 'BOTH'
       },
-      Rate: {
+      Resource_rate: {
         type: Sequelize.DOUBLE
       },
       Availability_status: {
         type: Sequelize.ENUM,
         values : ['FULL', 'HALF', 'BUSY'],
         defaultValue : 'FULL'
-      },
-      User_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { 
-          model: 'UsersTbs',
-          key: 'User_id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      } ,
-      Resume: {
+      }, 
+      Resource_resume: {
         type: Sequelize.STRING
       },
       Intro_video: {

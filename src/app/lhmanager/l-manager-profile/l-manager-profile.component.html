@@ -1,0 +1,157 @@
+<app-menubar></app-menubar>
+ <div class="content-wrapper">
+    <div class="container-fluid">
+ 
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+                <h4 class="page-title"> Profile</h4> 
+           </div> 
+         </div>  
+         <form [formGroup]="LManager_Form" (ngSubmit)="onSubmit()" >
+
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card">
+                 <div class="card-body">
+                   <div class="row align-items-center">
+                     <div class="col text-left">
+                       <i class="zmdi zmdi-share fa-2x"></i>
+                     </div>
+                     <div class="col text-right">
+                       <i class="zmdi zmdi-more-vert fa-2x"></i>
+                     </div>
+                   </div>
+                    <div class="text-center">  
+                     <div class="profile-card py-5">
+                       <img src="https://via.placeholder.com/110X110" class="rounded-circle" alt="user avatar">
+                     </div>
+                     <h5 class="text-uppercase"> 
+                      <span *ngIf="LManager_name"> {{LManager_name}}</span> 
+                      </h5>
+                     <p class="">{{Designation}} at {{Company_name}}</p>  
+                        <div class="list-inline mt-4">
+                         <a href="javascript:void()" class="btn-social btn-social-circle btn-facebook m-1"><i class="fa fa-facebook"></i></a>
+                         <a href="javascript:void()" class="btn-social btn-social-circle btn-twitter m-1"><i class="fa fa-twitter"></i></a>
+                         <a href="javascript:void()" class="btn-social btn-social-circle btn-google-plus m-1"><i class="fa fa-google-plus"></i></a>
+                      </div>
+                    </div>
+                 </div>
+               </div>  
+            </div> 
+            <div class="col-lg-8">
+              <div class="card">
+                <div class="card-header">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h6 class="mb-0 text-uppercase">Edit profile </h6>
+                    </div>
+                    <div class="col text-right">
+                      <i class="zmdi zmdi-more-vert fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="profile-form"> 
+                    <div class="pl-lg-4">
+                      <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                              <label for="input-11">Your full name<span class="redColor">*</span> </label>
+                              <input type="text" class="form-control form-control-square" formControlName="LManager_fullname" id="Company_fullname" 
+                              name="LManager_fullname"  placeholder="Company Legel full name" >
+                              <div *ngIf="submitted && f.LManager_fullname.errors" class="invalid-feedback">
+                                  <div *ngIf="f.LManager_fullname.errors.required">Name is a required field.</div> 
+                                </div> 
+                             </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                              <label for="input-11">Your Email ID<span class="redColor">*</span> </label>
+                              <input type="email" class="form-control form-control-square" formControlName="LManager_email" id="Company_fullname" 
+                              name="LManager_email"  placeholder="Company Legel full name" >
+                              <div *ngIf="submitted && f.LManager_email.errors" class="invalid-feedback">
+                                  <div *ngIf="f.LManager_email.errors.required">Email idis a required field.</div> 
+                                </div> 
+                             </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                              <label for="input-11">Your Phone<span class="redColor">*</span> </label>
+                              <input type="text" class="form-control form-control-square" formControlName="LManager_phone" id="Company_fullname" 
+                              name="LManager_phone"  placeholder="Company Legel full name" >
+                              <div *ngIf="submitted && f.LManager_phone.errors" class="invalid-feedback">
+                                  <div *ngIf="f.LManager_phone.errors.required">Phone is a required field.</div> 
+                                </div> 
+                             </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                              <label for="input-11">Your Designation<span class="redColor">*</span> </label>
+                              <input type="text" class="form-control form-control-square" formControlName="LManager_designation" id="Company_fullname" 
+                              name="LManager_designation"  placeholder="Company Legel full name" >
+                              <div *ngIf="submitted && f.LManager_designation.errors" class="invalid-feedback">
+                                  <div *ngIf="f.LManager_designation.errors.required">Designation a required field.</div> 
+                                </div> 
+                             </div>
+                      </div>
+                      </div> 
+                      <div class="row">
+                        <div class="col-lg-4"> 
+                        </div> 
+                        <div class="col-lg-4">
+                          <button type="submit" class="btn btn-primary btn-square m-1">Click to update</button>
+                        </div> 
+                        <div class="col-lg-4"> 
+                        </div> 
+                      </div>
+                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                               <i class="zmdi zmdi-check-circle"></i>
+                              </div>
+                              <div class="alert-message">
+                                <span><strong>Success! </strong> Your profile has been updated.</span>
+                              </div>
+                              </div> 
+                          </div>
+                        </div>
+                      </div>
+                      <div id="notSucess" class="{{invalid ? 'successClass' : 'notSucess'}}">
+                        <div class="row">
+                          <div class="col-sm-12"> 
+                              <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <div class="alert-icon">
+                                 <i class="zmdi zmdi-check-circle"></i>
+                                </div>
+                                <div class="alert-message">
+                                  <span><strong>Warning! </strong> Invalid details!</span>
+                                </div>
+                                </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-4"> 
+                  </div>
+                </div>
+              </div> 
+            </div>
+            
+        </div> 
+        </form>
+
+
+
+
+
+
+        <div class="overlay toggle-menu"></div> 
+        </div>
+        </div> 
+<app-footer></app-footer>

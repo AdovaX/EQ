@@ -1,10 +1,14 @@
 module.exports = app => {
-    const spoc = require("../controllers/listing.controller.js");
+    const LManager = require("../controllers/listing.controller.js");
    
     var router = require("express").Router();
    
-    router.post("/userCheck", spoc.checkManagerType);   
+    router.post("/userCheck", LManager.checkManagerType);  
+    router.put("/updateProfile", LManager.updateProfile);   
+    router.post("/getMyCompany", LManager.getMyCompany);   
+    router.post("/createResource", LManager.createResource); 
+    router.post("/resourceListing", LManager.resourceListing);  
+    router.put("/ResourceDeletion", LManager.deleteResource);  
   
-    //app.use('/spoc/signup', router);
-    app.use('/listing', router);
+     app.use('/listing', router);
 };

@@ -66,5 +66,8 @@ db.LManagerTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Com
 db.companyTb.hasOne(db.HManagerTb, {foreignKey: 'Company_id'}); 
 db.HManagerTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
 
+db.companyTb.hasOne(db.resourceTb, {foreignKey: 'Company_id'}); 
+db.resourceTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
+
 
 module.exports = db;
