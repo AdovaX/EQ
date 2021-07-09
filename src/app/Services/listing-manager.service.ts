@@ -66,16 +66,16 @@ deleteResource(Resource_id){
 createResource(data): Observable<Resource[]>{
    var Resourcedata = {
     "Resource_name" : data.Resource_name,
-    "Resource_Experience" : data.Resource_Experience,
-    "Resource_Email" : data.Resource_Email,
+    "Resource_Experience" : data.Resource_experience,
+    "Resource_Email" : data.Resource_email,
     "Resource_password" : data.Resource_password,
-    "Resource_Designation" : data.Resource_Designation,
+    "Resource_Designation" : data.Resource_designation,
     "Resource_summery" : data.Resource_summery,
     "Resource_masked" : data.Resource_masked,
     "Resource_stack" :data.Resource_stack,
-    "Is_remote" : data.Is_remote,
+    "Is_remote" : data.isRemote,
     "Resource_rate" :data.Resource_rate,
-    "Availability_status" : data.Availability_status,
+    "Availability_status" : data.Resource_availability,
     "Company_id":this.Company_id
  }
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/listing/createResource', Resourcedata);

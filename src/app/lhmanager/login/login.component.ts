@@ -38,18 +38,18 @@ export class LoginComponent implements OnInit {
         }else if(data[0].status === "LM_MANAGER"){
           this.loginstatus = false; 
           sessionStorage.setItem("LM_ID", data[0].LManager_id); 
-          sessionStorage.setItem("COMPANY_ID", data[1]['CompanyTb'].Company_id);  
-          console.log("session set LManager :" + data[1].LManager_id);
-          console.log("LM_ID : " +  data[1]['CompanyTb'].Company_id); 
+          sessionStorage.setItem("COMPANY_ID", data[0].Company_id);  
+          console.log("session set LManager :" + data[0].LManager_id);
+          console.log("Company ID : " +  data[0].Company_id); 
           this.router.navigate(['listing/Listingmanager']); 
 
         }else if(data[0].status === "HM_MANAGER"){
           console.log("session set");
           this.loginstatus = false; 
-          sessionStorage.setItem("HM_ID", data[0].Delegate_id); 
-          sessionStorage.setItem("COMPANY_ID", data[1]['CompanyTb'].Company_id); 
+          sessionStorage.setItem("HM_ID", data[0].HManager_id); 
+          sessionStorage.setItem("COMPANY_ID", data[0].Company_id); 
           console.log("HM_ID : " + data[0].HManager_id);
-          console.log("COMPANY_ID : " +  data[1]['CompanyTb'].Company_id); 
+          console.log("COMPANY_ID : " +  data[0].Company_id); 
           this.router.navigate(['listing/Hiringmanager']); 
          }
         else{  

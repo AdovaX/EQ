@@ -13,25 +13,44 @@
   
   <ul class="sidebar-menu">
      <li class="sidebar-header">MAIN NAVIGATION</li>
-     <li [routerLinkActive]="['active']">
-       <a [routerLink]="[ '/manager/Delegate' ]"> 
-         <i class="zmdi zmdi-home"></i>
-         <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
-       </a> 
-     </li>
-     <li [routerLinkActive]="['active']" > 
+     <li [routerLinkActive]="['active']" [style.display]="isHManager ? 'none' : 'block'">
+      <a [routerLink]="[ '/listing/Listingmanager' ]"> 
+        <i class="zmdi zmdi-home"></i>
+        <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
+      </a> 
+    </li>
+     <li [routerLinkActive]="['active']" [style.display]="isLManager ? 'none' : 'block'">
+      <a [routerLink]="[ '/listing/Hiringmanager' ]"> 
+        <i class="zmdi zmdi-home"></i>
+        <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
+      </a> 
+    </li>
+     <li [routerLinkActive]="['active']" [style.display]="isHManager ? 'none' : 'block'"> 
        <a [routerLink]="[ '/listing/Resources' ]"> 
          <i class="zmdi zmdi-male-female"></i>
          <span>Resources</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li>  
+     <li [routerLinkActive]="['active']" [style.display]="isLManager ? 'none' : 'block'"> 
+       <a [routerLink]="[ '/listing/Search' ]"> 
+         <i class="zmdi zmdi-search"></i>
+         <span>Resources</span><i class="fa fa-angle-left pull-right"></i>
+       </a> 
+     </li>  
 
-     <li [routerLinkActive]="['active']" > 
+     <li [routerLinkActive]="['active']" [style.display]="isHManager ? 'none' : 'block'" > 
       <a [routerLink]="[ '/listing/Profile' ]"> 
         <i class="zmdi zmdi-account-circle"></i>
         <span>Profile</span><i class="fa fa-angle-left pull-right"></i>
       </a> 
-    </li> 
+    </li>
+
+    <li [routerLinkActive]="['active']" [style.display]="isLManager ? 'none' : 'block'"> 
+     <a [routerLink]="[ '/listing/Update' ]"> 
+       <i class="zmdi zmdi-account-circle"></i>
+       <span>Profile</span><i class="fa fa-angle-left pull-right"></i>
+     </a> 
+   </li> 
          
    </ul>
   
@@ -47,7 +66,7 @@
       <i class="icon-menu menu-icon"></i>
     </a>
    </li>
-   <li class="nav-item">
+   <li class="nav-item" >
      <div class="search-bar">
        <input type="text" class="form-control" placeholder="Enter keywords">
         <a href="javascript:void();"><i class="icon-magnifier"></i></a>

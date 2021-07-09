@@ -25,9 +25,12 @@ exports.checkManagerType =  async(req, res) => {
           if (data.LManager_email === email && bcrypt.compareSync(req.body.password, data.LManager_password)) {
             var id = data.LManager_id;
             id = id.toString();
+            var C_id = data.Company_id; 
+            C_id = C_id.toString();
             var auth = {
               "status": "LM_MANAGER",
-              "LManager_id" : id
+              "LManager_id" : id,
+              "Company_id" : C_id
             } 
             var result = new Array();
             result.push(auth);
@@ -50,9 +53,12 @@ exports.checkManagerType =  async(req, res) => {
           if (data.HManager_email === email && bcrypt.compareSync(req.body.password, data.HManager_password)) {
             var id = data.HManager_id;
             id = id.toString();
+            var C_id = data.Company_id; 
+            C_id = C_id.toString();
             var auth = {
               "status": "HM_MANAGER",
-              "HManager_id" : id
+              "HManager_id" : id,
+              "Company_id" : C_id
             }  
             var result = new Array();
             result.push(auth);

@@ -11,10 +11,12 @@ import { ListingManagerDashboardComponent } from './listing-manager-dashboard/li
 import { HiringManagerDashboardComponent } from './hiring-manager-dashboard/hiring-manager-dashboard.component';
 import { CreateResourceComponent } from './create-resource/create-resource.component';
 import { LManagerProfileComponent } from './l-manager-profile/l-manager-profile.component';
+import { SearchResourceComponent } from './search-resource/search-resource.component';
+import { HManagerProfileComponent } from './h-manager-profile/h-manager-profile.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, MenubarComponent, FooterComponent, ListingManagerDashboardComponent, HiringManagerDashboardComponent, CreateResourceComponent, LManagerProfileComponent],
+  declarations: [LoginComponent, MenubarComponent, FooterComponent, ListingManagerDashboardComponent, HiringManagerDashboardComponent, CreateResourceComponent, LManagerProfileComponent, SearchResourceComponent, HManagerProfileComponent],
   imports: [
     CommonModule,
     LHManagerRoutingModule,
