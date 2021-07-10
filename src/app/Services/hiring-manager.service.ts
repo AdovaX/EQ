@@ -56,5 +56,12 @@ getResources(HManager_id): Observable<Resource[]>{
  }
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/hiring/getResources_all', data);
 }  
+searchbox(Titile): Observable<Resource[]>{
+  var data = {
+     "title" : Titile,
+     "HManager_id" : this.HManager_id
+ }
+return this.http.post<Resource[]>(this.REST_API_SERVER + '/hiring/searchByKeywords', data);
+}  
   
 }

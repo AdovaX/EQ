@@ -20,8 +20,16 @@ export class SearchResourceComponent implements OnInit {
     var HManager_id = HM_id; 
     this.HiringManagerService.getResources(HManager_id).subscribe(data =>{
      console.log(data);  
-     this.Resource_list =  data
+     this.Resource_list =  data;
      });  
+
+  }
+  searchbox(event: any){
+    console.log(event.target.value);
+    this.HiringManagerService.searchbox(event.target.value).subscribe(data =>{
+      console.log(data);  
+      this.Resource_list =  data;
+      }); 
 
   }
 

@@ -89,3 +89,43 @@ exports.updateProfile = (req, res) => {
        res.status(200).send(myCompanyData);
        return; 
   };  
+
+  exports.searchByKeywords = (req, res) => {
+    if (!req.body.HManager_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }  
+    const title = req.body.title;
+   
+    resourceTb.findAll({ where: 
+      {
+        [Op.or]: [{
+          Resource_name: {
+                    [Op.like]: `%${title}%`
+                }
+            },
+            {
+              Resource_Designation: {
+                    [Op.like]: `%${title}%`
+                }
+            } 
+        ],
+        [Op.and]: [ 
+            {
+              Resource_active: 1
+            }
+        ]
+    }
+    })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+  };

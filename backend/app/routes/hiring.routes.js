@@ -5,7 +5,8 @@ module.exports = app => {
     
     router.put("/updateProfile", HManager.updateProfile);    
     router.post("/getMyCompany", HManager.getMyCompany);   
-    router.post("/getResources_all", HManager.getResources_all);   
+    router.post("/getResources_all", HManager.getResources_all);  
+    router.post("/searchByKeywords", HManager.searchByKeywords);   
   
      app.use('/hiring', router);
 };
