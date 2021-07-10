@@ -50,16 +50,16 @@ export class ContractorService {
  } 
 
  createDelegate(delegate): Observable<Delegate[]>{
-     var data = {
+     var delegateData = {
       "Delegate_name" : delegate.Delegate_fullname,
       "Delegate_email" : delegate.Delegate_email,
       "Delegate_designation" : delegate.Delegate_designation,
       "Delegate_phone" : delegate.Delegate_phone,
       "Delegate_password" : delegate.Delegate_password,
       "Company_id" : this.Company_id,
-      "Delegate_status" : delegate.Delegate_status,
+      "Delegate_status" : delegate.Delegate_status, 
      }
-    return this.http.post<Delegate[]>(this.REST_API_SERVER + '/contractor/delegateCreation/', data);
+    return this.http.post<Delegate[]>(this.REST_API_SERVER + '/contractor/delegateCreation/', delegateData);
   } 
 
   getDelegatesList(){

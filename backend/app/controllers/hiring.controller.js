@@ -67,9 +67,9 @@ exports.updateProfile = (req, res) => {
   };  
 
   exports.getResources_all= async (req, res) => {
-    if (!req.body.HManager_id) {
+    if (req.body.HManager_id < 0 || req.body.Delegate_id < 0) {
      res.status(400).send({
-       message: "Content can not be empty!"
+       message: "Content can not be empty!!"
      });
      return;
    }  
@@ -91,7 +91,7 @@ exports.updateProfile = (req, res) => {
   };  
 
   exports.searchByKeywords = (req, res) => {
-    if (!req.body.HManager_id) {
+    if (req.body.HManager_id < 0 || req.body.Delegate_id < 0) {
       res.status(400).send({
         message: "Content can not be empty!"
       });

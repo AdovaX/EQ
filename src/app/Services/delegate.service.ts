@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Delegate } from '../class/Delegate';
 import { Company } from '../class/Company';
 import { Spoc } from '../class/Spoc';
+import { Resource } from '../class/Resource';
 
 @Injectable({
   providedIn: 'root'
@@ -76,8 +77,7 @@ deleteSpoc(Spoc_id){
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/contractor/spocDeletion/', spocData);
 }
-
-
+ 
 
 
 

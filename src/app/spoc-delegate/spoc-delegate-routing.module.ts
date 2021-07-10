@@ -8,6 +8,7 @@ import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { SpocProfileComponent } from './spoc-profile/spoc-profile.component';
 import { CreateListingManagerComponent } from './create-listing-manager/create-listing-manager.component';
 import { CreateHiringManagerComponent } from './create-hiring-manager/create-hiring-manager.component';
+import { ResourceListComponent } from './resource-list/resource-list.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,14 @@ const routes: Routes = [
     path : 'Spoc/Listingmanagers', component:CreateListingManagerComponent
   },{
     path : 'Spoc/Hiringmanagers', component:CreateHiringManagerComponent
+  },{
+    path : 'Spoc/Resources', component:ResourceListComponent
+  },{
+    path : 'Delegate/Resources', component:ResourceListComponent
+  },{
+    path : 'Delegate/Listingmanagers', component:CreateListingManagerComponent
+  },{
+    path : 'Delegate/Hiringmanagers', component:CreateHiringManagerComponent
   },
 ];
 

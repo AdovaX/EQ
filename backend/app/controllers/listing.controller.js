@@ -173,6 +173,7 @@ exports.createResource= async (req, res) => {
   Resource_summery: req.body.Resource_summery,
   Resource_masked: req.body.Resource_masked ,
   Resource_stack: req.body.Resource_stack, 
+  Resource_status:req.body.Resource_status,
   Is_remote: req.body.Is_remote,
   Resource_rate: req.body.Resource_rate,
   Availability_status: req.body.Availability_status, 
@@ -188,8 +189,7 @@ resourceTb.create(resourceData)
        
   })
   .catch(err => {
-    res.status(400).send(err); 
-      return err.message ;
+    res.status(400).send(err);  
   });
 }; 
 

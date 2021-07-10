@@ -11,54 +11,84 @@
     </a>
   </div>
   
-  <ul class="sidebar-menu">
+  <ul class="sidebar-menu" [style.display]="isSpoc ? 'none' : 'block'">
      <li class="sidebar-header">MAIN NAVIGATION</li>
-     <li [routerLinkActive]="['active']">
+     <li >
        <a [routerLink]="[ '/manager/Delegate' ]"> 
          <i class="zmdi zmdi-home"></i>
          <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li>
-     <li [routerLinkActive]="['active']"   [style.display]="isSpoc ? 'none' : 'block'"> 
+     <li [routerLinkActive]="['active']"    > 
        <a [routerLink]="[ '/manager/Delegate/CreateSpoc' ]"> 
          <i class="zmdi zmdi-pin-drop"></i>
          <span>Location Spoc</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
-     </li> 
+     </li>  
      <li [routerLinkActive]="['active']">
-       <a [routerLink]="[ '/manager/Spoc/Listingmanagers' ]"> 
+       <a [routerLink]="[ '/manager/Delegate/Listingmanagers' ]"> 
          <i class="zmdi zmdi-accounts-list"></i>
          <span>Listing Managers</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li>
      <li [routerLinkActive]="['active']"> 
-       <a [routerLink]="[ '/manager/Spoc/Hiringmanagers' ]"> 
+       <a [routerLink]="[ '/manager/Delegate/Hiringmanagers' ]"> 
          <i class="zmdi zmdi-border-color"></i>
          <span>Hiring Managers</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
-     </li>
-     <li [routerLinkActive]="['active']">
-       <a href="#"> 
+     </li>  
+     <li [routerLinkActive]="['active']"  >
+       <a [routerLink]="[ '/manager/Delegate/Resources' ]"> 
          <i class="zmdi zmdi-accounts-alt"></i>
          <span>Resource Lists</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
-     </li>
-     <li [routerLinkActive]="['active']"  [style.display]="isSpoc ? 'none' : 'block'">
+     </li> 
+     <li [routerLinkActive]="['active']"   >
        <a [routerLink]="[ '/manager/Delegate/Profile' ]"> 
          <i class="zmdi zmdi-account-circle"></i>
          <span>Profile</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
-     </li>
-
-     <li [routerLinkActive]="['active']"   [style.display]="isSpoc ? 'block' : 'none'"> 
-      <a [routerLink]="[ '/manager/Spoc/Profile' ]"> 
-        <i class="zmdi zmdi-account-circle"></i>
-        <span>Profile</span><i class="fa fa-angle-left pull-right"></i>
-      </a> 
-    </li> 
+     </li>  
          
    </ul>
   
+
+
+  <ul class="sidebar-menu" [style.display]="isSpoc ? 'block' : 'none'">
+    <li class="sidebar-header">MAIN NAVIGATION</li>
+    <li >
+      <a [routerLink]="[ '/manager/Spoc' ]"> 
+        <i class="zmdi zmdi-home"></i>
+        <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
+      </a> 
+    </li> 
+    <li [routerLinkActive]="['active']">
+      <a [routerLink]="[ '/manager/Spoc/Listingmanagers' ]"> 
+        <i class="zmdi zmdi-accounts-list"></i>
+        <span>Listing Managers</span><i class="fa fa-angle-left pull-right"></i>
+      </a> 
+    </li>
+    <li [routerLinkActive]="['active']"> 
+      <a [routerLink]="[ '/manager/Spoc/Hiringmanagers' ]"> 
+        <i class="zmdi zmdi-border-color"></i>
+        <span>Hiring Managers</span><i class="fa fa-angle-left pull-right"></i>
+      </a> 
+    </li> 
+    <li [routerLinkActive]="['active']"  >
+      <a [routerLink]="[ '/manager/Spoc/Resources' ]"> 
+        <i class="zmdi zmdi-accounts-alt"></i>
+        <span>Resource Lists</span><i class="fa fa-angle-left pull-right"></i>
+      </a> 
+    </li> 
+    <li [routerLinkActive]="['active']"   > 
+     <a [routerLink]="[ '/manager/Spoc/Profile' ]"> 
+       <i class="zmdi zmdi-account-circle"></i>
+       <span>Profile</span><i class="fa fa-angle-left pull-right"></i>
+     </a> 
+   </li> 
+        
+  </ul>
+ 
   </div>
   <!--End sidebar-wrapper-->
 

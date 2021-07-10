@@ -35,8 +35,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.TEXT
       },
       Resource_masked: {
-        type: Sequelize.BOOLEAN,
-        defaultValue : false
+        type: Sequelize.ENUM,
+        values : ['YES', 'NO'],
+        defaultValue : 'NO'
       },
       Resource_active: {
         type: Sequelize.INTEGER,
@@ -49,7 +50,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       Resource_status: {
         type: Sequelize.ENUM,
-        values : ['VERIFIED', 'PENDING', 'UNVERIFIED'],
+        values : ['VERIFIED', 'PENDING', 'NONVERIFIED'],
         defaultValue : 'PENDING'
       },
       Is_remote: {

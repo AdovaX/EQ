@@ -14,15 +14,19 @@ import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { SpocProfileComponent } from './spoc-profile/spoc-profile.component';
 import { CreateListingManagerComponent } from './create-listing-manager/create-listing-manager.component';
 import { CreateHiringManagerComponent } from './create-hiring-manager/create-hiring-manager.component';
+import { ResourceListComponent } from './resource-list/resource-list.component';
 
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
-  declarations: [LoginComponent, MenubarComponent, SpocDashboardComponent, DelegateDashboardComponent, FooterComponent, DelegateProfileComponent, CreateSpocComponent, SpocProfileComponent, CreateListingManagerComponent, CreateHiringManagerComponent],
+  declarations: [LoginComponent, MenubarComponent, SpocDashboardComponent, DelegateDashboardComponent, FooterComponent, DelegateProfileComponent, CreateSpocComponent, SpocProfileComponent, CreateListingManagerComponent, CreateHiringManagerComponent, ResourceListComponent],
   imports: [
     CommonModule,
     SpocDelegateRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,MatRadioModule,MatSelectModule
+    
   ]
 })
 export class SpocDelegateModule { }

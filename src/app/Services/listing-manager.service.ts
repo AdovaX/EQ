@@ -74,6 +74,7 @@ createResource(data): Observable<Resource[]>{
     "Resource_masked" : data.Resource_masked,
     "Resource_stack" :data.Resource_stack,
     "Is_remote" : data.isRemote,
+    "Resource_status" : data.Resource_status,
     "Resource_rate" :data.Resource_rate,
     "Availability_status" : data.Resource_availability,
     "Company_id":this.Company_id

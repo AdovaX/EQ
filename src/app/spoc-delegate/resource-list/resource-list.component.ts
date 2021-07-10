@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
+import {DelegateService} from '../../Services/delegate.service';
+import { SpocDelegateService } from '../../Services/spoc-delegate.service'; 
 import {ListingManagerService} from '../../Services/listing-manager.service';
 
+
+
 @Component({
-  selector: 'app-create-resource',
-  templateUrl: './create-resource.component.html',
-  styleUrls: ['./create-resource.component.css']
+  selector: 'app-resource-list',
+  templateUrl: './resource-list.component.html',
+  styleUrls: ['./resource-list.component.css']
 })
-export class CreateResourceComponent implements OnInit {
+export class ResourceListComponent implements OnInit {
   Resource_Form: FormGroup;
   isUpdated = false;
   submitted = false;
@@ -17,7 +21,8 @@ export class CreateResourceComponent implements OnInit {
   disabled = false; 
   isError = false;
 
-  constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService) { }
+  constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService, 
+    private SpocDelegateService:SpocDelegateService) { }
 
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Resource_email = new FormControl('', [ Validators.required, Validators.email]);
@@ -64,7 +69,7 @@ export class CreateResourceComponent implements OnInit {
     else{
       
     console.log(this.Resource_Form.value);
-      this.ListingManagerService.createResource(this.Resource_Form.value).subscribe(data =>{
+      this.SpocDelegateService.createResource(this.Resource_Form.value).subscribe(data =>{
         
         console.log(data);
         this.isUpdated = true; 
@@ -77,7 +82,7 @@ export class CreateResourceComponent implements OnInit {
     }
   }
   getResources(){
-    this.ListingManagerService.getResources().subscribe(data =>{
+    this.SpocDelegateService.getResources().subscribe(data =>{
       console.log(data);  
     this.resourceLists  = data;
    
