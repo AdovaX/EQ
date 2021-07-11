@@ -7,15 +7,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       Delegate_name: {
         type: Sequelize.STRING
-      },
-      Delegate_email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      Delegate_password: {
-        type: Sequelize.STRING
-      },
+      }, 
       Delegate_designation: {
         type: Sequelize.STRING
       },
@@ -40,6 +32,26 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.ENUM,
         values:[ 'VERIFIED', 'NONVERIFIED'],
         defaultValue : 'VERIFIED'
+      },
+      User_roles_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { 
+          model: 'UserRolesTbs',
+          key: 'User_roles_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
+      },
+      User_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { 
+          model: 'UsersTbs',
+          key: 'User_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
       }
     });
   

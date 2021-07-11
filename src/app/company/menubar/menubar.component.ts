@@ -7,10 +7,10 @@ import {Router} from "@angular/router"
   styleUrls: ['./menubar.component.css']
 })
 export class MenubarComponent implements OnInit {
-Contractor_id="";
+User_id="";
   constructor(private router:Router ) { 
-    this.Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');
-     if(this.Contractor_id == null){ 
+    this.User_id = sessionStorage.getItem('USER_ID');
+     if(this.User_id == null){ 
       this.router.navigate(['company/Login']); 
     }
    } 

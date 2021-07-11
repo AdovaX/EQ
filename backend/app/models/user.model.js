@@ -16,11 +16,9 @@
         onDelete: 'CASCADE',
       },
       User_email: {
-        type: Sequelize.STRING
-      },
-      User_phone: {
-        type: Sequelize.STRING
-      },
+        type: Sequelize.STRING,
+        unique : true
+      }, 
       User_password: {
         type: Sequelize.STRING
       },

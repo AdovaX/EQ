@@ -14,37 +14,37 @@
   <ul class="sidebar-menu" [style.display]="isSpoc ? 'none' : 'block'">
      <li class="sidebar-header">MAIN NAVIGATION</li>
      <li >
-       <a [routerLink]="[ '/manager/Delegate' ]"> 
+       <a [routerLink]="[ '/L2Dashboard/Delegate' ]"> 
          <i class="zmdi zmdi-home"></i>
          <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li>
      <li [routerLinkActive]="['active']"    > 
-       <a [routerLink]="[ '/manager/Delegate/CreateSpoc' ]"> 
+       <a [routerLink]="[ '/L2Dashboard/Delegate/CreateSpoc' ]"> 
          <i class="zmdi zmdi-pin-drop"></i>
          <span>Location Spoc</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li>  
      <li [routerLinkActive]="['active']">
-       <a [routerLink]="[ '/manager/Delegate/Listingmanagers' ]"> 
+       <a [routerLink]="[ '/L2Dashboard/Delegate/ListingL2Dashboards' ]"> 
          <i class="zmdi zmdi-accounts-list"></i>
          <span>Listing Managers</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li>
      <li [routerLinkActive]="['active']"> 
-       <a [routerLink]="[ '/manager/Delegate/Hiringmanagers' ]"> 
+       <a [routerLink]="[ '/L2Dashboard/Delegate/HiringL2Dashboards' ]"> 
          <i class="zmdi zmdi-border-color"></i>
          <span>Hiring Managers</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li>  
      <li [routerLinkActive]="['active']"  >
-       <a [routerLink]="[ '/manager/Delegate/Resources' ]"> 
+       <a [routerLink]="[ '/L2Dashboard/Delegate/Resources' ]"> 
          <i class="zmdi zmdi-accounts-alt"></i>
          <span>Resource Lists</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
      </li> 
      <li [routerLinkActive]="['active']"   >
-       <a [routerLink]="[ '/manager/Delegate/Profile' ]"> 
+       <a [routerLink]="[ '/L2Dashboard/Delegate/Profile' ]"> 
          <i class="zmdi zmdi-account-circle"></i>
          <span>Profile</span><i class="fa fa-angle-left pull-right"></i>
        </a> 
@@ -57,31 +57,31 @@
   <ul class="sidebar-menu" [style.display]="isSpoc ? 'block' : 'none'">
     <li class="sidebar-header">MAIN NAVIGATION</li>
     <li >
-      <a [routerLink]="[ '/manager/Spoc' ]"> 
+      <a [routerLink]="[ '/L2Dashboard/Spoc' ]"> 
         <i class="zmdi zmdi-home"></i>
         <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
       </a> 
     </li> 
     <li [routerLinkActive]="['active']">
-      <a [routerLink]="[ '/manager/Spoc/Listingmanagers' ]"> 
+      <a [routerLink]="[ '/L2Dashboard/Spoc/ListingL2Dashboards' ]"> 
         <i class="zmdi zmdi-accounts-list"></i>
-        <span>Listing Managers</span><i class="fa fa-angle-left pull-right"></i>
+        <span>Listing L2Dashboards</span><i class="fa fa-angle-left pull-right"></i>
       </a> 
     </li>
     <li [routerLinkActive]="['active']"> 
-      <a [routerLink]="[ '/manager/Spoc/Hiringmanagers' ]"> 
+      <a [routerLink]="[ '/L2Dashboard/Spoc/HiringL2Dashboards' ]"> 
         <i class="zmdi zmdi-border-color"></i>
-        <span>Hiring Managers</span><i class="fa fa-angle-left pull-right"></i>
+        <span>Hiring L2Dashboards</span><i class="fa fa-angle-left pull-right"></i>
       </a> 
     </li> 
     <li [routerLinkActive]="['active']"  >
-      <a [routerLink]="[ '/manager/Spoc/Resources' ]"> 
+      <a [routerLink]="[ '/L2Dashboard/Spoc/Resources' ]"> 
         <i class="zmdi zmdi-accounts-alt"></i>
         <span>Resource Lists</span><i class="fa fa-angle-left pull-right"></i>
       </a> 
     </li> 
     <li [routerLinkActive]="['active']"   > 
-     <a [routerLink]="[ '/manager/Spoc/Profile' ]"> 
+     <a [routerLink]="[ '/L2Dashboard/Spoc/Profile' ]"> 
        <i class="zmdi zmdi-account-circle"></i>
        <span>Profile</span><i class="fa fa-angle-left pull-right"></i>
      </a> 
@@ -110,7 +110,7 @@
  </ul>
  <ul class="navbar-nav align-items-center right-nav-link">
    <li class="nav-item dropdown-lg">
-     <a [routerLink]="[ '/manager/Login']"><i class="icon-power mr-2"></i> Logout </a>
+     <a [routerLink]="[ '/company/Login']"><i class="icon-power mr-2"></i> Logout </a>
    </li> 
      </ul>   
 </nav>

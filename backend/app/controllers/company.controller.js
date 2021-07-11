@@ -1,6 +1,8 @@
 const db = require("../models");
 const companyTb = db.companyTb;
 const contractorTb = db.contractownerTb;
+const usersTb = db.user;
+const userrolesTb = db.userroles;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 var nodemailer = require('nodemailer');
@@ -30,66 +32,100 @@ function sendMail(reciverMail){
     }
   });
 }
- 
-exports.create = async (req, res) => {
-     if (!req.body.C_full_name) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    } 
+
+
+
+
+
+exports.create =  async(req, res) => {
+  var role ="";
+  var Contractor_password ="";
+  var Contractor_email ="";
+  var Roles_id =2;
+  
+  if (!req.body.Contractor_email) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }  
+    Contractor_email = req.body.Contractor_email;
+    role = req.body.role;
+    Contractor_password = req.body.Contractor_password;
+
+
     var passwordHash = bcrypt.hashSync(req.body.Contractor_password , 10);
     const companyData = {
-       C_short_name: req.body.C_short_name,
-       C_full_name: req.body.C_full_name,
-       Website: req.body.Website,
-       No_employees: req.body.No_employees,
+      C_short_name: req.body.C_short_name,
+      C_full_name: req.body.C_full_name,
+      Website: req.body.Website,
+      No_employees: req.body.No_employees,
     };
-   const contractorData = {
-       Contractor_email: req.body.Contractor_email,
-       Contractor_password: passwordHash,
-       Contract_phone: req.body.Contract_phone,
-       Contract_designation:  req.body.Contract_designation,
-  };
-
-  async function insertCompany() {
-    return await  companyTb.create(companyData)
-    .then(data => { 
-        return data;
-    })
-    .catch(err => {
-        return err.message ;
-    });
-  }
-
-  async function insertContractor(cid) {
-    contractorData.Company_id = cid;
-    contractorData.User_roles_id = 2;
-    return await  contractorTb.create(contractorData)
-    .then(data => { 
-      sendMail(data.Contractor_email);
-      return data;
-    })
-    .catch(err => {
-        return err.message ; 
-    });
-  }
+    const contractorData = { 
+        Contract_phone: req.body.Contract_phone,
+        Contract_designation:  req.body.Contract_designation,
+    };
+    const loginData = {
+      User_email: req.body.Contractor_email,
+      User_password: passwordHash
+    };
  
-  const company =  await insertCompany();
-  const contractor =  await insertContractor(company.Company_id);
-  if(contractor.Contractor_id){
-    var respos = {
-      "status" : "Success"
-    }
-    res.send(respos); 
-  }else{
-    var respos = {
-      "status" : "Failed"
-    }
-    res.status(500).send(respos);
-  } 
-  };  
+   async function insertCompany() {
+     return await  companyTb.create(companyData)
+     .then(data => { 
+         return data;
+     })
+     .catch(err => {
+         return err.message ;
+     });
+   }
 
+   async function insertLogin(Company_id , User_roles_id) {
+    loginData.Company_id =Company_id;
+    loginData.User_roles_id =User_roles_id;
+     
+     return await  usersTb.create(loginData)
+     .then(data => { 
+       sendMail(data.User_email);
+       return data;
+     })
+     .catch(err => {
+         return err.message ; 
+     });
+   }
+ 
+   async function insertContractor(Company_id,User_id) {
+     contractorData.Company_id = Company_id;
+     contractorData.User_roles_id = Roles_id;
+     contractorData.User_id = User_id;
+     return await  contractorTb.create(contractorData)
+     .then(data => { 
+       return data; 
+     })
+     .catch(err => {
+         return err.message ; 
+     });
+   }
+  
+   const company =  await insertCompany();
+   const login =  await insertLogin(company.Company_id ,Roles_id);
+   const contractor =  await insertContractor(company.Company_id , login.User_id);
+
+   if(contractor.Contractor_id){
+     var respos = {
+       "status" : "Success"
+     }
+     res.send(company); 
+   }else{
+     var respos = {
+       "status" : "Failed"
+     }
+     res.status(500).send(respos);
+   } 
+   };  
+      
+
+ 
   exports.login = async (req, res) => { 
     contractorTb.findAll({where : {Contractor_email:req.body.Contractor_email}})
       .then(data => {
@@ -185,3 +221,16 @@ exports.create = async (req, res) => {
       });
   };
  
+
+  exports.getRoles = (req, res) => {
+    userrolesTb.findAll()
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+  };

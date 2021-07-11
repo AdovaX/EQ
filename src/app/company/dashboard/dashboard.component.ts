@@ -10,7 +10,7 @@ import { Contractor } from '../../class/Contractor';
 })
 export class DashboardComponent implements OnInit {
 profileData = new Contractor();
-Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
+Contractor_id = sessionStorage.getItem('USER_ID');  
 Company_id = "";
 Contractor_email ="";
 Contractor_phone :number;
@@ -66,42 +66,24 @@ updateContractorForm: FormGroup;
     }  
    }
 
-
   getProfileData(id){
      var Contractor_id = id;
      this.ContractorService.getProfileData(Contractor_id).subscribe(data =>{
-      console.log(data); 
-
-      // this.Contractor_firstName = data[0].Contractor_firstName; 
-      // this.Contractor_secondName = data[0].Contractor_secondName; 
-      this.Contractor_designation = data[0].Contract_designation; 
-      this.Contractor_email = data[0].Contractor_email;
-      this.Contractor_phone = data[0].Contract_phone; 
-      this.Company_name = data[0]['CompanyTb'].C_short_name;
-      this.Company_id = data[0]['CompanyTb'].Company_id;
-      sessionStorage.setItem("COMPANY_ID", this.Company_id); 
-      
-      if(this.Contractor_firstName !== null){
-        this.Contractor_firstName = data[0].Contractor_firstName;
-        this.updateContractorForm.patchValue({Contractor_firstName_Crl: this.Contractor_firstName}); 
-       }
-      if(this.Contractor_secondName !== null){
-        this.Contractor_secondName = data[0].Contractor_secondName;  
-        this.updateContractorForm.patchValue({Contractor_secondName_Crl: this.Contractor_secondName}); 
-      } 
-      if(this.Contractor_phone != null){
-        this.Contractor_phone = data[0].Contract_phone;
-        this.updateContractorForm.patchValue({Contract_phone_Crl: this.Contractor_phone}); 
-      }
-      if(this.Contractor_designation != null){
-        this.Contractor_designation = data[0].Contract_designation;
-        this.updateContractorForm.patchValue({Contract_designation_Crl: this.Contractor_designation}); 
-      }
-      if(this.Contractor_email != null){
-        this.Contractor_email = data[0].Contractor_email;
-        this.updateContractorForm.patchValue({Contractor_email_Crl: this.Contractor_email}); 
-      } 
-      
+      let profileData =data[0]['CompanyTb']['ContractOwnerTb'];
+      let companyData =data[0]['CompanyTb'];
+      let userData =data[0]; 
+      sessionStorage.setItem("CONTRACTOR_ID",profileData.Contractor_id);
+ 
+      this.Company_name = companyData.C_short_name;
+      this.updateContractorForm.controls.Contractor_email_Crl.setValue(userData.User_email);
+      this.updateContractorForm.controls.Contract_phone_Crl.setValue(profileData.Contract_phone);
+      this.updateContractorForm.controls.Contractor_firstName_Crl.setValue(profileData.Contractor_firstName);
+      this.updateContractorForm.controls.Contractor_secondName_Crl.setValue(profileData.Contractor_secondName);
+      this.updateContractorForm.controls.Contract_designation_Crl.setValue(profileData.Contract_designation);
+      this.Contractor_designation = profileData.Contract_designation;
+      this.Contractor_firstName = profileData.Contractor_firstName;
+      this.Contractor_secondName = profileData.Contractor_secondName;
+ 
       });
   }
 

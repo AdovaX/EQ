@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../Services/company.service';
-import { Contractor } from '../../class/Contractor';
+import { User } from '../../class/User';
 import {Router} from "@angular/router"
  
 @Component({
@@ -12,47 +12,92 @@ import {Router} from "@angular/router"
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  Contractor: Contractor[];
+  User: User[];
   loginstatus = false;
   fieldTextType: boolean;
-
+  rolesList:[];
+  user_id =0;
+  role_id=0;
+  company_id =0;
 
   constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder,private router:Router ) { 
-
     sessionStorage.clear();
   }
   hide = true;
 
   ngOnInit(): void { 
+    this.CompanyService.getRoles().subscribe( data => {
+           
+     this.rolesList = data; 
+    });
+
     this.loginForm = this.formBuilder.group({ 
-      Contractor_email :['', [Validators.required, Validators.email]],
-      Contractor_password :['', [Validators.required,Validators.minLength(2)]],
+      User_email :['', [Validators.required, Validators.email]],
+      User_password :['', [Validators.required,Validators.minLength(2)]],
+      User_role :['', [Validators.required]],
 
   });
   }
-  onSubmit() {    // stop here if form is invalid
+  onSubmit() {    
     if (this.loginForm.invalid) {
       
     }else{
  
-       var loginData = new Contractor(); 
-       loginData.Contractor_email = this.loginForm.value.Contractor_email;
-       loginData.Contractor_password = this.loginForm.value.Contractor_password;
+       var loginData = new User(); 
+       loginData.User_email = this.loginForm.value.User_email;
+       loginData.User_password = this.loginForm.value.User_password;
+       loginData.User_role = this.loginForm.value.User_role;
+       console.log(loginData);
        
        this.CompanyService.companyLogin(loginData).subscribe( data => {
+         if(data['status']){
+           this.loginstatus=true;
+           return;
+         }
           
          console.log("-------");
           console.log(data);
-         if(typeof data === 'undefined'){
-          this.loginstatus=true;
-         }else if(data['status'] > 0)
-         {
-          sessionStorage.setItem("CONTRACTOR_ID", data['status']); 
-          this.router.navigate(['company/Dashboard']);
-         }
-         else{  
-           this.loginstatus = true;
-         }
+          this.user_id = data[0]['User_id'];
+          this.company_id = data[0]['Company_id'];
+          this.role_id = data[0]['User_roles_id'];
+           
+          if(this.role_id  == 2){
+            sessionStorage.setItem('USER_ID',String(this.user_id)); 
+            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
+            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
+            this.router.navigate(['company/Dashboard']); 
+
+          }else if(this.role_id  == 3){
+            sessionStorage.setItem('USER_ID',String(this.user_id)); 
+            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
+            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
+            this.router.navigate(['L2Dashboard']); 
+
+          }else if(this.role_id  == 4){
+            sessionStorage.setItem('USER_ID',String(this.user_id)); 
+            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
+            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
+            this.router.navigate(['L2Dashboard']); 
+
+          }else if(this.role_id  == 5){
+            sessionStorage.setItem('USER_ID',String(this.user_id)); 
+            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
+            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
+           // this.router.navigate(['company/Dashboard']); 
+
+          }else if(this.role_id  == 6){
+            sessionStorage.setItem('USER_ID',String(this.user_id)); 
+            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
+            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
+           // this.router.navigate(['company/Dashboard']); 
+
+          }
+          else{
+            this.loginstatus = true;
+          }  
+       },
+       err => {
+         console.log(err);
 
        });
      

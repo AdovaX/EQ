@@ -31,7 +31,13 @@ const routes: Routes = [
   } , 
   {
     path : 'Companyupdate', component:CompanyProfileComponent
-  } 
+  },
+  {
+    path: 'listing', loadChildren: () => import('../lhmanager/lhmanager.module').then(m => m.LHManagerModule)
+  } ,
+  {
+    path: 'manager', loadChildren: () => import('../lhmanager/lhmanager.module').then(m => m.LHManagerModule)
+  }  
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

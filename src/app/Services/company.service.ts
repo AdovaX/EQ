@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Company } from '../class/Company';
 import { Contractor } from '../class/Contractor';
+import { User } from '../class/User';
 
  @Injectable({
   providedIn: 'root'
@@ -34,6 +35,12 @@ export class CompanyService {
     catchError(this.handleError)
   )
 }
+getRoles(): Observable<any> {
+ return this.http.get<any>(this.REST_API_SERVER + '/company/roles')
+ .pipe(retry(1),
+   catchError(this.handleError)
+ )
+}
 insertCompany(company , contractor): Observable<any>{
   var data = {
     'C_full_name' : company.C_full_name,
@@ -48,8 +55,8 @@ insertCompany(company , contractor): Observable<any>{
   } 
   return this.http.post<any>(this.REST_API_SERVER + '/company/signup/', data);
 }  
-companyLogin(company): Observable<Contractor[]>{
-  return this.http.post<Contractor[]>(this.REST_API_SERVER + '/company/login/', company);
+companyLogin(company): Observable<User[]>{ 
+  return this.http.post<User[]>(this.REST_API_SERVER + '/company/login/', company);
 }  
 
 getMyCompany(){

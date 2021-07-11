@@ -10,16 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       Contractor_secondName: {
         type: Sequelize.STRING
-      },
-      Contractor_email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      Contractor_password: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
+      }, 
       Contract_designation: {
         type: Sequelize.STRING
       },
@@ -42,6 +33,16 @@ module.exports = (sequelize, Sequelize) => {
         references: { 
           model: 'UserRolesTbs',
           key: 'User_roles_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
+      },
+      User_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { 
+          model: 'UsersTbs',
+          key: 'User_id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE', 

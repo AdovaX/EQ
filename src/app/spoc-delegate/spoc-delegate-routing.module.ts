@@ -14,8 +14,6 @@ import { ResourceListComponent } from './resource-list/resource-list.component';
 const routes: Routes = [
   {
     path : '', component:LoginComponent
-  },{
-    path : 'Login', component:LoginComponent
   }, {
     path : 'Spoc', component:SpocDashboardComponent
   }, {
@@ -38,7 +36,7 @@ const routes: Routes = [
     path : 'Delegate/Listingmanagers', component:CreateListingManagerComponent
   },{
     path : 'Delegate/Hiringmanagers', component:CreateHiringManagerComponent
-  },
+  }
 ];
 
 @NgModule({

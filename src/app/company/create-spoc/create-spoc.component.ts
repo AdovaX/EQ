@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { ContractorService } from '../../Services/contractor.service';
-
 
 @Component({
   selector: 'app-create-spoc',
@@ -58,10 +56,20 @@ export class CreateSpocComponent implements OnInit {
     }
   }
   getSpocList(){
-    this.ContractorService.getSpocList().subscribe(data =>{
-      console.log(data);  
-    this.Spoc_Data  = data;
-   
+    this.ContractorService.getSpocList().subscribe(data =>{ 
+      let spocList =[];
+      for (var i = 0; i < data.length; i++) {
+        var e = {
+          "Spoc_name" : data[i].Spoc_name,
+          "Spoc_mail" : data[i]['UsersTb'].User_email,
+          "Spoc_designation" : data[i].Spoc_designation,
+          "Spoc_phone" : data[i].Spoc_phone,
+          "Spoc_status" : data[i].Spoc_status,
+          "Spoc_id" : data[i].Spoc_id,
+        }
+        spocList.push(e);
+      }  
+    this.Spoc_Data  = spocList; 
     }); 
 
   }

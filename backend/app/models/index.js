@@ -69,5 +69,17 @@ db.HManagerTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Com
 db.companyTb.hasOne(db.resourceTb, {foreignKey: 'Company_id'}); 
 db.resourceTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
 
+db.companyTb.hasOne(db.user, {foreignKey: 'Company_id'}); 
+db.user.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
+
+db.user.hasOne(db.delegateTb, {foreignKey: 'User_id'}); 
+db.delegateTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
+db.user.hasOne(db.contractownerTb, {foreignKey: 'User_id'}); 
+db.contractownerTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
+db.user.hasOne(db.spocTb, {foreignKey: 'User_id'}); 
+db.spocTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
 
 module.exports = db;
