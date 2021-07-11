@@ -60,36 +60,40 @@ export class LoginComponent implements OnInit {
           this.user_id = data[0]['User_id'];
           this.company_id = data[0]['Company_id'];
           this.role_id = data[0]['User_roles_id'];
-           
+           //Contract owner
           if(this.role_id  == 2){
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
             this.router.navigate(['company/Dashboard']); 
 
-          }else if(this.role_id  == 3){
+          }//Delegate
+          else if(this.role_id  == 3){
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
             this.router.navigate(['L2Dashboard']); 
 
-          }else if(this.role_id  == 4){
+          }//SPOC
+          else if(this.role_id  == 4){
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
             this.router.navigate(['L2Dashboard']); 
 
-          }else if(this.role_id  == 5){
+          }//Listing
+          else if(this.role_id  == 5){
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-           // this.router.navigate(['company/Dashboard']); 
+            this.router.navigate(['L3Dashboard']); 
 
-          }else if(this.role_id  == 6){
+          }//Hiring
+          else if(this.role_id  == 6){
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-           // this.router.navigate(['company/Dashboard']); 
+            this.router.navigate(['L3Dashboard']); 
 
           }
           else{
