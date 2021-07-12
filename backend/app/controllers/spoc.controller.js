@@ -1,6 +1,7 @@
 const db = require("../models");
 const spocTb = db.spocTb;
 const delegateTb = db.delegateTb;
+const usersTb = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 const companyTb = db.companyTb;
@@ -91,20 +92,23 @@ if(!spocFlag && !delegateFlag){
 
 
 exports.getMyCompany= async (req, res) => {
-  if (!req.body.Spoc_id) {
+  if (!req.body.User_id) {
    res.status(400).send({
      message: "Content can not be empty!"
    });
    return;
  }  
  async function getCompanyData() {
-  return await spocTb.findAll({
+  return await usersTb.findAll({
     where: {
-      Spoc_id: req.body.Spoc_id
+      User_id: req.body.User_id
     },
     include: {
-      model: companyTb ,
-      required: true
+      model: spocTb ,
+      include: {
+        model: companyTb ,
+        required: true
+      }
     },
 
   });   
@@ -116,7 +120,7 @@ const myCompanyData =  await getCompanyData();
 
 
 
-exports.updateProfile = (req, res) => {
+exports.updateProfile = async (req, res) => {
   if (!req.body.Spoc_id) {
       res.status(400).send({
         message: "Content can not be empty!"
@@ -126,12 +130,15 @@ exports.updateProfile = (req, res) => {
 
 const profileData = {
   Spoc_name: req.body.Spoc_name,
-  Spoc_email: req.body.Spoc_email,
+  Spoc_email: req.body.User_email,
   Spoc_designation: req.body.Spoc_designation, 
   Spoc_phone: req.body.Spoc_phone 
   }; 
-  console.log(profileData);
+  const userData ={ 
+    User_email: req.body.User_email,  
+    }
 
+  async function updateSpoc() {
   spocTb.update(profileData, {
     where: { Spoc_id: req.body.Spoc_id }
   }).then(num => {
@@ -149,6 +156,36 @@ const profileData = {
         message: err
       });
     });
+  }
+
+    async function userMailUpdate() {
+      return await usersTb.update(userData, {
+          where: { User_id: req.body.User_id }
+        }).then(num => {
+            if (num == 1) {
+               return true;
+            } else {
+               return false;
+            }
+          })
+          .catch(err => {
+            var errorMsg = {
+              error : 0
+            }
+            //res.status(500).send(errorMsg);
+            return false;
+          });
+    }
+    const isUpdatedSpoc= await updateSpoc();
+    const isSpocMailUpdated =await userMailUpdate();
+
+    if(isUpdatedSpoc == true && isSpocMailUpdated == true){
+      return true;
+
+    }else{
+      return false;
+    }
+
 };
  
 exports.createListingManager = async (req, res) => {

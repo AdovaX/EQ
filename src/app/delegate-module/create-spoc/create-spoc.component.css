@@ -1,0 +1,24 @@
+
+  .error-message, .invalid-feedback {
+    color: #cc0033;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 5px 0 0;
+  }
+.cus_success{
+    color: white;
+    background-color: #04AA6D;
+}
+.is-invalid{
+  border-color: red;
+}
+.notSucess{
+  display: none;
+} 
+.noShodow{
+    box-shadow:none;
+}
+.redColor{
+    color: red;;
+}

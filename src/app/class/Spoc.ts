@@ -6,6 +6,7 @@ export class Spoc{
     Spoc_password : string;
     Spoc_status : string; 
     Spoc_designation: string;
+  User_email: any;
 
 }
  

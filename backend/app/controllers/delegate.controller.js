@@ -1,26 +1,30 @@
 const db = require("../models");
 const companyTb = db.companyTb; 
 const spocTb = db.spocTb;
+const usersTb = db.user;
 const delegateTb = db.delegateTb;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 
 
 exports.getMyCompany= async (req, res) => {
-    if (!req.body.Delegate_id) {
+    if (!req.body.User_id) {
      res.status(400).send({
        message: "Content can not be empty!"
      });
      return;
    }  
    async function getCompanyData() {
-    return await delegateTb.findAll({
+    return await usersTb.findAll({
       where: {
-        Delegate_id: req.body.Delegate_id
+        User_id: req.body.User_id
       },
       include: {
-        model: companyTb ,
-        required: true
+        model: delegateTb ,
+        include: {
+          model: companyTb ,
+          required: true
+        }
       },
   
     });   
@@ -31,7 +35,7 @@ exports.getMyCompany= async (req, res) => {
   };  
 
 
-  exports.updateProfile = (req, res) => {
+  exports.updateProfile = async(req, res) => {
     if (!req.body.Delegate_id) {
         res.status(400).send({
           message: "Content can not be empty!"
@@ -40,13 +44,18 @@ exports.getMyCompany= async (req, res) => {
       } 
 
  const profileData = {
-    Delegate_name: req.body.Delegate_name,
-    Delegate_email: req.body.Delegate_email,
+    Delegate_name: req.body.Delegate_name, 
     Delegate_designation: req.body.Delegate_designation, 
     Delegate_phone: req.body.Delegate_phone 
     }; 
-    console.log(profileData);
+    const userData ={ 
+      User_email: req.body.User_email,  
+      }
+     
   
+     
+
+  async function updateDelegate() {
     delegateTb.update(profileData, {
       where: { Delegate_id: req.body.Delegate_id }
     }).then(num => {
@@ -64,4 +73,33 @@ exports.getMyCompany= async (req, res) => {
           message: err
         });
       });
+    }
+
+    async function userMailUpdate() {
+      return await usersTb.update(userData, {
+          where: { User_id: req.body.User_id }
+        }).then(num => {
+            if (num == 1) {
+               return true;
+            } else {
+               return false;
+            }
+          })
+          .catch(err => {
+            var errorMsg = {
+              error : 0
+            }
+            //res.status(500).send(errorMsg);
+            return false;
+          });
+    }
+    const isUpdatedDelegate= await updateDelegate();
+    const isSpocMailUpdated =await userMailUpdate();
+
+    if(isUpdatedDelegate == true && isSpocMailUpdated == true){
+      return true;
+
+    }else{
+      return false;
+    }
   };

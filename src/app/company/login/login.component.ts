@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-            this.router.navigate(['L2Dashboard']); 
+            this.router.navigate(['L3Dashboard']); 
 
           }//Listing
           else if(this.role_id  == 5){

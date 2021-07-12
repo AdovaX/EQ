@@ -11,7 +11,7 @@ import { Resource } from '../class/Resource';
 })
 export class DelegateService {
   
-  Delegate_id = sessionStorage.getItem('DELEGATE_ID');  
+  User_id = sessionStorage.getItem('USER_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID');  
  
   private REST_API_SERVER = "http://localhost:8080";
@@ -31,20 +31,21 @@ export class DelegateService {
     window.alert(errorMessage);
     return throwError(errorMessage);
  }
- getProfileData(Delegate_id): Observable<Delegate[]>{
+ getProfileData(User_id): Observable<Delegate[]>{
   var data = {
-      "Delegate_id" : Delegate_id
+      "User_id" : User_id
   }
  return this.http.post<Delegate[]>(this.REST_API_SERVER + '/delegate/getMyCompany', data);
 } 
 
-updateDelegate(Delegate_id , profileData): Observable<Delegate[]>{
+updateDelegate(User_id , profileData): Observable<Delegate[]>{
   var profile:any = {
       'Delegate_name' : profileData.Delegate_fullname,
-      'Delegate_email' :profileData.Delegate_email,
+      'User_email' :profileData.User_email,
       'Delegate_designation' :profileData.Delegate_designation,
       'Delegate_phone' :profileData.Delegate_phone,
-      'Delegate_id' : Delegate_id
+      'User_id' : User_id,
+      'Delegate_id' : sessionStorage.getItem("DELEGATE_ID")
   }
  return this.http.put<Delegate[]>(this.REST_API_SERVER + '/delegate/updateProfile/', profile);
 } 

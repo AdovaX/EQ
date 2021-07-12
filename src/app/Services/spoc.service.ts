@@ -12,7 +12,7 @@ import { HiringManager } from '../class/HiringManager';
 })
 export class SpocService {
 
-  Spocid = sessionStorage.getItem('SPOC_ID');  
+  User_id = sessionStorage.getItem('USER_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID');  
  
   private REST_API_SERVER = "http://localhost:8080";
@@ -32,20 +32,21 @@ export class SpocService {
     window.alert(errorMessage);
     return throwError(errorMessage);
  }
- getProfileData(Spoc_id): Observable<Spoc[]>{
+ getProfileData(User_id): Observable<Spoc[]>{
    var data = {
-      "Spoc_id" : Spoc_id
+      "User_id" : User_id
   }
  return this.http.post<Spoc[]>(this.REST_API_SERVER + '/spoc/getMyCompany', data);
 } 
 
-updateSpoc(Spoc_id , profileData): Observable<Spoc[]>{
+updateSpoc(User_id , profileData): Observable<Spoc[]>{
   var profile:any = {
       'Spoc_name' : profileData.Spoc_name,
       'Spoc_email' :profileData.Spoc_email,
       'Spoc_designation' :profileData.Spoc_designation,
       'Spoc_phone' :profileData.Spoc_phone,
-      'Spoc_id' : Spoc_id
+      'User_id' : User_id,
+      'Spoc_id' : sessionStorage.getItem("SPOC_ID")
   }
  return this.http.put<Spoc[]>(this.REST_API_SERVER + '/spoc/updateProfile/', profile);
 } 
