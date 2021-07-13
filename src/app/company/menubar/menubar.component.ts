@@ -11,7 +11,7 @@ User_id="";
   constructor(private router:Router ) { 
     this.User_id = sessionStorage.getItem('USER_ID');
      if(this.User_id == null){ 
-      this.router.navigate(['company/Login']); 
+      this.router.navigate(['Login']); 
     }
    } 
   ngOnInit(): void {

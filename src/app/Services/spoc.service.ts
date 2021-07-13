@@ -42,7 +42,7 @@ export class SpocService {
 updateSpoc(User_id , profileData): Observable<Spoc[]>{
   var profile:any = {
       'Spoc_name' : profileData.Spoc_name,
-      'Spoc_email' :profileData.Spoc_email,
+      'User_email' :profileData.User_email,
       'Spoc_designation' :profileData.Spoc_designation,
       'Spoc_phone' :profileData.Spoc_phone,
       'User_id' : User_id,
@@ -55,10 +55,10 @@ updateSpoc(User_id , profileData): Observable<Spoc[]>{
 createLManager(LManager): Observable<ListingManager[]>{
   var data = {
    "LManager_name" : LManager.LM_fullname,
-   "LManager_email" : LManager.LM_email,
+   "User_email" : LManager.LM_email,
    "LManager_designation" : LManager.LM_designation,
    "LManager_phone" : LManager.LM_phone,
-   "LManager_password" : LManager.LM_password,
+   "User_password" : LManager.LM_password,
    "Company_id" : this.Company_id,
    "LManager_status" : LManager.LM_status,
   }
@@ -83,10 +83,10 @@ deleteLM(LM_id){
 createHManager(HManager): Observable<HiringManager[]>{
   var data = {
    "HManager_name" : HManager.HM_fullname,
-   "HManager_email" : HManager.HM_email,
+   "User_email" : HManager.User_email,
    "HManager_designation" : HManager.HM_designation,
    "HManager_phone" : HManager.HM_phone,
-   "HManager_password" : HManager.HM_password,
+   "User_password" : HManager.HM_password,
    "Company_id" : this.Company_id,
    "HManager_status" : HManager.HM_status,
   }

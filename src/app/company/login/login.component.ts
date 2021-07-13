@@ -22,12 +22,14 @@ export class LoginComponent implements OnInit {
 
   constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder,private router:Router ) { 
     sessionStorage.clear();
+    localStorage.clear();
+
   }
   hide = true;
 
   ngOnInit(): void { 
     this.CompanyService.getRoles().subscribe( data => {
-           
+           console.log(data);
      this.rolesList = data; 
     });
 
@@ -65,6 +67,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
+            console.log(this.company_id);
             this.router.navigate(['company/Dashboard']); 
 
           }//Delegate
@@ -86,14 +89,14 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-            this.router.navigate(['L3Dashboard']); 
+            this.router.navigate(['L4Dashboard']); 
 
           }//Hiring
           else if(this.role_id  == 6){
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-            this.router.navigate(['L3Dashboard']); 
+            this.router.navigate(['L5Dashboard']); 
 
           }
           else{

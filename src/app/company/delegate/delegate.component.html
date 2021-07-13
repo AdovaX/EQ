@@ -113,17 +113,21 @@
                                     <div class="col-sm-6">
                                       <div class="form-group">
                                         <label for="input-11">Delegate Password<span class="redColor">*</span> </label>
-                                        <input type="password" class="form-control form-control-square" formControlName="Delegate_password" id="Delegate_password" 
+                                        <input [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="Delegate_password" id="Delegate_password" 
                                         name="Delegate_password"  placeholder="Your Delegate Password">
                                         <div *ngIf="submitted && f.Delegate_password.errors" class="invalid-feedback">
                                             <div *ngIf="f.Delegate_password.errors.required">Password is a required field.</div> 
                                           </div> 
                                        </div>
+                                       <div class="icheck-material-primary">
+                                        <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
+                                        <label for="primary">Hide password</label>
+                                    </div> 
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
                                         <label for="input-11">Confirm Password<span class="redColor">*</span> </label>
-                                        <input type="password" class="form-control form-control-square" formControlName="Delegate_password2" id="Delegate_password2" 
+                                        <input [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="Delegate_password2" id="Delegate_password2" 
                                         name="Delegate_password2"  placeholder="Confirm Password">
                                         <div *ngIf="submitted && f.Delegate_password2.errors" class="invalid-feedback">
                                             <div *ngIf="f.Delegate_password2.errors.required">Password is a required field.</div> 

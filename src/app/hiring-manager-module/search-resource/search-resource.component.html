@@ -1,0 +1,62 @@
+<app-menubar></app-menubar>
+ <div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+                <h4 class="page-title">Resource List</h4> 
+           </div> 
+         </div>  
+         <div class="card">
+             <div class="card-body">
+                 <div class="row">
+                    <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" (keyup)="searchbox($event)" placeholder="Search with keywords">
+                            <div class="input-group-append">
+                              <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                        </div>
+                     </div>
+                    <div class="col-sm-3"></div>
+                 </div>
+                 <br>
+
+         <div class="row">
+             <div class="col-sm-12"> 
+                <div class="table-responsive">
+                    <table id="default-datatable" class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th> Name</th>
+                              <th>Email</th>
+                              <th>Designation</th>
+                              <th>Available</th>
+                              <th>Stack</th> 
+                              <th>Action</th> 
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let item of Resource_list">
+                              <th>{{ item.Resource_name }}</th>
+                              <td>{{ item.Resource_Email }}</td>
+                              <td>{{ item.Resource_Designation }}</td>
+                              <td>{{ item.Availability_status }}</td>
+                              <td>{{ item.Resource_stack }}</td> 
+                              <td> 
+                                <button type="button" class="btn btn-outline-primary">
+                                    <span class="fa fa-eye"> </span> View</button> 
+                                  </td>
+                           </tr>
+                      </tbody> 
+                  </table>
+                  </div> 
+             </div>
+         </div>
+        </div> 
+    </div>
+  
+<div class="overlay toggle-menu"></div> 
+</div>
+</div> 
+<app-footer></app-footer>

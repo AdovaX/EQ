@@ -195,23 +195,43 @@ exports.createListingManager = async (req, res) => {
     });
     return;
   }
-
-  var passwordHash = bcrypt.hashSync(req.body.LManager_password , 10);
-  // Create a Tutorial
+  var Company_id = req.body.Company_id; 
+  var passwordHash = bcrypt.hashSync(req.body.User_password , 10);
+  var User_roles_id =5;
   const LData = {
     LManager_name: req.body.LManager_name,
-    LManager_email: req.body.LManager_email,
-    LManager_password: passwordHash,
     LManager_designation: req.body.LManager_designation,
     LManager_phone: req.body.LManager_phone,
     LManager_active: req.body.LManager_active,
     LManager_status: req.body.LManager_status, 
     Company_id: req.body.Company_id, 
   };
- 
-  LManagerTb.create(LData)
+  const loginData = { 
+    User_email: req.body.User_email, 
+    User_password: passwordHash, 
+   };
+   
+   async function insertLogin(Company_id , User_roles_id) {
+     loginData.Company_id =Company_id;
+     loginData.User_roles_id =User_roles_id;
+      
+      return await  usersTb.create(loginData)
+      .then(data => {  
+       // sendMail(data.User_email);
+         return data;
+      })
+      .catch(err => {
+          return err.message ; 
+      });
+    }
+
+    async function insertListingManager(uid){
+      LData.User_id = uid;
+      LData.User_roles_id = User_roles_id;
+      
+    await LManagerTb.create(LData)
     .then(data => {
-      res.send(data);
+      return data;
     })
     .catch(err => {
       res.status(500).send({
@@ -219,6 +239,18 @@ exports.createListingManager = async (req, res) => {
           err.message || "Some error occurred while creating the Tutorial."
       });
     });
+    }
+    try {
+      const login =  await insertLogin(Company_id , User_roles_id);
+      const LManager =  await insertListingManager(login.User_id);
+        var respos = {
+        "status" : "Success"
+      } 
+        res.send(respos); 
+      
+    } catch (error) {
+      res.send(error);
+    }
 };
 
 
@@ -234,7 +266,7 @@ exports.getListingManagers = (req, res) => {
     Company_id: req.body.Company_id , LManager_active:1
       },
       include: {
-        model: companyTb ,
+        model: usersTb ,
         required: true
       }, })
     .then(data => {
@@ -288,30 +320,61 @@ exports.createHiringManager = async (req, res) => {
     });
     return;
   }
-
-  var passwordHash = bcrypt.hashSync(req.body.HManager_password , 10);
+  var Company_id = req.body.Company_id; 
+  var passwordHash = bcrypt.hashSync(req.body.User_password , 10);
+  var User_roles_id =6; 
   // Create a Tutorial
   const HData = {
-    HManager_name: req.body.HManager_name,
-    HManager_email: req.body.HManager_email,
-    HManager_password: passwordHash,
+    HManager_name: req.body.HManager_name, 
     HManager_designation: req.body.HManager_designation,
     HManager_phone: req.body.HManager_phone,
     HManager_active: req.body.HManager_active,
     HManager_status: req.body.HManager_status, 
     Company_id: req.body.Company_id, 
   };
- 
-  HManagerTb.create(HData)
+
+  const loginData = { 
+    User_email: req.body.User_email, 
+    User_password: passwordHash, 
+   };
+   
+    async function insertLogin(Company_id , User_roles_id) {
+      loginData.Company_id =Company_id;
+      loginData.User_roles_id =User_roles_id;
+       
+       return await  usersTb.create(loginData)
+       .then(data => {  
+        // sendMail(data.User_email);
+          return data;
+       })
+       .catch(err => {
+           return err.message ; 
+       });
+     }
+
+    async function insertHiringManager(uid){
+      HData.User_id = uid;
+      HData.User_roles_id = User_roles_id;
+    await HManagerTb.create(HData)
     .then(data => {
-      res.send(data);
+      return data;
     })
     .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Tutorial."
-      });
+      return err.message ; 
     });
+    }
+
+    try {
+      const login =  await insertLogin(Company_id , User_roles_id);
+      const HManager =  await insertHiringManager(login.User_id);
+        var respos = {
+        "status" : "Success"
+      } 
+        res.send(respos);  
+    } catch (error) {
+      res.send(error);
+    }
+
 };
 
 exports.getHiringManagers = (req, res) => {
@@ -326,7 +389,7 @@ exports.getHiringManagers = (req, res) => {
     Company_id: req.body.Company_id , HManager_active:1
       },
       include: {
-        model: companyTb ,
+        model: usersTb ,
         required: true
       }, })
     .then(data => {

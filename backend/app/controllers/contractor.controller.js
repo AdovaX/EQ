@@ -66,7 +66,7 @@ exports.updateContractor= async (req, res) => {
   Contract_phone : req.body.Contractor_phone
   }; 
   const userData ={ 
-  User_email: req.body.Contractor_email,  
+  User_email: req.body.User_email,  
   }
   async function updateContractorProfile() {
      return await contractorTb.update(contractorData, {

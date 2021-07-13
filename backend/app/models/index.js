@@ -81,5 +81,11 @@ db.contractownerTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_i
 db.user.hasOne(db.spocTb, {foreignKey: 'User_id'}); 
 db.spocTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
 
+db.user.hasOne(db.LManagerTb, {foreignKey: 'User_id'}); 
+db.LManagerTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
+db.user.hasOne(db.HManagerTb, {foreignKey: 'User_id'}); 
+db.HManagerTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
 
 module.exports = db;

@@ -13,7 +13,7 @@
    
    <ul class="sidebar-menu">
       <li class="sidebar-header">MAIN NAVIGATION</li>
-      <li [routerLinkActive]="['active']">
+      <li >
         <a [routerLink]="[ '/company/Dashboard' ]"> 
           <i class="zmdi zmdi-home"></i>
 		  <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
@@ -32,21 +32,27 @@
         </a> 
       </li>
       <li [routerLinkActive]="['active']">
-        <a href="#"> 
+        <a [routerLink]="[ '/company/Listing' ]"> 
           <i class="zmdi zmdi-accounts-list"></i>
 		  <span>Listing Managers</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
       <li [routerLinkActive]="['active']">
-        <a href="#"> 
+        <a [routerLink]="[ '/company/Hiring' ]"> 
           <i class="zmdi zmdi-border-color"></i>
 		  <span>Hiring Managers</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
       <li [routerLinkActive]="['active']">
-        <a href="#"> 
+        <a [routerLink]="[ '/company/Resources' ]"> 
           <i class="zmdi zmdi-accounts-alt"></i>
 		  <span>Resource Lists</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+      <li [routerLinkActive]="['active']">
+        <a [routerLink]="[ '/company/Search' ]"> 
+          <i class="zmdi zmdi-accounts-alt"></i>
+		  <span>Search</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
       <li [routerLinkActive]="['active']">

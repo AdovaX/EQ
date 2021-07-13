@@ -7,15 +7,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       LManager_name: {
         type: Sequelize.STRING
-      },
-      LManager_email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      LManager_password: {
-        type: Sequelize.STRING
-      },
+      }, 
       LManager_designation: {
         type: Sequelize.STRING
       },
@@ -25,6 +17,26 @@ module.exports = (sequelize, Sequelize) => {
       LManager_active: {
         type: Sequelize.INTEGER,
         defaultValue : 1
+      },
+      User_roles_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { 
+          model: 'UserRolesTbs',
+          key: 'User_roles_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
+      },
+      User_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { 
+          model: 'UsersTbs',
+          key: 'User_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
       },
       Company_id: {
         type: Sequelize.INTEGER,

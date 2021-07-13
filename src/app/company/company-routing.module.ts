@@ -6,6 +6,10 @@ import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DelegateComponent } from './delegate/delegate.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
+import { CreateListingManagerComponent } from './create-listing-manager/create-listing-manager.component';
+import { CreateHiringManagerComponent } from './create-hiring-manager/create-hiring-manager.component';
+import {ResourceListComponent} from './resource-list/resource-list.component';
+import {SearchResourceComponent} from './search-resource/search-resource.component';
 
 const routes: Routes = [
     {
@@ -24,10 +28,19 @@ const routes: Routes = [
     path : 'CreateDelegate', component:DelegateComponent
   } , 
   {
-    path : 'ForgotPassword', component:DelegateComponent
+    path : 'Listing', component:CreateListingManagerComponent
   } , 
   {
-    path : 'ForgotPassword', component:DelegateComponent
+    path : 'Hiring', component:CreateHiringManagerComponent
+  } , 
+  {
+    path : 'Resources', component:ResourceListComponent
+  } , 
+  {
+    path : 'Search', component:SearchResourceComponent
+  } ,
+  {
+    path : 'ForgotPassword', component:RegistrationComponent
   } , 
   {
     path : 'Companyupdate', component:CompanyProfileComponent

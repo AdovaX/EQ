@@ -1,7 +1,7 @@
 
 const db = require("./app/models");
 //{force: true}
-db.sequelize.sync().then(function(){
+db.sequelize.sync({force: true}).then(function(){
     console.log("Creating Roles");
     db.userroles.create({
       User_roles: '1',
@@ -21,11 +21,11 @@ db.sequelize.sync().then(function(){
     }); 
     db.userroles.create({
       User_roles: '5',
-      User_role_description: 'Hiring'
+      User_role_description: 'Listing'
     }); 
     db.userroles.create({
       User_roles: '6',
-      User_role_description: 'Listing'
+      User_role_description: 'Hiring'
     }); 
     db.userroles.create({
       User_roles: '7',

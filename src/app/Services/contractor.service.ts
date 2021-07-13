@@ -41,12 +41,13 @@ export class ContractorService {
  updateContractorProfile(User_id , profileData): Observable<Contractor[]>{
     
     var profileData:any = {
-        'Contractor_email' : profileData.Contractor_email_Crl,
+        'User_email' : profileData.Contractor_email_Crl,
         'Contractor_phone' :profileData.Contract_phone_Crl,
         'Contractor_firstName' :profileData.Contractor_firstName_Crl,
         'Contractor_secondName' :profileData.Contractor_secondName_Crl,
         'User_id' : User_id,
-        "Contractor_id" : this.Contractor_id
+        "Contractor_id" : this.Contractor_id,
+        "Company_id" : this.Company_id
     }
    return this.http.put<Contractor[]>(this.REST_API_SERVER + '/contractor/updateProfile/', profileData);
  } 

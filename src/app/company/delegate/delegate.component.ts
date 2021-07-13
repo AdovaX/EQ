@@ -10,7 +10,8 @@ import { ContractorService } from '../../Services/contractor.service';
 export class DelegateComponent implements OnInit {
 
 Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
-  delegateForm: FormGroup;
+  delegateForm: FormGroup; 
+  fieldTextType: boolean;
   isUpdated = false;
   submitted = false;
   delegateData = [];
@@ -89,5 +90,7 @@ Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');
   resetForm(){ 
     this.delegateForm.reset();  
   }
-
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
 }
