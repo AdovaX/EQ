@@ -6,7 +6,8 @@ module.exports = (sequelize, Sequelize) => {
         autoIncrement: true
       },
       Project_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique:true
       },
       Project_location: {
         type: Sequelize.STRING
@@ -21,7 +22,14 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.TEXT
       },
       Created_by: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { 
+          model: 'user',
+          key: 'User_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
       } ,
       Company_id: {
         type: Sequelize.INTEGER,

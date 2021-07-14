@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'Search', component:SearchResourceComponent },
 
   { path: 'Profile', component:HManagerProfileComponent },
+  { path: 'Projectmanagement', loadChildren: () => import('./project-managment/project-managment.module').then(m => m.ProjectManagmentModule) },
 
 ];
 

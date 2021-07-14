@@ -7,6 +7,8 @@ module.exports = app => {
     router.post("/getMyCompany", HManager.getMyCompany);   
     router.post("/getResources_all", HManager.getResources_all);  
     router.post("/searchByKeywords", HManager.searchByKeywords);   
+    router.post("/createproject", HManager.createProject);   
+    router.post("/projectList", HManager.listofProjects);   
   
      app.use('/hiring', router);
 };

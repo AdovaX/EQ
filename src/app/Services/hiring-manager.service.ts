@@ -51,9 +51,9 @@ getProfileData(HManager_id): Observable<HiringManager[]>{
  }
 return this.http.post<HiringManager[]>(this.REST_API_SERVER + '/hiring/getMyCompany', data);
 }  
-getResources(HManager_id): Observable<Resource[]>{
+getResources(User_id): Observable<Resource[]>{
   var data = {
-     "HManager_id" : HManager_id
+     "User_id" : User_id
  }
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/hiring/getResources_all', data);
 }  

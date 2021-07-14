@@ -3,6 +3,7 @@ const companyTb = db.companyTb;
 const HManagerTb = db.HManagerTb;
 const delegateTb = db.delegateTb;
 const resourceTb = db.resourceTb;
+const projectTb = db.project;
 const usersTb = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
@@ -106,7 +107,7 @@ exports.updateProfile = async (req, res) => {
    };   
 
   exports.getResources_all= async (req, res) => {
-    if (req.body.HManager_id < 0 || req.body.Delegate_id < 0) {
+    if (req.body.User_id < 0) {
      res.status(400).send({
        message: "Content can not be empty!!"
      });
@@ -168,3 +169,56 @@ exports.updateProfile = async (req, res) => {
         });
       });
   };
+  exports.createProject = async (req, res) => {
+    if (!req.body.Project_name) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+   
+    const projectData = {
+      Project_name: req.body.Project_name,
+      Project_location: req.body.Project_location,
+      Start_date: req.body.Start_date,
+      End_date: req.body.End_date,
+      Description: req.body.Description,
+      Created_by: req.body.User_id,
+      Company_id: req.body.Company_id,
+      Status: req.body.Status,
+      Need_remote:req.body.Need_remote
+    };
+   async function projectCreation(){
+    projectTb.create(projectData)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+   }
+   const isCreated = projectCreation();
+   
+  };
+  exports.listofProjects = (req, res) => {
+    const Company_id = req.body.Company_id;
+   
+    projectTb.findAll({ where: {Company_id :Company_id , Status:'ACTIVE' },
+    include: {
+      model: companyTb ,
+      required: true
+    } })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+  };
+   

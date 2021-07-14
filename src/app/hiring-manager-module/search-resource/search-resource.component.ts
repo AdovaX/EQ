@@ -9,16 +9,16 @@ import {HiringManagerService} from '../../Services/hiring-manager.service';
 })
 export class SearchResourceComponent implements OnInit {
   Resource_list=[];
-  HM_id= sessionStorage.getItem('HM_ID');
+  User_id= sessionStorage.getItem('USER_ID');
   constructor(private formBuilder: FormBuilder, private HiringManagerService:HiringManagerService) { }
 
   ngOnInit(): void {
-    this.getResources(this.HM_id);
+    this.getResources(this.User_id);
 
   }
-  getResources(HM_id){
-    var HManager_id = HM_id; 
-    this.HiringManagerService.getResources(HManager_id).subscribe(data =>{
+  getResources(User_id){
+     
+    this.HiringManagerService.getResources(User_id).subscribe(data =>{
      console.log(data);  
      this.Resource_list =  data;
      });  
