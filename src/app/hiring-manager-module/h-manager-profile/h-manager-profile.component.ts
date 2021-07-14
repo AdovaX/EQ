@@ -8,7 +8,7 @@ import {HiringManagerService} from '../../Services/hiring-manager.service';
   styleUrls: ['./h-manager-profile.component.css']
 })
 export class HManagerProfileComponent implements OnInit {
-  HManager_id = sessionStorage.getItem('HM_ID');  
+  HManager_id = sessionStorage.getItem('USER_ID');  
   HManager_Form: FormGroup;
   submitted = false;
   isUpdated = false;
@@ -20,13 +20,13 @@ export class HManagerProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private HiringManagerService:HiringManagerService) { }
 
   HManager_fullname = new FormControl('', [ Validators.required, Validators.minLength(3)]);
-  HManager_email = new FormControl('', [ Validators.required, Validators.minLength(2)]);
+  User_email = new FormControl('', [ Validators.required, Validators.email]);
   HManager_designation = new FormControl('', [ Validators.required]);
   HManager_phone =new FormControl('', [ Validators.required]); 
   ngOnInit(): void {
     this.HManager_Form = this.formBuilder.group({
       HManager_fullname : this.HManager_fullname, 
-      HManager_email : this.HManager_email, 
+      User_email : this.User_email, 
       HManager_designation : this.HManager_designation, 
       HManager_phone : this.HManager_phone, 
   
@@ -38,15 +38,20 @@ export class HManagerProfileComponent implements OnInit {
     var HManager_id = id;
      this.HiringManagerService.getProfileData(HManager_id).subscribe(data =>{
      console.log(data);  
-     this.Company_name = data[0]['CompanyTb'].C_full_name;
-     this.Designation = data[0]['HManager_designation'];
+     var companyData= data[0]['HiringManagerTb']['CompanyTb'];
+     var profileData = data[0]['HiringManagerTb'];
+     var userData = data[0];
 
-     this.HManager_Form.controls.HManager_fullname.setValue(data[0]['HManager_name']);
-     this.HManager_Form.controls.HManager_email.setValue(data[0]['HManager_email']);
-     this.HManager_Form.controls.HManager_designation.setValue(data[0]['HManager_designation']);
-     this.HManager_Form.controls.HManager_phone.setValue(data[0]['HManager_phone']);  
+     this.Company_name = companyData['C_short_name'];
+     this.Designation = profileData['HManager_designation'];
+     sessionStorage.setItem("HM_ID" , String(profileData.HManager_id));
+
+     this.HManager_Form.controls.HManager_fullname.setValue(profileData['HManager_name']);
+     this.HManager_Form.controls.User_email.setValue(userData['User_email']);
+     this.HManager_Form.controls.HManager_designation.setValue(profileData['HManager_designation']);
+     this.HManager_Form.controls.HManager_phone.setValue(profileData['HManager_phone']);  
      
-     this.HManager_name = data[0]['HManager_name'];
+     this.HManager_name = profileData['HManager_name'];
      });  
  }
 
@@ -56,12 +61,12 @@ export class HManagerProfileComponent implements OnInit {
    return;
  }else{
    this.HiringManagerService.updateLManagerProfile(this.HManager_Form.value).subscribe(data =>{
-      if(data['status'] == "Failed"){
-       this.invalid = true;
-     }else{
-       this.invalid = false;
-       this.isUpdated = true; 
-     }
+    if(!data){
+      this.invalid = true;
+    }else{
+      this.invalid = false;
+      this.isUpdated = true; 
+    }
      this.getCompanyData(this.HManager_id);  
    }); 
  }  

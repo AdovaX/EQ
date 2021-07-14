@@ -14,6 +14,7 @@ export class ListingManagerService  {
 
   LManager_id = sessionStorage.getItem('LM_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID');  
+  User_id = sessionStorage.getItem('USER_ID');  
 
   constructor(private http: HttpClient) { }
   httpOptions = {
@@ -35,17 +36,18 @@ export class ListingManagerService  {
 updateLManagerProfile( profileData): Observable<ListingManager[]>{
   var profile:any = {
       'LManager_name' : profileData.LManager_fullname,
-      'LManager_email' :profileData.LManager_email,
+      'User_email' :profileData.User_email,
       'LManager_designation' :profileData.LManager_designation,
       'LManager_phone' :profileData.LManager_phone,
-      'LManager_id' : this.LManager_id
+      'User_id' : this.User_id,
+      'LManager_id' : sessionStorage.getItem("LM_ID")
   }
  return this.http.put<ListingManager[]>(this.REST_API_SERVER + '/listing/updateProfile/', profile);
 } 
  
 getProfileData(LManager_id): Observable<ListingManager[]>{
   var data = {
-     "LManager_id" : LManager_id
+     "User_id" : LManager_id
  }
 return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/listing/getMyCompany', data);
 } 

@@ -4,6 +4,7 @@ const LManagerTb = db.LManagerTb;
 const HManagerTb = db.HManagerTb;
 const delegateTb = db.delegateTb;
 const resourceTb = db.resourceTb;
+const usersTb = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 
@@ -95,7 +96,7 @@ exports.checkManagerType =  async(req, res) => {
      } 
   };
 
-  exports.updateProfile = (req, res) => {
+  exports.updateProfile =async (req, res) => {
     if (!req.body.LManager_id) {
         res.status(400).send({
           message: "Content can not be empty!"
@@ -104,47 +105,84 @@ exports.checkManagerType =  async(req, res) => {
       } 
   
   const profileData = {
-    LManager_name: req.body.LManager_name,
-    LManager_email: req.body.LManager_email,  
+    LManager_name: req.body.LManager_name,  
     LManager_designation: req.body.LManager_designation, 
     LManager_phone: req.body.LManager_phone 
     }; 
-   
-    LManagerTb.update(profileData, {
-      where: { LManager_id: req.body.LManager_id }
-    }).then(num => {
-        if (num == 1) {
-          res.send({
-            status: "true"
+    const userData ={ 
+      User_email: req.body.User_email,  
+      } 
+      async function userMailUpdate() {
+        return await usersTb.update(userData, {
+            where: { User_id: req.body.User_id }
+          }).then(num => {
+              if (num == 1) {
+               // res.send(num);
+                 return true;
+              } else {
+                 return false;
+              }
+            })
+            .catch(err => {
+              var errorMsg = {
+                error : 0
+              }
+              //res.status(500).send(errorMsg);
+              return false;
+            });
+      }
+      async function updateLManager() { 
+        return await LManagerTb.update(profileData, {
+          where: { LManager_id: req.body.LManager_id }
+        }).then(num => {
+            if (num == 1) {
+              res.send(num);
+               //return true;
+            } else {
+               return false;
+            }
+          })
+          .catch(err => {
+            var errorMsg = {
+              error : 0
+            }
+            //res.status(500).send(errorMsg);
+            return false;
           });
-        } else {
-          res.send({
-            status: "false"
-          });
-        }
-      }).catch(err => {
-        res.status(500).send({
-          message: err
-        });
-      });
+
+
+      }
+      const isupdateLManager= await updateLManager();
+      const isHManagerMailUpdated =await userMailUpdate();
+  
+      if(isupdateLManager == true && isHManagerMailUpdated == true){
+        res.send(isHManagerMailUpdated);
+        //return true;
+      }else{
+        return false;
+      }
+    
   };
    
 
   exports.getMyCompany= async (req, res) => {
-    if (!req.body.LManager_id) {
+    if (!req.body.User_id) {
      res.status(400).send({
        message: "Content can not be empty!"
      });
      return;
    }  
    async function getCompanyData() {
-    return await LManagerTb.findAll({
+    return await usersTb.findAll({
       where: {
-        LManager_id: req.body.LManager_id
+        User_id: req.body.User_id
       },
       include: {
-        model: companyTb ,
-        required: true
+        model: LManagerTb,
+        include: {
+          model: companyTb ,
+          required: true
+        }
       },
   
     });   

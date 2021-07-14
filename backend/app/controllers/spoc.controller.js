@@ -115,7 +115,7 @@ exports.getMyCompany= async (req, res) => {
 } 
 const myCompanyData =  await getCompanyData(); 
      res.status(200).send(myCompanyData);
-     return; 
+      
 };  
 
 
