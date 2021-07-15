@@ -19,6 +19,7 @@ require("./app/routes/contractor.routes")(app);
 require("./app/routes/delegate.routes")(app);
 require("./app/routes/listing.routes")(app);
 require("./app/routes/hiring.routes")(app);
+require("./app/routes/project.routes")(app);
  const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

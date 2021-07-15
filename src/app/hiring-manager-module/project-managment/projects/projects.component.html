@@ -44,8 +44,8 @@
                             <th>{{ item.Start_date }}</th>
                             <th>{{ item.End_date }}</th>
                             <th>{{ item.Status }}</th>
-                            <th>
-                                <button type="button" class="btn btn-info m-1"> <i class="fa fa-bar-chart"></i>   </button>                            </th>
+                            <th> 
+                                <button type="button" class="btn btn-info m-1" (click)="gotoAssignment(item.Project_id)" > <i class="fa fa-plus"></i>   </button>                            </th>
 
                             </tr>
                         </tbody>

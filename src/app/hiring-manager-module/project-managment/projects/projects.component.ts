@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProjectService} from '../../../Services/project.service';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-projects',
@@ -9,7 +10,7 @@ import {ProjectService} from '../../../Services/project.service';
 export class ProjectsComponent implements OnInit {
 projects=[];
 n =1;
-  constructor(private ProjectService :ProjectService) { }
+  constructor(private ProjectService :ProjectService , private Router:Router) { }
 
   ngOnInit(): void {
     this.ProjectService.getProjects().subscribe(data =>{
@@ -17,6 +18,10 @@ n =1;
   }, error => {
     console.log(error); 
   });
+  }
+  gotoAssignment(Project_id){
+     this.Router.navigate(['/L5Dashboard/Projectmanagement/Createassignment',Project_id]); 
+ 
   }
 
 }

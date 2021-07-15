@@ -16,38 +16,50 @@
        <div class="row">
         <div class="col-sm-4"> 
             <div class="form-group">
-             <label for="input-11">Project Name  </label>
-             <input type="text" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" 
+             <label for="input-11">Project Name <span class="redColor">*</span> </label>
+             <input type="text" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
              name="Project_name"  placeholder="Project Name " > 
+             <div *ngIf="submitted && f.Project_name.errors" class="invalid-feedback">
+                <div *ngIf="f.Project_name.errors.required">Name is a required field.</div> 
+              </div> 
             </div>
         </div>
         <div class="col-sm-4"> 
             <div class="form-group">
-             <label for="input-11">Location  </label>
-             <input type="text" class="form-control form-control-square" formControlName="Project_location"  id="Project_location" 
-             name="Project_location"  placeholder="Location   " > 
+             <label for="input-11">Location <span class="redColor">*</span>  </label>
+             <input type="text" class="form-control form-control-square" formControlName="Project_location"  id="Project_location" required
+             name="Project_location"  placeholder="Location " > 
+             <div *ngIf="submitted && f.Project_location.errors" class="invalid-feedback">
+                <div *ngIf="f.Project_location.errors.required">Name is a required field.</div> 
+              </div> 
             </div>
         </div>
 
         <div class="col-sm-4"> 
             <div class="form-group">
-             <label for="input-11">Start Date </label>
-             <input type="date" class="form-control form-control-square" formControlName="Start_date"  id="Start_date" 
+             <label for="input-11">Start Date <span class="redColor">*</span> </label>
+             <input type="date" class="form-control form-control-square" formControlName="Start_date"  id="Start_date" required
              name="Start_date"  placeholder="Start Date  " > 
+             <div *ngIf="submitted && f.Start_date.errors" class="invalid-feedback">
+                <div *ngIf="f.Start_date.errors.required">Name is a required field.</div> 
+              </div> 
             </div>
         </div>
 
         <div class="col-sm-4"> 
             <div class="form-group">
-             <label for="input-11">End Date </label>
-             <input type="date" class="form-control form-control-square" formControlName="End_date"  id="End_date" 
+             <label for="input-11">End Date <span class="redColor">*</span>  </label>
+             <input type="date" class="form-control form-control-square" formControlName="End_date"  id="End_date" required
              name="End_date"  placeholder="End_date" > 
+             <div *ngIf="submitted && f.End_date.errors" class="invalid-feedback">
+                <div *ngIf="f.End_date.errors.required">Name is a required field.</div> 
+              </div> 
             </div>
         </div>
 
         <div class="col-sm-4"> 
             <div class="form-group">
-             <label for="input-11">Remote Availability </label> <br>
+             <label for="input-11">Remote Availability <span class="redColor">*</span> </label> <br>
              <mat-radio-group aria-label="Select an option" formControlName="Need_remote" name="Need_remote">
                 <mat-radio-button value="YES"  > Yes</mat-radio-button>
                 <mat-radio-button value="NO">NO</mat-radio-button>
@@ -57,7 +69,7 @@
 
         <div class="col-sm-4"> 
             <div class="form-group">
-             <label for="input-11">Project status</label> <br>
+             <label for="input-11">Project status<span class="redColor">*</span> </label> <br>
              <mat-radio-group aria-label="Select an option" formControlName="Status" name="Status">
                 <mat-radio-button value="ACTIVE"  > Active</mat-radio-button>
                 <mat-radio-button value="NONACTIVE">Non Active</mat-radio-button>
@@ -67,8 +79,11 @@
 
         <div class="col-sm-12"> 
             <div class="form-group">
-             <label for="input-11">Desciption  </label>
-             <textarea class="form-control form-control-square" rows="8" formControlName="Description" name="Description"></textarea>
+             <label for="input-11">Desciption  <span class="redColor">*</span> </label>
+             <textarea class="form-control form-control-square" rows="8" formControlName="Description" name="Description" required></textarea>
+             <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+                <div *ngIf="f.Description.errors.required">Name is a required field.</div> 
+              </div> 
             </div>
         </div>  
        </div>

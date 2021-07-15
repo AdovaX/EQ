@@ -91,5 +91,11 @@ db.HManagerTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
 db.companyTb.hasOne(db.project, {foreignKey: 'Company_id'});  
 db.project.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
 
+db.companyTb.hasOne(db.requirement, {foreignKey: 'Company_id'});  
+db.requirement.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
+
+db.project.hasOne(db.requirement, {foreignKey: 'Project_id'});  
+db.requirement.belongsTo(db.project, {foreignKey: 'Company_id', targetKey: 'Project_id'});
+
 
 module.exports = db;

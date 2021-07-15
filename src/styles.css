@@ -4,6 +4,7 @@
 @import "../src/assets/css/icons.css"; 
 @import "../src/assets/css/sidebar-menu.css"; 
 @import "../src/assets/css/app-style.css";  
+@import "../src/assets/plugins/jquery.steps/css/jquery.steps.css";  
 @font-face {
     font-family: 'weathericons';
     src: url('../src/assets/fonts/weathericons-regular-webfont.eot');

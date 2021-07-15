@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE', 
       },
+      Requirement_name: {
+        type: Sequelize.STRING, 
+      } ,
       Week_duration: {
         type: Sequelize.INTEGER
       } ,
@@ -73,7 +76,7 @@ module.exports = (sequelize, Sequelize) => {
       No_of_resources: {
         type: Sequelize.INTEGER, 
       } ,
-      Documnets: {
+      Documents: {
         type: Sequelize.STRING, 
       } ,
       Project_id: {

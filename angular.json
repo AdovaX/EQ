@@ -33,7 +33,10 @@
               "./src/assets/js/bootstrap.min.js",
               "./src/assets/plugins/simplebar/js/simplebar.js",
               "./src/assets/js/sidebar-menu.js",
-              "./src/assets/js/app-script.js"
+              "./src/assets/js/app-script.js",
+              "./src/assets/plugins/jquery.steps/js/jquery.steps.min.js",
+              "./src/assets/plugins/jquery-validation/js/jquery.validate.min.js",
+              "./src/assets/plugins/jquery.steps/js/jquery.wizard-init.js"
             ]
           },
           "configurations": {

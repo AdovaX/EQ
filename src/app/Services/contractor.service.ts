@@ -45,7 +45,7 @@ export class ContractorService {
         'Contractor_phone' :profileData.Contract_phone_Crl,
         'Contractor_firstName' :profileData.Contractor_firstName_Crl,
         'Contractor_secondName' :profileData.Contractor_secondName_Crl,
-        'User_id' : User_id,
+        'User_id' : this.User_id,
         "Contractor_id" : this.Contractor_id,
         "Company_id" : this.Company_id
     }

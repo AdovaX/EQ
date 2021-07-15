@@ -1,0 +1,305 @@
+
+<app-menubar></app-menubar>
+<div class="content-wrapper">
+   <div class="container-fluid">
+
+    <div class="row pt-2 pb-2">
+        <div class="col-sm-9">
+            <h4 class="page-title"> Add a Requirement</h4> 
+       </div> 
+       </div> 
+
+    <div class="card">
+        <div class="card-body">  
+            <form [formGroup]="Requirement_Form" (ngSubmit)="onSubmit()">
+
+
+
+                <mat-horizontal-stepper  #stepper>
+                    <mat-step [stepControl]="Requirement_Form" >
+                         <ng-template matStepLabel>Requirement Duration</ng-template>
+
+
+                         <div class="row">
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Project Name <span class="redColor">*</span> </label>
+                                 <input type="text" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+                                 name="Project_name"  placeholder="Project Name " readonly> 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Requirement Name <span class="redColor">*</span> </label>
+                                 <input type="text" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+                                 name="Project_name"  placeholder="Project Name "  > 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Week Duration <span class="redColor">*</span> </label>
+                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+                                 name="Project_name"  placeholder="Project Name "  > 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Mandatory Duration in Week<span class="redColor">*</span> </label>
+                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+                                 name="Project_name"  placeholder="Project Name "  > 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Qualification<span class="redColor">*</span> </label>
+                                 <select class="form-control" id="default-select">
+                                    <option *ngFor="let item of educationsList"> {{item.Qualification}} </option> 
+                                    </select>
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Hours Per Week<span class="redColor">*</span> </label>
+                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+                                 name="Project_name"  placeholder="Project Name "  s> 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Hours Per Month<span class="redColor">*</span> </label>
+                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+                                 name="Project_name"  placeholder="Project Name "  s> 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Hour Per Day<span class="redColor">*</span> </label>
+                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+                                 name="Project_name"  placeholder="Project Name " s> 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                 <label for="input-11">Number of Resources<span class="redColor">*</span> </label>
+                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+                                 name="Project_name"  placeholder="Project Name " s> 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-12"> 
+                                <div class="form-group">
+                                 <label for="input-11">Description<span class="redColor">*</span> </label>
+                                 <textarea class="form-control form-control-square" name="" id="" cols="30" rows="7"></textarea>
+                                 
+                                </div>
+                            </div>
+                             
+                    
+                               
+                           </div> 
+ 
+
+                        <div>
+                          <button mat-button matStepperNext>Next</button>
+                        </div> 
+                    </mat-step>
+
+
+
+
+                    <mat-step [stepControl]="Requirement_Form"  >
+                         <ng-template matStepLabel>Technology Planing</ng-template>
+
+                         <div class="row">
+
+                         <div class="col-sm-4"> 
+                            <div class="form-group">
+                             <label for="input-11">Technology<span class="redColor">*</span> </label>
+                             <select class="form-control" id="default-select">
+                                <option *ngFor="let item of technologiesList"> {{item.Technology_name}} </option> 
+                                </select> 
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4"> 
+                            <div class="form-group">
+                             <label for="input-11">Domain<span class="redColor">*</span> </label>
+                             <select class="form-control" id="default-select">
+                                <option *ngFor="let item of domainsList"> {{item.Domain}} </option> 
+                                </select>
+                             
+                            </div>
+                        </div>
+
+
+                         </div>
+
+
+
+
+
+
+                        <div>
+                          <button mat-button matStepperPrevious>Back</button>
+                          <button mat-button matStepperNext>Next</button>
+                        </div>
+                     </mat-step>
+                    <mat-step>
+                      <ng-template matStepLabel>Completion</ng-template>
+                      <p>You are now done.</p>
+                      <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="stepper.reset()">Reset</button>
+                      </div>
+                    </mat-step>
+                  </mat-horizontal-stepper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  
+       <div class="row">
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Project Name <span class="redColor">*</span> </label>
+             <input type="text" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+             name="Project_name"  placeholder="Project Name " readonly> 
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Requirement Name <span class="redColor">*</span> </label>
+             <input type="text" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+             name="Project_name"  placeholder="Project Name "  > 
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Week Duration <span class="redColor">*</span> </label>
+             <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+             name="Project_name"  placeholder="Project Name "  > 
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Mandatory Duration in Week<span class="redColor">*</span> </label>
+             <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+             name="Project_name"  placeholder="Project Name "  > 
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Technology<span class="redColor">*</span> </label>
+             <select class="form-control" id="default-select">
+                <option *ngFor="let item of technologiesList"> {{item.Technology_name}} </option> 
+                </select>
+
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Domain<span class="redColor">*</span> </label>
+             <select class="form-control" id="default-select">
+                <option *ngFor="let item of domainsList"> {{item.Domain}} </option> 
+                </select>
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Qualification<span class="redColor">*</span> </label>
+             <select class="form-control" id="default-select">
+                <option *ngFor="let item of educationsList"> {{item.Qualification}} </option> 
+                </select>
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Hours Per Week<span class="redColor">*</span> </label>
+             <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+             name="Project_name"  placeholder="Project Name "  s> 
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Hours Per Month<span class="redColor">*</span> </label>
+             <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+             name="Project_name"  placeholder="Project Name "  s> 
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Hour Per Day<span class="redColor">*</span> </label>
+             <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+             name="Project_name"  placeholder="Project Name " s> 
+             
+            </div>
+        </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+             <label for="input-11">Number of Resources<span class="redColor">*</span> </label>
+             <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
+             name="Project_name"  placeholder="Project Name " s> 
+             
+            </div>
+        </div>
+        <div class="col-sm-12"> 
+            <div class="form-group">
+             <label for="input-11">Description<span class="redColor">*</span> </label>
+             <textarea class="form-control form-control-square" name="" id="" cols="30" rows="7"></textarea>
+             
+            </div>
+        </div>
+         
+
+           
+       </div>
+       <div class="row"> 
+        <div class="col-sm-12">
+        <div class="right">
+            <button type="submit" class="btn btn-primary m-1"   >
+                Proceed <span class="fa fa-share"></span> </button>
+        </div>
+    </div>
+</div>
+-->
+ </form>
+
+       </div>
+       </div>
+
+
+
+
+
+       <div class="overlay toggle-menu"></div> 
+    </div>
+    </div> 
+<app-footer></app-footer>

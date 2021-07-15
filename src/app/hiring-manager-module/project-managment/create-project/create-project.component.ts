@@ -35,6 +35,7 @@ export class CreateProjectComponent implements OnInit {
 onSubmit(){
   console.log(this.Project_Form.value);
   if (this.Project_Form.invalid) {  
+    this.submitted =true;
     return;
   }else{
     this.ProjectService.createProject(this.Project_Form.value).subscribe(data =>{
@@ -48,4 +49,6 @@ onSubmit(){
   }
 
 }
+get f() { return this.Project_Form.controls; }
+
 }

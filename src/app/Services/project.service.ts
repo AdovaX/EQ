@@ -40,11 +40,33 @@ getProjects(): Observable<Project[]>{
 var data = {
     "Company_id" : this.Company_id
 } 
-  
 return this.http.post<Project[]>(this.REST_API_SERVER + '/hiring/projectList', data);
-  
 }
+searchProjectById(Project_id){
+  var data = {
+    "Project_id" : Project_id
+} 
+return this.http.post<Project[]>(this.REST_API_SERVER + '/hiring/searchProjectById', data);
+}
+getDomains(){
+  
+  return this.http.get<any>(this.REST_API_SERVER + '/project/getDomains')
+  .pipe(retry(1),
+    catchError(this.handleError)
+  )
 
-
+}
+getTechnology(){
+  return this.http.get<any>(this.REST_API_SERVER + '/project/getTechnology')
+  .pipe(retry(1),
+    catchError(this.handleError)
+  )
+}
+getEducation(){
+  return this.http.get<any>(this.REST_API_SERVER + '/project/getEducation')
+  .pipe(retry(1),
+    catchError(this.handleError)
+  )
+}
 
 }
