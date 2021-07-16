@@ -12,8 +12,7 @@
     <div class="card">
         <div class="card-body">  
             <form [formGroup]="Requirement_Form" (ngSubmit)="onSubmit()">
-
-
+ 
 
                 <mat-horizontal-stepper  #stepper>
                     <mat-step [stepControl]="Requirement_Form" >
@@ -32,83 +31,69 @@
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Requirement Name <span class="redColor">*</span> </label>
-                                 <input type="text" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
-                                 name="Project_name"  placeholder="Project Name "  > 
+                                 <input type="text" class="form-control form-control-square" formControlName="Requirement_name"   id="Requirement_name" required 
+                                 name="Requirement_name"  placeholder="Requirement Name "  > 
                                  
                                 </div>
                             </div>
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Week Duration <span class="redColor">*</span> </label>
-                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
-                                 name="Project_name"  placeholder="Project Name "  > 
+                                 <input type="number" class="form-control form-control-square" formControlName="Week_duration"   id="Week_duration" required 
+                                 name="Week_duration"  placeholder="Week_duration"  > 
                                  
                                 </div>
                             </div>
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Mandatory Duration in Week<span class="redColor">*</span> </label>
-                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
-                                 name="Project_name"  placeholder="Project Name "  > 
-                                 
-                                </div>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <div class="form-group">
-                                 <label for="input-11">Qualification<span class="redColor">*</span> </label>
-                                 <select class="form-control" id="default-select">
-                                    <option *ngFor="let item of educationsList"> {{item.Qualification}} </option> 
-                                    </select>
+                                 <input type="number" class="form-control form-control-square" formControlName="Week_must_time"   id="Week_must_time" required 
+                                 name="Week_must_time"  placeholder="Mandatory Duration in Week"  > 
                                  
                                 </div>
                             </div>
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Hours Per Week<span class="redColor">*</span> </label>
-                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
-                                 name="Project_name"  placeholder="Project Name "  s> 
+                                 <input type="number" class="form-control form-control-square" formControlName="Hours_per_week"   id="Hours_per_week" required 
+                                 name="Hours_per_week"  placeholder="Hours per week" > 
                                  
                                 </div>
                             </div>
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Hours Per Month<span class="redColor">*</span> </label>
-                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
-                                 name="Project_name"  placeholder="Project Name "  s> 
+                                 <input type="number" class="form-control form-control-square" formControlName="Hours_per_month"   id="Hours_per_month" required 
+                                 name="Hours_per_month"  placeholder="Hours per month"   > 
                                  
                                 </div>
                             </div>
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Hour Per Day<span class="redColor">*</span> </label>
-                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
-                                 name="Project_name"  placeholder="Project Name " s> 
+                                 <input type="number" class="form-control form-control-square" formControlName="Hours_per_day"   id="Hours_per_day" required 
+                                 name="Hours_per_day"  placeholder="Project Name "  > 
                                  
                                 </div>
                             </div>
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Number of Resources<span class="redColor">*</span> </label>
-                                 <input type="number" class="form-control form-control-square" formControlName="Project_name"   id="Project_name" required 
-                                 name="Project_name"  placeholder="Project Name " s> 
+                                 <input type="number" class="form-control form-control-square" formControlName="No_of_resources"   id="No_of_resources" required 
+                                 name="No_of_resources"  placeholder="Number of Resources"  > 
                                  
                                 </div>
                             </div>
                             <div class="col-sm-12"> 
                                 <div class="form-group">
                                  <label for="input-11">Description<span class="redColor">*</span> </label>
-                                 <textarea class="form-control form-control-square" name="" id="" cols="30" rows="7"></textarea>
+                                 <textarea formControlName="Requirements_description" id="Requirements_description" class="form-control form-control-square" name="" id="" cols="30" rows="7"></textarea>
                                  
                                 </div>
-                            </div>
-                             
-                    
-                               
-                           </div> 
- 
-
+                            </div> 
+                           </div>   
                         <div>
-                          <button mat-button matStepperNext>Next</button>
+                          <button type="button" mat-raised-button color="primary" matStepperNext>Next <span class="fa fa-forward"></span> </button>
                         </div> 
                     </mat-step>
 
@@ -116,50 +101,91 @@
 
 
                     <mat-step [stepControl]="Requirement_Form"  >
-                         <ng-template matStepLabel>Technology Planing</ng-template>
+                         <ng-template matStepLabel>Technology & Domain</ng-template>
 
                          <div class="row">
 
-                         <div class="col-sm-4"> 
+                         <div class="col-sm-12"> 
                             <div class="form-group">
-                             <label for="input-11">Technology<span class="redColor">*</span> </label>
-                             <select class="form-control" id="default-select">
-                                <option *ngFor="let item of technologiesList"> {{item.Technology_name}} </option> 
-                                </select> 
+                             <label for="input-11">Technology<span class="redColor">*</span> </label><br>
+                              <div class="Acheckbox icheck-inline" *ngFor="let technology of technologiesList; let i=index">
+                                <label class="container"> {{technology.Technology_name}}
+                                    <input type="checkbox"  value ="{{technology.Technology_name}}" (change)="selectTech($event)">
+                                    <span class="checkmark"></span>
+                                    </label>
+                              </div> 
                             </div>
+                            
                         </div>
+                        </div>
+                          
+                        <div class="row">
 
-                        <div class="col-sm-4"> 
+                        <div class="col-sm-12"> 
+                            
                             <div class="form-group">
-                             <label for="input-11">Domain<span class="redColor">*</span> </label>
-                             <select class="form-control" id="default-select">
-                                <option *ngFor="let item of domainsList"> {{item.Domain}} </option> 
-                                </select>
-                             
+                             <label for="input-11">Domain<span class="redColor">*</span> </label><br>
+                             <div class="Acheckbox icheck-inline" *ngFor="let domain of domainsList; let i=index">
+                                <label class="container"> {{domain.Domain}}
+                                    <input type="checkbox"  value ="{{domain.Domain}}" (change)="selectDomain($event)">
+                                    <span class="checkmark"></span>
+                                    </label>
+                              </div> 
+ 
                             </div>
-                        </div>
 
+                        </div>
 
                          </div>
-
-
-
-
+ 
+ 
 
 
                         <div>
                           <button mat-button matStepperPrevious>Back</button>
-                          <button mat-button matStepperNext>Next</button>
+                          <button type="button"  mat-raised-button color="primary" matStepperNext>Next</button>
                         </div>
                      </mat-step>
+                     <mat-step>
+                       <ng-template matStepLabel>Qualificavation & Title</ng-template>
+ 
+                       <div class="row">
+
+                        <div class="col-sm-12"> 
+                            <div class="form-group">
+                             <label for="input-11">Qualification<span class="redColor">*</span> </label><br>
+                             <div class="Acheckbox icheck-inline" *ngFor="let qualification of educationsList; let i=index">
+                                <label class="container"> {{qualification.Qualification}}
+                                    <input type="checkbox"  value ="{{qualification.Qualification}}" (change)="selectEducation($event)">
+                                    <span class="checkmark"></span>
+                                    </label>
+                              </div>  
+                             
+                            </div>
+                        </div>
+                       </div>
+                         
+
+
+                       <div>
+                         <button mat-button matStepperPrevious>Back</button>
+                         <button type="button"  mat-raised-button color="primary" matStepperNext>Next</button>
+                       </div>
+                     </mat-step>
+
                     <mat-step>
-                      <ng-template matStepLabel>Completion</ng-template>
-                      <p>You are now done.</p>
-                      <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button (click)="stepper.reset()">Reset</button>
-                      </div>
-                    </mat-step>
+                        <ng-template matStepLabel>Completion</ng-template>
+                        <h4>Customer agreement</h4>
+                        <p>I, hereby aknowledge the above mentioned details are currect , authentic and 
+                            take full
+                            responsibility of the above requirement.</p>
+                            <br><br><br>
+                        <div>
+                          <button mat-button matStepperPrevious>Back</button>
+                          <button mat-button (click)="stepper.reset()">Reset</button>
+                          <button  mat-raised-button color="primary" type="submit">Agree and proceed <span class="fa fa-share"></span></button>
+                        </div>
+                      </mat-step>
                   </mat-horizontal-stepper>
 
 

@@ -9,6 +9,7 @@ export class Project{
     Company_id : string;
     Status : string; 
     Need_remote : string; 
+    ProjectId : string;
 
 }
  

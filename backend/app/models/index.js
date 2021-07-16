@@ -47,6 +47,9 @@ db.auditTrailTb = require("./audittrail.model")(sequelize, Sequelize);
 db.delegateTb = require("./delegate.model")(sequelize, Sequelize);
 db.LManagerTb = require("./listingmanager.model")(sequelize, Sequelize);
 db.HManagerTb = require("./Hiringmanager.model")(sequelize, Sequelize);
+db.SelectedTech = require("./selectedTechnologies.model")(sequelize, Sequelize);
+db.SelectedDomains = require("./selectedDomains.model")(sequelize, Sequelize);
+db.SelectedQualifications = require("./selectedQualifications.model")(sequelize, Sequelize);
 
  
 db.companyTb.hasOne(db.contractownerTb, {foreignKey: 'Company_id'});  
@@ -95,7 +98,37 @@ db.companyTb.hasOne(db.requirement, {foreignKey: 'Company_id'});
 db.requirement.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
 
 db.project.hasOne(db.requirement, {foreignKey: 'Project_id'});  
-db.requirement.belongsTo(db.project, {foreignKey: 'Company_id', targetKey: 'Project_id'});
+db.requirement.belongsTo(db.project, {foreignKey: 'Project_id', targetKey: 'Project_id'});
+
+db.requirement.hasOne(db.SelectedTech, {foreignKey: 'Requirement_id'});  
+db.SelectedTech.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
+
+db.user.hasOne(db.requirement, {foreignKey: 'User_id'});  
+db.SelectedTech.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
+
+
+db.requirement.hasOne(db.SelectedTech, {foreignKey: 'Requirement_id'});  
+db.SelectedTech.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
+
+db.user.hasOne(db.requirement, {foreignKey: 'User_id'});  
+db.SelectedTech.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
+
+
+db.requirement.hasOne(db.SelectedDomains, {foreignKey: 'Requirement_id'});  
+db.SelectedDomains.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
+
+db.user.hasOne(db.SelectedDomains, {foreignKey: 'User_id'});  
+db.SelectedDomains.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
+
+
+db.requirement.hasOne(db.SelectedQualifications, {foreignKey: 'Requirement_id'});  
+db.SelectedQualifications.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
+
+db.user.hasOne(db.SelectedQualifications, {foreignKey: 'User_id'});  
+db.SelectedQualifications.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
 
 
 module.exports = db;

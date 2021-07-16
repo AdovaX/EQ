@@ -68,5 +68,11 @@ getEducation(){
     catchError(this.handleError)
   )
 }
+createRequirement(data): Observable<Project[]>{ 
 
+  data.User_id = Number(this.User_id);
+  data.Company_id = Number(this.Company_id); 
+return this.http.post<Project[]>(this.REST_API_SERVER + '/project/createassignment', data);
+
+}
 }

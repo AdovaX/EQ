@@ -12,7 +12,6 @@ isHManager :boolean;
 USER_ID =""; 
   constructor(private router:Router) { 
     this.USER_ID = sessionStorage.getItem('USER_ID'); 
-    
     if(this.USER_ID == null   ){  
       this.router.navigate(['company/Login']); 
       

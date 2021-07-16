@@ -23,27 +23,7 @@ module.exports = (sequelize, Sequelize) => {
       } ,
       Week_must_time: {
         type: Sequelize.INTEGER
-      } ,
-      Technology_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: { 
-          model: 'TechnologyTbs',
-          key: 'Technology_id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE', 
-      } ,
-      Domain_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: { 
-          model: 'DomainTbs',
-          key: 'Domain_id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',  
-      } ,
+      } ,  
       Roles_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -53,17 +33,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE', 
-      } ,
-      Certification: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: { 
-          model: 'EducationTbs',
-          key: 'Education_id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE', 
-      } ,
+      } , 
       Hours_per_week: {
         type: Sequelize.INTEGER, 
       } ,

@@ -223,52 +223,6 @@ exports.updateProfile = async (req, res) => {
       });
   };
    
-
-  exports.createAssignment = async (req, res) => {
-    if (!req.body.Requirement_name) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
-   
-    const requirementData =  
-      {
-        "Company_id" : req.body.Company_id,
-        "Project_id" : req.body.Project_id,
-        "Requirement_name" :req.body.Requirement_name,
-        "Week_duration" :req.body.Week_duration,
-        "Week_must_time" : req.body.Week_must_time,
-        "Technology_id" : req.body.Technology_id,
-        "Domain_id" : req.body.Domain_id,
-        "Roles_id" : req.body.Roles_id,
-        "Certification" : req.body.Certification,
-        "Hours_per_week":req.body.Hours_per_week,
-        "Hours_per_month":req.body.Hours_per_month,
-        "Hours_per_day" : req.body.Hours_per_day,
-        "No_of_resources" : req.body.No_of_resources, 
-        "Requirements_description": req.body.Requirements_description
-    
-    
-    };  
-
-
-   async function assignmentCreation(){
-    requirementTb.create(requirementData)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Tutorial."
-      });
-    });
-   }
-   const isCreated = assignmentCreation();
-   
-  };
-
  exports.searchProjectById = (req, res) => {
     const Project_id = req.body.Project_id;
   

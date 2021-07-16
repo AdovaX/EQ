@@ -10,6 +10,7 @@ import {FooterComponent} from './footer/footer.component';
 import { CreateProjectComponent } from './create-project/create-project.component'; 
 import {   MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
@@ -27,6 +28,7 @@ import { CreateAssignmentsComponent } from './create-assignments/create-assignme
     MatRadioModule,
     MatSelectModule,
     MatStepperModule,
+    MatCheckboxModule,
     MatInputModule,MatButtonModule
   ]
 })

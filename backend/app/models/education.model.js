@@ -49,7 +49,7 @@ module.exports = (sequelize, Sequelize) => {
       }, 
       Category: {
         type: Sequelize.ENUM,
-        values : ['Degree' , 'Master' , 'Certificate'],
+        values : ['Degree' , 'Master' , 'Certificate' , 'Engineering'],
         defaultValue : 'Degree'
       }
     });
