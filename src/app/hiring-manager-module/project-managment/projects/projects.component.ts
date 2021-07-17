@@ -19,9 +19,17 @@ n =1;
     console.log(error); 
   });
   }
-  gotoAssignment(Project_id){
+  createAssignment(Project_id){
      this.Router.navigate(['/L5Dashboard/Projectmanagement/Createassignment',Project_id]); 
  
+  }
+  gotoAssignment(Project_id){
+     this.Router.navigate(['/L5Dashboard/Projectmanagement/Requirements',Project_id]); 
+ 
+  }
+  gotoProject(Project_id){
+    this.Router.navigate(['/L5Dashboard/Projectmanagement/ProjectDetails',Project_id]); 
+
   }
 
 }

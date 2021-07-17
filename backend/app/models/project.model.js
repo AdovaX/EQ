@@ -21,11 +21,11 @@ module.exports = (sequelize, Sequelize) => {
       Description: {
         type: Sequelize.TEXT
       },
-      Created_by: {
+      User_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: { 
-          model: 'user',
+          model: 'UsersTbs',
           key: 'User_id'
         },
         onUpdate: 'CASCADE',

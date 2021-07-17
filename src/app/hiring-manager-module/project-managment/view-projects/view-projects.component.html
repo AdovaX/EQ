@@ -1,0 +1,68 @@
+<app-menubar></app-menubar>
+<div class="content-wrapper">
+   <div class="container-fluid">
+
+    <div class="row pt-2 pb-2">
+        <div class="col-sm-9">
+            <h4 class="page-title"> Project Details</h4> 
+       </div> 
+       </div> 
+
+       <div class="card">
+        <div class="card-body">  
+       <div class="row"> 
+        <div class="col-sm-12">
+            <div>
+                <mat-card class="spaced">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5>{{project_data['projectName']}} <i class="fa fa-edit"></i> </h5>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="floright">
+                            <p>Duration : {{project_data['Start_date']}} : {{project_data['End_date'] }} <i class="fa fa-bars"></i> </p>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                             
+                        <p><b>Description :</b></p>
+                        <p>{{project_data['Description']}}</p>
+                        <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p><b>Remote Availability : </b>{{project_data['Need_remote']}}</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p><b>Project Location : </b>{{project_data['Project_location']}}</p>
+                        </div>
+                    </div>
+
+                </mat-card> 
+                <h5>Available Requirements</h5>
+                <div class="divid" *ngFor="let item of assignmentLists">
+                   * <a [routerLink]="[ '/path', routeParam ]">{{item.Requirement_name}}</a>
+
+                    
+
+                </div>
+        </div>
+
+ 
+   
+        </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+       <div class="overlay toggle-menu"></div> 
+    </div>
+    </div> 
+<app-footer></app-footer>

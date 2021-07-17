@@ -15,11 +15,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatCardModule} from '@angular/material/card';
 
 import { CreateAssignmentsComponent } from './create-assignments/create-assignments.component';
+import { ViewAssignmentsComponent } from './view-assignments/view-assignments.component';
+import { ViewProjectsComponent } from './view-projects/view-projects.component';
 
 @NgModule({
-  declarations: [ProjectsComponent,MenubarComponent,FooterComponent, CreateProjectComponent, CreateAssignmentsComponent,],
+  declarations: [ProjectsComponent,MenubarComponent,FooterComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent,],
   imports: [
     CommonModule,
     ProjectManagmentRoutingModule,
@@ -29,7 +33,9 @@ import { CreateAssignmentsComponent } from './create-assignments/create-assignme
     MatSelectModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatInputModule,MatButtonModule
+    MatMenuModule,
+    MatInputModule,MatButtonModule,
+    MatCardModule
   ]
 })
 export class ProjectManagmentModule { }

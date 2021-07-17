@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core'; 
 import { FormBuilder, FormGroup, Validators,FormControl,FormArray } from '@angular/forms';
 import {ProjectService} from '../../../Services/project.service';
-import {Router} from "@angular/router"
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-create-assignments',
   templateUrl: './create-assignments.component.html',
@@ -18,10 +18,10 @@ export class CreateAssignmentsComponent implements OnInit {
   selectedTechnologies=[];
   selectedDomains=[];
   selectedEducation=[];
-   
-  constructor(  private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService, private formBuilder: FormBuilder,) { 
+  User_id;
+  constructor(  private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService, private formBuilder: FormBuilder,private Router:Router) { 
     this.Project_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
-   
+    this.User_id = sessionStorage.getItem('USER_ID');  
   }
 
   Project_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
@@ -136,6 +136,9 @@ onSubmit(){
     console.log(d);
     this.ProjectService.createRequirement(this.Requirement_Form.value).subscribe(data =>{
          console.log(data);
+         this.Router.navigate(['L5Dashboard/Projectmanagement']); 
+
+
     }, error => {
       console.log(error); 
     });

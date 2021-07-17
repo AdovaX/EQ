@@ -181,6 +181,7 @@ exports.updateProfile = async (req, res) => {
     const projectData = {
       Project_name: req.body.Project_name,
       Project_location: req.body.Project_location,
+      User_id: req.body.User_id,
       Start_date: req.body.Start_date,
       End_date: req.body.End_date,
       Description: req.body.Description,

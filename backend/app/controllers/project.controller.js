@@ -68,6 +68,7 @@ exports.getEducation = (req, res) => {
       {
         "Company_id" : req.body.Company_id,
         "Project_id" : req.body.ProjectId,
+        "User_id" : req.body.User_id,
         "Requirement_name" :req.body.Requirement_name,
         "Week_duration" :req.body.Week_duration,
         "Week_must_time" : req.body.Week_must_time,
@@ -79,15 +80,7 @@ exports.getEducation = (req, res) => {
         "Requirements_description": req.body.Requirements_description,  
     };   
     
-    
-
-
- 
-
-
- 
-
-
+     
    async function addTechnologies(r_id){
      let t_list =  req.body.Technology_id; 
     let listOfTechnologies =[]; 
@@ -190,3 +183,49 @@ isAddedRequirement()
     })
    
   };
+  
+  exports.getAssignmentsById = (req, res) => {
+    const Project_id = req.body.Project_id; 
+    const User_id = req.body.User_id; 
+    
+    requirementTb.findAll({ where: {Project_id : Project_id , User_id:User_id},
+      include: {
+        model: projectTb ,
+        include: {
+          model: usersTb ,
+          required: true
+        }
+      } })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+    };
+
+  exports.getProjectById = (req, res) => {
+    const Project_id = req.body.Project_id; 
+    const User_id = req.body.User_id; 
+    
+    projectTb.findOne({ where: {Project_id : Project_id , User_id:User_id},
+      include: {
+        model: requirementTb ,
+        include: {
+          model: usersTb ,
+          required: true
+        }
+      } })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+    };

@@ -75,4 +75,18 @@ createRequirement(data): Observable<Project[]>{
 return this.http.post<Project[]>(this.REST_API_SERVER + '/project/createassignment', data);
 
 }
+getAssignmentsById(Project_id){
+  var data = {
+    "Project_id" : Project_id,
+    "User_id" : this.User_id
+} 
+return this.http.post<Project[]>(this.REST_API_SERVER + '/project/getAssignmentsById', data);
+}
+getProjectById(Project_id){
+  var data = {
+    "Project_id" : Project_id,
+    "User_id" : this.User_id
+} 
+return this.http.post<Project[]>(this.REST_API_SERVER + '/project/getProjectById', data);
+}
 }

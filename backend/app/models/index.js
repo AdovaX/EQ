@@ -90,6 +90,9 @@ db.LManagerTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
 db.user.hasOne(db.HManagerTb, {foreignKey: 'User_id'}); 
 db.HManagerTb.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
 
+db.user.hasOne(db.project, {foreignKey: 'User_id'}); 
+db.project.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
+
 
 db.companyTb.hasOne(db.project, {foreignKey: 'Company_id'});  
 db.project.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
@@ -110,6 +113,9 @@ db.SelectedTech.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'}
 
 db.requirement.hasOne(db.SelectedTech, {foreignKey: 'Requirement_id'});  
 db.SelectedTech.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
+
+db.user.hasOne(db.requirement, {foreignKey: 'User_id'});  
+db.requirement.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
 
 db.user.hasOne(db.requirement, {foreignKey: 'User_id'});  
 db.SelectedTech.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});

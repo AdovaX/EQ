@@ -61,7 +61,17 @@ module.exports = (sequelize, Sequelize) => {
       } ,
       Requirements_description: {
         type: Sequelize.TEXT, 
-      } 
+      } ,
+      User_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { 
+          model: 'UsersTbs',
+          key: 'User_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
+      }
     });
   
     return Requirement;

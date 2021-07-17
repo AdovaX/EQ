@@ -23,7 +23,9 @@ isUpdated = false;
 invalid = false;
 updateContractorForm: FormGroup;
 
-  constructor(private ContractorService:ContractorService,private formBuilder: FormBuilder) { }
+  constructor(private ContractorService:ContractorService,private formBuilder: FormBuilder) { 
+    this.Contractor_id = sessionStorage.getItem('USER_ID');  
+  }
 
   
   Contractor_firstName_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
