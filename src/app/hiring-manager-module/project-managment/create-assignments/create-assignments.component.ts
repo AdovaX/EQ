@@ -168,13 +168,10 @@ getDomains(){
 }
 getTechnology(){
   this.ProjectService.getTechnology().subscribe(data =>{
-     
-    for (let item of data) {
-      this.technologiesList.push({
-        Technology_name: item.Technology_name
-      });
-    }
-    console.log(this.technologiesList);
+     console.log("Technologies");
+     console.log(data);
+     this.technologiesList=data;
+    
 }, error => {
   console.log(error); 
 });

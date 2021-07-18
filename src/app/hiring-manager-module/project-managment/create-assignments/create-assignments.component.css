@@ -84,3 +84,9 @@
 .container input:checked ~ .checkmark:after {
   display: block;
 }
+.marg{
+  margin-bottom: 10px;
+}
+.form-group label{
+  font-size: 15px;
+}

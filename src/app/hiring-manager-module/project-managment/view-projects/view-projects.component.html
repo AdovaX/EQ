@@ -12,8 +12,7 @@
         <div class="card-body">  
        <div class="row"> 
         <div class="col-sm-12">
-            <div>
-                <mat-card class="spaced">
+            <div> 
                     <div class="row">
                         <div class="col-sm-6">
                             <h5>{{project_data['projectName']}} <i class="fa fa-edit"></i> </h5>
@@ -40,8 +39,7 @@
                             <p><b>Project Location : </b>{{project_data['Project_location']}}</p>
                         </div>
                     </div>
-
-                </mat-card> 
+ 
                 <h5>Available Requirements</h5>
                 <div class="divid" *ngFor="let item of assignmentLists">
                    * <a [routerLink]="[ '/path', routeParam ]">{{item.Requirement_name}}</a>

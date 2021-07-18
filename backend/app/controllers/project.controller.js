@@ -11,6 +11,7 @@ const Op = db.Sequelize.Op;
 const SelectedDomainsTb = db.SelectedDomains;
 const SelectedQualificationsTb = db.SelectedQualifications;
 const SelectedTechTb = db.SelectedTech;
+const techcategoryTb = db.techcategory;
 
 
 
@@ -28,7 +29,11 @@ exports.getDomains = (req, res) => {
   };
   
 exports.getTechnology = (req, res) => { 
-    technologyTb.findAll()
+  techcategoryTb.findAll({  
+      include: {
+        model: technologyTb,
+        required: true
+      } })
       .then(data => {
         res.send(data);
       })

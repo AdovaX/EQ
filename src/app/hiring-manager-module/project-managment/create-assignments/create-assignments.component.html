@@ -102,22 +102,34 @@
 
                     <mat-step [stepControl]="Requirement_Form"  >
                          <ng-template matStepLabel>Technology & Domain</ng-template>
-
-                         <div class="row">
-
-                         <div class="col-sm-12"> 
+ 
                             <div class="form-group">
                              <label for="input-11">Technology<span class="redColor">*</span> </label><br>
-                              <div class="Acheckbox icheck-inline" *ngFor="let technology of technologiesList; let i=index">
-                                <label class="container"> {{technology.Technology_name}}
-                                    <input type="checkbox"  value ="{{technology.Technology_name}}" (change)="selectTech($event)">
-                                    <span class="checkmark"></span>
-                                    </label>
-                              </div> 
-                            </div>
-                            
-                        </div>
-                        </div>
+                             <mat-accordion>
+                                <div class="marg" *ngFor="let techncat of technologiesList; let i=index">
+                                <mat-expansion-panel hideToggle>
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{techncat.Technology_category}} 
+                                    </mat-panel-title> 
+                                  </mat-expansion-panel-header>
+                                    <mat-panel-description>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                            <div class="Acheckbox icheck-inline" *ngFor="let technology of techncat['TechnologyTbs']; let j=index">
+                                            <label class="container"> {{technology.Technology_name}}
+                                            <input type="checkbox"  value ="{{technology.Technology_name}}" (change)="selectTech($event)">
+                                            <span class="checkmark"></span>
+                                            </label>
+                                            </div> 
+                                            </div> 
+                                            </div>
+                                    </mat-panel-description> 
+                                </mat-expansion-panel>
+                                </div>
+                                </mat-accordion>
+                                 
+                            </div>  
                           
                         <div class="row">
 
@@ -175,11 +187,33 @@
 
                     <mat-step>
                         <ng-template matStepLabel>Completion</ng-template>
-                        <h4>Customer agreement</h4>
-                        <p>I, hereby aknowledge the above mentioned details are currect , authentic and 
-                            take full
-                            responsibility of the above requirement.</p>
-                            <br><br><br>
+                        <h4>Review</h4>
+                        <p><b>Please review your selections.</b></p>
+                        <p class="review"> Project name: {{Requirement_Form.value.Project_name}} </p>
+                        <p class="review"> Requirement Name : {{Requirement_Form.value.Requirement_name}} </p>
+                        <p class="review"> Duration in Week: {{Requirement_Form.value.Week_duration}} </p>
+                        <p class="review"> Duration in Week (mandatory): {{Requirement_Form.value.Week_must_time}} </p>
+                        <p class="review"> Technology List: </p>
+                        <ul>
+                            <li *ngFor="let item of selectedTechnologies; let i = index"> 
+                                {{item}}</li>
+                        </ul>
+                        <p class="review"> Domain List: </p>
+                        <ul>
+                            <li *ngFor="let item of selectedDomains; let i = index"> 
+                                {{item}}</li>
+                        </ul>
+                        <p class="review"> Qualification List:   </p>
+                        <ul>
+                            <li *ngFor="let item of selectedEducation; let i = index"> 
+                                {{item}}</li>
+                        </ul>
+                        <p class="review"> Hours per week: {{Requirement_Form.value.Hours_per_week}} </p>
+                        <p class="review"> Hours per month: {{Requirement_Form.value.Hours_per_month}} </p>
+                        <p class="review"> Hours per day: {{Requirement_Form.value.Hours_per_day}} </p>
+                        <p class="review"> Number of resources: {{Requirement_Form.value.No_of_resources}} </p>
+                        <p class="review"> Description: {{Requirement_Form.value.Requirements_description}} </p>
+                        
                         <div>
                           <button mat-button matStepperPrevious>Back</button>
                           <button mat-button (click)="stepper.reset()">Reset</button>

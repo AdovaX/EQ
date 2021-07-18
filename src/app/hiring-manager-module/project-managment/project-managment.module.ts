@@ -17,6 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { CreateAssignmentsComponent } from './create-assignments/create-assignments.component';
 import { ViewAssignmentsComponent } from './view-assignments/view-assignments.component';
@@ -33,6 +34,7 @@ import { ViewProjectsComponent } from './view-projects/view-projects.component';
     MatSelectModule,
     MatStepperModule,
     MatCheckboxModule,
+    MatExpansionModule,
     MatMenuModule,
     MatInputModule,MatButtonModule,
     MatCardModule

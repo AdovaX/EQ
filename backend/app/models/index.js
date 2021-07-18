@@ -52,6 +52,9 @@ db.SelectedDomains = require("./selectedDomains.model")(sequelize, Sequelize);
 db.SelectedQualifications = require("./selectedQualifications.model")(sequelize, Sequelize);
 
  
+db.techcategory.hasMany(db.technology, {foreignKey: 'Technology_category_id'});  
+db.technology.belongsTo(db.techcategory, {foreignKey: 'Technology_category_id', targetKey: 'Technology_category_id'});
+ 
 db.companyTb.hasOne(db.contractownerTb, {foreignKey: 'Company_id'});  
 db.contractownerTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
 
