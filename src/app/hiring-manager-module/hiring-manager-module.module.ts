@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { MenubarComponent } from './menubar/menubar.component';
+import { MatTableModule } from '@angular/material/table'  
 
 import { FooterComponent } from './footer/footer.component';
 
@@ -18,7 +19,7 @@ import { HManagerProfileComponent } from './h-manager-profile/h-manager-profile.
 
 import { HiringManagerModuleRoutingModule } from './hiring-manager-module-routing.module';
 
-
+ 
 @NgModule({
   declarations: [MenubarComponent, FooterComponent, HiringManagerDashboardComponent, SearchResourceComponent, HManagerProfileComponent],
   imports: [
@@ -28,7 +29,7 @@ import { HiringManagerModuleRoutingModule } from './hiring-manager-module-routin
     FormsModule,
     MatInputModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,MatTableModule
   ]
 })
 export class HiringManagerModuleModule { }

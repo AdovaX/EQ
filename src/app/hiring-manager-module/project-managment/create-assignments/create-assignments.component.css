@@ -55,7 +55,7 @@
   height: 23px;
   width: 23px;
   background-color: #ccc;
-  border-radius: 50%;
+  border-radius: 20%;
 }
 
 .container:hover input ~ .checkmark {

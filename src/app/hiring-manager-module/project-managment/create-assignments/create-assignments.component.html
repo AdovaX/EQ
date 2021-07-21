@@ -101,7 +101,7 @@
 
 
                     <mat-step [stepControl]="Requirement_Form"  >
-                         <ng-template matStepLabel>Technology & Domain</ng-template>
+                         <ng-template matStepLabel>Technology </ng-template>
  
                             <div class="form-group">
                              <label for="input-11">Technology<span class="redColor">*</span> </label><br>
@@ -127,66 +127,83 @@
                                     </mat-panel-description> 
                                 </mat-expansion-panel>
                                 </div>
-                                </mat-accordion>
-                                 
-                            </div>  
-                          
-                        <div class="row">
-
-                        <div class="col-sm-12"> 
-                            
-                            <div class="form-group">
-                             <label for="input-11">Domain<span class="redColor">*</span> </label><br>
-                             <div class="Acheckbox icheck-inline" *ngFor="let domain of domainsList; let i=index">
-                                <label class="container"> {{domain.Domain}}
-                                    <input type="checkbox"  value ="{{domain.Domain}}" (change)="selectDomain($event)">
-                                    <span class="checkmark"></span>
-                                    </label>
-                              </div> 
- 
-                            </div>
-
-                        </div>
-
-                         </div>
- 
- 
-
-
+                                </mat-accordion> 
+                            </div>   
                         <div>
                           <button mat-button matStepperPrevious>Back</button>
                           <button type="button"  mat-raised-button color="primary" matStepperNext>Next</button>
                         </div>
-                     </mat-step>
-                     <mat-step>
-                       <ng-template matStepLabel>Qualificavation & Title</ng-template>
+                    </mat-step>
  
-                       <div class="row">
+                <mat-step>
+                  <ng-template matStepLabel>Domains</ng-template> 
+  
+                  <div class="row">
 
-                        <div class="col-sm-12"> 
-                            <div class="form-group">
-                             <label for="input-11">Qualification<span class="redColor">*</span> </label><br>
-                             <div class="Acheckbox icheck-inline" *ngFor="let qualification of educationsList; let i=index">
-                                <label class="container"> {{qualification.Qualification}}
-                                    <input type="checkbox"  value ="{{qualification.Qualification}}" (change)="selectEducation($event)">
-                                    <span class="checkmark"></span>
-                                    </label>
-                              </div>  
-                             
-                            </div>
+                    <div class="col-sm-12"> 
+                        
+                        <div class="form-group">
+                         <label for="input-11">Domain<span class="redColor">*</span> </label><br>
+                         <div class="Acheckbox icheck-inline" *ngFor="let domain of domainsList; let i=index">
+                            <label class="container"> {{domain.Domain}}
+                                <input type="checkbox"  value ="{{domain.Domain}}" (change)="selectDomain($event)">
+                                <span class="checkmark"></span>
+                                </label>
+                          </div> 
+
                         </div>
-                       </div>
-                         
 
+                    </div>
 
-                       <div>
-                         <button mat-button matStepperPrevious>Back</button>
-                         <button type="button"  mat-raised-button color="primary" matStepperNext>Next</button>
+                     </div> 
+                  <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button type="button"  mat-raised-button color="primary" matStepperNext>Next</button>
+                  </div>
+                </mat-step>
+                    <mat-step>
+                      <ng-template matStepLabel>Qualificavation </ng-template> 
+                      <div class="row"> 
+                       <div class="col-sm-12"> 
+                           <div class="form-group">
+                            <label for="input-11">Qualification<span class="redColor">*</span> </label><br>
+                            <div class="Acheckbox icheck-inline" *ngFor="let qualification of educationsList; let i=index">
+                               <label class="container"> {{qualification.Qualification}}
+                                   <input type="checkbox"  value ="{{qualification.Qualification}}" (change)="selectEducation($event)">
+                                   <span class="checkmark"></span>
+                                   </label>
+                             </div>   
+                           </div>
                        </div>
-                     </mat-step>
+                      </div> 
+                      <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button type="button"  mat-raised-button color="primary" matStepperNext>Next</button>
+                      </div>
+                    </mat-step>                 
+                <mat-step>
+                  <ng-template matStepLabel> Title</ng-template> 
+                  <div class="row"> 
+                   <div class="col-sm-12"> 
+                       <div class="form-group">
+                        <label for="input-11">Title<span class="redColor">*</span> </label><br>
+                        <div class="Acheckbox icheck-inline" *ngFor="let qualification of educationsList; let i=index">
+                           <label class="container"> {{qualification.Qualification}}
+                               <input type="checkbox"  value ="{{qualification.Qualification}}" (change)="selectEducation($event)">
+                               <span class="checkmark"></span>
+                               </label>
+                         </div>   
+                       </div>
+                   </div>
+                  </div> 
+                  <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button type="button"  mat-raised-button color="primary" matStepperNext>Next</button>
+                  </div>
+                </mat-step>
 
                     <mat-step>
-                        <ng-template matStepLabel>Completion</ng-template>
+                        <ng-template matStepLabel>Review</ng-template>
                         <h4>Review</h4>
                         <p><b>Please review your selections.</b></p>
                         <p class="review"> Project name: {{Requirement_Form.value.Project_name}} </p>

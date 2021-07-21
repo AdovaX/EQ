@@ -52,7 +52,7 @@ exports.updateCompany = async (req, res) => {
 };  
    
 exports.updateContractor= async (req, res) => {
-  if (!req.body.Contractor_id) {
+  if (!req.body.User_id) {
    res.status(400).send({
      message: "Content can not be empty!"
    });
@@ -70,7 +70,7 @@ exports.updateContractor= async (req, res) => {
   }
   async function updateContractorProfile() {
      return await contractorTb.update(contractorData, {
-         where: { Contractor_id: req.body.Contractor_id }
+         where: { User_id: req.body.User_id }
        }).then(num => {
            if (num == 1) {
               return true;

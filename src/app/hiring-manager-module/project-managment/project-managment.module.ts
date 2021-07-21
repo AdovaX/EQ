@@ -22,9 +22,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { CreateAssignmentsComponent } from './create-assignments/create-assignments.component';
 import { ViewAssignmentsComponent } from './view-assignments/view-assignments.component';
 import { ViewProjectsComponent } from './view-projects/view-projects.component';
+import { FindMachingComponent } from './find-maching/find-maching.component';
 
 @NgModule({
-  declarations: [ProjectsComponent,MenubarComponent,FooterComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent,],
+  declarations: [ProjectsComponent,MenubarComponent,FooterComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent,],
   imports: [
     CommonModule,
     ProjectManagmentRoutingModule,

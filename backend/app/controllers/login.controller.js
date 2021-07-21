@@ -11,7 +11,7 @@ exports.mainLogin =  async(req, res) => {
     var role = req.body.User_role;
     var password = req.body.User_password;
 
-usersTb.findAll({where : {User_email:email , User_roles_id : role},include: {
+await usersTb.findAll({where : {User_email:email , User_roles_id : role},include: {
     model: companyTb ,
     required: true
   }})

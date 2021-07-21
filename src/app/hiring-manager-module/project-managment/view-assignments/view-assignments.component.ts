@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 export class ViewAssignmentsComponent implements OnInit {
   Project_id;
   assignmentLists=[];
-  constructor(  private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService, private formBuilder: FormBuilder,) { 
+  constructor(  private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService, private formBuilder: FormBuilder,private router:Router) { 
     this.Project_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
    
   }
@@ -28,5 +28,9 @@ this.ProjectService.getAssignmentsById(this.Project_id).subscribe(data =>{
 console.log(error); 
 });
 }
+findMatching(id){ 
 
+  this.router.navigate(['L5Dashboard/Projectmanagement/Findmaching',id]); 
+
+}
 }
