@@ -68,6 +68,12 @@ getEducation(){
     catchError(this.handleError)
   )
 }
+getRoles(){
+  return this.http.get<any>(this.REST_API_SERVER + '/project/getRoles')
+  .pipe(retry(1),
+    catchError(this.handleError)
+  )
+}
 createRequirement(data): Observable<Project[]>{ 
 
   data.User_id = Number(this.User_id);

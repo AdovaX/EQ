@@ -187,9 +187,9 @@
                    <div class="col-sm-12"> 
                        <div class="form-group">
                         <label for="input-11">Title<span class="redColor">*</span> </label><br>
-                        <div class="Acheckbox icheck-inline" *ngFor="let qualification of educationsList; let i=index">
-                           <label class="container"> {{qualification.Qualification}}
-                               <input type="checkbox"  value ="{{qualification.Qualification}}" (change)="selectEducation($event)">
+                        <div class="Acheckbox icheck-inline" *ngFor="let Role of rolesList; let i=index">
+                           <label class="container"> {{Role.Roles}}
+                               <input type="checkbox"  value ="{{Role.Roles}}" (change)="selectRole($event)">
                                <span class="checkmark"></span>
                                </label>
                          </div>   
@@ -223,6 +223,12 @@
                         <p class="review"> Qualification List:   </p>
                         <ul>
                             <li *ngFor="let item of selectedEducation; let i = index"> 
+                                {{item}}</li>
+                        </ul>
+
+                        <p class="review"> Title List:   </p>
+                        <ul>
+                            <li *ngFor="let item of selectedRoles; let i = index"> 
                                 {{item}}</li>
                         </ul>
                         <p class="review"> Hours per week: {{Requirement_Form.value.Hours_per_week}} </p>

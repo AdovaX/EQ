@@ -6,12 +6,14 @@ const resourceTb = db.resourceTb;
 const requirementTb = db.requirement;
 const projectTb = db.project;
 const technologyTb = db.technology;
+const rolesTb = db.roles;
 const usersTb = db.user;
 const Op = db.Sequelize.Op; 
 const SelectedDomainsTb = db.SelectedDomains;
 const SelectedQualificationsTb = db.SelectedQualifications;
 const SelectedTechTb = db.SelectedTech;
 const techcategoryTb = db.techcategory;
+const selectedRolesTb = db.SelectedRoles;
 
 
 
@@ -45,18 +47,31 @@ exports.getTechnology = (req, res) => {
       });
   };
   
-exports.getEducation = (req, res) => { 
-    educationTb.findAll()
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
+  exports.getEducation = (req, res) => { 
+      educationTb.findAll()
+        .then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving tutorials."
+          });
         });
-      });
-  };
+    };
+  
+    exports.getRoles = (req, res) => { 
+        rolesTb.findAll()
+          .then(data => {
+            res.send(data);
+          })
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || "Some error occurred while retrieving tutorials."
+            });
+          });
+      };
   
 
 
@@ -121,6 +136,7 @@ exports.getEducation = (req, res) => {
     });     
     SelectedDomainsTb.bulkCreate(listOfDomains)
     .then(data => {
+      console.log("Domains entered " + data);
       return true;
     })
     .catch(err => {
@@ -141,7 +157,28 @@ exports.getEducation = (req, res) => {
     }); 
     SelectedQualificationsTb.bulkCreate(listOfCertification)
     .then(data => {
-       
+      console.log("Qualifications entered " + data);
+    })
+    .catch(err => {
+     
+      console.log(err);
+    });
+   }
+   async function addRoles(r_id){
+     let r_list =  req.body.Roles_id; 
+    let listOfRoles =[]; 
+    console.log(req.body.Roles_id);
+    r_list.forEach(element => {
+      var cc ={
+        "Roles" : JSON.stringify(element['Roles']),
+        "User_id" : User_id,  
+        "Requirement_id":r_id
+      }
+      listOfRoles.push(cc); 
+    }); 
+    selectedRolesTb.bulkCreate(listOfRoles)
+    .then(data => {
+       console.log("Roles entered " + data);
     })
     .catch(err => {
      
@@ -177,6 +214,7 @@ isAddedRequirement()
         addTechnologies(result);
         addDomains(result);
         addEducations(result);
+        addRoles(result)
         var result ={
           "status" : true
         }
@@ -212,25 +250,55 @@ isAddedRequirement()
       });
     };
 
-  exports.getProjectById = (req, res) => {
-    const Project_id = req.body.Project_id; 
-    const User_id = req.body.User_id; 
-    
-    projectTb.findOne({ where: {Project_id : Project_id , User_id:User_id},
-      include: {
-        model: requirementTb ,
+    exports.getProjectById = (req, res) => {
+      const Project_id = req.body.Project_id; 
+      const User_id = req.body.User_id; 
+      
+      projectTb.findOne({ where: {Project_id : Project_id , User_id:User_id},
         include: {
-          model: usersTb ,
-          required: true
-        }
-      } })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
+          model: requirementTb ,
+          include: {
+            model: usersTb ,
+            required: true
+          }
+        } })
+        .then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving tutorials."
+          });
         });
-      });
+      };
+  exports.projectMatching =async (req, res) => {
+    const requirement_id = req.body.Requirement_id; 
+    var resource_List = [];
+    var requirement_data = "";
+
+    // async function getRequirement_data(){
+    //  await requirementTb.findOne({ where: {Requirement_id : requirement_id} })
+    //   .then(data => { 
+    //    return data;
+    //   })
+    //   .catch(err => {
+    //     res.status(500).send({
+    //       message:
+    //         err.message || "Some error occurred while retrieving tutorials."
+    //     });
+    //   });
+    //  }
+     async function getRequirement_data() {
+      let data = await requirementTb.findOne({
+        where: {
+          Requirement_id : requirement_id
+        },
+      })
+      return data
+    }
+     requirement_data = await getRequirement_data();
+     res.send(requirement_data);
+     
+
     };

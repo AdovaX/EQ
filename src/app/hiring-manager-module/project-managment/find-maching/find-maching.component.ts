@@ -16,7 +16,7 @@ export class FindMachingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    alert(this.Requirement_id);
+   
   }
   getMatchingProfiles(){
     

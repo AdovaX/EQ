@@ -23,17 +23,7 @@ module.exports = (sequelize, Sequelize) => {
       } ,
       Week_must_time: {
         type: Sequelize.INTEGER
-      } ,  
-      Roles_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: { 
-          model: 'RolesTbs',
-          key: 'Roles_id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE', 
-      } , 
+      } ,   
       Hours_per_week: {
         type: Sequelize.INTEGER, 
       } ,

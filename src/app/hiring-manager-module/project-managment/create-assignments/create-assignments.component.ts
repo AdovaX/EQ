@@ -13,11 +13,13 @@ export class CreateAssignmentsComponent implements OnInit {
   Requirement_Form: FormGroup; 
   submitted = false; 
   domainsList=[];
+  rolesList=[];
   technologiesList=[];
   educationsList=[];
   selectedTechnologies=[];
   selectedDomains=[];
   selectedEducation=[];
+  selectedRoles=[];
   User_id;
   constructor(  private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService, private formBuilder: FormBuilder,private Router:Router) { 
     this.Project_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
@@ -44,6 +46,7 @@ export class CreateAssignmentsComponent implements OnInit {
     this.getDomains();
     this.getEducation();
     this.getTechnology();
+    this.getRoles();
     this.Requirement_Form = this.formBuilder.group({
       Project_name : this.Project_name,
       Requirement_name : this.Requirement_name,
@@ -86,15 +89,26 @@ console.log(this.selectedDomains);
 }
 
 selectEducation(e){    
-if (e.target.checked) {
-console.log("checked");
-this.selectedEducation.push(e.target.value);
-}else{
-console.log("unchecked");
-this.selectedEducation = this.selectedEducation.filter(m=>m!==e.target.value);
-}
-console.log(this.selectedEducation);
-}
+  if (e.target.checked) {
+  console.log("checked");
+  this.selectedEducation.push(e.target.value);
+  }else{
+  console.log("unchecked");
+  this.selectedEducation = this.selectedEducation.filter(m=>m!==e.target.value);
+  }
+  console.log(this.selectedEducation);
+  }
+
+  selectRole(e){    
+  if (e.target.checked) {
+  console.log("checked");
+  this.selectedRoles.push(e.target.value);
+  }else{
+  console.log("unchecked");
+  this.selectedRoles = this.selectedRoles.filter(m=>m!==e.target.value);
+  }
+  console.log(this.selectedRoles);
+  }
 
 private pushTechnologies(): FormGroup {
   return new FormGroup({
@@ -111,6 +125,11 @@ private pushEducations(): FormGroup {
     'Education': new FormControl(this.selectedEducation) 
   })
 }
+private pushRoles(): FormGroup {
+  return new FormGroup({
+    'Roles': new FormControl(this.selectedRoles) 
+  })
+}
   
 onSubmit(){
   const Techs = this.Requirement_Form.get('Technology_id') as FormArray;
@@ -122,13 +141,16 @@ onSubmit(){
   const Educations = this.Requirement_Form.get('Certification') as FormArray;
   Educations.push(this.pushEducations());
 
+  const Roles = this.Requirement_Form.get('Roles_id') as FormArray;
+  Roles.push(this.pushRoles());
+
   this.Requirement_Form.patchValue({ProjectId:this.Project_id})
   
   console.log(this.Requirement_Form.value);
 
   if (this.Requirement_Form.invalid) {  
     this.submitted =true;
-    alert();
+    console.log("Form error");
     return;
   }else{  
 
@@ -185,6 +207,20 @@ getEducation(){
       });
     }
     console.log(this.educationsList);
+}, error => {
+  console.log(error); 
+});
+
+}
+getRoles(){
+  this.ProjectService.getRoles().subscribe(data =>{
+   
+    for (let item of data) {
+      this.rolesList.push({
+        Roles: item.Role_name
+      });
+    }
+    console.log(this.rolesList);
 }, error => {
   console.log(error); 
 });

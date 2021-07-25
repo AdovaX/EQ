@@ -50,6 +50,7 @@ db.HManagerTb = require("./Hiringmanager.model")(sequelize, Sequelize);
 db.SelectedTech = require("./selectedTechnologies.model")(sequelize, Sequelize);
 db.SelectedDomains = require("./selectedDomains.model")(sequelize, Sequelize);
 db.SelectedQualifications = require("./selectedQualifications.model")(sequelize, Sequelize);
+db.SelectedRoles = require("./selectedRoles.model")(sequelize, Sequelize);
 
  
 db.techcategory.hasMany(db.technology, {foreignKey: 'Technology_category_id'});  
