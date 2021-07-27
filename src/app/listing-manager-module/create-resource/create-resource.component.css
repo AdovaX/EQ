@@ -25,3 +25,14 @@
 .icheck-material-success{
     width: 20%;
 }
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+.inlinCol{
+  display: inline-block;
+  width: auto;
+}

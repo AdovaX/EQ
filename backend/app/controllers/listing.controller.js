@@ -2,12 +2,14 @@ const db = require("../models");
 const companyTb = db.companyTb;  
 const LManagerTb = db.LManagerTb;
 const HManagerTb = db.HManagerTb;
-const delegateTb = db.delegateTb;
+const techcategoryTb = db.techcategory;
+const technologyTb = db.technology;
 const resourceTb = db.resourceTb;
 const usersTb = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
-
+const domainTb = db.domainTb;
+const rolesTb = db.roles;
  
 
 exports.checkManagerType =  async(req, res) => {
@@ -193,23 +195,23 @@ exports.checkManagerType =  async(req, res) => {
   };  
 
 
-exports.createResource= async (req, res) => {
-  if (!req.body.Company_id) {
-   res.status(400).send({
-     message: "Content can not be empty!"
-   });
-   return;
- }  
- var passwordHash = bcrypt.hashSync(req.body.Resource_password , 10);
 
+exports.createResource= async (req, res) => {
+    if (!req.body.Company_id) {
+     res.status(400).send({
+       message: "Content can not be empty!"
+     });
+     return;
+   }  
+ var passwordHash = bcrypt.hashSync(req.body.Resource_password , 10);
  const resourceData = {
   Resource_name: req.body.Resource_name,
   Resource_Experience: req.body.Resource_Experience,
   Resource_Email: req.body.Resource_Email,
+  Resource_phone: req.body.Resource_Phone,
   Resource_Password: passwordHash,
   Resource_Designation: req.body.Resource_Designation,
-  Resource_summery: req.body.Resource_summery,
-  Resource_masked: req.body.Resource_masked ,
+  Resource_summery: req.body.Resource_summery, 
   Resource_stack: req.body.Resource_stack, 
   Resource_status:req.body.Resource_status,
   Is_remote: req.body.Is_remote,
@@ -217,20 +219,106 @@ exports.createResource= async (req, res) => {
   Availability_status: req.body.Availability_status, 
   Company_id: req.body.Company_id, 
 };
-console.log(resourceData);
-resourceTb.create(resourceData)
-  .then(data => {  
-  // var respos = {
-  //   "status" : "Success"
-  // }
-  res.status(200).send(data); 
-       
-  })
-  .catch(err => {
-    res.status(400).send(err);  
-  });
-}; 
 
+
+async function insertResource() {
+  return await resourceTb.create(resourceData); 
+} 
+
+
+
+async function prepareTechnology(r_id) {
+
+  var techologyArr = req.body.Technology_List;
+  var Resource_Techs =[];
+      techologyArr.forEach((tech) => {
+        var  techData = {
+          Technology_name : tech.Technology,
+          Technology_category_id : tech.Technology_parent,
+          Technology_version : tech.Technology_version,
+          Technology_level : tech.Technology_level,
+          Technology_experience : tech.Technology_experience, 
+          Resource_id : r_id, 
+        }
+        Resource_Techs.push(techData);
+      }); 
+      return await Resource_Techs;
+  } 
+
+
+  async function prepareDomain(r_id) {
+    var domainArr = req.body.Domain_List;
+    var Resource_Domains =[];
+    domainArr.forEach((domains) => {
+          var  domainData = {
+            Domain : domains.Domain,
+            Domain_duration : domains.Domain_duration, 
+            Resource_id : r_id, 
+          }
+          Resource_Domains.push(domainData);
+        }); 
+        return await Resource_Domains;
+    } 
+
+    async function prepareRole(r_id) {
+    var roleArr = req.body.Role_List;
+    var Resource_Roles =[];
+    roleArr.forEach((role) => {
+          var  roleData = {
+            Role_name : role.Job_title,
+            Role_duration : role.Job_duration, 
+            Company_id : req.body.Company_id, 
+            Resource_id : r_id, 
+          }
+          Resource_Roles.push(roleData);
+        }); 
+        return await Resource_Roles;
+    } 
+
+ 
+
+  insertResource().then((data) =>{ 
+    console.log("Resource added"); 
+   return  prepareTechnology(data.Resource_id);
+
+  })
+  .then((data) =>{
+
+    technologyTb.bulkCreate(data);
+    console.log("Technology added");
+    return data;  
+  })
+  .then((data) => {
+    
+    return  prepareDomain(data[0].Resource_id);
+  
+  })
+  .then((data) =>{
+
+    domainTb.bulkCreate(data);
+    console.log("Domain added");
+    return data;
+  
+  })
+  .then((data) =>{
+
+    return prepareRole(data[0].Resource_id);
+
+  })
+  .then((data) =>{
+
+    rolesTb.bulkCreate(data);
+    console.log("Role added");
+    return data;
+
+  });
+  var result = {
+    status : "Success"
+  }
+   res.send(result);
+  };
+
+ 
 
 exports.resourceListing = (req, res) => {
   if (!req.body.Company_id) {
@@ -243,6 +331,25 @@ exports.resourceListing = (req, res) => {
   resourceTb.findAll({ where: {
     Company_id: req.body.Company_id , Resource_active:1
       },})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+exports.getTechnologyParents = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  techcategoryTb.findAll()
     .then(data => {
       res.send(data);
     })

@@ -12,6 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ListingManagerDashboardComponent } from './listing-manager-dashboard/listing-manager-dashboard.component';
 import { CreateResourceComponent } from './create-resource/create-resource.component';
 import { LManagerProfileComponent } from './l-manager-profile/l-manager-profile.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { LManagerProfileComponent } from './l-manager-profile/l-manager-profile.
     FormsModule,
     MatInputModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule,
+    MatStepperModule
   ]
 })
 export class ListingManagerModuleModule { }

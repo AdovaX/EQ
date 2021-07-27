@@ -57,6 +57,12 @@ getResources(): Observable<ListingManager[]>{
  }
 return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/listing/resourceListing', data);
 } 
+getTechnologyParents(): Observable<any[]>{
+  var data = {
+     "Company_id" : this.Company_id
+ }
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getTechnologyParents', data);
+} 
 
 deleteResource(Resource_id){
   var ResourceData ={
@@ -65,21 +71,25 @@ deleteResource(Resource_id){
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/listing/ResourceDeletion/', ResourceData);
 }
-createResource(data): Observable<Resource[]>{
+createResource(data , technology_list,domain_list,jobRole_list): Observable<Resource[]>{
    var Resourcedata = {
     "Resource_name" : data.Resource_name,
     "Resource_Experience" : data.Resource_experience,
     "Resource_Email" : data.Resource_email,
+    "Resource_Phone" : data.Resource_phone,
     "Resource_password" : data.Resource_password,
     "Resource_Designation" : data.Resource_designation,
-    "Resource_summery" : data.Resource_summery,
-    "Resource_masked" : data.Resource_masked,
+    "Resource_summery" : data.Resource_summery, 
     "Resource_stack" :data.Resource_stack,
     "Is_remote" : data.isRemote,
     "Resource_status" : data.Resource_status,
     "Resource_rate" :data.Resource_rate,
     "Availability_status" : data.Resource_availability,
-    "Company_id":this.Company_id
+    "Company_id":this.Company_id,
+    "Technology_List" : technology_list,
+    "Domain_List" : domain_list,
+    "Role_List" : jobRole_list
+
  }
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/listing/createResource', Resourcedata);
 } 

@@ -8,9 +8,17 @@ module.exports = (sequelize, Sequelize) => {
       Technology_name: {
         type: Sequelize.STRING
       },
-      Technology_parent_id: {
+      Technology_version: {
         type: Sequelize.STRING
       },
+      Technology_experience: {
+        type: Sequelize.STRING
+      },
+      Technology_level: {
+        type: Sequelize.ENUM,
+        values : ['BEGGINER', 'INTERMEDIATE','EXPERT'],
+        defaultValue : 'EXPERT'
+      }, 
       Technology_category_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -20,19 +28,17 @@ module.exports = (sequelize, Sequelize) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE', 
-      },
-      Technology_version: {
-        type: Sequelize.STRING
-      },
-      Technology_type: {
-        type: Sequelize.STRING
-      },
-      Technology_work_start: {
-        type: Sequelize.STRING
-      } ,
-      Technology_work_end: {
-        type: Sequelize.STRING
-      } 
+      } , 
+      Resource_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { 
+          model: 'ResourceTbs',
+          key: 'Resource_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
+      }   
     });
   
     return Technology;

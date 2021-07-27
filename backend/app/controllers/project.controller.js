@@ -83,6 +83,7 @@ exports.getTechnology = (req, res) => {
       return;
     }
     const User_id = req.body.User_id;
+    const project_id = req.body.ProjectId;
    
     const requirementData =  
       {
@@ -101,14 +102,15 @@ exports.getTechnology = (req, res) => {
     };   
     
      
-   async function addTechnologies(r_id){
+   async function addTechnologies(r_id,p_id){
      let t_list =  req.body.Technology_id; 
     let listOfTechnologies =[]; 
     t_list.forEach(element => {
       var cc ={
         "Technologies" : JSON.stringify(element['Technologies']),
         "User_id" : User_id,  
-        "Requirement_id":r_id
+        "Requirement_id":r_id,
+        "Project_id" : p_id
       }
       listOfTechnologies.push(cc); 
     }); 
@@ -122,7 +124,7 @@ exports.getTechnology = (req, res) => {
       console.log(err);
     });
    }
-   async function addDomains(r_id){
+   async function addDomains(r_id,p_id){
 
     let d_list =  req.body.Domain_id; 
     let listOfDomains =[]; 
@@ -130,7 +132,8 @@ exports.getTechnology = (req, res) => {
       var cc ={
         "Domains" : JSON.stringify(element['Domains']),
         "User_id" : User_id,  
-        "Requirement_id":r_id
+        "Requirement_id":r_id,
+        "Project_id" : p_id
       }
       listOfDomains.push(cc); 
     });     
@@ -143,7 +146,7 @@ exports.getTechnology = (req, res) => {
       console.log(err);
     });
    }
-   async function addEducations(r_id){
+   async function addEducations(r_id,p_id){
      let e_list =  req.body.Certification; 
     let listOfCertification =[]; 
     console.log(req.body.Certification);
@@ -151,7 +154,8 @@ exports.getTechnology = (req, res) => {
       var cc ={
         "Qualifications" : JSON.stringify(element['Education']),
         "User_id" : User_id,  
-        "Requirement_id":r_id
+        "Requirement_id":r_id,
+        "Project_id" : p_id
       }
       listOfCertification.push(cc); 
     }); 
@@ -164,7 +168,7 @@ exports.getTechnology = (req, res) => {
       console.log(err);
     });
    }
-   async function addRoles(r_id){
+   async function addRoles(r_id,p_id){
      let r_list =  req.body.Roles_id; 
     let listOfRoles =[]; 
     console.log(req.body.Roles_id);
@@ -172,7 +176,8 @@ exports.getTechnology = (req, res) => {
       var cc ={
         "Roles" : JSON.stringify(element['Roles']),
         "User_id" : User_id,  
-        "Requirement_id":r_id
+        "Requirement_id":r_id,
+        "Project_id" : p_id
       }
       listOfRoles.push(cc); 
     }); 
@@ -211,10 +216,10 @@ const isAddedRequirement = async() => {
 }
 isAddedRequirement()
     .then(result => {
-        addTechnologies(result);
-        addDomains(result);
-        addEducations(result);
-        addRoles(result)
+        addTechnologies(result ,project_id);
+        addDomains(result,project_id);
+        addEducations(result,project_id);
+        addRoles(result,project_id)
         var result ={
           "status" : true
         }
@@ -275,29 +280,43 @@ isAddedRequirement()
   exports.projectMatching =async (req, res) => {
     const requirement_id = req.body.Requirement_id; 
     var resource_List = [];
-    var requirement_data = "";
-
-    // async function getRequirement_data(){
-    //  await requirementTb.findOne({ where: {Requirement_id : requirement_id} })
-    //   .then(data => { 
-    //    return data;
-    //   })
-    //   .catch(err => {
-    //     res.status(500).send({
-    //       message:
-    //         err.message || "Some error occurred while retrieving tutorials."
-    //     });
-    //   });
-    //  }
+    let requirement_data = "";
+ 
      async function getRequirement_data() {
       let data = await requirementTb.findOne({
         where: {
           Requirement_id : requirement_id
         },
-      })
+        include: [{
+          model: projectTb,
+          include: [{
+              model: selectedRolesTb,   
+              required: false, 
+          },{
+            model: SelectedDomainsTb, 
+            required: false, 
+        },{
+          model: SelectedTechTb, 
+          required: false, 
+      },{
+        model: SelectedQualificationsTb, 
+        required: false, 
+    }],
+          required: false,
+        
+      }]
+    });
       return data
     }
-     requirement_data = await getRequirement_data();
+    requirement_data = await getRequirement_data();
+
+    
+    
+    
+
+
+
+
      res.send(requirement_data);
      
 

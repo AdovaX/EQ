@@ -15,6 +15,16 @@ module.exports = (sequelize, Sequelize) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE', 
       },
+      Project_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { 
+          model: 'project',
+          key: 'Project_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
+      },
       User_id: {
         type: Sequelize.INTEGER,
         allowNull: true,

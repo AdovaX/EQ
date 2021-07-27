@@ -25,6 +25,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         unique: true
       }, 
+      Resource_phone: {
+        type: Sequelize.STRING
+      },
       Resource_Password: {
         type: Sequelize.STRING
       }, 
