@@ -21,6 +21,7 @@ export class CreateAssignmentsComponent implements OnInit {
   selectedEducation=[];
   selectedRoles=[];
   User_id;
+  mainTech=[];
   constructor(  private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService, private formBuilder: FormBuilder,private Router:Router) { 
     this.Project_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
     this.User_id = sessionStorage.getItem('USER_ID');  
@@ -183,21 +184,41 @@ getDomains(){
         Domain: item.Domain
       });
     }
-    console.log(this.domainsList);
+    const removeDupliactes = (values) => {
+      let concatArray = values.map(eachValue => {
+        return Object.values(eachValue).join('')
+      })
+      let filterValues = values.filter((value, index) => {
+        return concatArray.indexOf(concatArray[index]) === index
+      })
+      return filterValues
+    }
+    this.domainsList =removeDupliactes(this.domainsList); 
+    console.log( this.domainsList);
+
 }, error => {
   console.log(error); 
 });
 }
+ 
+
+
+
+
 getTechnology(){
   this.ProjectService.getTechnology().subscribe(data =>{
      console.log("Technologies");
-     console.log(data);
+      console.log(data); 
      this.technologiesList=data;
-    
+ 
 }, error => {
   console.log(error); 
 });
-}
+} 
+
+ 
+
+
 getEducation(){
   this.ProjectService.getEducation().subscribe(data =>{
    

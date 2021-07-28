@@ -14,6 +14,7 @@ const SelectedQualificationsTb = db.SelectedQualifications;
 const SelectedTechTb = db.SelectedTech;
 const techcategoryTb = db.techcategory;
 const selectedRolesTb = db.SelectedRoles;
+var Sequelize = require("sequelize");
 
 
 
@@ -30,14 +31,38 @@ exports.getDomains = (req, res) => {
       });
   };
   
-exports.getTechnology = (req, res) => { 
-  techcategoryTb.findAll({  
-      include: {
-        model: technologyTb,
-        required: true
-      } })
-      .then(data => {
-        res.send(data);
+exports.getTechnology = async (req, res) => { 
+  var sql = " select distinct tech.Technology_name ,tech.Technology_version , cat.Technology_category from TechnologyCategoryTbs cat inner join TechnologyTbs tech on tech.Technology_category_id = cat.Technology_category_id"
+  db.sequelize.query(sql).then(data => {
+let uniqueCategory =[]; 
+for(var item of data[0]){ 
+  var cat = item.Technology_category;
+  if(uniqueCategory.indexOf(cat) === -1) {
+     uniqueCategory.push(cat); 
+  } 
+  } 
+  let t1=[];
+  let t2=[];
+  for(var cat of uniqueCategory){ 
+     
+    for(var tech of data[0]){ 
+      if(cat == tech.Technology_category){
+        var d = {
+          "Technologys" : tech.Technology_name,
+          "Technology_version" : tech.Technology_version
+        }
+         t2.push(d);
+      }
+    }
+    var c = {
+      "Technology_category" : cat,
+      "Technologies" : t2
+    }
+    t2 =[];
+    t1.push(c);
+    c=[]
+  }
+     res.send(t1);
       })
       .catch(err => {
         res.status(500).send({
@@ -48,7 +73,10 @@ exports.getTechnology = (req, res) => {
   };
   
   exports.getEducation = (req, res) => { 
-      educationTb.findAll()
+      educationTb.findAll(
+        {attributes: [
+        [Sequelize.fn('DISTINCT', Sequelize.col('Qualification')), 'Qualification'],
+      ],})
         .then(data => {
           res.send(data);
         })
@@ -61,8 +89,11 @@ exports.getTechnology = (req, res) => {
     };
   
     exports.getRoles = (req, res) => { 
-        rolesTb.findAll()
-          .then(data => {
+        rolesTb.findAll(
+          {attributes: [
+          [Sequelize.fn('DISTINCT', Sequelize.col('Role_name')), 'Role_name'],
+        ],})
+          .then(data => { 
             res.send(data);
           })
           .catch(err => {

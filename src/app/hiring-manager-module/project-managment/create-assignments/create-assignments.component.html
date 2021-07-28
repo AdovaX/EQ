@@ -116,9 +116,9 @@
                                     <mat-panel-description>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                            <div class="Acheckbox icheck-inline" *ngFor="let technology of techncat['TechnologyTbs']; let j=index">
-                                            <label class="container"> {{technology.Technology_name}}
-                                            <input type="checkbox"  value ="{{technology.Technology_name}}" (change)="selectTech($event)">
+                                            <div class="Acheckbox icheck-inline" *ngFor="let technology of techncat['Technologies']; let j=index">
+                                            <label class="container"> {{technology.Technologys}} {{technology.Technology_version}}
+                                            <input type="checkbox"  value ="{{technology.Technologys}}" (change)="selectTech($event)">
                                             <span class="checkmark"></span>
                                             </label>
                                             </div> 
