@@ -341,12 +341,61 @@ isAddedRequirement()
     }
     requirement_data = await getRequirement_data();
 
-    
-    
-    
+    let maching_role_users =[];
 
+    let R_role_list = JSON.parse(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles);
+    var R_technology_list = JSON.parse(requirement_data.ProjectsTb.SelectedTechnologiesTbs[0].Technologies);
+    var R_domin_list = JSON.parse(requirement_data.ProjectsTb.SelectedDomainsTbs[0].Domains);
+    var R_education_list = JSON.parse(requirement_data.ProjectsTb.SelectedQualificationsTbs[0].Qualifications);
+    
+    async function maching_Role() {  
+      for(const val of R_role_list) {
+        var rol = await rolesTb.findAll({ where: {Role_name : val} })
+        rol.forEach(el => {
+          if(el.Resource_id != null){
+            maching_role_users.push(el.Resource_id);  
+          }
+        });
+    }  
+    } 
+    async function maching_Technology() {  
+      for(const val of R_technology_list) {
+        var tech = await technologyTb.findAll({ where: {Technology_name : val} })
+        tech.forEach(el => {
+          if(el.Resource_id != null){
+            maching_role_users.push(el.Resource_id);  
+          }
+        }); 
+    }  
+    } 
+    async function maching_Education() {  
+      for(const val of R_education_list) {
+        var edu = await educationTb.findAll({ where: {Qualification : val} })
+        edu.forEach(el => {
+          if(el.Resource_id != null){
+            maching_role_users.push(el.Resource_id);  
+          }
+        });
+    }  
+    } 
+    async function maching_Domain() {  
+      for(const val of R_domin_list) {
+        var domain = await domainTb.findAll({ where: {Domain : val} });
+        domain.forEach(el => {
+          if(el.Resource_id != null){
+            maching_role_users.push(el.Resource_id);  
+          }
+        });
+ 
+    }  
+    } 
 
+    await maching_Role();
+    await maching_Technology();
+    await maching_Education();
+    await maching_Domain();
 
+    console.log(maching_role_users); 
 
      res.send(requirement_data);
      

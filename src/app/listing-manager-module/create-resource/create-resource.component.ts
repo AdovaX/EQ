@@ -91,6 +91,7 @@ export class CreateResourceComponent implements OnInit {
     }); 
   } 
   get f() { return this.Resource_Form.controls; }
+  get techform() { return this.techFormGroup.controls; }
   onSubmit(){ 
     console.log(this.Resource_Form.value);
     this.submitted = true;
