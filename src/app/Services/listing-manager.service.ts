@@ -71,7 +71,7 @@ deleteResource(Resource_id){
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/listing/ResourceDeletion/', ResourceData);
 }
-createResource(data , technology_list,domain_list,jobRole_list): Observable<Resource[]>{
+createResource(data , technology_list,domain_list,jobRole_list,education_list): Observable<Resource[]>{
    var Resourcedata = {
     "Resource_name" : data.Resource_name,
     "Resource_Experience" : data.Resource_experience,
@@ -88,7 +88,8 @@ createResource(data , technology_list,domain_list,jobRole_list): Observable<Reso
     "Company_id":this.Company_id,
     "Technology_List" : technology_list,
     "Domain_List" : domain_list,
-    "Role_List" : jobRole_list
+    "Role_List" : jobRole_list,
+    "Education_List" : education_list
 
  }
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/listing/createResource', Resourcedata);

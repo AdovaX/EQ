@@ -23,7 +23,9 @@ const routes: Routes = [
     path : 'Listingmanagers', component:CreateListingManagerComponent
   },{
     path : 'Hiringmanagers', component:CreateHiringManagerComponent
-  }
+  },
+  { path: 'Projectmanagement', loadChildren: () => import('./project-managment/project-managment.module').then(m => m.ProjectManagmentModule) },
+
 ];
 
 @NgModule({

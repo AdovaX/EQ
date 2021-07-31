@@ -12,6 +12,7 @@ export class CreateResourceComponent implements OnInit {
   techFormGroup: FormGroup;
   domainFormGroup: FormGroup;
   jobRoleFormGroup: FormGroup;
+  educationFormGroup: FormGroup;
   isUpdated = false;
   submitted = false;
   resourceLists = []; 
@@ -23,9 +24,11 @@ export class CreateResourceComponent implements OnInit {
   technology_list =[];
   domain_list =[];
   jobRole_list =[];
+  education_list =[];
   isTechError =false;
   isDoaminError =false;
   isJobError =false;
+  isEduError =false;
 
   constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService) { }
 
@@ -51,6 +54,8 @@ export class CreateResourceComponent implements OnInit {
   Domain_duration = new FormControl('', [ Validators.required]);
   Job_title = new FormControl('', [ Validators.required]);
   Job_duration = new FormControl('', [ Validators.required]);
+  Education = new FormControl('', [ Validators.required]);
+  Pass_year = new FormControl('', [ Validators.required]);
 
   ngOnInit(): void {
     this.getResources();
@@ -89,6 +94,11 @@ export class CreateResourceComponent implements OnInit {
       Job_duration : this.Job_duration,        
   
     }); 
+    this.educationFormGroup = this.formBuilder.group({
+      Education : this.Education,    
+      Pass_year : this.Pass_year,        
+  
+    }); 
   } 
   get f() { return this.Resource_Form.controls; }
   get techform() { return this.techFormGroup.controls; }
@@ -103,7 +113,8 @@ export class CreateResourceComponent implements OnInit {
     else{
       
     console.log(this.Resource_Form.value);
-      this.ListingManagerService.createResource(this.Resource_Form.value , this.technology_list ,this.domain_list,this.jobRole_list).subscribe(data =>{
+      this.ListingManagerService.createResource(this.Resource_Form.value , this.technology_list ,this.domain_list,
+        this.jobRole_list , this.education_list).subscribe(data =>{
         console.log("Form Submission sent");
         console.log(data);
         this.isUpdated = true; 
@@ -161,6 +172,21 @@ export class CreateResourceComponent implements OnInit {
     this.jobRole_list.push(jobRoleData);
     this.jobRoleFormGroup.reset();
     console.log(this.jobRole_list);
+  }
+  }
+  addEducation(){
+    if(this.educationFormGroup.invalid){
+    this.isEduError =true;
+
+  }else{
+    this.isEduError =false;
+    let eduData = {
+      Education : this.educationFormGroup.value.Education,
+      Pass_year : this.educationFormGroup.value.Pass_year, 
+    }
+    this.education_list.push(eduData);
+    this.educationFormGroup.reset();
+    console.log(this.education_list);
   }
   }
 

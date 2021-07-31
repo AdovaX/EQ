@@ -17,7 +17,7 @@ db.sequelize.sync().then(function(){
     // }); 
     // db.userroles.create({
     //   User_roles: '4',
-    //   User_role_description: 'Spoc'
+    //   User_role_description: 'SPOC'
     // }); 
     // db.userroles.create({
     //   User_roles: '5',
@@ -30,5 +30,23 @@ db.sequelize.sync().then(function(){
     // db.userroles.create({
     //   User_roles: '7',
     //   User_role_description: 'Resource'
+    // });    // console.log("Creating Roles");
+
+    // db.TechnologyCategoryTbs.create({
+    //   Technology_category_id: '1',
+    //   Technology_category: 'Web Development'
     // }); 
+    // db.TechnologyCategoryTbs.create({
+    //   Technology_category_id: '2',
+    //   Technology_category: 'DevOps'
+    // }); 
+    // db.TechnologyCategoryTbs.create({
+    //   Technology_category_id: '3',
+    //   Technology_category: 'Testing'
+    // }); 
+    // db.TechnologyCategoryTbs.create({
+    //   Technology_category_id: '4',
+    //   Technology_category: 'Amazon AWS'
+    // });  
+
   });

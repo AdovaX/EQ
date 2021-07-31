@@ -152,7 +152,6 @@ onSubmit(){
   if (this.Requirement_Form.invalid) {  
     this.submitted =true;
     console.log("Form error");
-    console.log("Form error" + this.Requirement_Form.errors);
     return;
   }else{  
 
@@ -160,7 +159,7 @@ onSubmit(){
     console.log(d);
     this.ProjectService.createRequirement(this.Requirement_Form.value).subscribe(data =>{
          console.log(data);
-         this.Router.navigate(['company/Projectmanagement']); 
+         this.Router.navigate(['L2Dashboard/Projectmanagement']); 
 
 
     }, error => {

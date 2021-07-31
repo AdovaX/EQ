@@ -194,7 +194,7 @@
                                           </div>
                                        </mat-step>
                                        <mat-step>
-                                         <ng-template matStepLabel>Technologies</ng-template>
+                                         <ng-template matStepLabel>Skills</ng-template>
                                          <form [formGroup]="techFormGroup" (ngSubmit)="addTechnology()">
                                          <div class="row">
                                           <div class="col-sm-3">
@@ -294,7 +294,7 @@
                                          <div class="row"> 
                                           <div class="col-sm-4"> 
                                             <div class="form-group">
-                                              <label for="input-11"> Domain / Sector<span class="redColor">*</span></label>
+                                              <label for="input-11"> Domain<span class="redColor">*</span></label>
                                               <input type="text" class="form-control form-control-square" formControlName="Domain_name" id="Domain_name" 
                                               name="Domain_name"  placeholder="Domain / Sector name">
                                              </div> 
@@ -348,13 +348,13 @@
                                          </div>
                                        </mat-step>
                                        <mat-step>
-                                         <ng-template matStepLabel>Job Roles</ng-template>
+                                         <ng-template matStepLabel>Role</ng-template>
                                          <form [formGroup]="jobRoleFormGroup" (ngSubmit)="addJobTitle()">
 
                                          <div class="row"> 
                                           <div class="col-sm-4"> 
                                             <div class="form-group">
-                                              <label for="input-11"> Job Title<span class="redColor">*</span></label>
+                                              <label for="input-11"> Job / Title<span class="redColor">*</span></label>
                                               <input type="text" class="form-control form-control-square" formControlName="Job_title" id="Job_title" 
                                               name="Job_title"  placeholder="Job title">
                                              </div> 
@@ -407,8 +407,85 @@
                                           <button mat-button matStepperNext>Next</button>
                                          </div>
                                        </mat-step>
+
                                        <mat-step>
-                                         <ng-template matStepLabel>Others</ng-template>
+                                        <ng-template matStepLabel>Education</ng-template>
+
+
+
+                                        <form [formGroup]="educationFormGroup" (ngSubmit)="addEducation()">
+
+                                          <div class="row"> 
+                                           <div class="col-sm-4"> 
+                                             <div class="form-group">
+                                               <label for="input-11"> Education<span class="redColor">*</span></label>
+                                               <input type="text" class="form-control form-control-square" formControlName="Education" id="Education" 
+                                               name="Education"  placeholder="Education name">
+                                              </div> 
+                                                </div> 
+                                                <div class="col-sm-4"> 
+                                                  <div class="form-group">
+                                                    <label for="input-11"> Pass out year<span class="redColor">*</span></label>
+                                                    <input type="date" class="form-control form-control-square" formControlName="Pass_year" id="Pass_year" 
+                                                    name="Pass_year"  placeholder="Pass out year">
+                                                   </div> 
+                                                     </div> 
+                                                     <div class="col-sm-12"> 
+                                                       <div class="row">
+                                                         <div class="inlinCol" *ngFor="let edu of education_list " > 
+                                                          <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 ">
+                                                             <span>{{edu.Education}} </span>  
+                                                          </button> 
+                                                        </div>
+                                                       </div> 
+                                                     </div>
+                                                <div class="col-sm-12"> 
+                                                  <div class="form-group">
+                                                   <button type="submit" mat-raised-button color="primary" >Add</button>
+                                                   </div> 
+                                                     </div> 
+ 
+                                                     <div class="col-sm-12">
+           
+                                               <div id="notSucess" class="{{isEduError ? 'successClass' : 'notSucess'}}">
+                                                 <div class="row">
+                                                   <div class="col-sm-12">
+                                                     <div class="alert alert-danger alert-dismissible" role="alert">
+                                                       <button type="button" class="close" data-dismiss="alert">×</button>
+                                                       <div class="alert-icon">
+                                                        <i class="zmdi zmdi-check-circle"></i>
+                                                       </div>
+                                                       <div class="alert-message">
+                                                         <span><strong>Error! </strong> Please fill all the data.</span>
+                                                       </div>
+                                                       </div>
+                                                   </div>
+                                                 </div>
+                                               </div>
+                                               </div>
+                                          </div> 
+                                          </form>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <div>
+                                          <button mat-button matStepperPrevious>Back</button>
+                                          <button type="button" mat-button matStepperNext>Next</button>
+                                        </div>
+                                      </mat-step>
+
+                                       <mat-step>
+                                         <ng-template matStepLabel>Final</ng-template>
                                           <div class="row">
                                             <div class="col-sm-4">
                                               <div class="form-group">
@@ -446,22 +523,8 @@
                                          <div>
                                           <button mat-button matStepperPrevious>Back</button>
                                           <button type="button" mat-button matStepperNext>Next</button>
-                                         </div>
-                                       </mat-step>
-                                       <mat-step>
-                                         <ng-template matStepLabel>Review</ng-template>
-                                         <p>Please check the Resource details</p>
-                                         <div class="col-sm-6">
-                                          <div class="btn-group noShodow">
-                                              <div class="form-group"> 
-                                                  <label for="input-11">Click to proceed </label> <br>
-                                                  <button type="submit" class="btn btn-primary btn-square m-1">Click to add</button>
-                                                 </div>  
-                                          </div> 
-                                      </div> 
-                                         <div>
-                                           <button mat-button matStepperPrevious>Back</button>
-                                           <button mat-button (click)="stepper.reset()">Reset</button>
+                                          <button type="submit" class="btn btn-primary btn-square m-1">Click to add</button>
+
                                          </div>
                                        </mat-step>
                                     </mat-horizontal-stepper>

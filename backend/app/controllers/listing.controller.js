@@ -7,9 +7,10 @@ const technologyTb = db.technology;
 const resourceTb = db.resourceTb;
 const usersTb = db.user;
 const Op = db.Sequelize.Op;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); 
 const domainTb = db.domainTb;
 const rolesTb = db.roles;
+const educationTb = db.educationTb;
  
 
 exports.checkManagerType =  async(req, res) => {
@@ -275,6 +276,20 @@ async function prepareTechnology(r_id) {
         return await Resource_Roles;
     } 
 
+    async function prepareEducation(r_id) {
+    var eduArr = req.body.Education_List;
+    var Education_lists =[];
+    eduArr.forEach((edu) => {
+          var  eduData = {
+            Qualification : edu.Education,
+            Pass_year : edu.Pass_year,  
+            Resource_id : r_id, 
+          }
+          Education_lists.push(eduData);
+        }); 
+        return await Education_lists;
+    } 
+
  
 
   insertResource().then((data) =>{ 
@@ -311,7 +326,21 @@ async function prepareTechnology(r_id) {
     console.log("Role added");
     return data;
 
-  });
+  })
+  .then((data) =>{
+
+    return prepareEducation(data[0].Resource_id);
+
+  })
+  .then((data) =>{
+
+    educationTb.bulkCreate(data);
+    console.log("Education added");
+    return data;
+
+  })
+
+
   var result = {
     status : "Success"
   }

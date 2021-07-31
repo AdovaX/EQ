@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: { 
-          model: 'project',
+          model: 'ProjectsTbs',
           key: 'Project_id'
         },
         onUpdate: 'CASCADE',
