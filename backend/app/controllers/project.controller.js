@@ -342,70 +342,107 @@ isAddedRequirement()
           required: false,
         
       }]
-    });
+    }).then(data =>{
       return data
+    }).catch(err =>{
+      return err
+    });
+      return data;
     }
     requirement_data = await getRequirement_data();
 
     let maching_role_users =[];
     let maching_profiles =[];
+    let No_roles_list = 0;
+    let No_technology_lis = 0;
+    let No_domin_list  = 0;
+    let No_education_list = 0;
 
-    let R_role_list = JSON.parse(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles);
-    var R_technology_list = JSON.parse(requirement_data.ProjectsTb.SelectedTechnologiesTbs[0].Technologies);
-    var R_domin_list = JSON.parse(requirement_data.ProjectsTb.SelectedDomainsTbs[0].Domains);
-    var R_education_list = JSON.parse(requirement_data.ProjectsTb.SelectedQualificationsTbs[0].Qualifications);
+  if(Object.keys(requirement_data.ProjectsTb.SelectedRolesTbs).length > 0){
+  No_roles_list = Object.keys(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles).length; 
+  }
+
+  if(Object.keys(requirement_data.ProjectsTb.SelectedTechnologiesTbs).length > 0){
+  No_technology_lis = Object.keys(requirement_data.ProjectsTb.SelectedTechnologiesTbs[0].Technologies).length; 
+  }
+
+  if(Object.keys(requirement_data.ProjectsTb.SelectedDomainsTbs).length > 0){
+  No_domin_list = Object.keys(requirement_data.ProjectsTb.SelectedDomainsTbs[0].Domains).length; 
+  }
+  if(Object.keys(requirement_data.ProjectsTb.SelectedQualificationsTbs).length > 0){
+  No_education_list = Object.keys(requirement_data.ProjectsTb.SelectedQualificationsTbs[0].Qualifications).length; 
+  }
+
+  
     
     async function maching_Role() {  
-      for(const val of R_role_list) {
-        var rol = await rolesTb.findAll({ where: {Role_name : val} })
-        rol.forEach(el => {
-          if(el.Resource_id != null){
-            maching_role_users.push(el.Resource_id);  
-          }
-        });
-    }  
+      if(No_roles_list > 0){
+        let R_role_list = JSON.parse(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles);
+        for(const val of R_role_list) {
+          var rol = await rolesTb.findAll({ where: {Role_name : val} })
+          rol.forEach(el => {
+            if(el.Resource_id != null){
+              maching_role_users.push(el.Resource_id);  
+            }
+          });
+      }  
+      }
+       
     } 
     async function maching_Technology() {  
-      for(const val of R_technology_list) {
-        var tech = await technologyTb.findAll({ where: {Technology_name : val} })
-        tech.forEach(el => {
-          if(el.Resource_id != null){
-            maching_role_users.push(el.Resource_id);  
-          }
-        }); 
-    }  
+      if(No_technology_lis > 0){
+        var R_technology_list = JSON.parse(requirement_data.ProjectsTb.SelectedTechnologiesTbs[0].Technologies);
+        for(const val of R_technology_list) {
+          var tech = await technologyTb.findAll({ where: {Technology_name : val} })
+          tech.forEach(el => {
+            if(el.Resource_id != null){
+              maching_role_users.push(el.Resource_id);  
+            }
+          }); 
+      }  
+      }
+      
     } 
     async function maching_Education() {  
-      for(const val of R_education_list) {
-        var edu = await educationTb.findAll({ where: {Qualification : val} })
-        edu.forEach(el => {
-          if(el.Resource_id != null){
-            maching_role_users.push(el.Resource_id);  
-          }
-        });
-    }  
+      if(No_education_list > 0){
+        var R_education_list = JSON.parse(requirement_data.ProjectsTb.SelectedQualificationsTbs[0].Qualifications);
+        for(const val of R_education_list) {
+          var edu = await educationTb.findAll({ where: {Qualification : val} })
+          edu.forEach(el => {
+            if(el.Resource_id != null){
+              maching_role_users.push(el.Resource_id);  
+            }
+          });
+      } 
+      }
+       
     } 
     async function maching_Domain() {  
-      for(const val of R_domin_list) {
-        var domain = await domainTb.findAll({ where: {Domain : val} });
-        domain.forEach(el => {
-          if(el.Resource_id != null){
-            maching_role_users.push(el.Resource_id);  
-          }
-        });
- 
-    }  
+      if(No_domin_list > 0){
+        var R_domin_list = JSON.parse(requirement_data.ProjectsTb.SelectedDomainsTbs[0].Domains);
+        for(const val of R_domin_list) {
+          var domain = await domainTb.findAll({ where: {Domain : val} });
+          domain.forEach(el => {
+            if(el.Resource_id != null){
+              maching_role_users.push(el.Resource_id);  
+            }
+          });
+   
+      } 
+      }
+       
     } 
-    async function maching_Prepare_Resources() {  
-      const counts = {};
+async function maching_Prepare_Resources() {  
+const counts = {};
 const sampleArray = maching_role_users;
 sampleArray.forEach(function (x) { 
   counts[x] = (counts[x] || 0) + 1;  
 
-});
+}); 
+let totalCounts = Object.keys(counts).length;
 
-for (const [key, value] of Object.entries(counts)) {
-  console.log(`${key}: ${(value/4)*100}`);
+if(totalCounts > 0){ 
+for (const [key, value] of Object.entries(counts)) { 
 
   var resource = await resourceTb.findAll({ where: {Resource_id : key} });
   resource.forEach(el => {
@@ -419,7 +456,14 @@ for (const [key, value] of Object.entries(counts)) {
   });
 }
 maching_profiles = maching_profiles.sort((a, b) => (a.Matching < b.Matching ? 1 : -1));
- 
+res.send(maching_profiles);
+}else{
+var c = {
+  "status" : false
+}
+res.send(c);
+
+} 
   } 
 
     await maching_Role();
@@ -428,8 +472,6 @@ maching_profiles = maching_profiles.sort((a, b) => (a.Matching < b.Matching ? 1 
     await maching_Domain();
     await maching_Prepare_Resources();
  
-
-     res.send(maching_profiles);
-     
+ 
 
     };

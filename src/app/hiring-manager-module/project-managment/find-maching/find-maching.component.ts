@@ -25,15 +25,14 @@ export class FindMachingComponent implements OnInit {
   getMatchingProfiles(){
     this.ProjectService.machingResources(this.Requirement_id).subscribe(data =>{
     console.log(data);
-    let No_resources = Object.keys(data).length;
-    console.log("Resources found" + No_resources);
-    if(No_resources > 0){ 
-      this.noResource =false;
-      console.log("Resources found" + No_resources);
-      this.Resource_list =data;
-    }else{
+      
+    if(data.status == false){ 
       console.log("No resources");
       this.noResource =true;
+    }else{
+      this.noResource =false;
+      console.log("Resources found" + Object.keys(data).length);
+      this.Resource_list =data;
     }
     
 }, error => {
