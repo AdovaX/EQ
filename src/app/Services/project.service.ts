@@ -95,4 +95,10 @@ getProjectById(Project_id){
 } 
 return this.http.post<Project[]>(this.REST_API_SERVER + '/project/getProjectById', data);
 }
+machingResources(Requirement_id):Observable<any>{
+  var data = {
+    "Requirement_id" : Requirement_id
+} 
+return this.http.post<any[]>(this.REST_API_SERVER + '/project/ProjectMatching', data);
+}
 }

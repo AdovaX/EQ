@@ -309,6 +309,12 @@ isAddedRequirement()
         });
       };
   exports.projectMatching =async (req, res) => {
+    if (!req.body.Requirement_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
     const requirement_id = req.body.Requirement_id; 
     var resource_List = [];
     let requirement_data = "";
@@ -342,6 +348,7 @@ isAddedRequirement()
     requirement_data = await getRequirement_data();
 
     let maching_role_users =[];
+    let maching_profiles =[];
 
     let R_role_list = JSON.parse(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles);
     var R_technology_list = JSON.parse(requirement_data.ProjectsTb.SelectedTechnologiesTbs[0].Technologies);
@@ -389,15 +396,40 @@ isAddedRequirement()
  
     }  
     } 
+    async function maching_Prepare_Resources() {  
+      const counts = {};
+const sampleArray = maching_role_users;
+sampleArray.forEach(function (x) { 
+  counts[x] = (counts[x] || 0) + 1;  
+
+});
+
+for (const [key, value] of Object.entries(counts)) {
+  console.log(`${key}: ${(value/4)*100}`);
+
+  var resource = await resourceTb.findAll({ where: {Resource_id : key} });
+  resource.forEach(el => {
+    if(el.Resource_id != null){
+      var d = {
+        "Resource" : el,
+        "Matching" :(value/4)*100 
+      }
+      maching_profiles.push(d);  
+    }
+  });
+}
+maching_profiles = maching_profiles.sort((a, b) => (a.Matching < b.Matching ? 1 : -1));
+ 
+  } 
 
     await maching_Role();
     await maching_Technology();
     await maching_Education();
     await maching_Domain();
+    await maching_Prepare_Resources();
+ 
 
-    console.log(maching_role_users); 
-
-     res.send(requirement_data);
+     res.send(maching_profiles);
      
 
     };
