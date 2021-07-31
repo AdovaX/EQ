@@ -357,6 +357,10 @@ isAddedRequirement()
     let No_technology_lis = 0;
     let No_domin_list  = 0;
     let No_education_list = 0;
+    let number_of_requirements =0;
+
+    // let rolescount = requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles;
+    // console.log("Roles count" + rolescount);
 
   if(Object.keys(requirement_data.ProjectsTb.SelectedRolesTbs).length > 0){
   No_roles_list = Object.keys(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles).length; 
@@ -379,6 +383,7 @@ isAddedRequirement()
       if(No_roles_list > 0){
         let R_role_list = JSON.parse(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles);
         for(const val of R_role_list) {
+          number_of_requirements++;
           var rol = await rolesTb.findAll({ where: {Role_name : val} })
           rol.forEach(el => {
             if(el.Resource_id != null){
@@ -393,6 +398,7 @@ isAddedRequirement()
       if(No_technology_lis > 0){
         var R_technology_list = JSON.parse(requirement_data.ProjectsTb.SelectedTechnologiesTbs[0].Technologies);
         for(const val of R_technology_list) {
+          number_of_requirements++;
           var tech = await technologyTb.findAll({ where: {Technology_name : val} })
           tech.forEach(el => {
             if(el.Resource_id != null){
@@ -407,6 +413,7 @@ isAddedRequirement()
       if(No_education_list > 0){
         var R_education_list = JSON.parse(requirement_data.ProjectsTb.SelectedQualificationsTbs[0].Qualifications);
         for(const val of R_education_list) {
+          number_of_requirements++;
           var edu = await educationTb.findAll({ where: {Qualification : val} })
           edu.forEach(el => {
             if(el.Resource_id != null){
@@ -421,6 +428,7 @@ isAddedRequirement()
       if(No_domin_list > 0){
         var R_domin_list = JSON.parse(requirement_data.ProjectsTb.SelectedDomainsTbs[0].Domains);
         for(const val of R_domin_list) {
+          number_of_requirements++;
           var domain = await domainTb.findAll({ where: {Domain : val} });
           domain.forEach(el => {
             if(el.Resource_id != null){
@@ -447,14 +455,17 @@ for (const [key, value] of Object.entries(counts)) {
   var resource = await resourceTb.findAll({ where: {Resource_id : key} });
   resource.forEach(el => {
     if(el.Resource_id != null){
+       
+      console.log("Value is " + value + "Resource " +  el.Resource_name);
       var d = {
         "Resource" : el,
-        "Matching" :(value/4)*100 
+        "Matching" :(value/number_of_requirements)*100 
       }
       maching_profiles.push(d);  
     }
   });
 }
+console.log("number_of_requirements: " + number_of_requirements);
 maching_profiles = maching_profiles.sort((a, b) => (a.Matching < b.Matching ? 1 : -1));
 res.send(maching_profiles);
 }else{

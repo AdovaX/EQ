@@ -1,5 +1,8 @@
+.right{
+    float: right;
+}
 
-  .error-message, .invalid-feedback {
+.error-message, .invalid-feedback {
     color: #cc0033;
     display: inline-block;
     font-size: 12px;

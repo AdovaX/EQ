@@ -1,0 +1,59 @@
+
+<app-menubar></app-menubar>
+<div class="content-wrapper">
+   <div class="container-fluid">
+
+    <div class="row pt-2 pb-2">
+        <div class="col-sm-9">
+            <h4 class="page-title"> Matching Resources</h4> 
+       </div> 
+       </div> 
+  
+    <div class="card">
+        <div class="card-body">     
+           
+            <div class="table-responsive">
+                <table id="default-datatable" class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th>No</th>
+                          <th>Name</th>
+                          <th>Rate</th> 
+                          <th>Matching</th> 
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <div *ngIf="noResource"> No Resources are available for this requirement! </div>
+                    <tr *ngFor="let item of Resource_list;let i = index;">
+                        <th>{{ i + 1 }}</th>
+                        <th>{{ item.Resource.Resource_name }}</th> 
+                        <th>{{ item.Resource.Resource_rate + "₹" }}</th> 
+                        <th>{{ item.Matching + "%" }}</th> 
+                        
+
+                        </tr>
+                    </tbody>
+
+                  </table>
+                  </div> 
+
+
+
+
+
+
+
+
+    </div>
+    </div>
+
+
+
+
+
+
+
+        <div class="overlay toggle-menu"></div> 
+    </div>
+    </div> 
+<app-footer></app-footer>
