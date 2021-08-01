@@ -39,22 +39,22 @@ function sendMail(reciverMail){
 
 exports.create =  async(req, res) => {
   var role ="";
-  var Contractor_password ="";
-  var Contractor_email ="";
+  var User_password ="";
+  var User_email ="";
   var Roles_id =2;
   
-  if (!req.body.Contractor_email) {
+  if (!req.body.User_email) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }  
-    Contractor_email = req.body.Contractor_email;
+    User_email = req.body.User_email;
     role = req.body.role;
-    Contractor_password = req.body.Contractor_password;
+    User_password = req.body.User_password;
 
 
-    var passwordHash = bcrypt.hashSync(req.body.Contractor_password , 10);
+    var passwordHash = bcrypt.hashSync(req.body.User_password , 10);
     const companyData = {
       C_short_name: req.body.C_short_name,
       C_full_name: req.body.C_full_name,
@@ -66,7 +66,7 @@ exports.create =  async(req, res) => {
         Contract_designation:  req.body.Contract_designation,
     };
     const loginData = {
-      User_email: req.body.Contractor_email,
+      User_email: req.body.User_email,
       User_password: passwordHash
     };
  
@@ -111,7 +111,7 @@ exports.create =  async(req, res) => {
    const login =  await insertLogin(company.Company_id ,Roles_id);
    const contractor =  await insertContractor(company.Company_id , login.User_id);
 
-   if(contractor.Contractor_id){
+   if(contractor.User_id){
      var respos = {
        "status" : "Success"
      }
@@ -125,28 +125,7 @@ exports.create =  async(req, res) => {
    };  
       
 
- 
-  exports.login = async (req, res) => { 
-    contractorTb.findAll({where : {Contractor_email:req.body.Contractor_email}})
-      .then(data => {
-        if(bcrypt.compareSync(req.body.Contractor_password, data[0].Contractor_password)){ 
-           var respos = {
-            "status": data[0].Contractor_id
-          }
-          res.send(JSON.stringify(respos));
-        }else{
-          var respos = {
-            "status" : "Passwords do not match"
-          }
-          res.send(respos);
-        }
-      })
-      .catch(err => {
-        res.send(err);
-
-      });
-
-  };
+  
  
 
   exports.findAll = (req, res) => {

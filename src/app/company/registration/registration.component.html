@@ -50,62 +50,62 @@
             <label for="input-11">Website</label>
             <input type="text" class="form-control form-control-square" formControlName="Website" id="Website" name="Website" 
             placeholder="Company Website URL">
-            <div *ngIf="registerForm.controls['Contract_designation'].invalid 
-            && (registerForm.controls['Contract_designation'].dirty || registerForm.controls['Contract_designation'].touched)"  class="error-message">
+            <div *ngIf="registerForm.controls['User_designation'].invalid 
+            && (registerForm.controls['User_designation'].dirty || registerForm.controls['User_designation'].touched)"  class="error-message">
             Websiteis a required field.</div>
            </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input-11">Designation</label>
-            <input type="text" class="form-control form-control-square" formControlName="Contract_designation" id="Contract_designation" 
-            name="Contract_designation" placeholder="Your Designation">
-            <div *ngIf="registerForm.controls['Contract_designation'].invalid 
-            && (registerForm.controls['Contract_designation'].dirty || registerForm.controls['Contract_designation'].touched)"  class="error-message">
+            <input type="text" class="form-control form-control-square" formControlName="User_designation" id="User_designation" 
+            name="User_designation" placeholder="Your Designation">
+            <div *ngIf="registerForm.controls['User_designation'].invalid 
+            && (registerForm.controls['User_designation'].dirty || registerForm.controls['User_designation'].touched)"  class="error-message">
             Designation a required field.</div>
            </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input-11"> Email ID</label>
-            <input type="email" class="form-control form-control-square" formControlName="Contractor_email" id="Contractor_email" 
-            name="Contractor_email" placeholder="Your Email ID">
-            <div *ngIf="registerForm.controls['Contractor_email'].invalid 
-            && (registerForm.controls['Contractor_email'].dirty || registerForm.controls['Contractor_email'].touched)"  class="error-message">
+            <input type="email" class="form-control form-control-square" formControlName="User_email" id="User_email" 
+            name="User_email" placeholder="Your Email ID">
+            <div *ngIf="registerForm.controls['User_email'].invalid 
+            && (registerForm.controls['User_email'].dirty || registerForm.controls['User_email'].touched)"  class="error-message">
             Your Email ID a required field.</div>
            </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input-11"> Contact Number</label>
-            <input type="text" class="form-control form-control-square" formControlName="Contract_phone"  id="Contract_phone" 
-            name="Contract_phone" placeholder="Your Contact Number">
-            <div *ngIf="registerForm.controls['Contract_phone'].invalid 
-            && (registerForm.controls['Contract_phone'].dirty || registerForm.controls['Contract_phone'].touched)"  class="error-message">
+            <input type="text" class="form-control form-control-square" formControlName="User_phone"  id="User_phone" 
+            name="User_phone" placeholder="Your Contact Number">
+            <div *ngIf="registerForm.controls['User_phone'].invalid 
+            && (registerForm.controls['User_phone'].dirty || registerForm.controls['User_phone'].touched)"  class="error-message">
             Your Contact Number a required field.</div>
            </div> 
            </div> 
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input-11">Password</label>
-            <input  [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="Contractor_password" id="Contractor_password" 
-            name="Contractor_password" placeholder="Password For Your Account" autocomplete="off"> 
+            <input  [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="User_password" id="User_password" 
+            name="User_password" placeholder="Password For Your Account" autocomplete="off"> 
             <div class="icheck-material-primary">
               <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
               <label for="primary">Hide password</label>
             </div> 
-            <div *ngIf="registerForm.controls['Contractor_password'].invalid 
-            && (registerForm.controls['Contractor_password'].dirty || registerForm.controls['Contractor_password'].touched)"  class="error-message">
+            <div *ngIf="registerForm.controls['User_password'].invalid 
+            && (registerForm.controls['User_password'].dirty || registerForm.controls['User_password'].touched)"  class="error-message">
             Password a required field.</div>
            </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input-11">Confirm Password</label>
-            <input  [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="Contract_password2" id="Contract_password2" 
-            name="Contract_password2" placeholder="Confirm your Password">
-            <div *ngIf="registerForm.controls['Contract_password2'].invalid 
-            && (registerForm.controls['Contract_password2'].dirty || registerForm.controls['Contract_password2'].touched)"  class="error-message">
+            <input  [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="User_password2" id="User_password2" 
+            name="User_password2" placeholder="Confirm your Password">
+            <div *ngIf="registerForm.controls['User_password2'].invalid 
+            && (registerForm.controls['User_password2'].dirty || registerForm.controls['User_password2'].touched)"  class="error-message">
             Confirm Password a required field.</div>
            </div>
         </div> 

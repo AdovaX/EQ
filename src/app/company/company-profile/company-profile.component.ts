@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { ContractorService } from '../../Services/contractor.service';
+import {SharedService} from '../../Services/shared.service';
 
 @Component({
   selector: 'app-company-profile',
@@ -14,7 +15,7 @@ export class CompanyProfileComponent implements OnInit {
   isUpdated = false;
   invalid = false;
   Company_id:number;
-  constructor(private formBuilder: FormBuilder, private ContractorService:ContractorService) { }
+  constructor(private formBuilder: FormBuilder, private ContractorService:ContractorService , private SharedService:SharedService) { }
 
   Company_fullname = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Company_shortname = new FormControl('', [ Validators.required, Validators.minLength(2)]);
@@ -42,7 +43,7 @@ export class CompanyProfileComponent implements OnInit {
   
   getCompanyData(id){
     var Contractor_id = id;
-    this.ContractorService.getProfileData(Contractor_id).subscribe(data =>{
+    this.SharedService.getProfileData(Contractor_id).subscribe(data =>{
      console.log(data);  
      this.Company_Form.controls.Company_fullname.setValue(data[0]['CompanyTb'].C_full_name);
      this.Company_Form.controls.Company_shortname.setValue(data[0]['CompanyTb'].C_short_name);

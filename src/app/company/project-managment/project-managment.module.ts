@@ -5,13 +5,12 @@ import { FormsModule } from '@angular/forms';
 
 import { ProjectManagmentRoutingModule } from './project-managment-routing.module';
 import { ProjectsComponent } from './projects/projects.component';
-import {MenubarComponent} from './menubar/menubar.component';
-import {FooterComponent} from './footer/footer.component';
 import { CreateProjectComponent } from './create-project/create-project.component'; 
 import {   MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import {SharedModuleModule} from '../../shared-module/shared-module.module';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -25,12 +24,13 @@ import { ViewProjectsComponent } from './view-projects/view-projects.component';
 import { FindMachingComponent } from './find-maching/find-maching.component';
 
 @NgModule({
-  declarations: [ProjectsComponent,MenubarComponent,FooterComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent,],
+  declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent,],
   imports: [
     CommonModule,
     ProjectManagmentRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModuleModule,
     MatRadioModule,
     MatSelectModule,
     MatStepperModule,

@@ -47,10 +47,10 @@ insertCompany(company , contractor): Observable<any>{
     'C_short_name': company.C_short_name,
     'No_employees': company.No_employees,
     'Website': company.Website,
-    'Contractor_email': contractor.Contractor_email,
-    'Contractor_password': contractor.Contractor_password,
-    'Contract_designation': contractor.Contract_designation,
-    'Contract_phone': contractor.Contract_phone,
+    'User_email': contractor.User_email,
+    'User_password': contractor.User_password,
+    'User_designation': contractor.User_designation,
+    'User_phone': contractor.User_phone,
 
   } 
   return this.http.post<any>(this.REST_API_SERVER + '/company/signup/', data);

@@ -61,44 +61,15 @@ export class LoginComponent implements OnInit {
           console.log(data);
           this.user_id = data[0]['User_id'];
           this.company_id = data[0]['Company_id'];
-          this.role_id = data[0]['User_roles_id'];
-           //Contract owner
-          if(this.role_id  == 2){
+          this.role_id = data[0]['User_roles_id']; 
+          if(this.role_id){
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
             console.log(this.company_id);
             this.router.navigate(['company/Dashboard']); 
 
-          }//Delegate
-          else if(this.role_id  == 3){
-            sessionStorage.setItem('USER_ID',String(this.user_id)); 
-            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
-            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-            this.router.navigate(['L2Dashboard']); 
-
-          }//SPOC
-          else if(this.role_id  == 4){
-            sessionStorage.setItem('USER_ID',String(this.user_id)); 
-            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
-            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-            this.router.navigate(['L3Dashboard']); 
-
-          }//Listing
-          else if(this.role_id  == 5){
-            sessionStorage.setItem('USER_ID',String(this.user_id)); 
-            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
-            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-            this.router.navigate(['L4Dashboard']); 
-
-          }//Hiring
-          else if(this.role_id  == 6){
-            sessionStorage.setItem('USER_ID',String(this.user_id)); 
-            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
-            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-            this.router.navigate(['L5Dashboard']); 
-
-          }
+          } 
           else{
             this.loginstatus = true;
           }  

@@ -22,13 +22,13 @@ export class RegistrationComponent implements OnInit {
   disabled= true;
   C_full_name = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   C_short_name = new FormControl('', [ Validators.required]);
-  Contractor_email = new FormControl('', [ Validators.required, Validators.email]);
-  Contractor_password = new FormControl('', [ Validators.required, Validators.minLength(4)]);
-  Contract_password2 = new FormControl('', [ Validators.required, Validators.minLength(4)]);
+  User_email = new FormControl('', [ Validators.required, Validators.email]);
+  User_password = new FormControl('', [ Validators.required, Validators.minLength(4)]);
+  User_password2 = new FormControl('', [ Validators.required, Validators.minLength(4)]);
   No_employees = new FormControl('', [ Validators.required, Validators.pattern("^[0-9]*$")]);
   Website = new FormControl('', [ Validators.required]);
-  Contract_designation = new FormControl('', [ Validators.required,]);
-  Contract_phone = new FormControl('', [ Validators.required]);
+  User_designation = new FormControl('', [ Validators.required,]);
+  User_phone = new FormControl('', [ Validators.required]);
  
 
   ngOnInit(): void {
@@ -36,13 +36,13 @@ export class RegistrationComponent implements OnInit {
   this.registerForm = this.formBuilder.group({
     C_full_name : this.C_full_name,
     C_short_name : this.C_short_name,
-    Contractor_email : this.Contractor_email,
-    Contractor_password : this.Contractor_password, 
-    Contract_password2 : this.Contract_password2, 
+    User_email : this.User_email,
+    User_password : this.User_password, 
+    User_password2 : this.User_password2, 
     No_employees : this.No_employees,
     Website : this.Website,
-    Contract_designation : this.Contract_designation,
-    Contract_phone : this.Contract_phone, 
+    User_designation : this.User_designation,
+    User_phone : this.User_phone, 
 
 
   },);
@@ -56,7 +56,7 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;    
     if (this.registerForm.invalid) { 
  
-    }else if(this.registerForm.value.Contractor_password !==this.registerForm.value.Contract_password2){
+    }else if(this.registerForm.value.User_password !==this.registerForm.value.User_password2){
       alert("Passwords do not match");
     }
     else{
@@ -69,10 +69,10 @@ export class RegistrationComponent implements OnInit {
       companyData.Website = this.registerForm.value.Website; 
 
       var contractorData = new Contractor(); 
-      contractorData.Contractor_email = this.registerForm.value.Contractor_email;
-      contractorData.Contractor_password = this.registerForm.value.Contractor_password;
-      contractorData.Contract_designation = this.registerForm.value.Contract_designation;
-      contractorData.Contract_phone = this.registerForm.value.Contract_phone;
+      contractorData.User_email = this.registerForm.value.User_email;
+      contractorData.User_password = this.registerForm.value.User_password;
+      contractorData.User_designation = this.registerForm.value.User_designation;
+      contractorData.User_phone = this.registerForm.value.User_phone;
         
        this.CompanyService.insertCompany(companyData , contractorData).subscribe( data => {
          this.Company = data;

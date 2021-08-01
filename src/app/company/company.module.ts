@@ -7,12 +7,13 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { CompanyRoutingModule } from './company-routing.module';
 import { RegistrationComponent } from './registration/registration.component';
-import { MenubarComponent } from './menubar/menubar.component';
+ 
+// import {MenubarComponent} from '../menubar/menubar.component';
+// import { FooterComponent } from '../footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecaptchaModule } from "ng-recaptcha";
-import { FooterComponent } from './footer/footer.component';
 import { DelegateComponent } from './delegate/delegate.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CreateListingManagerComponent } from './create-listing-manager/create-listing-manager.component';
@@ -21,11 +22,16 @@ import { CreateHiringManagerComponent } from './create-hiring-manager/create-hir
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';  
 import {CreateResourceComponent} from './create-resource/create-resource.component';
-
+import {SharedModuleModule} from '../shared-module/shared-module.module';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
-  declarations: [RegistrationComponent, MenubarComponent, LoginComponent, CreateSpocComponent, DashboardComponent, FooterComponent, 
+  declarations: [RegistrationComponent, 
+    //MenubarComponent, 
+    LoginComponent, CreateSpocComponent, DashboardComponent, 
+    //FooterComponent, 
     DelegateComponent, CompanyProfileComponent,CreateListingManagerComponent,CreateHiringManagerComponent,SearchResourceComponent,
-    CreateResourceComponent],
+    CreateResourceComponent,
+    ProfileComponent],
   imports: [
     CommonModule,
     CompanyRoutingModule,
@@ -36,6 +42,7 @@ import {CreateResourceComponent} from './create-resource/create-resource.compone
     FormsModule, 
     MatStepperModule,
     MatButtonModule,
+    SharedModuleModule
     
   ]
 })

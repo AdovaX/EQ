@@ -5,11 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
-import { MenubarComponent } from './menubar/menubar.component';
-import { MatTableModule } from '@angular/material/table'  
+ import { MatTableModule } from '@angular/material/table'  
+ import {SharedModuleModule} from '../shared-module/shared-module.module';
 
-import { FooterComponent } from './footer/footer.component';
-
+ 
 import { HiringManagerDashboardComponent } from './hiring-manager-dashboard/hiring-manager-dashboard.component';
 
 import { SearchResourceComponent } from './search-resource/search-resource.component';
@@ -21,13 +20,13 @@ import { HiringManagerModuleRoutingModule } from './hiring-manager-module-routin
 
  
 @NgModule({
-  declarations: [MenubarComponent, FooterComponent, HiringManagerDashboardComponent, SearchResourceComponent, HManagerProfileComponent],
+  declarations: [ HiringManagerDashboardComponent, SearchResourceComponent, HManagerProfileComponent],
   imports: [
     CommonModule,
     HiringManagerModuleRoutingModule,
      ReactiveFormsModule,
     FormsModule,
-    MatInputModule,
+    MatInputModule,SharedModuleModule,
     MatRadioModule,
     MatSelectModule,MatTableModule
   ]

@@ -10,13 +10,18 @@ import { CreateListingManagerComponent } from './create-listing-manager/create-l
 import { CreateHiringManagerComponent } from './create-hiring-manager/create-hiring-manager.component';
 import {SearchResourceComponent} from './search-resource/search-resource.component';
 import {CreateResourceComponent} from './create-resource/create-resource.component';
+import { ProfileComponent } from './profile/profile.component';
+
 const routes: Routes = [
     {
       path : '', component:RegistrationComponent
     }, 
-  {
-    path : 'Dashboard', component:DashboardComponent
-  }, 
+    {
+      path : 'Dashboard', component:DashboardComponent
+    }, 
+    {
+      path : 'Profile', component:ProfileComponent
+    }, 
   {
     path : 'Login', component:LoginComponent
   }, 

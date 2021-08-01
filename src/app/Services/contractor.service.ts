@@ -32,25 +32,8 @@ export class ContractorService {
     window.alert(errorMessage);
     return throwError(errorMessage);
  }
- getProfileData(User_id): Observable<Contractor[]>{
-     var data = {
-         "User_id" : User_id
-     }
-    return this.http.post<Contractor[]>(this.REST_API_SERVER + '/contractor/getMyCompany/', data);
-  } 
- updateContractorProfile(User_id , profileData): Observable<Contractor[]>{
-    
-    var profileData:any = {
-        'User_email' : profileData.Contractor_email_Crl,
-        'Contractor_phone' :profileData.Contract_phone_Crl,
-        'Contractor_firstName' :profileData.Contractor_firstName_Crl,
-        'Contractor_secondName' :profileData.Contractor_secondName_Crl,
-        'User_id' : this.User_id,
-        "Contractor_id" : this.Contractor_id,
-        "Company_id" : this.Company_id
-    }
-   return this.http.put<Contractor[]>(this.REST_API_SERVER + '/contractor/updateProfile/', profileData);
- } 
+ 
+  
 
  createDelegate(delegate): Observable<Delegate[]>{
      var delegateData = {

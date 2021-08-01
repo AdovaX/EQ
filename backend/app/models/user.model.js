@@ -19,6 +19,18 @@
         type: Sequelize.STRING,
         unique : true
       }, 
+      User_firstname: {
+        type: Sequelize.STRING, 
+      }, 
+      User_secondname: {
+        type: Sequelize.STRING, 
+      }, 
+      User_phonenumber: {
+        type: Sequelize.STRING,
+       },
+      User_designation: {
+        type: Sequelize.STRING,
+       }, 
       User_password: {
         type: Sequelize.STRING
       },
