@@ -22,3 +22,17 @@
 .redColor{
     color: red;;
 }
+.marg{
+  padding: 10px;
+}
+.usermsg{
+  color: grey;
+  font-size: 12px;
+}
+.card .tab-content{
+  padding: 2px;
+}
+.usermsgRed{
+  color: red;
+  font-size: 12px;
+}

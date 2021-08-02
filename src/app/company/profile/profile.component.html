@@ -89,6 +89,14 @@
                         </div>
                         <div class="col-lg-6">
                           <div class="form-group">
+                            <label class="form-control-label" for="input-username">Contact Number 2</label>
+                            <input type="text" id="input-username" class="form-control" formControlName="User_phone_Crl2" 
+                            placeholder="Contact Number 2"   required>
+                             
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
                             <label class="form-control-label" for="input-email">Email address</label>
                             <input type="email" id="input-email" class="form-control" formControlName="User_email_Crl" 
                             placeholder="gracie@example.com"    required>
@@ -96,9 +104,7 @@
                               <div *ngIf="f.User_email_Crl.errors.required">Email is a required field.</div> 
                           </div>
                         </div>
-                      </div>
-                      </div>
-                      <div class="row">
+                      </div> 
                         <div class="col-lg-6">
                           <div class="form-group">
                             <label class="form-control-label" for="input-username">Designation</label>
@@ -114,7 +120,7 @@
                         <div class="col-lg-4"> 
                         </div> 
                         <div class="col-lg-4">
-                          <button type="submit" class="btn btn-primary btn-square m-1">Click to update</button>
+                          <button type="submit" class="btn btn-primary btn-square m-1">Update</button>
                         </div> 
                         <div class="col-lg-4"> 
                         </div> 

@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
     User_firstName_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
     User_secondName_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
     User_phone_Crl = new FormControl('', [ Validators.required, Validators.minLength(10)]);
+    User_phone_Crl2 = new FormControl('', );
     User_email_Crl =new FormControl('', [ Validators.required, Validators.email]);
     User_designation_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
    
@@ -39,6 +40,7 @@ export class ProfileComponent implements OnInit {
         User_firstName_Crl : this.User_firstName_Crl,
         User_secondName_Crl : this.User_secondName_Crl,
         User_phone_Crl : this.User_phone_Crl,
+        User_phone_Crl2 : this.User_phone_Crl2,
         User_email_Crl : this.User_email_Crl, 
         User_designation_Crl : this.User_designation_Crl,  
     
@@ -79,6 +81,7 @@ export class ProfileComponent implements OnInit {
         this.Company_name = companyData.C_short_name;
         this.updateUserForm.controls.User_email_Crl.setValue(userData['User_email']);
         this.updateUserForm.controls.User_phone_Crl.setValue(userData['User_phonenumber']);
+        this.updateUserForm.controls.User_phone_Crl2.setValue(userData['User_phonenumber2']);
         this.updateUserForm.controls.User_firstName_Crl.setValue(userData['User_firstname']);
         this.updateUserForm.controls.User_secondName_Crl.setValue(userData['User_secondname']);
         this.updateUserForm.controls.User_designation_Crl.setValue(userData['User_designation']);

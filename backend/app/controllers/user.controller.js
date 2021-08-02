@@ -23,6 +23,7 @@ exports.updateUserProfile= async (req, res) => {
     User_secondname: req.body.User_secondname,
     User_designation: req.body.User_designation,
     User_phonenumber : req.body.User_phone,
+    User_phonenumber2 : req.body.User_phone2,
     User_email : req.body.User_email,
     }; 
     console.log("Profile update function");

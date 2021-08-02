@@ -13,22 +13,35 @@
                 <div class="card">
                    <div class="card-body"> 
                      <ul class="nav nav-tabs nav-tabs-primary">
-                       <li class="nav-item">
-                         <a class="nav-link active" data-toggle="tab" href="#tabe-1"><i class="zmdi zmdi-assignment-o"></i> 
-                            <span class="hidden-xs">Profile</span></a>
-                       </li> 
+                      <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#tabe-1"><i class="zmdi zmdi-assignment-o"></i> 
+                           <span class="hidden-xs">General Information </span></a>
+                      </li> 
+                      <li class="nav-item">
+                        <a class="nav-link " data-toggle="tab" href="#tabe-2"><i class="fa fa-cubes"></i> 
+                           <span class="hidden-xs">Branches</span></a>
+                      </li> 
+                      <li class="nav-item">
+                        <a class="nav-link " data-toggle="tab" href="#tabe-3"><i class="fa fa-bank"></i> 
+                           <span class="hidden-xs">Bank Accounts</span></a>
+                      </li> 
+                      <li class="nav-item">
+                        <a class="nav-link " data-toggle="tab" href="#tabe-4"><i class="fa fa-gear"></i> 
+                           <span class="hidden-xs">Preferences</span></a>
+                      </li> 
                      </ul> 
                      <div class="tab-content">
                        <div id="tabe-1" class="container tab-pane active">
+                         <p class="usermsg">This information will be publically available.</p>
                         <form [formGroup]="Company_Form" (ngSubmit)="onSubmit()">
                             <div class="row"> 
                                 <div class="col-sm-6">
                                   <div class="form-group">
-                                    <label for="input-11">Company full name<span class="redColor">*</span> </label>
+                                    <label for="input-11"> Legal Entity Name<span class="redColor">*</span> </label>
                                     <input type="text" class="form-control form-control-square" formControlName="Company_fullname" id="Company_fullname" 
-                                    name="Company_fullname"  placeholder="Company Legel full name" >
+                                    name="Company_fullname"  placeholder="Company Legal Entity name" >
                                     <div *ngIf="submitted && f.Company_fullname.errors" class="invalid-feedback">
-                                        <div *ngIf="f.Company_fullname.errors.required">Company fullname is a required field.</div> 
+                                        <div *ngIf="f.Company_fullname.errors.required">Company Legal Name is a required field.</div> 
                                       </div> 
                                    </div>
                                 </div>  
@@ -95,14 +108,14 @@
 
                                 <div class="col-sm-6">
                                     <div class="btn-group noShodow">
+                                      <div class="form-group">   
+                                          <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">
+                                            Reset</button>
+                                         </div>
                                         <div class="form-group">   
                                             <button type="submit" class="btn btn-primary btn-square m-1">
                                               Click to Update</button>
                                            </div> 
-                                        <div class="form-group">   
-                                            <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">
-                                              Reset</button>
-                                           </div>
                                     </div> 
                                 </div>  
                                 </div>
@@ -123,7 +136,271 @@
                     </div>
                   </div>
                         </form>
-                        </div> 
+                        </div>  
+                       <div id="tabe-2" class="container tab-pane">
+                        <p class="usermsg">This information will be publically available.</p>
+                         <div class="row" *ngIf="hasBranch">
+                           <div class="col-sm-4 marg" *ngFor="let branch of branch_List">
+                            <mat-card>
+                              <h5>
+                                {{branch.Company_city}} 
+                              </h5>
+                              <p>
+                                {{branch.Company_city_address}}  
+                              </p>
+
+                            </mat-card>  
+                           </div>   <br>
+                         </div>
+                         <hr>
+
+                        <form [formGroup]="Branch_Form" (ngSubmit)="addBranch()"> 
+                          <div class="row"> 
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> City<span class="redColor">*</span> </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Company_city" id="Company_city" 
+                                name="Company_city"  placeholder="Company Legal Entity name" >
+                                <div *ngIf="submitted && b.Company_city.errors" class="invalid-feedback">
+                                    <div *ngIf="b.Company_city.errors.required">Company City Name is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> Address<span class="redColor">*</span> </label>
+                                <textarea class="form-control form-control-square" formControlName="Company_city_address" id="Company_city_address" 
+                                name="Company_city_address"  placeholder="Company Legal Entity name"></textarea>
+                                <div *ngIf="submitted && b.Company_city_address.errors" class="invalid-feedback">
+                                    <div *ngIf="b.Company_city_address.errors.required">Company City Address is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label for="input-11"> Google map link  </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Company_gmap" id="Company_gmap" 
+                                name="Company_gmap"  placeholder="Company Google Map Link" >
+                                 
+                               </div>
+                            </div> 
+                            <div class="col-sm-6">
+                              <div class="btn-group noShodow">
+                                <div class="form-group">   
+                                    <button type="button" (click)="resetBranchForm()" class="btn btn-primary btn-square m-1">
+                                      Reset</button>
+                                   </div>
+                                  <div class="form-group">   
+                                      <button type="submit" class="btn btn-primary btn-square m-1">
+                                        Add Branch</button>
+                                     </div> 
+                              </div> 
+                          </div> 
+                          <div class="col-sm-12">
+
+                          <div id="notSucess" class="{{branchAdded ? 'successClass' : 'notSucess'}}">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert">×</button>
+                                  <div class="alert-icon">
+                                   <i class="zmdi zmdi-check-circle"></i>
+                                  </div>
+                                  <div class="alert-message">
+                                    <span><strong>Success! </strong> New Branch is added.</span>
+                                  </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                          </div> 
+                        </form> 
+                         </div> 
+                       <div id="tabe-3" class="container tab-pane"> 
+                        <p class="usermsgRed">This information will be confidential.</p>
+                        <form [formGroup]="Bank_Form" (ngSubmit)="addBank()">         
+                          <div class="row" *ngIf="hasBank">
+                          <div class="col-sm-4 marg" *ngFor="let bank of bank_List">
+                           <mat-card>
+                             <h5>
+                               {{bank.Bank_name}} 
+                             </h5>
+                             <p>
+                               {{bank.Bank_accountNumber}}  
+                             </p>
+
+                           </mat-card>  
+                          </div>   <br>
+                        </div>
+                        <hr>
+                          <div class="row"> 
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> Bank Name<span class="redColor">*</span> </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Bank_name" id="Bank_name" 
+                                name="Bank_name"  placeholder="Complete Name of the Bank" >
+                                <div *ngIf="submitted && bank.Bank_name.errors" class="invalid-feedback">
+                                    <div *ngIf="bank.Bank_name.errors.required">Bank Name is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> Branch Name<span class="redColor">*</span> </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Bank_Branch" id="Bank_Branch" 
+                                name="Bank_Branch"  placeholder="  Name of the Branch" >
+                                <div *ngIf="submitted && bank.Bank_Branch.errors" class="invalid-feedback">
+                                    <div *ngIf="bank.Bank_Branch.errors.required">Branch Name is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> Account Number<span class="redColor">*</span> </label>
+                                <input type="number" class="form-control form-control-square" formControlName="Bank_accountNumber" id="Bank_accountNumber" 
+                                name="Bank_accountNumber"  placeholder=" Account Number">
+                                <div *ngIf="submitted && bank.Bank_accountNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="bank.Bank_accountNumber.errors.required">Account Number is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11">Confirm Account Number<span class="redColor">*</span> </label>
+                                <input type="number" class="form-control form-control-square" formControlName="Bank_accountNumber2" id="Bank_accountNumber2" 
+                                name="Bank_accountNumber2"  placeholder=" Account Number">
+                                <div *ngIf="submitted && bank.Bank_accountNumber2.errors" class="invalid-feedback">
+                                    <div *ngIf="bank.Bank_accountNumber2.errors.required">Account Number is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> IFSC<span class="redColor">*</span> </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Bank_IFSC" id="Bank_IFSC" 
+                                name="Bank_IFSC"  placeholder=" Bank IFSC"> 
+                                <div *ngIf="submitted && bank.Bank_IFSC.errors" class="invalid-feedback">
+                                    <div *ngIf="bank.Bank_IFSC.errors.required">Account Number is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> Branch Adress<span class="redColor">*</span> </label>
+                                <textarea class="form-control form-control-square" formControlName="Bank_address" id="Bank_address" 
+                                name="Bank_address"  placeholder="  Name of the Branch Adress"></textarea>
+                                <div *ngIf="submitted && bank.Bank_address.errors" class="invalid-feedback">
+                                    <div *ngIf="bank.Bank_address.errors.required">Branch Adress is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+                            
+                            <div class="col-sm-12">
+                              <div class="btn-group noShodow">
+                                <div class="form-group">   
+                                    <button type="button" (click)="resetBankForm()" class="btn btn-primary btn-square m-1">
+                                      Reset</button>
+                                   </div>
+                                  <div class="form-group">   
+                                      <button type="submit" class="btn btn-primary btn-square m-1">
+                                        Add Bank Account</button>
+                                     </div> 
+                              </div> 
+                          </div>
+                          <div class="col-sm-12">
+
+                          <div id="notSucess" class="{{bankAdded ? 'successClass' : 'notSucess'}}">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert">×</button>
+                                  <div class="alert-icon">
+                                   <i class="zmdi zmdi-check-circle"></i>
+                                  </div>
+                                  <div class="alert-message">
+                                    <span><strong>Success! </strong> New Bank Account has added.</span>
+                                  </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                          </div>
+                          </form>
+
+                       </div>
+
+                       <div id="tabe-4" class="container tab-pane"> 
+                        <p class="usermsg">This information will be used for internal purpose.</p>
+                        <form [formGroup]="Preferences_Form" (ngSubmit)="UpdatePreferences()"> 
+                         <div class="row">
+                          <div class="col-sm-4">
+                            <label for="input-11"> Resource Name masking <span class="redColor">*</span></label> <br> 
+                           <mat-radio-group aria-label="Select an option" formControlName="Enable_masking" id="Enable_masking" 
+                           name="Enable_masking">
+                             <mat-radio-button value="1"  >Yes</mat-radio-button>
+                             <mat-radio-button value="0"     >No</mat-radio-button>
+                           </mat-radio-group>
+                          </div>
+                          <div class="col-sm-4">
+                            <label for="input-11">Freelancer can apply ? <span class="redColor">*</span></label>  <br>
+                           <mat-radio-group aria-label="Select an option" formControlName="Enable_freelancers" id="Enable_freelancers" 
+                           name="Enable_freelancers">
+                             <mat-radio-button value="1" >Yes</mat-radio-button>
+                             <mat-radio-button value="0" [checked]="isMasked == 0" >No</mat-radio-button>
+                           </mat-radio-group>
+                          </div>
+                          <div class="col-sm-4">
+                            <label for="input-11">Tier of companies to deal with</label>  <br>
+                            <mat-radio-group aria-label="Select an option" formControlName="Company_tiers" id="Company_tiers" 
+                            name="Company_tiers">
+                              <mat-radio-button value="1" >Tier 1</mat-radio-button>
+                              <mat-radio-button value="2" >Tier 2</mat-radio-button>
+                              <mat-radio-button value="3" >Tier 3</mat-radio-button>
+                              <mat-radio-button value="4" >Tier 4</mat-radio-button>
+                              <mat-radio-button value="5"  >Tier 5</mat-radio-button>
+                            </mat-radio-group>
+                             
+                          </div>
+
+                          <div class="col-sm-12">
+                            <div class="btn-group noShodow">
+                              
+                                <div class="form-group">   
+                                    <button type="submit" class="btn btn-primary btn-square m-1">
+                                      Update
+                                    </button>
+                                   </div> 
+                            </div> 
+                        </div>
+
+                        <div class="col-sm-12">
+
+                          <div id="notSucess" class="{{ispreferenceUpdated ? 'successClass' : 'notSucess'}}">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert">×</button>
+                                  <div class="alert-icon">
+                                   <i class="zmdi zmdi-check-circle"></i>
+                                  </div>
+                                  <div class="alert-message">
+                                    <span><strong>Success! </strong> Preferences updated.</span>
+                                  </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                         </div>
+                         </form>
+                      </div>
                      </div>
                    </div>
                 </div>

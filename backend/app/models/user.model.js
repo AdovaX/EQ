@@ -28,6 +28,9 @@
       User_phonenumber: {
         type: Sequelize.STRING,
        },
+       User_phonenumber2: {
+         type: Sequelize.STRING,
+        },
       User_designation: {
         type: Sequelize.STRING,
        }, 

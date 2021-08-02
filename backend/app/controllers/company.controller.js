@@ -3,6 +3,8 @@ const companyTb = db.companyTb;
 const contractorTb = db.contractownerTb;
 const usersTb = db.user;
 const userrolesTb = db.userroles;
+const BranchesTb = db.BranchesTb;
+const bankdetailsTb = db.bankdetailsTb;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 var nodemailer = require('nodemailer');
@@ -211,5 +213,165 @@ exports.create =  async(req, res) => {
           message:
             err.message || "Some error occurred while retrieving tutorials."
         });
+      });
+  };
+  exports.addBranch = (req, res) => {
+    // Validate request
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+   
+    const branch = {
+      Company_city: req.body.Company_city,
+      Company_city_address: req.body.Company_city_address,
+      Company_gmap: req.body.Company_gmap,
+      Company_id: req.body.Company_id, 
+      User_id: req.body.User_id, 
+    };
+  
+    // Save Tutorial in the database
+    BranchesTb.create(branch)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        var c = {
+          'status' : 'Failed'
+        }
+        res.send(c);
+      });
+  };
+
+  exports.getBranches = (req, res) => {
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+  
+    BranchesTb.findAll({ where: {Company_id:req.body.Company_id} })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        var c = {
+          "Status" : "Failed"
+        }
+        res.send(c);
+      });
+  };
+
+  exports.addBank = (req, res) => {
+    // Validate request
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+   
+    const bank = {
+      Bank_name: req.body.Bank_name,
+      Bank_branch: req.body.Bank_branch,
+      Bank_accountNumber: req.body.Bank_accountNumber,
+      Bank_address: req.body.Bank_address, 
+      Bank_IFSC: req.body.Bank_IFSC, 
+      Company_id: req.body.Company_id, 
+      User_id: req.body.User_id, 
+    };
+  
+    // Save Tutorial in the database
+    bankdetailsTb.create(bank)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        var c = {
+          'status' : 'Failed'
+        }
+        res.send(c);
+      });
+  };
+  exports.getBanks = (req, res) => {
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+  
+    bankdetailsTb.findAll({ where: {Company_id:req.body.Company_id} })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        var c = {
+          "Status" : "Failed"
+        }
+        res.send(c);
+      });
+  };
+
+  exports.updatePreferences = (req, res) => {
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+    const preferences = {
+      "Enable_masking" : req.body.Enable_masking,
+      "Freelancers" : req.body.Freelancers,
+      "Tiers_maching" : req.body.Tiers_maching
+    }
+    console.log(preferences);
+  
+    companyTb.update(preferences, {
+      where: { Company_id: req.body.Company_id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            Status: "Success"
+          });
+        } else {
+          res.send({
+            Status: 'Falied'
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: err
+        });
+      });
+  };
+
+  exports.getPreferences = (req, res) => {
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+  
+    companyTb.findOne({ where: {Company_id:req.body.Company_id} })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        var c = {
+          "Status" : "Failed"
+        }
+        res.send(c);
       });
   };

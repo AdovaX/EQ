@@ -11,6 +11,12 @@ module.exports = app => {
     router.get("/searchbyid/:Company_id", company.findOne); 
     router.delete("/delete/:Company_id", company.delete); 
     router.post("/login", Login.mainLogin); 
+    router.post("/addBranch", company.addBranch); 
+    router.post("/getBranches", company.getBranches); 
+    router.post("/addBank", company.addBank); 
+    router.post("/getBanks", company.getBanks); 
+    router.post("/updatePreferences", company.updatePreferences); 
+    router.post("/getPreferences", company.getPreferences); 
   
     //app.use('/spoc/signup', router);
     app.use('/company', router);

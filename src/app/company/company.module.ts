@@ -24,6 +24,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {CreateResourceComponent} from './create-resource/create-resource.component';
 import {SharedModuleModule} from '../shared-module/shared-module.module';
 import { ProfileComponent } from './profile/profile.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @NgModule({
   declarations: [RegistrationComponent, 
     //MenubarComponent, 
@@ -42,7 +45,9 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule, 
     MatStepperModule,
     MatButtonModule,
-    SharedModuleModule
+    SharedModuleModule,
+    MatCardModule,
+    MatCheckboxModule
     
   ]
 })

@@ -34,6 +34,15 @@ module.exports = (sequelize, Sequelize) => {
       },
       Eq_rating: {
         type: Sequelize.INTEGER
+      },
+      Enable_masking: {
+        type: Sequelize.INTEGER
+      },
+      Freelancers: {
+        type: Sequelize.INTEGER
+      },
+      Tiers_maching: {
+        type: Sequelize.INTEGER
       }
     });
   

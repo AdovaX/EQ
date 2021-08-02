@@ -106,4 +106,5 @@ updateCompany(User_id,Company_id,Companydata): Observable<Company[]>{
  return this.http.put<Company[]>(this.REST_API_SERVER + '/contractor/updateCompany/', Company);
 } 
 
+
 }

@@ -35,6 +35,7 @@ export class SharedService {
     var profileData:any = {
         'User_email' : profileData.User_email_Crl,
         'User_phone' :profileData.User_phone_Crl,
+        'User_phone2' :profileData.User_phone_Crl2,
         'User_firstname' :profileData.User_firstName_Crl,
         'User_secondname' :profileData.User_secondName_Crl,
         'User_id' :  User_id, 
