@@ -5,6 +5,7 @@ const usersTb = db.user;
 const userrolesTb = db.userroles;
 const BranchesTb = db.BranchesTb;
 const bankdetailsTb = db.bankdetailsTb;
+const GovermentTbs = db.GovermentTbs;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 var nodemailer = require('nodemailer');
@@ -228,6 +229,7 @@ exports.create =  async(req, res) => {
       Company_city: req.body.Company_city,
       Company_city_address: req.body.Company_city_address,
       Company_gmap: req.body.Company_gmap,
+      Company_GSTIN: req.body.Company_GSTIN,
       Company_id: req.body.Company_id, 
       User_id: req.body.User_id, 
     };
@@ -364,6 +366,58 @@ exports.create =  async(req, res) => {
     }
   
     companyTb.findOne({ where: {Company_id:req.body.Company_id} })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        var c = {
+          "Status" : "Failed"
+        }
+        res.send(c);
+      });
+  };
+
+  exports.addGovIds = (req, res) => {
+    // Validate request
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+   
+    const gov = {
+      Company_TAN: req.body.Company_TAN,
+      Company_CIN: req.body.Company_CIN,
+      Company_PAN: req.body.Company_PAN, 
+      Company_id: req.body.Company_id, 
+      User_id: req.body.User_id, 
+    };
+  
+    // Save Tutorial in the database
+    GovermentTbs.create(gov)
+      .then(data => { 
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        var c = {
+          'status' : 'Failed'
+        }
+        res.send(c);
+      });
+  };
+
+  exports.getGovernmentData = (req, res) => {
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+  
+    GovermentTbs.findAll({ where: {Company_id:req.body.Company_id} })
       .then(data => {
         res.send(data);
       })

@@ -1,22 +1,19 @@
 module.exports = (sequelize, Sequelize) => {
-    const BranchesTb = sequelize.define("BranchesTb", {
-        Branches_id: {
+    const Government = sequelize.define("GovermentTbs", {
+        Government_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       }, 
-      Company_city: {
+      Company_TAN: {
         type: Sequelize.STRING
       },
-      Company_city_address: {
+      Company_CIN: {
         type: Sequelize.STRING
       },
-      Company_gmap: {
+      Company_PAN: {
         type: Sequelize.STRING
-      },
-      Company_GSTIN: {
-        type: Sequelize.STRING
-      },
+      }, 
       Company_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -39,6 +36,6 @@ module.exports = (sequelize, Sequelize) => {
       } ,   
     });
   
-    return BranchesTb;
+    return Government;
   };
     

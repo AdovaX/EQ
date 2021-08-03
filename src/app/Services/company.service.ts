@@ -63,16 +63,17 @@ getMyCompany(){
   return this.http.get<any>(this.REST_API_SERVER).pipe(catchError(this.handleError));
 
 }
-addBranches(User_id,Company_id,Branchdata): Observable<Company[]>{
+addBranches(User_id,Company_id,Branchdata): Observable<any[]>{
     
   var Branch:any = {
       'Company_city' : Branchdata.Company_city,
       'Company_city_address' :Branchdata.Company_city_address,
       'Company_gmap' :Branchdata.Company_gmap, 
+      'Company_GSTIN' :Branchdata.Company_GSTIN, 
       'Company_id' :Company_id, 
       'User_id' : User_id
   } 
- return this.http.post<Company[]>(this.REST_API_SERVER + '/company/addBranch/', Branch);
+ return this.http.post<any[]>(this.REST_API_SERVER + '/company/addBranch/', Branch);
 } 
 getBranches(Company_id){
   var data = {
@@ -108,8 +109,7 @@ upddatePreferences(User_id,Company_id,Preferences): Observable<any[]>{
       'Tiers_maching' :Preferences.Company_tiers, 
       'Company_id' :Company_id, 
       'User_id' : User_id
-  } 
-  console.log(preferences);
+  }  
  return this.http.post<any[]>(this.REST_API_SERVER + '/company/updatePreferences/', preferences);
 } 
 getPreferences(Company_id){
@@ -119,4 +119,21 @@ getPreferences(Company_id){
   return this.http.post<any[]>(this.REST_API_SERVER + '/company/getPreferences/', data);
 }
 
+addGovernmentData(User_id,Company_id,Gov): Observable<any[]>{
+    
+  var gov  = {
+      'Company_TAN' : Gov.Company_TAN,
+      'Company_CIN' :Gov.Company_CIN,
+      'Company_PAN' :Gov.Company_PAN, 
+      'Company_id' :Company_id, 
+      'User_id' : User_id
+  }  
+ return this.http.post<any[]>(this.REST_API_SERVER + '/company/addGovIds/', gov);
+} 
+getGovernmentData(Company_id){
+  var data = {
+    Company_id : Company_id
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/company/getGovernmentData/', data);
+}
 }

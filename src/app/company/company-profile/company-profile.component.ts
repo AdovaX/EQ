@@ -14,18 +14,26 @@ export class CompanyProfileComponent implements OnInit {
   Company_Form: FormGroup;
   Branch_Form:FormGroup;
   Bank_Form:FormGroup;
+  Government_Form:FormGroup;
   Preferences_Form:FormGroup;
   submitted = false;
   branchAdded = false;
   isUpdated = false;
   invalid = false;
   hasBranch = false;
+  govUpdated=false;
   branch_List =[];
+  gov_Ids =[];
   bankAdded = false;
   hasBank =false;
+  hasGov=false;
   bank_List=[];
   isMasked = 0;
+  isFreelancer = 0;
+  isTier = 0;
   ispreferenceUpdated = false;
+  companyTiers:any;
+  Options:any;
   Company_id=sessionStorage.getItem('COMPANY_ID');
   constructor(private formBuilder: FormBuilder, private ContractorService:ContractorService ,private CompanyService:CompanyService, private SharedService:SharedService) { }
 
@@ -41,6 +49,7 @@ export class CompanyProfileComponent implements OnInit {
   Company_gmap = new FormControl('',);
   Bank_name = new FormControl('', [ Validators.required]);
   Bank_Branch = new FormControl('', [ Validators.required]);
+  Company_GSTIN = new FormControl('', );
   Bank_address = new FormControl('', [ Validators.required]);
   Bank_accountNumber = new FormControl('', [ Validators.required]);
   Bank_accountNumber2 = new FormControl('', [ Validators.required]);
@@ -48,6 +57,9 @@ export class CompanyProfileComponent implements OnInit {
   Enable_masking = new FormControl('', [ Validators.required]);
   Enable_freelancers = new FormControl('', [ Validators.required]);
   Company_tiers = new FormControl('', [ Validators.required]);
+  Company_TAN = new FormControl('', );
+  Company_CIN = new FormControl('', );
+  Company_PAN = new FormControl('', );
   ngOnInit(): void {
     this.Company_Form = this.formBuilder.group({
       Company_fullname : this.Company_fullname,
@@ -63,6 +75,13 @@ export class CompanyProfileComponent implements OnInit {
       Company_city : this.Company_city,
       Company_city_address : this.Company_city_address,
       Company_gmap : this.Company_gmap,  
+      Company_GSTIN:this.Company_GSTIN
+  
+    });
+    this.Government_Form = this.formBuilder.group({
+      Company_TAN : this.Company_TAN,
+      Company_CIN : this.Company_CIN,
+      Company_PAN : this.Company_PAN, 
   
     });
     this.Bank_Form = this.formBuilder.group({
@@ -80,10 +99,23 @@ export class CompanyProfileComponent implements OnInit {
       Company_tiers : this.Company_tiers,  
   
     });
+    this.companyTiers = [
+      { id: 1, name: 'Tier 1' },
+      { id: 2, name: 'Tier 2' },
+      { id: 3, name: 'Tier 3' },
+      { id: 4, name: 'Tier 4' },
+      { id: 5, name: 'Tier 5' }
+    ];
+    this.Options=[
+
+      { id: 0, name: 'No' }, 
+      { id: 1, name: 'Yes' }, 
+    ];
     this.getCompanyData(this.User_id);
     this.getBranches();
     this.getBanks();
     this.getPreferences();
+    this.getGovernmentData();
   }  
   get f() { return this.Company_Form.controls; }
   get b() { return this.Branch_Form.controls; }
@@ -92,6 +124,7 @@ export class CompanyProfileComponent implements OnInit {
   resetForm(){ this.Company_Form.reset();}
   resetBranchForm(){ this.Branch_Form.reset();}
   resetBankForm(){ this.Bank_Form.reset();}
+  resetGovForm(){ this.Government_Form.reset();}
   
   getCompanyData(id){
     var User_id = id;
@@ -193,14 +226,16 @@ getBanks(){
   }); 
 }
 UpdatePreferences(){
-  if(this.Preferences_Form.invalid){
-    this.ispreferenceUpdated =false;
-    console.log(this.Preferences_Form.errors);
-    return false;
-  } 
-  else{
-    console.log(this.Preferences_Form.value);
-    this.CompanyService.upddatePreferences(this.User_id ,this.Company_id, this.Preferences_Form.value).subscribe(data =>{
+   
+  let data = {
+    "Enable_masking" : this.isMasked,
+    "Enable_freelancers" : this.isFreelancer,
+    "Company_tiers" : this.isTier
+
+  }
+  console.log(data);
+     
+    this.CompanyService.upddatePreferences(this.User_id ,this.Company_id, data).subscribe(data =>{
       console.log(data);
        if(data['status'] == "Failed"){ 
          alert("Invalid details!");
@@ -209,16 +244,52 @@ UpdatePreferences(){
       }  
     });
 
-  }  
+    
 }
 getPreferences(){
   this.CompanyService.getPreferences(this.Company_id).subscribe(data =>{
     console.log(data);
+
     this.isMasked = data['Enable_masking'];
-   
-    this.Preferences_Form.controls.Enable_masking.setValue(data['Enable_masking']);  
-    this.Preferences_Form.controls.Enable_freelancers.setValue(data['Freelancers']);  
-    this.Preferences_Form.controls.Company_tiers.setValue(data['Tiers_maching']);  
+    this.isFreelancer = data['Freelancers']
+    this.isTier = data['Tiers_maching'];
+    
+  }); 
+}
+changeMasking(e){
+  this.isMasked=e.target.value;  
+}
+changeFreelancer(e){
+  this.isFreelancer=e.target.value;  
+}
+changeTierList(e){
+  this.isTier=e.target.value;  
+}
+
+addGovernmentIds(){
+  
+    this.CompanyService.addGovernmentData(this.User_id ,this.Company_id, this.Government_Form.value).subscribe(data =>{
+      console.log(data);
+       if(data['status'] == "Failed"){ 
+         alert("Invalid details!");
+      }else{ 
+        this.govUpdated =true;
+      }
+      this.Government_Form.reset(); 
+      this.getGovernmentData();
+    });
+ 
+}
+getGovernmentData(){
+  this.CompanyService.getGovernmentData(this.Company_id).subscribe(data =>{
+    console.log(data);
+    if(data['status'] == "Failed"){ 
+       
+    }else{ 
+      this.hasGov=true;
+      this.gov_Ids = data; 
+    } 
+    
   }); 
 }
 }

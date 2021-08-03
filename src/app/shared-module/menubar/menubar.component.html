@@ -80,7 +80,7 @@
         </a> 
       </li>
 
-      <li [routerLinkActive]="['active']"  *ngIf="Role_id == 2">
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id <=4">
         <a [routerLink]="[ '/company/Companyupdate' ]"> 
           <i class="zmdi zmdi-assignment-o"></i>
 		  <span>Company Details</span><i class="fa fa-angle-left pull-right"></i>

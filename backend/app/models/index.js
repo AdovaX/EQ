@@ -52,6 +52,7 @@ db.SelectedDomains = require("./selectedDomains.model")(sequelize, Sequelize);
 db.SelectedQualifications = require("./selectedQualifications.model")(sequelize, Sequelize);
 db.SelectedRoles = require("./selectedRoles.model")(sequelize, Sequelize);
 db.BranchesTb = require("./branches.model")(sequelize, Sequelize);
+db.GovermentTbs = require("./government.model")(sequelize, Sequelize);
 
   
  

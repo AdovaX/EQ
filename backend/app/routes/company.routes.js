@@ -17,6 +17,8 @@ module.exports = app => {
     router.post("/getBanks", company.getBanks); 
     router.post("/updatePreferences", company.updatePreferences); 
     router.post("/getPreferences", company.getPreferences); 
+    router.post("/addGovIds", company.addGovIds); 
+    router.post("/getGovernmentData", company.getGovernmentData); 
   
     //app.use('/spoc/signup', router);
     app.use('/company', router);

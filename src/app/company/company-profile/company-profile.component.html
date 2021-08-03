@@ -26,6 +26,10 @@
                            <span class="hidden-xs">Bank Accounts</span></a>
                       </li> 
                       <li class="nav-item">
+                        <a class="nav-link " data-toggle="tab" href="#tabe-5"><i class="fa fa-bank"></i> 
+                           <span class="hidden-xs">Government IDs</span></a>
+                      </li> 
+                      <li class="nav-item">
                         <a class="nav-link " data-toggle="tab" href="#tabe-4"><i class="fa fa-gear"></i> 
                            <span class="hidden-xs">Preferences</span></a>
                       </li> 
@@ -163,6 +167,16 @@
                                 name="Company_city"  placeholder="Company Legal Entity name" >
                                 <div *ngIf="submitted && b.Company_city.errors" class="invalid-feedback">
                                     <div *ngIf="b.Company_city.errors.required">Company City Name is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> GSTIN <span class="redColor">*</span> </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Company_GSTIN" id="Company_GSTIN" 
+                                name="Company_GSTIN"  placeholder="Company GSTIN  " >
+                                <div *ngIf="submitted && b.Company_GSTIN.errors" class="invalid-feedback">
+                                    <div *ngIf="b.Company_GSTIN.errors.required">Company GSTIN is a required field.</div> 
                                   </div> 
                                </div>
                             </div> 
@@ -341,31 +355,32 @@
                         <form [formGroup]="Preferences_Form" (ngSubmit)="UpdatePreferences()"> 
                          <div class="row">
                           <div class="col-sm-4">
-                            <label for="input-11"> Resource Name masking <span class="redColor">*</span></label> <br> 
-                           <mat-radio-group aria-label="Select an option" formControlName="Enable_masking" id="Enable_masking" 
-                           name="Enable_masking">
-                             <mat-radio-button value="1"  >Yes</mat-radio-button>
-                             <mat-radio-button value="0"     >No</mat-radio-button>
-                           </mat-radio-group>
+ 
+                             <label for="primary">Enable Resource Name Masking</label> <br> 
+                             <div class="  icheck-inline" *ngFor="let masking of Options">
+                              <input type="radio" id="inline-radio-primary{{masking.id}}" name="masking" [value]="masking.id" [checked]="masking.id ==isMasked" (change)="changeMasking($event)" >
+                              <label for="inline-radio-primary">{{masking.name}}</label>
+                            </div> 
+
+                            
                           </div>
                           <div class="col-sm-4">
-                            <label for="input-11">Freelancer can apply ? <span class="redColor">*</span></label>  <br>
-                           <mat-radio-group aria-label="Select an option" formControlName="Enable_freelancers" id="Enable_freelancers" 
-                           name="Enable_freelancers">
-                             <mat-radio-button value="1" >Yes</mat-radio-button>
-                             <mat-radio-button value="0" [checked]="isMasked == 0" >No</mat-radio-button>
-                           </mat-radio-group>
+                            <label for="primary">Freelancer can apply ?</label> <br> 
+                            <div class="  icheck-inline" *ngFor="let item of Options">
+                              <input type="radio" id="inline-primary{{item.id}}" name="freelancer" [value]="item.id" [checked]="item.id ==isFreelancer" (change)="changeFreelancer($event)"  >
+                              <label for="inline-radio-primary">{{item.name}}</label>
+                            </div>  
                           </div>
-                          <div class="col-sm-4">
-                            <label for="input-11">Tier of companies to deal with</label>  <br>
-                            <mat-radio-group aria-label="Select an option" formControlName="Company_tiers" id="Company_tiers" 
-                            name="Company_tiers">
-                              <mat-radio-button value="1" >Tier 1</mat-radio-button>
-                              <mat-radio-button value="2" >Tier 2</mat-radio-button>
-                              <mat-radio-button value="3" >Tier 3</mat-radio-button>
-                              <mat-radio-button value="4" >Tier 4</mat-radio-button>
-                              <mat-radio-button value="5"  >Tier 5</mat-radio-button>
-                            </mat-radio-group>
+                          <div class="col-sm-12"> 
+                              <label for="input-11"> 
+                                Tier of companies to deal with<span class="redColor">*</span> 
+                              </label> <br> 
+                              <div class="  icheck-inline" *ngFor="let tier of companyTiers">
+                                <input type="radio" id="inline {{tier.id}}" name="tier" [value]="tier.id" [checked]="tier.id ==isTier" (change)="changeTierList($event)" >
+                                <label for="inline-radio-primary"> {{tier.name}} </label>
+                              </div> 
+ 
+ 
                              
                           </div>
 
@@ -400,6 +415,90 @@
                           </div>
                          </div>
                          </form>
+                      </div>
+                      
+                      <div id="tabe-5" class="container tab-pane"> 
+                        <p class="usermsgRed">This information will be confidential.</p>
+                        <div class="row" *ngIf="hasGov">
+                          <div class="col-sm-4 marg" *ngFor="let gov of gov_Ids">
+                           <mat-card>
+                              
+                             <p>
+                              TAN :  {{gov.Company_TAN}}  
+                             </p>
+                             <p>
+                              CIN :  {{gov.Company_CIN}}  
+                             </p>
+                             <p>
+                              PAN :  {{gov.Company_PAN}}  
+                             </p>
+
+                           </mat-card>  
+                          </div>   <br> 
+                        <hr>
+                        </div>
+
+                        <form [formGroup]="Government_Form" (ngSubmit)="addGovernmentIds()"> 
+                          <div class="row">
+
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11">TAN  </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Company_TAN" id="Company_TAN" 
+                                name="Company_TAN"  placeholder=" Company TAN"> 
+                               </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11">CIN  </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Company_CIN" id="Company_CIN" 
+                                name="Company_CIN"  placeholder=" Company CIN"> 
+                               </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11">PAN  </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Company_PAN" id="Company_PAN" 
+                                name="Company_PAN"  placeholder=" Company PAN"> 
+                               </div>
+                            </div>
+
+                          <div class="col-sm-12">
+                            <div class="btn-group noShodow">
+                              
+                                <div class="form-group">   
+                                    <button type="submit" class="btn btn-primary btn-square m-1">
+                                      Add
+                                    </button>
+                                   </div> 
+                            </div> 
+                        </div>
+
+                        <div class="col-sm-12">
+
+                          <div id="notSucess" class="{{govUpdated ? 'successClass' : 'notSucess'}}">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert">×</button>
+                                  <div class="alert-icon">
+                                   <i class="zmdi zmdi-check-circle"></i>
+                                  </div>
+                                  <div class="alert-message">
+                                    <span><strong>Success! </strong> IDs updated.</span>
+                                  </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+
+                          </div>
+
+                        </form>
+
                       </div>
                      </div>
                    </div>
