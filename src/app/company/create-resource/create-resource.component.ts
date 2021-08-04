@@ -30,6 +30,10 @@ export class CreateResourceComponent implements OnInit {
   isJobError =false;
   isEduError =false;
 
+
+  fileToUpload: File | null = null;
+
+
   constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService) { }
 
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
@@ -113,6 +117,7 @@ export class CreateResourceComponent implements OnInit {
     else{
       
     console.log(this.Resource_Form.value);
+    this.uploadFileToActivity();
       this.ListingManagerService.createResource(this.Resource_Form.value , this.technology_list ,this.domain_list,
         this.jobRole_list , this.education_list).subscribe(data =>{
         console.log("Form Submission sent");
@@ -190,10 +195,7 @@ export class CreateResourceComponent implements OnInit {
   }
   }
 
-
-
-
-
+ 
 
   getResources(){
     this.ListingManagerService.getResources().subscribe(data =>{
@@ -226,5 +228,22 @@ export class CreateResourceComponent implements OnInit {
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
+
+
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(files.item(0).name);
+    
+}
+
+uploadFileToActivity() {
+  this.ListingManagerService.postFile(this.fileToUpload).subscribe(data => {
+    console.log(data);
+    }, error => {
+      console.log(error);
+    });
+}
+
 
 }

@@ -5,6 +5,8 @@ import { retry, catchError } from 'rxjs/operators';
 import {ListingManager} from '../class/ListingManager';
 import { Company } from '../class/Company';
 import {Resource} from '../class/Resource';
+import { map } from "rxjs/operators"; 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -94,4 +96,14 @@ createResource(data , technology_list,domain_list,jobRole_list,education_list): 
  }
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/listing/createResource', Resourcedata);
 } 
+
+
+postFile(fileToUpload: File): Observable<any> {
+   
+  const formData: FormData = new FormData();
+      formData.append('file', fileToUpload, fileToUpload.name);
+  return  this.http.post<any>(this.REST_API_SERVER +'/uploads/resumeUpload', formData);
+}
+
+
 }

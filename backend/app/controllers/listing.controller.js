@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 const domainTb = db.domainTb;
 const rolesTb = db.roles;
 const educationTb = db.educationTb;
- 
+
 
 exports.checkManagerType =  async(req, res) => {
     if (!req.body.email) {
@@ -421,3 +421,4 @@ exports.deleteResource = (req, res) => {
       });
     });
 };
+
