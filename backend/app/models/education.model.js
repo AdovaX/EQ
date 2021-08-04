@@ -9,8 +9,8 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { 
-          model: 'UsersTbs',
-          key: 'User_id'
+          model: 'ResourceTbs',
+          key: 'Resource_id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
