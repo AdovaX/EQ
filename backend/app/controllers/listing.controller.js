@@ -202,6 +202,22 @@ exports.checkManagerType =  async(req, res) => {
 exports.createResource= async (req, res) => {
 
   var form = new IncomingForm(); 
+  var newpath ="";
+  
+    form.on('file', (field, files) => {
+      console.log("in");
+  
+      var oldpath = files.path;
+      newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+        console.log("Resume uploaded");  
+      });  
+  
+    }) 
+  
+    
+
   form.parse(req, (err, fields, files) => {
   
     if (!fields.Company_id) {
@@ -211,24 +227,28 @@ exports.createResource= async (req, res) => {
      return;
    }  
  var passwordHash = bcrypt.hashSync(fields.Resource_password , 10);
- const resourceData = {
-  Resource_name: fields.Resource_name,
-  Resource_Experience: fields.Resource_Experience,
-  Resource_Email: fields.Resource_Email,
-  Resource_phone: fields.Resource_Phone,
-  Resource_Password: passwordHash,
-  Resource_Designation: fields.Resource_Designation,
-  Resource_summery: fields.Resource_summery, 
-  Resource_stack: fields.Resource_stack, 
-  Resource_status:fields.Resource_status,
-  Is_remote: fields.Is_remote,
-  Resource_rate: fields.Resource_rate,
-  Availability_status: fields.Availability_status, 
-  Company_id: fields.Company_id, 
-};
+ 
 
 
 async function insertResource() {
+ 
+
+  const resourceData = {
+    Resource_name: fields.Resource_name,
+    Resource_Experience: fields.Resource_Experience,
+    Resource_Email: fields.Resource_Email,
+    Resource_phone: fields.Resource_Phone,
+    Resource_Password: passwordHash,
+    Resource_Designation: fields.Resource_Designation,
+    Resource_summery: fields.Resource_summery, 
+    Resource_stack: fields.Resource_stack, 
+    Resource_status:fields.Resource_status,
+    Is_remote: fields.Is_remote,
+    Resource_rate: fields.Resource_rate,
+    Availability_status: fields.Availability_status, 
+    Company_id: fields.Company_id, 
+    Resource_resume:newpath
+  };
   return await resourceTb.create(resourceData); 
 } 
 
@@ -300,7 +320,6 @@ async function prepareTechnology(r_id) {
     } 
   return await Education_lists;
     } 
-
  
 
   insertResource().then((data) =>{ 
@@ -339,8 +358,7 @@ async function prepareTechnology(r_id) {
 
   })
   .then((data) =>{
-
-    console.log("Education : R_id" + data[0].Resource_id); 
+ 
     return prepareEducation(data[0].Resource_id);
 
   })
