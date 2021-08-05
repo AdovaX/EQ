@@ -37,8 +37,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Designation</th> 
-                                                    <th>Availabiliity</th> 
-                                                    <th>Status</th> 
+                                                    <th>Availabiliity</th>  
                                                     <th>Action</th> 
                                                 </tr>
                                             </thead>
@@ -46,16 +45,26 @@
                                                 <tr *ngFor="let item of resourceLists">
                                                     <th>{{ item.Resource_name }}</th>
                                                     <td>{{ item.Resource_Email }}</td>
-                                                    <td>{{ item.Resource_Designation }}</td> 
+                                                    <td>{{ item.Resource_Designation }}</td>  
                                                     <td>{{ item.Availability_status }}</td> 
-                                                    <td>{{ item.Resource_status }}</td> 
                                                     <td> 
-                                                    <div class="btn-group m-1">
-                                                        <button type="button" class="btn btn-outline-primary">
-                                                            <span class="fa fa-edit"> </span> </button>
-                                                        <button   class="btn btn-outline-danger" (click)="deleteResource(item.Resource_id)">
-                                                            <span class="fa fa-trash"> </span> </button> 
-                                                        </div> 
+                                                      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                                        More <span class="fa fa-ellipsis-v"> </span>
+                                                      </button>
+                                                      <mat-menu #menu="matMenu">
+                                                        <button mat-menu-item>
+                                                          <span class="fa fa-edit"> </span>&nbsp;
+                                                          <span> Edit </span>
+                                                        </button>
+                                                        <button mat-menu-item (click)="deleteResource(item.Resource_id)">
+                                                          <span class="fa fa-trash"> </span>&nbsp;
+                                                          <span> Delete </span>
+                                                        </button>
+                                                        <button mat-menu-item (click)="introVideo(item.Resource_id)">
+                                                          <span class="fa fa-video-camera" > </span>&nbsp;
+                                                          <span>Intro video</span>
+                                                        </button>
+                                                      </mat-menu> 
                                                         </td>
                                                  </tr>
                                             </tbody> 
@@ -130,18 +139,13 @@
                                          </div>
                                       </div> 
                                       <div class="col-sm-4">
-                                        <div class="form-group">
-
-
-                                          <label for="file">Choose File</label>
+                                        <div class="form-group"> 
+                                          <label for="file">Choose Resume</label>
                                           <input type="file"
                                                  id="file"
-                                                 (change)="handleFileInput($event.target.files)">
-
-
+                                                 (change)="handleFileInput($event.target.files)"> 
                                          </div>
-                                      </div> 
-
+                                      </div>   
                                         </div>
   
                                           <div>
@@ -154,7 +158,7 @@
 
                                             <div class="col-sm-4">
                                               <div class="form-group">
-                                                <label for="input-11"> Resource rate<span class="redColor">*</span></label>
+                                                <label for="input-11"> Rate / Hour <span class="redColor">*</span></label>
                                                 <input type="number" class="form-control form-control-square" formControlName="Resource_rate" id="Resource_rate" 
                                                 name="Resource_rate"  placeholder="Your Delegate Designation">
                                                 <div *ngIf="submitted && f.Resource_rate.errors" class="invalid-feedback">
@@ -165,7 +169,7 @@
 
                                       <div class="col-sm-4">
                                         <div class="form-group">
-                                          <label for="input-11"> Total Experience<span class="redColor">*</span></label>
+                                          <label for="input-11"> Total Years Of Experience<span class="redColor">*</span></label>
                                           <input type="number" class="form-control form-control-square" formControlName="Resource_experience" id="Resource_experience" 
                                           name="Resource_experience"  placeholder="Total Experience of the resource">
                                           <div *ngIf="submitted && f.Resource_experience.errors" class="invalid-feedback">
@@ -523,7 +527,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                               <div class="form-group">
-                                                <label for="input-11"> Resource summery<span class="redColor">*</span></label> 
+                                                <label for="input-11"> Profile summery<span class="redColor">*</span></label> 
                                                 <textarea class="form-control form-control-square" rows="6" formControlName="Resource_summery" id="Resource_designation" 
                                                 name="Resource_summery"  placeholder="Your Delegate Designation"></textarea>
                                                 <div *ngIf="submitted && f.Resource_summery.errors" class="invalid-feedback">

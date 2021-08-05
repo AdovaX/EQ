@@ -203,18 +203,31 @@ exports.createResource= async (req, res) => {
 
   var form = new IncomingForm(); 
   var newpath ="";
+  var newvideoPath ="";
   
-    form.on('file', (field, files) => {
-      console.log("in");
-  
-      var oldpath = files.path;
-      newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        console.log("Resume uploaded");  
-      });  
-  
-    }) 
+  form.on('video', (field, files) => {
+    console.log("in:video");
+
+    var oldvideoPath = files.path;
+    newvideoPath = './uploads/' + Math.floor(Math.random() * 200000) +files.name;
+    fs.rename(oldvideoPath, newvideoPath, function (err) {
+      if (err) throw err;
+      console.log("Video uploaded");  
+    });  
+
+  }); 
+  form.on('file', (field, files) => {
+    console.log("in");
+    console.log(files);
+
+    var oldpath = files.path;
+    newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
+    fs.rename(oldpath, newpath, function (err) {
+      if (err) throw err;
+      console.log("Resume uploaded");  
+    });  
+
+  }); 
   
     
 
@@ -247,7 +260,8 @@ async function insertResource() {
     Resource_rate: fields.Resource_rate,
     Availability_status: fields.Availability_status, 
     Company_id: fields.Company_id, 
-    Resource_resume:newpath
+    Resource_resume:newpath,
+    Intro_video :newvideoPath
   };
   return await resourceTb.create(resourceData); 
 } 
@@ -455,15 +469,15 @@ exports.deleteResource = (req, res) => {
 };
 
 
-exports.resumeUpload = (req, res) => {
+exports.introVideo = (req, res) => {
 
   var form = new IncomingForm(); 
-  console.log("called"); 
-  var User_id = 0;
+  console.log("called from video upload"); 
+  var Resource_id = 0;
 
   form.parse(req, (err, fields, files) => {
-    console.log(fields.User_id); 
-    User_id = fields.User_id;
+    console.log(fields.Resource_id); 
+    Resource_id = fields.Resource_id;
   })
 
   form.on('file', (field, files) => {
@@ -472,39 +486,29 @@ exports.resumeUpload = (req, res) => {
 
     var oldpath = files.path;
     var newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
-    var cv = {
-      "Resource_resume" : newpath
+    var vFile = {
+      "Intro_video" : newpath
     }
     fs.rename(oldpath, newpath, function (err) {
       if (err) throw err;
-      console.log("yoyo");
-      resourceTb.update(cv, {
-        where: { Resource_id: User_id }
+      console.log("Intro video uploaded");
+      resourceTb.update(vFile, {
+        where: { Resource_id: Resource_id }
       }).then(num => {
           if (num == 1) {
             res.send({
               status: true
             });
-          } else {
-            res.send({
-              message: 'Cannot Delete'
-            });
-          }
+          } 
         })
         .catch(err => {
-          res.status(500).send({
-            message: "Error updating  with id"
-          });
+          console.log(err);
         });
 
     }); 
 
 
-  })
-  form.on('end', () => {
-      console.log("done" );
-    res.json()
-  })
+  }) 
   form.parse(req)
 };
  

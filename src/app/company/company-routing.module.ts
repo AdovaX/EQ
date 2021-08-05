@@ -11,6 +11,7 @@ import { CreateHiringManagerComponent } from './create-hiring-manager/create-hir
 import {SearchResourceComponent} from './search-resource/search-resource.component';
 import {CreateResourceComponent} from './create-resource/create-resource.component';
 import { ProfileComponent } from './profile/profile.component';
+import { IntroVideoComponent } from './intro-video/intro-video.component';
 
 const routes: Routes = [
     {
@@ -48,6 +49,9 @@ const routes: Routes = [
   } , 
   {
     path : 'Companyupdate', component:CompanyProfileComponent
+  },
+  {
+    path : 'IntroVideo/:id', component:IntroVideoComponent
   },
   { path: 'Projectmanagement', loadChildren: () => import('./project-managment/project-managment.module').then(m => m.ProjectManagmentModule) },
 

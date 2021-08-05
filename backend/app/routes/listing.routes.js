@@ -10,8 +10,8 @@ module.exports = app => {
     router.post("/createResource", LManager.createResource); 
     router.post("/resourceListing", LManager.resourceListing);  
     router.put("/ResourceDeletion", LManager.deleteResource);  
-    router.post("/getTechnologyParents", LManager.getTechnologyParents);  
-    router.post("/resumeUpload", LManager.resumeUpload);  
+    router.post("/getTechnologyParents", LManager.getTechnologyParents);   
+    router.post("/introVideo", LManager.introVideo);  
   
      app.use('/listing', router);
 };

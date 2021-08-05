@@ -26,6 +26,9 @@ import {SharedModuleModule} from '../shared-module/shared-module.module';
 import { ProfileComponent } from './profile/profile.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatMenuModule} from '@angular/material/menu';
+import { IntroVideoComponent } from './intro-video/intro-video.component'; 
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -34,7 +37,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     //FooterComponent, 
     DelegateComponent, CompanyProfileComponent,CreateListingManagerComponent,CreateHiringManagerComponent,SearchResourceComponent,
     CreateResourceComponent,
-    ProfileComponent],
+    ProfileComponent,
+    IntroVideoComponent],
   imports: [
     CommonModule,
     CompanyRoutingModule,
@@ -47,7 +51,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonModule,
     SharedModuleModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule,
+    NgxDropzoneModule
     
   ]
 })

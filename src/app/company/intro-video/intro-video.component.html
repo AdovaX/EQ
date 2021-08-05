@@ -1,0 +1,26 @@
+<app-menubar></app-menubar>
+ <div class="content-wrapper">
+    <div class="container-fluid">
+ 
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+                <h4 class="page-title">Introduction Video</h4> 
+           </div> 
+         </div>   
+          <ngx-dropzone (change)="onSelect($event)" accept="video/mp4"> 
+            <ngx-dropzone-label>Drag and drop Video file here Or Click to  upload the Video file</ngx-dropzone-label> 
+          </ngx-dropzone>
+          {{name}}
+          <br>
+          <ngx-dropzone-video-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of previewFiles" [file]="f">
+             
+          </ngx-dropzone-video-preview>
+          <br>
+
+          <button mat-raised-button color="primary" [disabled]= "disable_btn" (click)="onSubmit()">Proceed</button>
+ 
+
+        <div class="overlay toggle-menu"></div> 
+    </div>
+    </div> 
+<app-footer></app-footer>

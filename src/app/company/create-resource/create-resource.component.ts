@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import {ListingManagerService} from '../../Services/listing-manager.service';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-create-resource',
@@ -31,10 +32,11 @@ export class CreateResourceComponent implements OnInit {
   isEduError =false;
 
 
-  fileToUpload: File | null = null;
+  fileToUpload: File;
+  videoFile: File;
 
 
-  constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService) { }
+  constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,private Router:Router) { }
 
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Resource_email = new FormControl('', [ Validators.required, Validators.email]);
@@ -117,9 +119,9 @@ export class CreateResourceComponent implements OnInit {
     else{
       
     console.log(this.Resource_Form.value);
-    this.uploadFileToActivity();
+     
       this.ListingManagerService.createResource(this.Resource_Form.value , this.technology_list ,this.domain_list,
-        this.jobRole_list , this.education_list).subscribe(data =>{
+        this.jobRole_list , this.education_list, this.fileToUpload , this.videoFile).subscribe(data =>{
         console.log("Form Submission sent");
         console.log(data);
         this.isUpdated = true; 
@@ -228,22 +230,18 @@ export class CreateResourceComponent implements OnInit {
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
-
-
+ 
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    console.log(files.item(0).name);
-    
+    console.log(files.item(0).name); 
 }
+ 
 
-uploadFileToActivity() {
-  this.ListingManagerService.postFile(this.fileToUpload).subscribe(data => {
-    console.log(data);
-    }, error => {
-      console.log(error);
-    });
+
+
+introVideo(Resource_id){
+  this.Router.navigate(['/company/IntroVideo',Resource_id]); 
 }
-
 
 }

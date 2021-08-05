@@ -40,7 +40,7 @@ onSubmit(){
   }else{
     this.ProjectService.createProject(this.Project_Form.value).subscribe(data =>{
         if(data['Project_id']>0){
-          this.router.navigate(['L5Dashboard/Projectmanagement']); 
+          this.router.navigate(['company/Projectmanagement']); 
 
         } 
     }, error => {
