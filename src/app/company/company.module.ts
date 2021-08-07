@@ -29,6 +29,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatMenuModule} from '@angular/material/menu';
 import { IntroVideoComponent } from './intro-video/intro-video.component'; 
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PopupDomainComponent } from './popup-domain/popup-domain.component';
+import { MatInputModule } from '@angular/material/input';
+import { PopupRoleComponent } from './popup-role/popup-role.component';
+import { PopupTechnologyComponent } from './popup-technology/popup-technology.component';
+
 
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -38,7 +44,10 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     DelegateComponent, CompanyProfileComponent,CreateListingManagerComponent,CreateHiringManagerComponent,SearchResourceComponent,
     CreateResourceComponent,
     ProfileComponent,
-    IntroVideoComponent],
+    IntroVideoComponent,
+    PopupRoleComponent,
+    PopupTechnologyComponent
+      ],
   imports: [
     CommonModule,
     CompanyRoutingModule,
@@ -53,8 +62,13 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     MatCardModule,
     MatCheckboxModule,
     MatMenuModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    MatDialogModule,
+    MatInputModule
     
-  ]
+  ],
+  entryComponents: [PopupDomainComponent,PopupTechnologyComponent],
+  exports:[CommonModule],
+
 })
 export class CompanyModule { }

@@ -11,6 +11,8 @@ import { User } from '../class/User';
 })
 export class CompanyService {
 
+  User_id = sessionStorage.getItem('USER_ID');  
+  Company_id = sessionStorage.getItem('COMPANY_ID');  
   private REST_API_SERVER = "http://localhost:8080";
   constructor(private http: HttpClient) { }
   httpOptions = {
@@ -136,4 +138,5 @@ getGovernmentData(Company_id){
   }
   return this.http.post<any[]>(this.REST_API_SERVER + '/company/getGovernmentData/', data);
 }
+
 }

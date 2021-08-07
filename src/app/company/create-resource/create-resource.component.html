@@ -212,6 +212,30 @@
                                        <mat-step>
                                          <ng-template matStepLabel>Skills</ng-template>
                                          <form [formGroup]="techFormGroup" (ngSubmit)="addTechnology()">
+                                          <label for="input-11"> Parent Technology<span class="redColor">*</span></label><br>
+
+                                           <div class="row"> 
+                                              <div  *ngFor="let techParent of techParents;let i = index;">
+                                                <div class="parentCat">
+                                                  
+                                                <button type="button" mat-raised-button   (click)="PopupTechnology(techParent.Technology_id)">
+                                                  {{ techParent.Technology_name }}</button>
+
+                                                
+                                                </div>
+
+
+ 
+                                          <!-- <mat-radio-group aria-label="Select an option" formControlName="Technology_parent" id="Technology_parent" 
+                                        name="Technology_parent">
+                                        <mat-radio-button *ngFor="let techParent of techParents" [value]="techParent.Technology_category_id"   >
+                                          {{ techParent.Technology_name }}&nbsp; 
+                                        </mat-radio-button>&nbsp;  
+                                        </mat-radio-group>  -->
+ 
+                                               
+                                          </div> 
+                                           </div>
                                          <div class="row">
                                           <div class="col-sm-3">
 
@@ -246,21 +270,6 @@
                                         </mat-radio-group> 
                                         </div> 
                                           </div>
-                                          
-                                          <div class="col-sm-12">
-                                            <div class="form-group">  
-                                              <label for="input-11"> Parent Technology<span class="redColor">*</span></label><br>
- 
-                                          <mat-radio-group aria-label="Select an option" formControlName="Technology_parent" id="Technology_parent" 
-                                        name="Technology_parent">
-                                        <mat-radio-button *ngFor="let techParent of techParents" [value]="techParent.Technology_category_id"   >
-                                          {{ techParent.Technology_category }}&nbsp; 
-                                        </mat-radio-button>&nbsp;  
-                                        </mat-radio-group> 
- 
-                                              
-                                             </div>
-                                          </div> 
                                           <div class="col-sm-12" id="goup"> 
                                             <div class="row">
                                               <div class="inlinCol" *ngFor="let technology of technology_list " > 
@@ -277,25 +286,7 @@
                                         <button type="submit" mat-raised-button color="primary">Add</button>
                                       </div>
                                           </div> 
-
-                                          <div class="col-sm-12">
-
-                                    <div id="notSucess" class="{{isTechError ? 'successClass' : 'notSucess'}}">
-                                      <div class="row">
-                                        <div class="col-sm-12">
-                                          <div class="alert alert-danger alert-dismissible" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            <div class="alert-icon">
-                                             <i class="zmdi zmdi-check-circle"></i>
-                                            </div>
-                                            <div class="alert-message">
-                                              <span><strong>Error! </strong> Please fill all the data.</span>
-                                            </div>
-                                            </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    </div>
+ 
                                          </div>
                                         </form> 
                                          <div>
@@ -305,13 +296,25 @@
                                        </mat-step>
                                        <mat-step>
                                          <ng-template matStepLabel>Domains</ng-template>
-                                         <form [formGroup]="domainFormGroup" (ngSubmit)="addDomain()"> 
+                                         <form [formGroup]="domainFormGroup" (ngSubmit)="addDomain()">  
+                                           <div class="row"> 
+                                              <div class="form-group">
+                                                <label for="input-11">Domain Lists<span class="redColor">*</span> </label><br>
+                                                <div class="Acheckbox icheck-inline col-sm-3" *ngFor="let domain of RDomains_List; let i=index">
+                                                   <label class="container2 "> {{domain.Domain}}
+                                                       <input type="checkbox"  value ="{{domain.Domain}}" (change)="domainChange($event)">
+                                                       <span class="checkmark"></span>
+                                                       </label>
+                                                 </div>  
+                                               </div> 
+                                            </div> 
+                                           <p>Don't find the required domain ? Add custome domain</p>
 
                                          <div class="row"> 
                                           <div class="col-sm-4"> 
                                             <div class="form-group">
                                               <label for="input-11"> Domain<span class="redColor">*</span></label>
-                                              <input type="text" class="form-control form-control-square" formControlName="Domain_name" id="Domain_name" 
+                                              <input type="text" [checked]="false" class="form-control form-control-square" formControlName="Domain_name" id="Domain_name" 
                                               name="Domain_name"  placeholder="Domain / Sector name">
                                              </div> 
                                                </div> 
@@ -366,6 +369,18 @@
                                        <mat-step>
                                          <ng-template matStepLabel>Role</ng-template>
                                          <form [formGroup]="jobRoleFormGroup" (ngSubmit)="addJobTitle()">
+                                          <div class="row"> 
+                                            <div class="form-group">
+                                              <label for="input-11">Job Role<span class="redColor">*</span> </label><br>
+                                              <div class="Acheckbox icheck-inline col-sm-3" *ngFor="let role of RJobRoles_List; let i=index">
+                                                 <label class="container2 "> {{role.Role_name}}
+                                                     <input type="checkbox" [checked]="false" value ="{{role.Role_name}}" (change)="roleChange($event)">
+                                                     <span class="checkmark"></span>
+                                                     </label>
+                                               </div>  
+                                             </div> 
+                                          </div> 
+                                          <p>Don't find the required Title ? Add custome Title</p>
 
                                          <div class="row"> 
                                           <div class="col-sm-4"> 
@@ -378,7 +393,7 @@
                                                <div class="col-sm-4"> 
                                                  <div class="form-group">
                                                    <label for="input-11"> Duration<span class="redColor">*</span></label>
-                                                   <input type="number" class="form-control form-control-square" formControlName="Job_duration" id="Job_duration" 
+                                                   <input type="number"  class="form-control form-control-square" formControlName="Job_duration" id="Job_duration" 
                                                    name="Job_duration"  placeholder="Job Duration in years">
                                                   </div> 
                                                     </div> 

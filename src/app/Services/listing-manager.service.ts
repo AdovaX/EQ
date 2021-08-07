@@ -107,6 +107,27 @@ introVideo(fileToUpload, Resource_id): Observable<any> {
       formData.append('Resource_id',Resource_id);
   return  this.http.post<any>(this.REST_API_SERVER +'/listing/introVideo', formData);
 }
+getDomainLists(){
+  var data = {
+  Company_id : this.Company_id
+}
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getDomainLists/', data);
 
+}
+getJobRoleLists(){
+  var data = {
+  Company_id : this.Company_id
+}
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getJobRoleLists/', data);
+
+}
+getTechnologyByParent(Technology_category_id){
+  var data = {
+  Company_id : this.Company_id,
+  Technology_category_id:Technology_category_id
+}
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getTechnologyByParent/', data);
+
+}
 
 }

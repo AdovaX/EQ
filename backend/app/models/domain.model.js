@@ -7,20 +7,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       Domain: {
         type: Sequelize.STRING
-      } , 
-      Domain_duration: {
-        type: Sequelize.STRING
-      } , 
-      Resource_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: { 
-          model: 'ResourceTbs',
-          key: 'Resource_id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE', 
-      } 
+      }  
     });
   
     return Domain;

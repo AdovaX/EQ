@@ -12,6 +12,9 @@ module.exports = app => {
     router.put("/ResourceDeletion", LManager.deleteResource);  
     router.post("/getTechnologyParents", LManager.getTechnologyParents);   
     router.post("/introVideo", LManager.introVideo);  
+    router.post("/getDomainLists", LManager.getDomainLists); 
+    router.post("/getJobRoleLists", LManager.getJobRoleLists); 
+    router.post("/getTechnologyByParent", LManager.getTechnologyByParent); 
   
      app.use('/listing', router);
 };

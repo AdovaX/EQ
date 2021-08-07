@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import {ListingManagerService} from '../../Services/listing-manager.service';
 import {Router} from "@angular/router"
-
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { PopupDomainComponent } from '../popup-domain/popup-domain.component';
+import { PopupRoleComponent } from '../popup-role/popup-role.component'; 
+import { PopupTechnologyComponent } from '../popup-technology/popup-technology.component';
 @Component({
   selector: 'app-create-resource',
   templateUrl: './create-resource.component.html',
@@ -30,13 +33,16 @@ export class CreateResourceComponent implements OnInit {
   isDoaminError =false;
   isJobError =false;
   isEduError =false;
+  RDomains_List=[]
+  RJobRoles_List=[]
+  resource_domain=[];
 
 
   fileToUpload: File;
   videoFile: File;
 
 
-  constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,private Router:Router) { }
+  constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { }
 
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Resource_email = new FormControl('', [ Validators.required, Validators.email]);
@@ -66,6 +72,8 @@ export class CreateResourceComponent implements OnInit {
   ngOnInit(): void {
     this.getResources();
     this.getTechnologyParents();
+    this.getDomainLists();
+    this.getJobRoleLists();
     this.Resource_Form = this.formBuilder.group({
       Resource_name : this.Resource_name,
       Resource_email : this.Resource_email,
@@ -243,5 +251,95 @@ export class CreateResourceComponent implements OnInit {
 introVideo(Resource_id){
   this.Router.navigate(['/company/IntroVideo',Resource_id]); 
 }
+
+
+getDomainLists(){
+  this.ListingManagerService.getDomainLists().subscribe(data =>{
+    console.log(data);  
+    this.RDomains_List=data;
+    
+  
+  }); 
+
+}
+getJobRoleLists(){
+  this.ListingManagerService.getJobRoleLists().subscribe(data =>{
+    console.log(data);  
+    this.RJobRoles_List=data; 
+  }); 
+
+}
+ 
+domainChange(e): void { 
+  if(e.target.checked){ 
+  const dialogRef = this.dialog.open(PopupDomainComponent, {
+    width: '450px',
+    data: {name: e.target.value}, 
+    hasBackdrop: true,
+    disableClose : true
+  }); 
+  dialogRef.afterClosed().subscribe(result => { 
+   this.isDoaminError =false;
+   if(result.Experience > 0){
+    let domainData = {
+      Domain : e.target.value,
+      Domain_duration : result.Experience, 
+    }
+    this.domain_list.push(domainData);
+    console.log(this.domain_list);  
+   }else{
+    e.target.checked =false;
+   }
+  });
+}else{ 
+  this.domain_list = this.domain_list.filter(m=>m.Domain!==e.target.value);
+  console.log(this.domain_list);
+} 
+}
+
+roleChange(e): void { 
+  if(e.target.checked){ 
+  const dialogRef = this.dialog.open(PopupRoleComponent, {
+    width: '450px',
+    data: {name: e.target.value},
+    hasBackdrop: true,
+    disableClose : true
+  }); 
+  dialogRef.afterClosed().subscribe(result => { 
+   this.isJobError =false;
+   if(result.Experience > 0){
+    let jobRoleData = {
+     Job_title : e.target.value,
+     Job_duration : result.Experience, 
+   }
+   this.jobRole_list.push(jobRoleData); 
+   console.log(this.jobRole_list);  
+   }else{
+    e.target.checked =false;
+   }
+  });
+}else{ 
+  this.jobRole_list = this.jobRole_list.filter(m=>m.Job_title!==e.target.value);
+  console.log(this.jobRole_list);
+} 
+}
+
+PopupTechnology(e){
+
+  
+    const dialogRef = this.dialog.open(PopupTechnologyComponent, {
+      width: '100%',
+      height : 'auto',
+      data: {Technology_category_id: e} 
+    }); 
+    dialogRef.afterClosed().subscribe(result => { 
+      console.log(result); 
+    });
+    
+     
+    
+
+}
+
 
 }

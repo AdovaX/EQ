@@ -1,0 +1,23 @@
+ <section class="techsec">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="" >
+           
+           <div class="btn-group m-1 show" role="group" *ngFor="let tech of tech_list; let i = index">
+ 
+            <button mat-button [matMenuTriggerFor]="menu">{{tech.Technology_name}}</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item  >Vertebrates</button>
+                <button mat-menu-item  >Invertebrates</button>
+              </mat-menu>
+
+
+              
+          </div>
+
+
+ 
+        </div>
+    </div>
+</div> 
+</section>

@@ -53,14 +53,12 @@ db.SelectedQualifications = require("./selectedQualifications.model")(sequelize,
 db.SelectedRoles = require("./selectedRoles.model")(sequelize, Sequelize);
 db.BranchesTb = require("./branches.model")(sequelize, Sequelize);
 db.GovermentTbs = require("./government.model")(sequelize, Sequelize);
+db.resourceDomainTbs = require("./resourceDomain.model")(sequelize, Sequelize);
+db.resourceRoleTbs = require("./resourceRoles.model")(sequelize, Sequelize);
 
   
- 
-db.resourceTb.hasMany(db.domainTb, {foreignKey: 'Resource_id'});  
-db.domainTb.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
- 
-db.resourceTb.hasMany(db.technology, {foreignKey: 'Resource_id'});  
-db.technology.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
+  
+  
  
 db.project.hasMany(db.SelectedQualifications, {foreignKey: 'Project_id'});  
 db.SelectedQualifications.belongsTo(db.project, {foreignKey: 'Project_id', targetKey: 'Project_id'});
@@ -76,9 +74,7 @@ db.SelectedDomains.belongsTo(db.project, {foreignKey: 'Project_id', targetKey: '
  
 db.requirement.hasMany(db.SelectedRoles, {foreignKey: 'Requirement_id'});  
 db.SelectedRoles.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
-
-db.techcategory.hasMany(db.technology, {foreignKey: 'Technology_category_id'});  
-db.technology.belongsTo(db.techcategory, {foreignKey: 'Technology_category_id', targetKey: 'Technology_category_id'});
+ 
  
 db.companyTb.hasOne(db.contractownerTb, {foreignKey: 'Company_id'});  
 db.contractownerTb.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});

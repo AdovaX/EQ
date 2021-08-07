@@ -9,8 +9,10 @@ const usersTb = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt'); 
 const domainTb = db.domainTb;
+const resourceRoleTbs = db.resourceRoleTbs;
 const rolesTb = db.roles;
 const educationTb = db.educationTb;
+const resourceDomainTbs = db.resourceDomainTbs;
 var fs = require('fs');
 const IncomingForm = require('formidable').IncomingForm;
 
@@ -354,7 +356,7 @@ async function prepareTechnology(r_id) {
   })
   .then((data) =>{
 
-    domainTb.bulkCreate(data);
+    resourceDomainTbs.bulkCreate(data);
     console.log("Domain added");
     return data;
   
@@ -366,7 +368,7 @@ async function prepareTechnology(r_id) {
   })
   .then((data) =>{
 
-    rolesTb.bulkCreate(data);
+    resourceRoleTbs.bulkCreate(data);
     console.log("Role added");
     return data;
 
@@ -424,7 +426,11 @@ exports.getTechnologyParents = (req, res) => {
     });
     return;
   } 
-  techcategoryTb.findAll()
+  technologyTb.findAll({
+    where : {
+      Technology_category_id:0
+    }
+  })
     .then(data => {
       res.send(data);
     })
@@ -512,3 +518,70 @@ exports.introVideo = (req, res) => {
   form.parse(req)
 };
  
+
+exports.getDomainLists = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  domainTb.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      var c = {
+        "Status" : "Failed"
+      }
+      res.send(c);
+    });
+};
+
+exports.getJobRoleLists = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  rolesTb.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      var c = {
+        "Status" : "Failed"
+      }
+      res.send(c);
+    });
+};
+
+exports.getTechnologyByParent = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  technologyTb.findAll({
+    where : {
+      Technology_category_id :req.body.Technology_category_id
+    }
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      var c = {
+        "Status" : "Failed"
+      }
+      res.send(c);
+    });
+};
