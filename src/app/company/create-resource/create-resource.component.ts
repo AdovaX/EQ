@@ -8,21 +8,10 @@ import { PopupRoleComponent } from '../popup-role/popup-role.component';
 import { PopupTechnologyComponent } from '../popup-technology/popup-technology.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
 
  
-
-const ELEMENT_DATA  = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' }
-];
+ 
 @Component({
   selector: 'app-create-resource',
   templateUrl: './create-resource.component.html',
@@ -58,8 +47,10 @@ export class CreateResourceComponent implements OnInit {
 
   fileToUpload: File;
   videoFile: File;
-  displayedColumns: string[] = ['Resource_name', 'Resource_Designation', 'Resource_rate', 'Availability_status'];
+  displayedColumns: string[] = ['select','Resource_active','Resource_name', 'Resource_Designation', 
+  'Resource_rate','Available_from','Available_to','Resource_stack'];
   dataSource = new MatTableDataSource();
+  selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -68,7 +59,26 @@ export class CreateResourceComponent implements OnInit {
     
     this.dataSource.sort = this.sort;
   }
+ isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
 
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
   constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { }
 
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
@@ -95,6 +105,8 @@ export class CreateResourceComponent implements OnInit {
   Job_duration = new FormControl('', [ Validators.required]);
   Education = new FormControl('', [ Validators.required]);
   Pass_year = new FormControl('', [ Validators.required]);
+  Available_from = new FormControl('', [ Validators.required]);
+  Available_to = new FormControl('', [ Validators.required]);
 
   ngOnInit(): void {
     this.getResources();
@@ -115,6 +127,8 @@ export class CreateResourceComponent implements OnInit {
       Resource_rate : this.Resource_rate,  
       Resource_availability : this.Resource_availability, 
       Resource_phone : this.Resource_phone,  
+      Available_from : this.Available_from,  
+      Available_to : this.Available_to,  
   
     }); 
     this.techFormGroup = this.formBuilder.group({

@@ -35,6 +35,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 import { TableComponent } from './table/table.component'; 
 import { MatSortModule } from '@angular/material/sort';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -68,7 +69,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatInputModule,
     MatExpansionModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatSlideToggleModule
     
   ],
   entryComponents: [PopupDomainComponent,PopupTechnologyComponent],

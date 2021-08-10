@@ -57,7 +57,7 @@ getResources(): Observable<ListingManager[]>{
   var data = {
      "Company_id" : this.Company_id
  }
-return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/listing/resourceListing', data);
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/resourceListing', data);
 } 
 getTechnologyParents(): Observable<any[]>{
   var data = {
@@ -90,6 +90,8 @@ createResource(data , technology_list,domain_list,jobRole_list,education_list, c
   formData.append('Resource_status',data.Resource_status);
   formData.append('Resource_rate',data.Resource_rate);
   formData.append('Availability_status',data.Resource_availability);
+  formData.append('Available_from',data.Available_from);
+  formData.append('Available_to',data.Available_to);
   formData.append('Company_id',this.Company_id);
   formData.append('Technology_List',JSON.stringify(technology_list));
   formData.append('Domain_List',JSON.stringify(domain_list));

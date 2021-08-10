@@ -263,6 +263,8 @@ async function insertResource() {
     Is_remote: fields.Is_remote,
     Resource_rate: fields.Resource_rate,
     Availability_status: fields.Availability_status, 
+    Available_from: fields.Available_from, 
+    Available_to: fields.Available_to, 
     Company_id: fields.Company_id, 
     Resource_resume:newpath,
     Intro_video :newvideoPath
@@ -411,9 +413,7 @@ exports.resourceListing = (req, res) => {
     return;
   }
 
-  resourceTb.findAll({ where: {
-    Company_id: req.body.Company_id , Resource_active:1
-      },})
+  resourceTb.findAll()
     .then(data => {
       res.send(data);
     })

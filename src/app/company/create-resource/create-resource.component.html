@@ -32,6 +32,32 @@
                                     <div class="col-lg-12">
                                             <div class="table-responsive">
                                               <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                                                <!-- Checkbox Column -->
+                                                <ng-container matColumnDef="select">
+                                                  <th mat-header-cell *matHeaderCellDef>
+                                                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                                                  [checked]="selection.hasValue() && isAllSelected()"
+                                                                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                                                  [aria-label]="checkboxLabel()">
+                                                    </mat-checkbox>
+                                                  </th>
+                                                  <td mat-cell *matCellDef="let row">
+                                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                                                  (change)="$event ? selection.toggle(row) : null"
+                                                                  [checked]="selection.isSelected(row)"
+                                                                  [aria-label]="checkboxLabel(row)">
+                                                    </mat-checkbox>
+                                                  </td>
+                                                </ng-container>
+
+                                                <!-- Position Column -->
+                                                <ng-container matColumnDef="Resource_active">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                                  <td mat-cell *matCellDef="let element">  
+                                                    <mat-slide-toggle [checked]="element.Resource_active==1">Active</mat-slide-toggle>
+
+                                                  </td>
+                                                </ng-container>
 
                                                 <!-- Position Column -->
                                                 <ng-container matColumnDef="Resource_name">
@@ -52,9 +78,20 @@
                                                 </ng-container>
                                               
                                                 <!-- Symbol Column -->
-                                                <ng-container matColumnDef="Availability_status">
-                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Availability </th>
-                                                  <td mat-cell *matCellDef="let element"> {{element.Availability_status}} </td>
+                                                <ng-container matColumnDef="Available_from">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Availabilable from </th>
+                                                  <td mat-cell *matCellDef="let element"> {{element.Available_from}} </td>
+                                                </ng-container>
+                                              
+                                                <!-- Symbol Column -->
+                                                <ng-container matColumnDef="Available_to">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Availabilable to </th>
+                                                  <td mat-cell *matCellDef="let element"> {{element.Available_to}} </td>
+                                                </ng-container>
+                                                <!-- Symbol Column -->
+                                                <ng-container matColumnDef="Resource_stack">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Stack </th>
+                                                  <td mat-cell *matCellDef="let element"> {{element.Resource_stack}} </td>
                                                 </ng-container>
                                               
                                                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -196,6 +233,25 @@
                                                 </div> 
                                              </div>
                                           </div> 
+
+
+                                          <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                              <label for="input-11"> Available from<span class="redColor">*</span></label>
+                                              <input type="date" class="form-control form-control-square" formControlName="Available_from" id="Available_from" 
+                                              name="Available_from"  placeholder="Available from">
+                                             </div>
+                                               </div>
+                                               <div class="col-sm-3">
+     
+                                                 <div class="form-group">
+                                                   <label for="input-11"> Available to<span class="redColor">*</span></label>
+                                                   <input type="date" class="form-control form-control-square" formControlName="Available_to" id="Available_to" 
+                                                   name="Available_to"  placeholder="Available from">
+                                                  </div>
+                                                    </div>
+
                                           </div> 
                                           <div>
                                             <button mat-button matStepperPrevious>Back</button>

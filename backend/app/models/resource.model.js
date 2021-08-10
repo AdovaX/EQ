@@ -64,6 +64,12 @@ module.exports = (sequelize, Sequelize) => {
       Resource_rate: {
         type: Sequelize.DOUBLE
       },
+      Available_from: {
+        type: Sequelize.DATE
+      },
+      Available_to: {
+        type: Sequelize.DATE
+      },
       Availability_status: {
         type: Sequelize.ENUM,
         values : ['FULL', 'HALF', 'BUSY'],
