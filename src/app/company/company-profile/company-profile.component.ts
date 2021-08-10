@@ -30,7 +30,9 @@ export class CompanyProfileComponent implements OnInit {
   bank_List=[];
   isMasked = 0;
   isFreelancer = 0;
-  isTier = 0;
+  isTier  = new Array(); 
+  tierList  = new Array(); 
+
   ispreferenceUpdated = false;
   companyTiers:any;
   Options:any;
@@ -108,8 +110,8 @@ export class CompanyProfileComponent implements OnInit {
     ];
     this.Options=[
 
-      { id: 0, name: 'No' }, 
       { id: 1, name: 'Yes' }, 
+      { id: 0, name: 'No' }, 
     ];
     this.getCompanyData(this.User_id);
     this.getBranches();
@@ -233,9 +235,7 @@ UpdatePreferences(){
     "Company_tiers" : this.isTier
 
   }
-  console.log(data);
-     
-    this.CompanyService.upddatePreferences(this.User_id ,this.Company_id, data).subscribe(data =>{
+   this.CompanyService.upddatePreferences(this.User_id ,this.Company_id, data).subscribe(data =>{
       console.log(data);
        if(data['status'] == "Failed"){ 
          alert("Invalid details!");
@@ -243,27 +243,41 @@ UpdatePreferences(){
         this.ispreferenceUpdated =true;
       }  
     });
-
     
 }
 getPreferences(){
   this.CompanyService.getPreferences(this.Company_id).subscribe(data =>{
-    console.log(data);
 
     this.isMasked = data['Enable_masking'];
     this.isFreelancer = data['Freelancers']
-    this.isTier = data['Tiers_maching'];
+    this.isTier = JSON.parse(data['Tiers_maching']);
+    console.log((this.isTier));
     
   }); 
 }
+doesExist(tier: string): boolean {
+   let r =JSON.stringify(this.isTier);
+  return r.includes(tier);
+  }
+
 changeMasking(e){
   this.isMasked=e.target.value;  
 }
 changeFreelancer(e){
   this.isFreelancer=e.target.value;  
 }
-changeTierList(e){
-  this.isTier=e.target.value;  
+changeTierList(e){ 
+
+  if(e.target.checked){
+    this.isTier.push(e.target.value); 
+
+  }else{
+
+    this.isTier = this.isTier.filter(m=>m!==e.target.value);
+  }       
+  console.log(this.isTier); 
+ 
+
 }
 
 addGovernmentIds(){

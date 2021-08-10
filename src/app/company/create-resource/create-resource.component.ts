@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import {ListingManagerService} from '../../Services/listing-manager.service';
 import {Router} from "@angular/router"
@@ -6,6 +6,23 @@ import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular
 import { PopupDomainComponent } from '../popup-domain/popup-domain.component';
 import { PopupRoleComponent } from '../popup-role/popup-role.component'; 
 import { PopupTechnologyComponent } from '../popup-technology/popup-technology.component';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
+ 
+
+const ELEMENT_DATA  = [
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' }
+];
 @Component({
   selector: 'app-create-resource',
   templateUrl: './create-resource.component.html',
@@ -36,11 +53,21 @@ export class CreateResourceComponent implements OnInit {
   RDomains_List=[]
   RJobRoles_List=[]
   resource_domain=[];
+  tech_lists=[];
 
 
   fileToUpload: File;
   videoFile: File;
+  displayedColumns: string[] = ['Resource_name', 'Resource_Designation', 'Resource_rate', 'Availability_status'];
+  dataSource = new MatTableDataSource();
 
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() {
+ 
+    
+    this.dataSource.sort = this.sort;
+  }
 
   constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { }
 
@@ -71,7 +98,7 @@ export class CreateResourceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getResources();
-    this.getTechnologyParents();
+    this.getTechnologyLists();
     this.getDomainLists();
     this.getJobRoleLists();
     this.Resource_Form = this.formBuilder.group({
@@ -211,6 +238,7 @@ export class CreateResourceComponent implements OnInit {
     this.ListingManagerService.getResources().subscribe(data =>{
       console.log(data);  
     this.resourceLists  = data;
+    this.dataSource.data =data;
    
     }); 
 
@@ -266,6 +294,14 @@ getJobRoleLists(){
   this.ListingManagerService.getJobRoleLists().subscribe(data =>{
     console.log(data);  
     this.RJobRoles_List=data; 
+  }); 
+
+}
+getTechnologyLists(){
+  this.ListingManagerService.getTechnologyLists().subscribe(data =>{
+    console.log("----");  
+    console.log(data);  
+    this.tech_lists=data; 
   }); 
 
 }
@@ -330,10 +366,19 @@ PopupTechnology(e){
     const dialogRef = this.dialog.open(PopupTechnologyComponent, {
       width: '100%',
       height : 'auto',
-      data: {Technology_category_id: e} 
+      data: {Technology_name: e} 
     }); 
     dialogRef.afterClosed().subscribe(result => { 
       console.log(result); 
+      let techData = {
+        Technology : result.Technology_name,
+        Technology_version : result.Technology_version,
+        Technology_experience : result.Technology_experience,
+        Technology_level : result.Technology_level, 
+      }
+      this.technology_list.push(techData);
+      console.log('==='); 
+      console.log(this.technology_list); 
     });
     
      

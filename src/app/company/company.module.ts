@@ -6,10 +6,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 
 import { CompanyRoutingModule } from './company-routing.module';
-import { RegistrationComponent } from './registration/registration.component';
- 
-// import {MenubarComponent} from '../menubar/menubar.component';
-// import { FooterComponent } from '../footer/footer.component';
+import { RegistrationComponent } from './registration/registration.component'; 
 import { LoginComponent } from './login/login.component';
 import { CreateSpocComponent } from './create-spoc/create-spoc.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -34,7 +31,10 @@ import { PopupDomainComponent } from './popup-domain/popup-domain.component';
 import { MatInputModule } from '@angular/material/input';
 import { PopupRoleComponent } from './popup-role/popup-role.component';
 import { PopupTechnologyComponent } from './popup-technology/popup-technology.component';
-
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTableModule} from '@angular/material/table';
+import { TableComponent } from './table/table.component'; 
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -46,7 +46,8 @@ import { PopupTechnologyComponent } from './popup-technology/popup-technology.co
     ProfileComponent,
     IntroVideoComponent,
     PopupRoleComponent,
-    PopupTechnologyComponent
+    PopupTechnologyComponent,
+    TableComponent
       ],
   imports: [
     CommonModule,
@@ -64,7 +65,10 @@ import { PopupTechnologyComponent } from './popup-technology/popup-technology.co
     MatMenuModule,
     NgxDropzoneModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    MatTableModule,
+    MatSortModule
     
   ],
   entryComponents: [PopupDomainComponent,PopupTechnologyComponent],

@@ -1,27 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
-    const Technology = sequelize.define("TechnologyTbs", {
-        Technology_id: {
+    const Technology = sequelize.define("Resource_educationTbs", {
+        REducation_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      Technology_name: {
+      REducation: {
         type: Sequelize.STRING
-      },  
-      Technology_category_id: {
+      } , 
+      REducation_passyear: {
+        type: Sequelize.STRING
+      } , 
+      Resource_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: { 
-          model: 'TechnologyCategoryTbs',
-          key: 'Technology_category_id'
+          model: 'ResourceTbs',
+          key: 'Resource_id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE', 
-      } ,
+      } 
     });
   
     return Technology;
-  };    
-   
-   
- 
+  };
+    

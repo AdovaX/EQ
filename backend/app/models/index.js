@@ -55,10 +55,15 @@ db.BranchesTb = require("./branches.model")(sequelize, Sequelize);
 db.GovermentTbs = require("./government.model")(sequelize, Sequelize);
 db.resourceDomainTbs = require("./resourceDomain.model")(sequelize, Sequelize);
 db.resourceRoleTbs = require("./resourceRoles.model")(sequelize, Sequelize);
+db.resourceTechnologyTbs = require("./resourceTechnology.model")(sequelize, Sequelize);
+db.resourceEducationTbs = require("./resourceEducation.model")(sequelize, Sequelize);
 
   
   
   
+ 
+db.techcategory.hasMany(db.technology, {foreignKey: 'Technology_category_id'});  
+db.technology.belongsTo(db.techcategory, {foreignKey: 'Technology_category_id', targetKey: 'Technology_category_id'});
  
 db.project.hasMany(db.SelectedQualifications, {foreignKey: 'Project_id'});  
 db.SelectedQualifications.belongsTo(db.project, {foreignKey: 'Project_id', targetKey: 'Project_id'});

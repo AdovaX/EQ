@@ -118,7 +118,7 @@
                                          </div>
                                         <div class="form-group">   
                                             <button type="submit" class="btn btn-primary btn-square m-1">
-                                              Click to Update</button>
+                                              Update</button>
                                            </div> 
                                     </div> 
                                 </div>  
@@ -354,36 +354,53 @@
                         <p class="usermsg">This information will be used for internal purpose.</p>
                         <form [formGroup]="Preferences_Form" (ngSubmit)="UpdatePreferences()"> 
                          <div class="row">
-                          <div class="col-sm-4">
+                          <div class="col-sm-12">
  
-                             <label for="primary">Enable Resource Name Masking</label> <br> 
-                             <div class="  icheck-inline" *ngFor="let masking of Options">
-                              <input type="radio" id="inline-radio-primary{{masking.id}}" name="masking" [value]="masking.id" [checked]="masking.id ==isMasked" (change)="changeMasking($event)" >
-                              <label for="inline-radio-primary">{{masking.name}}</label>
-                            </div> 
+                            <table class="table table-borderless"> 
+                              <tbody>
+                                <tr>
+                                  <th scope="row">
+                                    
+                                    <label for="primary">Enable Resource Name Masking</label> &nbsp;
+                                  </th>
+                                  <td>
+                                    <div class="  icheck-inline" *ngFor="let masking of Options">
+                                     <input type="radio" id="inline-radio-primary{{masking.id}}" name="masking" [value]="masking.id" [checked]="masking.id ==isMasked" (change)="changeMasking($event)" >
+                                     <label for="inline-radio-primary">{{masking.name}}</label>
+                                   </div> 
+                                     
+                                  </td> 
+                                </tr>
+                                 <tr>  
+                                    <th>
+                                      <label for="primary">Freelancer can apply ?</label>  &nbsp;
+                                      
+                                    </th>
+                                    <th>
+                                      <div class="  icheck-inline" *ngFor="let item of Options">
+                                        <input type="radio" id="inline-primary{{item.id}}" name="freelancer" [value]="item.id" [checked]="item.id ==isFreelancer" (change)="changeFreelancer($event)"  >
+                                        <label for="inline-radio-primary">{{item.name}}</label>
+                                      </div> 
+                                    </th>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Tier of companies to deal with<span class="redColor">*</span> &nbsp;
+                                      
+                                    </th>
+                                    <th> 
+                                      <div class="  icheck-inline" *ngFor="let tier of companyTiers">
+                                        <input type="checkbox" id="inline{{tier.id}}" name="tier" [value]="tier.id" [checked]="doesExist(tier.id)" (change)="changeTierList($event)" >&nbsp;
+                                        <label for="inline-radio-primary"> {{tier.name}} </label>
+                                      </div> 
+                                      
+                                    </th>
+                                  </tr>
+                              </tbody>
+                            </table>
 
                             
-                          </div>
-                          <div class="col-sm-4">
-                            <label for="primary">Freelancer can apply ?</label> <br> 
-                            <div class="  icheck-inline" *ngFor="let item of Options">
-                              <input type="radio" id="inline-primary{{item.id}}" name="freelancer" [value]="item.id" [checked]="item.id ==isFreelancer" (change)="changeFreelancer($event)"  >
-                              <label for="inline-radio-primary">{{item.name}}</label>
-                            </div>  
-                          </div>
-                          <div class="col-sm-12"> 
-                              <label for="input-11"> 
-                                Tier of companies to deal with<span class="redColor">*</span> 
-                              </label> <br> 
-                              <div class="  icheck-inline" *ngFor="let tier of companyTiers">
-                                <input type="radio" id="inline {{tier.id}}" name="tier" [value]="tier.id" [checked]="tier.id ==isTier" (change)="changeTierList($event)" >
-                                <label for="inline-radio-primary"> {{tier.name}} </label>
-                              </div> 
- 
- 
-                             
-                          </div>
-
+                          </div> 
                           <div class="col-sm-12">
                             <div class="btn-group noShodow">
                               
@@ -393,7 +410,8 @@
                                     </button>
                                    </div> 
                             </div> 
-                        </div>
+                        </div> 
+ 
 
                         <div class="col-sm-12">
 

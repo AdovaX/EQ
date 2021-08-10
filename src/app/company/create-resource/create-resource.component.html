@@ -31,44 +31,35 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                             <div class="table-responsive">
-                                          <table id="default-datatable" class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Designation</th> 
-                                                    <th>Availabiliity</th>  
-                                                    <th>Action</th> 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let item of resourceLists">
-                                                    <th>{{ item.Resource_name }}</th>
-                                                    <td>{{ item.Resource_Email }}</td>
-                                                    <td>{{ item.Resource_Designation }}</td>  
-                                                    <td>{{ item.Availability_status }}</td> 
-                                                    <td> 
-                                                      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                                                        More <span class="fa fa-ellipsis-v"> </span>
-                                                      </button>
-                                                      <mat-menu #menu="matMenu">
-                                                        <button mat-menu-item>
-                                                          <span class="fa fa-edit"> </span>&nbsp;
-                                                          <span> Edit </span>
-                                                        </button>
-                                                        <button mat-menu-item (click)="deleteResource(item.Resource_id)">
-                                                          <span class="fa fa-trash"> </span>&nbsp;
-                                                          <span> Delete </span>
-                                                        </button>
-                                                        <button mat-menu-item (click)="introVideo(item.Resource_id)">
-                                                          <span class="fa fa-video-camera" > </span>&nbsp;
-                                                          <span>Intro video</span>
-                                                        </button>
-                                                      </mat-menu> 
-                                                        </td>
-                                                 </tr>
-                                            </tbody> 
-                                        </table>
+                                              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                                                <!-- Position Column -->
+                                                <ng-container matColumnDef="Resource_name">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                                                  <td mat-cell *matCellDef="let element"> {{element.Resource_name}} </td>
+                                                </ng-container>
+                                              
+                                                <!-- Name Column -->
+                                                <ng-container matColumnDef="Resource_Designation">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Designation </th>
+                                                  <td mat-cell *matCellDef="let element"> {{element.Resource_Designation}} </td>
+                                                </ng-container>
+                                              
+                                                <!-- Weight Column -->
+                                                <ng-container matColumnDef="Resource_rate">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Rate </th>
+                                                  <td mat-cell *matCellDef="let element"> {{element.Resource_rate}} </td>
+                                                </ng-container>
+                                              
+                                                <!-- Symbol Column -->
+                                                <ng-container matColumnDef="Availability_status">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Availability </th>
+                                                  <td mat-cell *matCellDef="let element"> {{element.Availability_status}} </td>
+                                                </ng-container>
+                                              
+                                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                              </table>
                                         </div> 
                                      </div>
                                   </div> 
@@ -156,20 +147,20 @@
                                            <ng-template matStepLabel>Professional</ng-template>
                                           <div class="row">
 
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-2">
                                               <div class="form-group">
                                                 <label for="input-11"> Rate / Hour <span class="redColor">*</span></label>
                                                 <input type="number" class="form-control form-control-square" formControlName="Resource_rate" id="Resource_rate" 
-                                                name="Resource_rate"  placeholder="Your Delegate Designation">
+                                                name="Resource_rate"  placeholder="Rate/Hour">
                                                 <div *ngIf="submitted && f.Resource_rate.errors" class="invalid-feedback">
                                                     <div *ngIf="f.Resource_rate.errors.required">rate is a required field.</div> 
                                                   </div> 
                                                </div>
                                             </div> 
 
-                                      <div class="col-sm-4">
+                                      <div class="col-sm-3">
                                         <div class="form-group">
-                                          <label for="input-11"> Total Years Of Experience<span class="redColor">*</span></label>
+                                          <label for="input-11"> Total Experience In Years<span class="redColor">*</span></label>
                                           <input type="number" class="form-control form-control-square" formControlName="Resource_experience" id="Resource_experience" 
                                           name="Resource_experience"  placeholder="Total Experience of the resource">
                                           <div *ngIf="submitted && f.Resource_experience.errors" class="invalid-feedback">
@@ -178,12 +169,14 @@
                                          </div>
                                       </div>  
 
-                                      <div class="col-sm-4"> 
-                                        <div class="form-group">
-                                          <label for="input-11"> Current Designation<span class="redColor">*</span></label>
-                                          <input type="text" class="form-control form-control-square" formControlName="Resource_designation" id="Resource_designation" 
-                                          name="Resource_designation"  placeholder="Current Designation">
-                                            
+                                      <div class="col-sm-3"> 
+                                        <div class="form-group">  
+                                        <mat-form-field appearance="outline">
+                                          <mat-label>Current Designation</mat-label>
+                                          <mat-select formControlName="Resource_designation" id="Resource_designation" name="Resource_designation" >
+                                            <mat-option *ngFor="let role of RJobRoles_List" [value]="role.Role_name">{{role.Role_name}}</mat-option> 
+                                          </mat-select>
+                                        </mat-form-field>  
                                          </div> 
                                            </div> 
 
@@ -212,30 +205,43 @@
                                        <mat-step>
                                          <ng-template matStepLabel>Skills</ng-template>
                                          <form [formGroup]="techFormGroup" (ngSubmit)="addTechnology()">
-                                          <label for="input-11"> Parent Technology<span class="redColor">*</span></label><br>
+                                          <label for="input-11"> Choose Technology<span class="redColor">*</span></label><br>
 
                                            <div class="row"> 
-                                              <div  *ngFor="let techParent of techParents;let i = index;">
-                                                <div class="parentCat">
-                                                  
-                                                <button type="button" mat-raised-button   (click)="PopupTechnology(techParent.Technology_id)">
-                                                  {{ techParent.Technology_name }}</button>
+                                              <div class="col-sm-12">
+                                                <mat-accordion>
+                                                  <div class="marg" *ngFor="let techncat of tech_lists; let i=index">
+                                                  <mat-expansion-panel hideToggle>
+                                                    <mat-expansion-panel-header>
+                                                      <mat-panel-title>
+                                                          {{techncat.Technology_category}} 
+                                                      </mat-panel-title> 
+                                                    </mat-expansion-panel-header>
+                                                      <mat-panel-description>
+                                                          <div class="row">
+                                                              <div class="col-sm-12">
+                                                              <div class="Acheckbox icheck-inline" *ngFor="let technology of techncat['TechnologyTbs']; let j=index">
+                                                              <label class="container">   
+                                                              <!-- <input type="checkbox"  value ="{{technology.Technology_name}}" (change)="selectTech($event)">
+                                                                -->
+                                                                    <button mat-raised-button   (click)="PopupTechnology(technology.Technology_name)">
+                                                                      {{technology.Technology_name}}
+                                                                    </button>
 
-                                                
-                                                </div>
-
-
- 
-                                          <!-- <mat-radio-group aria-label="Select an option" formControlName="Technology_parent" id="Technology_parent" 
-                                        name="Technology_parent">
-                                        <mat-radio-button *ngFor="let techParent of techParents" [value]="techParent.Technology_category_id"   >
-                                          {{ techParent.Technology_name }}&nbsp; 
-                                        </mat-radio-button>&nbsp;  
-                                        </mat-radio-group>  -->
+                                                              </label>
+                                                              </div> 
+                                                              </div> 
+                                                              </div>
+                                                      </mat-panel-description> 
+                                                  </mat-expansion-panel>
+                                                  </div>
+                                                  </mat-accordion>
  
                                                
                                           </div> 
                                            </div>
+                                           <br>
+                                           <p>Add custome technology <i>(Approvel required by Admin)</i> </p> 
                                          <div class="row">
                                           <div class="col-sm-3">
 
@@ -367,7 +373,7 @@
                                          </div>
                                        </mat-step>
                                        <mat-step>
-                                         <ng-template matStepLabel>Role</ng-template>
+                                         <ng-template matStepLabel>Experience</ng-template>
                                          <form [formGroup]="jobRoleFormGroup" (ngSubmit)="addJobTitle()">
                                           <div class="row"> 
                                             <div class="form-group">
@@ -554,7 +560,7 @@
                                          <div>
                                           <button mat-button matStepperPrevious>Back</button>
                                           <button type="button" mat-button matStepperNext>Next</button>
-                                          <button type="submit" class="btn btn-primary btn-square m-1">Click to add</button>
+                                          <button type="submit" class="btn btn-primary btn-square m-1">Proceed</button>
 
                                          </div>
                                        </mat-step>

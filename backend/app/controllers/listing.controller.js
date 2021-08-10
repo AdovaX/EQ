@@ -13,6 +13,8 @@ const resourceRoleTbs = db.resourceRoleTbs;
 const rolesTb = db.roles;
 const educationTb = db.educationTb;
 const resourceDomainTbs = db.resourceDomainTbs;
+const resourceTechnologyTbs = db.resourceTechnologyTbs;
+const resourceEducationTbs = db.resourceEducationTbs;
 var fs = require('fs');
 const IncomingForm = require('formidable').IncomingForm;
 
@@ -265,6 +267,7 @@ async function insertResource() {
     Resource_resume:newpath,
     Intro_video :newvideoPath
   };
+  console.log(resourceData);
   return await resourceTb.create(resourceData); 
 } 
 
@@ -274,14 +277,13 @@ async function prepareTechnology(r_id) {
 
   var techologyArr = fields.Technology_List;
   var Resource_Techs =[];
-  //console.log(JSON.parse(techologyArr)); 
+  console.log(JSON.parse(techologyArr)); 
   for(var tech of JSON.parse(techologyArr)) { 
     var  techData = {
-      Technology_name : tech.Technology,
-      Technology_category_id : tech.Technology_parent,
-      Technology_version : tech.Technology_version,
-      Technology_level : tech.Technology_level,
-      Technology_experience : tech.Technology_experience, 
+      RTechnology_name : tech.Technology, 
+      RTechnology_version : tech.Technology_version,
+      RTechnology_level : tech.Technology_level,
+      RTechnology_duration : tech.Technology_experience, 
       Resource_id : r_id, 
     }
     Resource_Techs.push(techData);
@@ -293,11 +295,12 @@ async function prepareTechnology(r_id) {
   async function prepareDomain(r_id) {
     var domainArr = fields.Domain_List;
     var Resource_Domains =[];
+    console.log(JSON.parse(domainArr)); 
 
   for(var domains of JSON.parse(domainArr)) { 
     var  domainData = {
-      Domain : domains.Domain,
-      Domain_duration : domains.Domain_duration, 
+      RDomain : domains.Domain,
+      RDomain_duration : domains.Domain_duration, 
       Resource_id : r_id, 
     }
     Resource_Domains.push(domainData);
@@ -308,11 +311,12 @@ async function prepareTechnology(r_id) {
     async function prepareRole(r_id) {
     var roleArr = fields.Role_List;
     var Resource_Roles =[];
+    console.log(JSON.parse(roleArr)); 
 
   for(var role of JSON.parse(roleArr)) { 
     var  roleData = {
-      Role_name : role.Job_title,
-      Role_duration : role.Job_duration, 
+      RRole_name : role.Job_title,
+      RRole_duration : role.Job_duration, 
       Company_id : fields.Company_id, 
       Resource_id : r_id, 
     }
@@ -325,10 +329,12 @@ async function prepareTechnology(r_id) {
     async function prepareEducation(r_id) {
     var eduArr = fields.Education_List;
     var Education_lists =[];
+    console.log(JSON.parse(eduArr)); 
+    
     for(var edu of JSON.parse(eduArr)) { 
       var  eduData = {
-        Qualification : edu.Education,
-        Pass_year : edu.Pass_year,  
+        REducation : edu.Education,
+        REducation_passyear : edu.Pass_year,  
         Resource_id : r_id, 
       }
       Education_lists.push(eduData);
@@ -345,7 +351,7 @@ async function prepareTechnology(r_id) {
   })
   .then((data) =>{
 
-    technologyTb.bulkCreate(data);
+    resourceTechnologyTbs.bulkCreate(data);
     console.log("Technology added");
     return data;  
   })
@@ -379,7 +385,7 @@ async function prepareTechnology(r_id) {
 
   })
   .then((data) =>{
-    educationTb.bulkCreate(data);
+    resourceEducationTbs.bulkCreate(data);
     console.log("Education added");
     return data;
 
@@ -572,6 +578,30 @@ exports.getTechnologyByParent = (req, res) => {
   technologyTb.findAll({
     where : {
       Technology_category_id :req.body.Technology_category_id
+    }
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      var c = {
+        "Status" : "Failed"
+      }
+      res.send(c);
+    });
+};
+exports.getTechnologyLists = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  techcategoryTb.findAll({
+    include: {
+      model: technologyTb ,
+      required: true
     }
   })
     .then(data => {

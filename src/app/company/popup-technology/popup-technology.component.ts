@@ -6,8 +6,10 @@ import {ListingManagerService} from '../../Services/listing-manager.service';
 
 
 export interface DialogData {
-  name: string;
-  Technology_category_id: Number;
+  Technology_name: string;
+  Technology_experience: Number;
+  Technology_level: string;
+  Technology_version: string;
 }
  
 @Component({
@@ -19,36 +21,37 @@ export interface DialogData {
 export class PopupTechnologyComponent implements OnInit {
   value =0;
   tech_list =[]; 
-  tech_list2 =[]; 
+  Technology_name =""; 
+  Technology_experience =0; 
+  Technology_version =0; 
+  Technology_level =""; 
    constructor(
      public dialogRef: MatDialogRef<CreateResourceComponent>,
      @Inject(MAT_DIALOG_DATA) public data: DialogData , private ListingManagerService:ListingManagerService) {}
  
    ngOnInit(): void {
-    this.ListingManagerService.getTechnologyByParent(this.data.Technology_category_id).subscribe(data =>{
-      console.log(data);   
-      this.tech_list = data; 
-    }); 
+    this.Technology_name=this.data.Technology_name;
 
-   }
-   SubCat(Cat_id){ 
-     console.log(Cat_id);
-     this.ListingManagerService.getTechnologyByParent(Cat_id).subscribe(data =>{
-    console.log(data);    
-    this.tech_list2 = data;
-  });
-
-   }
+   } 
    onNoClick(): void {
       
-     this.dialogRef.close({ "Role" :this.data.name, "Experience" : 0 });
+     this.dialogRef.close({ "Technology_name" :this.data.Technology_name, "Technology_experience" : "",
+     "Technology_level":"","Technology_version":""});
    }
    proceed(): void {
   
-     this.dialogRef.close({ "Role" :this.data.name, "Experience" : this.value });
+     this.dialogRef.close({ "Technology_name" :this.data.Technology_name, "Technology_experience" : this.Technology_experience,
+     "Technology_level":this.Technology_level,"Technology_version":this.Technology_version });
    }
-   getData(e){
-     this.value = e.target.value;
+   getexperience(e){
+     this.Technology_experience = e.target.value;
+   }
+   getlevel(e){
+     this.Technology_level = e.value;
+   }
+   getversion(e){
+    this.Technology_version = e.target.value;
+
    }
  
    

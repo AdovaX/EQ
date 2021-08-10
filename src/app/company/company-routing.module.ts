@@ -12,11 +12,15 @@ import {SearchResourceComponent} from './search-resource/search-resource.compone
 import {CreateResourceComponent} from './create-resource/create-resource.component';
 import { ProfileComponent } from './profile/profile.component';
 import { IntroVideoComponent } from './intro-video/intro-video.component';
+import { TableComponent } from './table/table.component';
 
 const routes: Routes = [
     {
       path : '', component:RegistrationComponent
     }, 
+    {
+      path : 'Table', component:TableComponent
+    },
     {
       path : 'Dashboard', component:DashboardComponent
     }, 

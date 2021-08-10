@@ -81,7 +81,7 @@ createResource(data , technology_list,domain_list,jobRole_list,education_list, c
   formData.append('Resource_name',data.Resource_name);
   formData.append('Resource_Experience',data.Resource_experience);
   formData.append('Resource_Email',data.Resource_email);
-  formData.append('Resource_Phone',data.Resource_Phone);
+  formData.append('Resource_Phone',data.Resource_phone);
   formData.append('Resource_password',data.Resource_password);
   formData.append('Resource_Designation',data.Resource_designation);
   formData.append('Resource_summery',data.Resource_summery);
@@ -127,6 +127,13 @@ getTechnologyByParent(Technology_category_id){
   Technology_category_id:Technology_category_id
 }
 return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getTechnologyByParent/', data);
+
+}
+getTechnologyLists(){
+  var data = {
+  Company_id : this.Company_id, 
+}
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getTechnologyLists/', data);
 
 }
 

@@ -1,23 +1,31 @@
- <section class="techsec">
-<div class="row">
-    <div class="col-sm-12">
-        <div class="" >
-           
-           <div class="btn-group m-1 show" role="group" *ngFor="let tech of tech_list; let i = index">
- 
-            <button mat-button [matMenuTriggerFor]="menu">{{tech.Technology_name}}</button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item  >Vertebrates</button>
-                <button mat-menu-item  >Invertebrates</button>
-              </mat-menu>
-
-
-              
-          </div>
-
-
- 
+<div class="row"> 
+    <div class="col-sm-4"> 
+        <div class="form-group">
+          <label for="input-11"> Version of {{data.Technology_name}} ?<span class="redColor">*</span></label>
+          <input type="text" class="form-control form-control-square"   id="Tech_duration" (change)="getversion($event)"
+          name="Domain_duration"  placeholder="Version">
+         </div>  
         </div>
+        <div class="col-sm-4"> 
+            <div class="form-group">
+              <label for="input-11"> How many years of experience in {{data.Technology_name}} ?<span class="redColor">*</span></label>
+              <input type="number" class="form-control form-control-square"   id="Technology_name" (change)="getexperience($event)"
+              name="Domain_duration"  placeholder="Duration in years">
+             </div>  
+            </div> 
+        <div class="col-sm-4">  
+             <div class="form-group">
+               <label for="input-11"> Expertaise Level in {{data.Technology_name}} ?<span class="redColor">*</span></label><br>
+               <mat-radio-group aria-label="Select an option" (change)="getlevel($event)"   id="Technology_level" 
+               name="Technology_level">
+               <mat-radio-button value="BEGGINER" >BEGGINER</mat-radio-button>&nbsp; 
+               <mat-radio-button value="INTERMEDIATE" >MEDIUM</mat-radio-button>&nbsp; 
+                 <mat-radio-button value="EXPERT" [checked]="true">EXPERT</mat-radio-button>
+               </mat-radio-group> 
+              </div> 
+            </div>
     </div>
-</div> 
-</section>
+          
+            <button class="curve2" (click)="onNoClick()">Cancel</button>&nbsp;
+            <button class="curve" (click)="proceed()">Proceed</button>
+        

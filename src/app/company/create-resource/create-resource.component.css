@@ -43,7 +43,7 @@
   width: auto;
 }
 #goup{
-  margin-top: -20px;
+  margin-top: -5px;
     margin-bottom: 10px;
 }
 .file-input {
@@ -105,4 +105,10 @@
 .icheck-inline{
   margin-left: 0px;
   vertical-align: text-top;
+}
+.marg{
+  margin-bottom: 5px;
+}
+table {
+  width: 100%;
 }

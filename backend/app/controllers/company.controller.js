@@ -332,7 +332,7 @@ exports.create =  async(req, res) => {
     const preferences = {
       "Enable_masking" : req.body.Enable_masking,
       "Freelancers" : req.body.Freelancers,
-      "Tiers_maching" : req.body.Tiers_maching
+      "Tiers_maching" : JSON.stringify(req.body.Tiers_maching)
     }
     console.log(preferences);
   
