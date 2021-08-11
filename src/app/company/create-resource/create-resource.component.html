@@ -30,8 +30,22 @@
                               <div class="HM_list">  
                                 <div class="row">
                                     <div class="col-lg-12">
-                                            <div class="table-responsive">
-                                              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                                            <div class="table-responsive cusheight"> 
+                                              <div class="example-button-row"> 
+                                                <button mat-raised-button  >Edit <span class="fa fa-edit"></span> 
+                                                </button>&nbsp;
+                                                <button mat-raised-button  >Delete
+                                                  <span class="fa fa-trash"></span>
+                                                </button> &nbsp;
+                                                <button mat-raised-button   >Add video
+                                                  <span class="fa fa-video-camera"></span>
+                                                </button> &nbsp;
+                                                <button mat-raised-button (click)="exportExcel()" >Download
+                                                  <span class="fa fa-download"></span>
+                                                </button> 
+                                              </div> <br>
+                                              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+                                                
                                                 <!-- Checkbox Column -->
                                                 <ng-container matColumnDef="select">
                                                   <th mat-header-cell *matHeaderCellDef>
@@ -54,13 +68,16 @@
                                                 <ng-container matColumnDef="Resource_active">
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                                                   <td mat-cell *matCellDef="let element">  
-                                                    <mat-slide-toggle [checked]="element.Resource_active==1">Active</mat-slide-toggle>
+                                                    <mat-slide-toggle [checked]="element.Resource_active==1" (click)=toogleActive(element.Resource_id,element.Resource_active)>
+                                                      <span *ngIf="element.Resource_active==1">Active</span> 
+                                                      <span *ngIf="element.Resource_active==0">Inactive</span>
+                                                    </mat-slide-toggle>
 
                                                   </td>
                                                 </ng-container>
 
                                                 <!-- Position Column -->
-                                                <ng-container matColumnDef="Resource_name">
+                                                <ng-container matColumnDef="Resource_name" >
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                                                   <td mat-cell *matCellDef="let element"> {{element.Resource_name}} </td>
                                                 </ng-container>
@@ -80,23 +97,49 @@
                                                 <!-- Symbol Column -->
                                                 <ng-container matColumnDef="Available_from">
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Availabilable from </th>
-                                                  <td mat-cell *matCellDef="let element"> {{element.Available_from}} </td>
+                                                  <td mat-cell *matCellDef="let element"> 
+                                                    <mat-form-field appearance="legacy" class="dateWidth">
+                                                      <mat-label>{{element.Available_from}}</mat-label>
+                                                      <input matInput [matDatepicker]="picker" [min]="today" disabled (dateChange)="updateFrom($event,element.Resource_id)">
+                                                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                      <mat-datepicker #picker disabled="false" ></mat-datepicker>
+                                                    </mat-form-field>
+ 
+                                                  </td>
                                                 </ng-container>
                                               
                                                 <!-- Symbol Column -->
                                                 <ng-container matColumnDef="Available_to">
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Availabilable to </th>
-                                                  <td mat-cell *matCellDef="let element"> {{element.Available_to}} </td>
+                                                  <td mat-cell *matCellDef="let element"> 
+
+                                                    <mat-form-field appearance="legacy" class="dateWidth">
+                                                      <mat-label>{{element.Available_to}}</mat-label>
+                                                      <input matInput [matDatepicker]="picker" [min]="element.Available_from" disabled (dateChange)="updateTo($event,element.Resource_id)">
+                                                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                      <mat-datepicker #picker disabled="false"></mat-datepicker>
+                                                    </mat-form-field>
+                                                  </td>
+                                                </ng-container>
+                                                <!-- Symbol Column -->
+                                                <ng-container matColumnDef="Remaining">
+                                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Remainig </th>
+                                                  <td mat-cell *matCellDef="let element"> 
+                                                    <span ></span>
+                                                   {{getDays(element.Available_from , element.Available_to)}}
+                                                  </td>
                                                 </ng-container>
                                                 <!-- Symbol Column -->
                                                 <ng-container matColumnDef="Resource_stack">
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Stack </th>
                                                   <td mat-cell *matCellDef="let element"> {{element.Resource_stack}} </td>
-                                                </ng-container>
+                                                </ng-container> 
                                               
-                                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
                                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                                               </table>
+                                              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
                                         </div> 
                                      </div>
                                   </div> 

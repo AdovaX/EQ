@@ -9,8 +9,10 @@ import { PopupTechnologyComponent } from '../popup-technology/popup-technology.c
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
+import {MatPaginator} from '@angular/material/paginator';
+import * as moment from 'moment';
+import * as XLSX from 'xlsx';
 
- 
  
 @Component({
   selector: 'app-create-resource',
@@ -43,21 +45,23 @@ export class CreateResourceComponent implements OnInit {
   RJobRoles_List=[]
   resource_domain=[];
   tech_lists=[];
-
+  today = moment().format('YYYY-MM-DD');
 
   fileToUpload: File;
   videoFile: File;
   displayedColumns: string[] = ['select','Resource_active','Resource_name', 'Resource_Designation', 
-  'Resource_rate','Available_from','Available_to','Resource_stack'];
+  'Resource_rate','Available_from','Available_to','Remaining','Resource_stack'];
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<any>(true, []);
 
-  @ViewChild(MatSort) sort: MatSort;
-
-  ngAfterViewInit() {
  
-    
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() { 
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+
   }
  isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -109,6 +113,9 @@ export class CreateResourceComponent implements OnInit {
   Available_to = new FormControl('', [ Validators.required]);
 
   ngOnInit(): void {
+
+  console.log(this.today);
+
     this.getResources();
     this.getTechnologyLists();
     this.getDomainLists();
@@ -246,17 +253,53 @@ export class CreateResourceComponent implements OnInit {
   }
   }
 
- 
+  getDays(from ,to){ 
+
+    var start = moment(from, 'YYYY-MM-DD'); 
+    var difToday = moment().diff(start, 'days')
+    var end = moment(to, 'YYYY-MM-DD');
+    var totdalDays = end.diff(start, 'days');  
+    let c   =totdalDays +"D" ;
+    return c;
+  }
 
   getResources(){
     this.ListingManagerService.getResources().subscribe(data =>{
-      console.log(data);  
+   
+   console.log(data); 
     this.resourceLists  = data;
     this.dataSource.data =data;
    
     }); 
 
   } 
+  updateFrom(e,r_id){
+    let fromDate = e.value;
+    fromDate =  moment(fromDate).format('YYYY-MM-DD');
+    console.log(fromDate);
+    this.ListingManagerService.updateFrom(fromDate,r_id).subscribe(data =>{
+      console.log(data); 
+      this.getResources();  
+   
+    });
+
+  }
+  updateTo(e,r_id){
+    let toDate = e.value;
+    toDate =  moment(toDate).format('YYYY-MM-DD');
+    console.log(toDate);
+    this.ListingManagerService.updateTo(toDate,r_id).subscribe(data =>{
+      console.log(data);  
+      this.getResources(); 
+   
+    });
+  }
+  exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.resourceLists, );
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'filename.xlsx');
+}
 
   getTechnologyParents(){
     this.ListingManagerService.getTechnologyParents().subscribe(data =>{
@@ -275,7 +318,19 @@ export class CreateResourceComponent implements OnInit {
    }); 
 
  }
+ toogleActive(Resource_id , currentValue){
+   if(currentValue == 1){
+     currentValue =0;
+   }else{ 
+    currentValue =1;
 
+   }
+  this.ListingManagerService.toogleActive(Resource_id,currentValue).subscribe(data =>{
+    console.log(data);  
+    this.getResources();
+  
+  });
+ }
   
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
@@ -287,7 +342,7 @@ export class CreateResourceComponent implements OnInit {
     console.log(files.item(0).name); 
 }
  
-
+ 
 
 
 introVideo(Resource_id){

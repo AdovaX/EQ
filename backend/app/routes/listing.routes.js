@@ -16,6 +16,9 @@ module.exports = app => {
     router.post("/getJobRoleLists", LManager.getJobRoleLists); 
     router.post("/getTechnologyByParent", LManager.getTechnologyByParent); 
     router.post("/getTechnologyLists", LManager.getTechnologyLists); 
+    router.post("/toogleActive", LManager.toogleActive); 
+    router.post("/updateFrom", LManager.updateFrom); 
+    router.post("/updateTo", LManager.updateTo); 
   
      app.use('/listing', router);
 };

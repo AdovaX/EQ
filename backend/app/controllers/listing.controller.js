@@ -615,3 +615,77 @@ exports.getTechnologyLists = (req, res) => {
       res.send(c);
     });
 };
+
+exports.toogleActive = (req, res) => { 
+  let data = {
+    Resource_active : req.body.Resource_active
+  } 
+  resourceTb.update(data, {
+    where: { Resource_id: req.body.Resource_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Success"
+        });
+      } else {
+        res.send({
+          message: 'Failed'
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};
+exports.updateFrom = (req, res) => { 
+  let data = {
+    Available_from : req.body.Available_from
+  } 
+  console.log(data);
+  resourceTb.update(data, {
+    where: { Resource_id: req.body.Resource_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Success"
+        });
+      } else {
+        res.send({
+          message: 'Failed'
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};
+exports.updateTo = (req, res) => { 
+  let data = {
+    Available_to : req.body.Available_to
+  } 
+  resourceTb.update(data, {
+    where: { Resource_id: req.body.Resource_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Success"
+        });
+      } else {
+        res.send({
+          message: 'Failed'
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};

@@ -53,7 +53,7 @@ getProfileData(LManager_id): Observable<ListingManager[]>{
  }
 return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/listing/getMyCompany', data);
 } 
-getResources(): Observable<ListingManager[]>{
+getResources(): Observable<any[]>{
   var data = {
      "Company_id" : this.Company_id
  }
@@ -137,6 +137,32 @@ getTechnologyLists(){
 }
 return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getTechnologyLists/', data);
 
+}
+
+toogleActive(r_id , val){
+  var data = {
+    Company_id : this.Company_id, 
+    Resource_id :r_id,
+    Resource_active:val
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/toogleActive/', data);
+}
+updateFrom(val ,r_id ){
+  var data = {
+    Company_id : this.Company_id, 
+    Resource_id :r_id,
+    Available_from:val
+  }
+  console.log(data);
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/updateFrom/', data);
+}
+updateTo(val ,r_id ){
+  var data = {
+    Company_id : this.Company_id, 
+    Resource_id :r_id,
+    Available_to:val
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/updateTo/', data);
 }
 
 }

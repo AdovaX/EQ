@@ -36,6 +36,9 @@ import {MatTableModule} from '@angular/material/table';
 import { TableComponent } from './table/table.component'; 
 import { MatSortModule } from '@angular/material/sort';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -70,7 +73,10 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatExpansionModule,
     MatTableModule,
     MatSortModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule
     
   ],
   entryComponents: [PopupDomainComponent,PopupTechnologyComponent],
