@@ -615,6 +615,25 @@ exports.getTechnologyLists = (req, res) => {
       res.send(c);
     });
 };
+exports.getEducationLists = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  educationTb.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      var c = {
+        "Status" : "Failed"
+      }
+      res.send(c);
+    });
+};
 
 exports.toogleActive = (req, res) => { 
   let data = {

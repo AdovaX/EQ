@@ -8,11 +8,13 @@ import { PopupRoleComponent } from '../popup-role/popup-role.component';
 import { PopupTechnologyComponent } from '../popup-technology/popup-technology.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material/paginator';
 import * as moment from 'moment';
 import * as XLSX from 'xlsx';
 
+import {ThemePalette} from '@angular/material/core';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import { PopupEducationComponent } from '../popup-education/popup-education.component';
  
 @Component({
   selector: 'app-create-resource',
@@ -37,6 +39,7 @@ export class CreateResourceComponent implements OnInit {
   domain_list =[];
   jobRole_list =[];
   education_list =[];
+  educations =[];
   isTechError =false;
   isDoaminError =false;
   isJobError =false;
@@ -45,14 +48,18 @@ export class CreateResourceComponent implements OnInit {
   RJobRoles_List=[]
   resource_domain=[];
   tech_lists=[];
-  today = moment().format('YYYY-MM-DD');
-
+  today = moment().format('YYYY-MM-DD'); 
   fileToUpload: File;
   videoFile: File;
-  displayedColumns: string[] = ['select','Resource_active','Resource_name', 'Resource_Designation', 
-  'Resource_rate','Available_from','Available_to','Remaining','Resource_stack'];
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'determinate';
+  value = 50;
+
+
+
+  displayedColumns: string[] = ['No','Resource_active','Resource_name', 'Resource_Designation', 
+  'Resource_rate','Available_from','Available_to','Remaining','Action'];
   dataSource = new MatTableDataSource();
-  selection = new SelectionModel<any>(true, []);
 
  
   @ViewChild(MatSort) sort: MatSort;
@@ -62,27 +69,7 @@ export class CreateResourceComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
-  }
- isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
+  } 
   constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { }
 
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
@@ -118,6 +105,7 @@ export class CreateResourceComponent implements OnInit {
 
     this.getResources();
     this.getTechnologyLists();
+    this.getEducationLists();
     this.getDomainLists();
     this.getJobRoleLists();
     this.Resource_Form = this.formBuilder.group({
@@ -259,7 +247,7 @@ export class CreateResourceComponent implements OnInit {
     var difToday = moment().diff(start, 'days')
     var end = moment(to, 'YYYY-MM-DD');
     var totdalDays = end.diff(start, 'days');  
-    let c   =totdalDays +"D" ;
+    let c   = (totdalDays == 1)?  totdalDays +"Day" :  totdalDays+"Days";
     return c;
   }
 
@@ -373,6 +361,41 @@ getTechnologyLists(){
     this.tech_lists=data; 
   }); 
 
+}
+getEducationLists(){
+  this.ListingManagerService.getEducationLists().subscribe(data =>{
+    console.log("----");  
+    console.log(data);  
+    this.educations=data; 
+  }); 
+
+}
+ 
+educationChange(e): void { 
+  if(e.target.checked){ 
+  const dialogRef = this.dialog.open(PopupEducationComponent, {
+    width: '450px',
+    data: {name: e.target.value}, 
+    hasBackdrop: true,
+    disableClose : true
+  }); 
+  dialogRef.afterClosed().subscribe(result => { 
+   this.isDoaminError =false;
+   if(result.Passout_year != 0){
+    let eduData = {
+      Education : e.target.value,
+      Pass_year : result.Passout_year, 
+    }
+    this.education_list.push(eduData);
+    console.log(this.education_list);  
+   }else{
+    e.target.checked =false;
+   }
+  });
+}else{ 
+  this.education_list = this.education_list.filter(m=>m.Qualification!==e.target.value);
+  console.log(this.education_list);
+} 
 }
  
 domainChange(e): void { 

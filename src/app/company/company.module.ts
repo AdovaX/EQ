@@ -39,6 +39,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { PopupEducationComponent } from './popup-education/popup-education.component';
+
 
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -51,7 +56,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     IntroVideoComponent,
     PopupRoleComponent,
     PopupTechnologyComponent,
-    TableComponent
+    TableComponent,
+    PopupEducationComponent
       ],
   imports: [
     CommonModule,
@@ -76,7 +82,29 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSlideToggleModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      "backgroundPadding": 5,
+      "radius": 14,
+      "space": -10,
+      "toFixed": 0,
+      "maxPercent": 1000,
+      "outerStrokeGradient": true,
+      "outerStrokeWidth": 4,
+      "outerStrokeColor": "#4882c2",
+      "outerStrokeGradientStopColor": "#53a9ff",
+      "innerStrokeColor": "#fff",
+      "innerStrokeWidth": 4, 
+      "titleFontSize": "14",
+      "imageHeight": 116,
+      "animationDuration": 300,
+      "showUnits": false,
+      "showBackground": false,
+      "showSubtitle":false,
+      "lazy": true
+    })
     
   ],
   entryComponents: [PopupDomainComponent,PopupTechnologyComponent],

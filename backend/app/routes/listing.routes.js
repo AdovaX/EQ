@@ -19,6 +19,7 @@ module.exports = app => {
     router.post("/toogleActive", LManager.toogleActive); 
     router.post("/updateFrom", LManager.updateFrom); 
     router.post("/updateTo", LManager.updateTo); 
+    router.post("/getEducationLists", LManager.getEducationLists); 
   
      app.use('/listing', router);
 };

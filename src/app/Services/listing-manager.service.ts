@@ -138,6 +138,13 @@ getTechnologyLists(){
 return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getTechnologyLists/', data);
 
 }
+getEducationLists(){
+  var data = {
+  Company_id : this.Company_id, 
+}
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getEducationLists/', data);
+
+}
 
 toogleActive(r_id , val){
   var data = {

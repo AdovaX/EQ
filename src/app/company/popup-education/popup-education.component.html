@@ -1,0 +1,13 @@
+<div class="row"> 
+    <div class="col-sm-12"> 
+        <div class="form-group">
+          <label for="input-11"> Pass out year for {{data.name}} ?<span class="redColor">*</span></label>
+          <input type="date" class="form-control form-control-square"   id="passoutYear" (change)="getData($event)"
+          name="Domain_duration"  placeholder="Duration in years">
+         </div> 
+          
+            <button class="curve2" (click)="onNoClick()">Cancel</button>&nbsp;
+            <button class="curve" (click)="proceed()">Proceed</button>
+        
+           </div>
+ </div>

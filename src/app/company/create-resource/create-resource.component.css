@@ -123,3 +123,18 @@ max-height: 600px;
   font-size: medium; 
 
 }
+.colorRed{
+  color: red;
+}
+.colorBlue{
+  color: blue;
+}
+.progressCircle{
+  float:left; 
+  width: 24px; 
+  height: 24px; 
+  margin: 5px 10px 0px 0px;
+}
+.input-group-text{
+  padding: 0px;
+}
