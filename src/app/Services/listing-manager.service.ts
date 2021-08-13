@@ -179,4 +179,32 @@ getResourceData(r_id ){
   return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getResourceData/', data);
 }
 
+editResource(data , technology_list,domain_list,jobRole_list,education_list, cv , videoFile): Observable<Resource[]>{
+  const formData: FormData = new FormData();
+
+  formData.append('file', cv);
+  formData.append('video', videoFile);
+  formData.append('Resource_id',data.Resource_id);
+  formData.append('Resource_name',data.Resource_name);
+  formData.append('Resource_Experience',data.Resource_experience);
+  formData.append('Resource_Email',data.Resource_email);
+  formData.append('Resource_Phone',data.Resource_phone);
+  formData.append('Resource_password',data.Resource_password);
+  formData.append('Resource_Designation',data.Resource_designation);
+  formData.append('Resource_summery',data.Resource_summery);
+  formData.append('Resource_stack',data.Resource_stack);
+  formData.append('Is_remote',data.isRemote);
+  formData.append('Resource_status',data.Resource_status);
+  formData.append('Resource_rate',data.Resource_rate);
+  formData.append('Availability_status',data.Resource_availability);
+  formData.append('Available_from',data.Available_from);
+  formData.append('Available_to',data.Available_to);
+  formData.append('Company_id',this.Company_id);
+  formData.append('Technology_List',JSON.stringify(technology_list));
+  formData.append('Domain_List',JSON.stringify(domain_list));
+  formData.append('Role_List',JSON.stringify(jobRole_list));
+  formData.append('Education_List',JSON.stringify(education_list));
+ 
+return this.http.post<Resource[]>(this.REST_API_SERVER + '/listing/editResource', formData);
+} 
 }

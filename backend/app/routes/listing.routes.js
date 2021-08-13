@@ -21,6 +21,7 @@ module.exports = app => {
     router.post("/updateTo", LManager.updateTo); 
     router.post("/getEducationLists", LManager.getEducationLists); 
     router.post("/getResourceData", LManager.getResourceData); 
+    router.post("/editResource", LManager.editResource); 
   
      app.use('/listing', router);
 };

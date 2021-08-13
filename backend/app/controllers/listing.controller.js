@@ -270,7 +270,11 @@ async function insertResource() {
     Intro_video :newvideoPath
   };
   console.log(resourceData);
-  return await resourceTb.create(resourceData); 
+  return await resourceTb.create(resourceData).then(data => {
+    return data;
+  }).catch(err =>{
+    return res.end("Error");
+  }); 
 } 
 
 
@@ -348,6 +352,7 @@ async function prepareTechnology(r_id) {
 
   insertResource().then((data) =>{ 
     console.log("Resource added"); 
+    console.log(data);
    return  prepareTechnology(data.Resource_id);
 
   })
@@ -388,18 +393,22 @@ async function prepareTechnology(r_id) {
   })
   .then((data) =>{
     resourceEducationTbs.bulkCreate(data);
-    console.log("Education added");
-    return data;
-
-  }).catch((err) =>{
-    console.log(err);
-  });
-
-
+    console.log("Education added"); 
   var result = {
     status : "Success"
   }
    res.send(result);
+
+  }).catch((err) =>{
+    console.log(err);
+
+  var result = {
+    status : "Failed"
+  }
+  res.send(result); 
+  });
+
+
   });
   };
 
@@ -763,4 +772,223 @@ exports.getResourceData = (req, res) => {
     });
 };
 
+
+
+
+exports.editResource= async (req, res) => {
+
+  var form = new IncomingForm(); 
+  var newpath ="";
+  var newvideoPath ="";
+   
+  form.on('file', (field, files) => {
+    console.log("in");
+    console.log(files);
+
+    var oldpath = files.path;
+    newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
+    fs.rename(oldpath, newpath, function (err) {
+      if (err) throw err;
+      console.log("Resume updated");  
+    });  
+
+  }); 
+  
+    
+
+  form.parse(req, (err, fields, files) => {
+  
+    if (!fields.Company_id) {
+     res.status(400).send({
+       message: "Content can not be empty!"
+     });
+     return;
+   }  
+   var passwordHash = 0;
+   if(fields.Resource_password){
+     passwordHash = bcrypt.hashSync(fields.Resource_password , 10);
+
+   }
  
+
+
+async function insertResource() {
+ 
+  
+  const resourceData = {
+    Resource_name: fields.Resource_name,
+    Resource_Experience: fields.Resource_Experience,
+    Resource_Email: fields.Resource_Email,
+    Resource_phone: fields.Resource_Phone,
+    Resource_Designation: fields.Resource_Designation,
+    Resource_summery: fields.Resource_summery, 
+    Resource_stack: fields.Resource_stack, 
+    Resource_status:fields.Resource_status,
+    Is_remote: fields.Is_remote,
+    Resource_rate: fields.Resource_rate,
+    Availability_status: fields.Availability_status, 
+    Available_from: fields.Available_from, 
+    Available_to: fields.Available_to, 
+    Company_id: fields.Company_id, 
+    Resource_resume:newpath,
+    Intro_video :newvideoPath
+  };
+  if(passwordHash != 0){
+     
+    resourceData['Resource_Password']=passwordHash
+
+  } 
+  console.log(resourceData);
+  return await resourceTb.update(resourceData,{
+    where: { Resource_id: fields.Resource_id }
+  }); 
+} 
+
+
+
+async function prepareTechnology(r_id) {
+  await resourceTechnologyTbs.destroy({
+    where : {
+      Resource_id : fields.Resource_id
+    }
+  });
+  var techologyArr = fields.Technology_List;
+  var Resource_Techs =[];
+  console.log(JSON.parse(techologyArr)); 
+  for(var tech of JSON.parse(techologyArr)) { 
+    var  techData = {
+      RTechnology_name : tech.Technology, 
+      RTechnology_version : tech.Technology_version,
+      RTechnology_level : tech.Technology_level,
+      RTechnology_duration : tech.Technology_experience, 
+      Resource_id : r_id, 
+    }
+    Resource_Techs.push(techData);
+ }
+ return await Resource_Techs;
+  } 
+
+
+  async function prepareDomain(r_id) {
+    await resourceDomainTbs.destroy({
+      where : {
+        Resource_id : fields.Resource_id
+      }
+    });
+    var domainArr = fields.Domain_List;
+    var Resource_Domains =[];
+    console.log(JSON.parse(domainArr)); 
+
+  for(var domains of JSON.parse(domainArr)) { 
+    var  domainData = {
+      RDomain : domains.Domain,
+      RDomain_duration : domains.Domain_duration, 
+      Resource_id : r_id, 
+    }
+    Resource_Domains.push(domainData);
+  } 
+  return await Resource_Domains;
+    } 
+
+    async function prepareRole(r_id) {
+      await resourceRoleTbs.destroy({
+        where : {
+          Resource_id : fields.Resource_id
+        }
+      });
+    var roleArr = fields.Role_List;
+    var Resource_Roles =[];
+    console.log(JSON.parse(roleArr)); 
+
+  for(var role of JSON.parse(roleArr)) { 
+    var  roleData = {
+      RRole_name : role.Job_title,
+      RRole_duration : role.Job_duration, 
+      Company_id : fields.Company_id, 
+      Resource_id : r_id, 
+    }
+    Resource_Roles.push(roleData);
+
+  }  
+  return await Resource_Roles;
+    } 
+
+    async function prepareEducation(r_id) {
+      await resourceEducationTbs.destroy({
+        where : {
+          Resource_id : fields.Resource_id
+        }
+      });
+    var eduArr = fields.Education_List;
+    var Education_lists =[];
+    console.log(JSON.parse(eduArr)); 
+    
+    for(var edu of JSON.parse(eduArr)) { 
+      var  eduData = {
+        REducation : edu.Education,
+        REducation_passyear : edu.Pass_year,  
+        Resource_id : r_id, 
+      }
+      Education_lists.push(eduData);
+
+    } 
+  return await Education_lists;
+    } 
+ 
+
+  insertResource().then((data) =>{ 
+    console.log("Resource added"); 
+   return  prepareTechnology(fields.Resource_id);
+
+  })
+  .then((data) =>{
+
+    resourceTechnologyTbs.bulkCreate(data);
+    console.log("Technology added");
+    return data;  
+  })
+  .then((data) => {
+    
+    return  prepareDomain(fields.Resource_id);
+  
+  })
+  .then((data) =>{
+
+    resourceDomainTbs.bulkCreate(data);
+    console.log("Domain added");
+    return data;
+  
+  })
+  .then((data) =>{
+
+    return prepareRole(fields.Resource_id);
+
+  })
+  .then((data) =>{
+
+    resourceRoleTbs.bulkCreate(data);
+    console.log("Role added");
+    return data;
+
+  })
+  .then((data) =>{
+ 
+    return prepareEducation(fields.Resource_id);
+
+  })
+  .then((data) =>{
+    resourceEducationTbs.bulkCreate(data);
+    console.log("Education added");
+    return data;
+
+  }).catch((err) =>{
+    console.log(err);
+  });
+
+
+  var result = {
+    status : "Success"
+  }
+   res.send(result);
+  });
+  };

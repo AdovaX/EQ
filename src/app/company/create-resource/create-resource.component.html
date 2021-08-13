@@ -164,7 +164,7 @@
                                             <div class="form-group">
                                               <label for="input-11">Email ID<span class="redColor">*</span></label>
                                               <input type="email" class="form-control form-control-square" formControlName="Resource_email" id="Resource_email" 
-                                              name="Resource_email"  placeholder="Resource Email ID">
+                                              name="Resource_email"  placeholder="Resource Email ID" autocomplete="off">
                                               <div *ngIf="submitted && f.Resource_email.errors" class="invalid-feedback">
                                                   <div *ngIf="f.Resource_email.errors.required">Email ID is a required field.</div> 
                                                 </div> 
@@ -624,20 +624,7 @@
                                                </div>
                                                </div>
                                           </div> 
-                                          </form>
-                                        
-
-
-
-
-
-
-
-
-
-
-
-
+                                          </form> 
                                         <div>
                                           <button mat-button matStepperPrevious>Back</button>
                                           <button type="button" mat-button matStepperNext>Next</button>
