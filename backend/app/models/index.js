@@ -62,6 +62,18 @@ db.resourceEducationTbs = require("./resourceEducation.model")(sequelize, Sequel
   
   
  
+db.resourceTb.hasMany(db.resourceEducationTbs, {foreignKey: 'Resource_id'});  
+db.resourceEducationTbs.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
+ 
+db.resourceTb.hasMany(db.resourceTechnologyTbs, {foreignKey: 'Resource_id'});  
+db.resourceTechnologyTbs.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
+ 
+db.resourceTb.hasMany(db.resourceRoleTbs, {foreignKey: 'Resource_id'});  
+db.resourceRoleTbs.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
+ 
+db.resourceTb.hasMany(db.resourceDomainTbs, {foreignKey: 'Resource_id'});  
+db.resourceDomainTbs.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
+ 
 db.techcategory.hasMany(db.technology, {foreignKey: 'Technology_category_id'});  
 db.technology.belongsTo(db.techcategory, {foreignKey: 'Technology_category_id', targetKey: 'Technology_category_id'});
  

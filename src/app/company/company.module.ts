@@ -43,6 +43,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PopupEducationComponent } from './popup-education/popup-education.component';
+import { EditResourceComponent } from './edit-resource/edit-resource.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { PopupEducationComponent } from './popup-education/popup-education.compo
     PopupRoleComponent,
     PopupTechnologyComponent,
     TableComponent,
-    PopupEducationComponent
+    PopupEducationComponent,
+    EditResourceComponent
       ],
   imports: [
     CommonModule,

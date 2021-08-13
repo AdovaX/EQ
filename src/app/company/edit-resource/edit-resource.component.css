@@ -1,0 +1,138 @@
+
+.parentCat{
+    margin: 10px;
+    width: auto;
+  
+  }
+  
+    .error-message, .invalid-feedback {
+      color: #cc0033;
+      display: inline-block;
+      font-size: 12px;
+      line-height: 15px;
+      margin: 5px 0 0;
+    }
+  .cus_success{
+      color: white;
+      background-color: #04AA6D;
+  }
+  .is-invalid{
+    border-color: red;
+  }
+  .notSucess{
+    display: none;
+  } 
+  .noShodow{
+      box-shadow:none;
+  }
+  .redColor{
+      color: red;;
+  } 
+  .icheck-material-success{
+      width: 20%;
+  }
+  .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+  .inlinCol{
+    display: inline-block;
+    width: auto;
+  }
+  #goup{
+    margin-top: -5px;
+      margin-bottom: 10px;
+  }
+  .file-input {
+    display: none;
+  }
+  /* customizing */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 23px;
+    width: 23px;
+    background-color: #ccc;
+    border-radius: 20%;
+  }
+  
+  .container2:hover input ~ .checkmark {
+    background-color: #36437e;
+  }
+  
+  .container2 input:checked ~ .checkmark {
+    background-color:#3f51b5;
+  }
+  
+  .container2 .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  
+  .container2 input:checked ~ .checkmark:after {
+    display: block;
+  }
+  .container2 input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .container2 {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    word-break: break-word;
+  }
+  .icheck-inline{
+    margin-left: 0px;
+    vertical-align: text-top;
+  }
+  .marg{
+    margin-bottom: 5px;
+  }
+  table {
+    width: 100%; 
+  }
+  .cusheight{
+  max-height: 600px;
+  }
+  .dateWidth{
+    width: 130px;
+  }
+  .mat-elevation-z8 th{ 
+    font-size: medium;  
+  }
+  .colorRed{
+    color: red;
+  }
+  .colorBlue{
+    color: blue;
+  }
+  .progressCircle{
+    float:left; 
+    width: 24px; 
+    height: 24px; 
+    margin: 5px 10px 0px 0px;
+  }
+  .input-group-text{
+    padding: 0px;
+  }

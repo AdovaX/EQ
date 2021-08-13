@@ -20,6 +20,7 @@ module.exports = app => {
     router.post("/updateFrom", LManager.updateFrom); 
     router.post("/updateTo", LManager.updateTo); 
     router.post("/getEducationLists", LManager.getEducationLists); 
+    router.post("/getResourceData", LManager.getResourceData); 
   
      app.use('/listing', router);
 };

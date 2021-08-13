@@ -13,6 +13,7 @@ import {CreateResourceComponent} from './create-resource/create-resource.compone
 import { ProfileComponent } from './profile/profile.component';
 import { IntroVideoComponent } from './intro-video/intro-video.component';
 import { TableComponent } from './table/table.component';
+import { EditResourceComponent } from './edit-resource/edit-resource.component';
 
 const routes: Routes = [
     {
@@ -20,6 +21,9 @@ const routes: Routes = [
     }, 
     {
       path : 'Table', component:TableComponent
+    }, 
+    {
+      path : 'Edit/:id', component:EditResourceComponent
     },
     {
       path : 'Dashboard', component:DashboardComponent

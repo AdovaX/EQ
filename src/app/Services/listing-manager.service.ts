@@ -171,5 +171,12 @@ updateTo(val ,r_id ){
   }
   return this.http.post<any[]>(this.REST_API_SERVER + '/listing/updateTo/', data);
 }
+getResourceData(r_id ){
+  var data = {
+    Company_id : this.Company_id, 
+    Resource_id :r_id, 
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getResourceData/', data);
+}
 
 }

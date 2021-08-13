@@ -100,9 +100,7 @@ export class CreateResourceComponent implements OnInit {
   Available_to = new FormControl('', [ Validators.required]);
 
   ngOnInit(): void {
-
-  console.log(this.today);
-
+  
     this.getResources();
     this.getTechnologyLists();
     this.getEducationLists();
@@ -471,12 +469,12 @@ PopupTechnology(e){
       this.technology_list.push(techData);
       console.log('==='); 
       console.log(this.technology_list); 
-    });
-    
-     
-    
+    }); 
+}
+editResource(r_id){
+  this.Router.navigate(['/company/Edit',r_id]); 
+
 
 }
-
 
 }

@@ -23,15 +23,15 @@ Title = "";
     if(this.Role_id == 2){
       this.Title = "CONTRACT OWNER"; 
     }else if(this.Role_id == 3){
-      this.Title = "Deligate";  
+      this.Title = "DELIGATE";  
     }else if(this.Role_id == 4){
       this.Title = "SPOC";  
     }else if(this.Role_id == 5){
-      this.Title = "HIRING MANAGER";  
+      this.Title = "LISTING MANAGER";  
     }else if(this.Role_id == 6){
       this.Title = "HIRING MANAGER";  
-    }else{
-      this.Title = "Unknown";  
+    }else{ 
+      this.router.navigate(['Login']); 
     }
 
   }

@@ -119,12 +119,15 @@
                                                 <ng-container matColumnDef="Action">
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                                                   <td mat-cell *matCellDef="let element"> 
-                                                    <button mat-icon-button color="primary" >
-                                                      <span class="fa fa-edit btn"> </span>  
+                                                    <button mat-icon-button color="primary" (click)="editResource(element.Resource_id)" >
+                                                      <span class="fa fa-edit"> </span>  
                                                     </button>  
                                                     <button mat-icon-button color="primary" (click)="introVideo(element.Resource_id)">
-                                                      <span class="fa fa-video-camera btn colorBlue"> </span>  
+                                                      <span class="fa fa-video-camera colorBlue"> </span>  
                                                     </button>
+                                                    <button mat-icon-button color="primary" >
+                                                      <span class="fa fa-send"> </span>  
+                                                    </button> 
                                                   </td>
                                                 </ng-container> 
                                               

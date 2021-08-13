@@ -9,9 +9,9 @@ const usersTb = db.user;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt'); 
 const domainTb = db.domainTb;
-const resourceRoleTbs = db.resourceRoleTbs;
 const rolesTb = db.roles;
 const educationTb = db.educationTb;
+const resourceRoleTbs = db.resourceRoleTbs;
 const resourceDomainTbs = db.resourceDomainTbs;
 const resourceTechnologyTbs = db.resourceTechnologyTbs;
 const resourceEducationTbs = db.resourceEducationTbs;
@@ -533,7 +533,11 @@ exports.getDomainLists = (req, res) => {
     return;
   }
 
-  domainTb.findAll()
+  domainTb.findAll({
+    order:[
+      ['Domain','ASC']
+    ]
+  })
     .then(data => {
       res.send(data);
     })
@@ -554,7 +558,11 @@ exports.getJobRoleLists = (req, res) => {
     return;
   }
 
-  rolesTb.findAll()
+  rolesTb.findAll({
+    order : [
+      ['Role_name','ASC']
+    ]
+  })
     .then(data => {
       res.send(data);
     })
@@ -622,7 +630,11 @@ exports.getEducationLists = (req, res) => {
     });
     return;
   } 
-  educationTb.findAll()
+  educationTb.findAll({
+    order:[
+      ['Qualification','ASC']
+    ]
+  })
     .then(data => {
       res.send(data);
     })
@@ -708,3 +720,47 @@ exports.updateTo = (req, res) => {
       });
     });
 };
+
+exports.getResourceData = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  resourceTb.findOne({
+     where:{
+       Resource_id : req.body.Resource_id,
+       Company_id : req.body.Company_id 
+     },
+       
+    include: [{
+    model: resourceTechnologyTbs,   
+    required: false, 
+    },{
+    model: resourceEducationTbs, 
+    required: false, 
+    } ,{
+    model: resourceDomainTbs, 
+    required: false, 
+    },{
+    model: resourceRoleTbs, 
+    required: false, 
+    } 
+  ],
+    required: false,
+     
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      var c = {
+        "Status" : "Failed"
+      }
+      res.send(c);
+    });
+};
+
+ 
