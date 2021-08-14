@@ -56,6 +56,8 @@ export class LoginComponent implements OnInit {
            this.loginstatus=true;
            return;
          }
+
+         if(loginData.User_role < 7){
           
          console.log("-------");
           console.log(data);
@@ -73,6 +75,34 @@ export class LoginComponent implements OnInit {
           else{
             this.loginstatus = true;
           }  
+
+        }else{
+
+          console.log("-------");
+          console.log(data);
+          this.user_id = data[0]['Resource_id'];
+          this.company_id = data[0]['Company_id'];
+          this.role_id = 7; 
+          if(this.role_id){
+            sessionStorage.setItem('USER_ID',String(this.user_id)); 
+            sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
+            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
+            console.log(this.company_id);
+            this.router.navigate(['company/Edit/']); 
+
+          } 
+          else{
+            this.loginstatus = true;
+          } 
+
+        }
+
+
+
+
+
+
+
        },
        err => {
          console.log(err);

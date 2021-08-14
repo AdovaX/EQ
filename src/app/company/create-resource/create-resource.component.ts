@@ -476,5 +476,11 @@ editResource(r_id){
 
 
 }
+profileCompletion(r_id){
+  this.ListingManagerService.profileCompletion(r_id).subscribe(data =>{
+    return data;
+  }); 
+
+}
 
 }

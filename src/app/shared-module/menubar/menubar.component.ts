@@ -30,6 +30,8 @@ Title = "";
       this.Title = "LISTING MANAGER";  
     }else if(this.Role_id == 6){
       this.Title = "HIRING MANAGER";  
+    }else if(this.Role_id == 7){
+      this.Title = "RESOURCE";  
     }else{ 
       this.router.navigate(['Login']); 
     }

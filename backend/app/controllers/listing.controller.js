@@ -412,27 +412,7 @@ async function prepareTechnology(r_id) {
   });
   };
 
- 
-
-exports.resourceListing = (req, res) => {
-  if (!req.body.Company_id) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-    return;
-  }
-
-  resourceTb.findAll()
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
-      });
-    });
-};
+  
 
 exports.getTechnologyParents = (req, res) => {
   if (!req.body.Company_id) {
@@ -991,4 +971,60 @@ async function prepareTechnology(r_id) {
   }
    res.send(result);
   });
+  };
+
+  exports.resourceListing = async (req, res) => {
+    
+    let profilecount = 0;
+    let completed = 0;
+    await resourceTb.findAll({ where: {
+      Company_id : req.body.Company_id, 
+    } }) 
+      .then(data =>{    
+      let ResourceData =[];  
+
+      data.forEach(element => { 
+        profilecount = Object.keys(element['dataValues']).length;
+        completed =0;
+          for (var colName in element['dataValues']) { 
+        if(element[colName]){
+          completed++; 
+        }
+    }  
+    completed = (completed/profilecount) * 100;
+
+        var c = {
+          "Resource_id" : element.Resource_id,
+          "Company_id" : element.Company_id,
+          "Resource_name" : element.Resource_name,
+          "Resource_Experience" : element.Resource_Experience,
+          "Resource_Email" : element.Resource_Email,
+          "Resource_phone" : element.Resource_phone,
+          "Resource_Designation" : element.Resource_Designation,
+          "Resource_summery" : element.Resource_summery,
+          "Resource_masked" : element.Resource_masked,
+          "Resource_active" : element.Resource_active,
+          "Resource_stack" : element.Resource_stack,
+          "Resource_status" : element.Resource_status,
+          "Is_remote" : element.Is_remote,
+          "Resource_rate" : element.Resource_rate,
+          "Available_from" : element.Available_from,
+          "Available_to" : element.Available_to,
+          "Availability_status" : element.Availability_status,
+          "Resource_resume" : element.Resource_resume,
+          "Intro_video" : element.Intro_video,
+          "createdAt" : element.createdAt,
+          "updatedAt" : element.updatedAt,
+          "completed" : completed
+        }
+        ResourceData.push(c); 
+      }); 
+        res.send(ResourceData);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
   };

@@ -23,6 +23,9 @@ const routes: Routes = [
       path : 'Table', component:TableComponent
     }, 
     {
+      path : 'Edit', component:EditResourceComponent
+    },
+    {
       path : 'Edit/:id', component:EditResourceComponent
     },
     {

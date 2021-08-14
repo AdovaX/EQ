@@ -45,8 +45,9 @@
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> No </th>
                                                   <td mat-cell *matCellDef="let element;let i =index;"> 
                                                     <circle-progress
-                                                    [percent]="85" 
-                                                    [title] ="i+1"
+                                                    [percent]="element.completed" 
+                                                    [title] ="i+1" 
+                                                    [outerStrokeColor]="(element.completed == 100) ? '#0FFF50' : '#FF5733' "  
                                                   ></circle-progress>
                                                       
                                                   </td>

@@ -50,7 +50,7 @@ export class EditResourceComponent implements OnInit {
 
   constructor(private _Activatedroute:ActivatedRoute,private formBuilder: FormBuilder,
     private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { 
-    this.R_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
+    this.R_id =Number(this._Activatedroute.snapshot.paramMap.get("id")) | Number(sessionStorage.getItem('USER_ID'));
 
   }
 

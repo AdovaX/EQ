@@ -207,4 +207,13 @@ editResource(data , technology_list,domain_list,jobRole_list,education_list, cv 
  
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/listing/editResource', formData);
 } 
+
+profileCompletion(r_id ){
+  var data = {
+    Company_id : this.Company_id, 
+    Resource_id :r_id, 
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/profileCompletion/', data);
+}
+
 }
