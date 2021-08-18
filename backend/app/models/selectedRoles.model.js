@@ -37,6 +37,9 @@ module.exports = (sequelize, Sequelize) => {
       } ,
       Roles: {
         type: Sequelize.TEXT,  
+      } ,
+      Job_duration: {
+        type: Sequelize.TEXT,  
       } 
     });
   

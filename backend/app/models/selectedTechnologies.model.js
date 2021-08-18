@@ -35,7 +35,16 @@ module.exports = (sequelize, Sequelize) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE', 
       } ,
-      Technologies: {
+      Technology: {
+        type: Sequelize.TEXT,  
+      } ,
+      Technology_experience: {
+        type: Sequelize.TEXT,  
+      } ,
+      Technology_level: {
+        type: Sequelize.TEXT,  
+      } ,
+      Technology_version: {
         type: Sequelize.TEXT,  
       } 
     });

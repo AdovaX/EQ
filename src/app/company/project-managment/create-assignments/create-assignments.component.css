@@ -1,8 +1,11 @@
-.right{
-    float: right;
+
+.parentCat{
+  margin: 10px;
+  width: auto;
+
 }
 
-.error-message, .invalid-feedback {
+  .error-message, .invalid-feedback {
     color: #cc0033;
     display: inline-block;
     font-size: 12px;
@@ -28,25 +31,22 @@
 .icheck-material-success{
     width: 20%;
 }
+ 
 
-.container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 16px;
+.mat-form-field {
+  margin-top: 16px;
 }
-
-/* hide default */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+.inlinCol{
+  display: inline-block;
+  width: auto;
 }
-
+#goup{
+  margin-top: -5px;
+    margin-bottom: 10px;
+}
+.file-input {
+  display: none;
+}
 /* customizing */
 .checkmark {
   position: absolute;
@@ -58,15 +58,15 @@
   border-radius: 20%;
 }
 
-.container:hover input ~ .checkmark {
+.container2:hover input ~ .checkmark {
   background-color: #36437e;
 }
 
-.container input:checked ~ .checkmark {
+.container2 input:checked ~ .checkmark {
   background-color:#3f51b5;
 }
 
-.container .checkmark:after {
+.container2 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
@@ -81,12 +81,71 @@
   transform: rotate(45deg);
 }
 
-.container input:checked ~ .checkmark:after {
+.container2 input:checked ~ .checkmark:after {
   display: block;
 }
-.marg{
-  margin-bottom: 10px;
+.container2 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
-.form-group label{
-  font-size: 15px;
+.container2 {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  word-break: break-word;
+}
+.icheck-inline{
+  margin-left: 0px;
+  vertical-align: text-top;
+}
+.marg{
+  margin-bottom: 5px;
+}
+table {
+  width: 100%; 
+}
+.cusheight{
+max-height: 600px;
+}
+.dateWidth{
+  width: 130px;
+}
+.mat-elevation-z8 th{
+ 
+  font-size: medium; 
+
+}
+.colorRed{
+  color: red;
+}
+.colorBlue{
+  color: blue;
+}
+.progressCircle{
+  float:left; 
+  width: 24px; 
+  height: 24px; 
+  margin: 5px 10px 0px 0px;
+}
+.input-group-text{
+  padding: 0px;
+}
+#alignRight{
+  float: right;
+}
+.lowMargin{
+  margin-top: -7px!important;
+}
+.goRight{
+  float: right;
+}
+.reviewP{
+  color: black;
+  font-size: 14px;
 }

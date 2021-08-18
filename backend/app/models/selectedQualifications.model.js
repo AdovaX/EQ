@@ -37,6 +37,9 @@ module.exports = (sequelize, Sequelize) => {
       } ,
       Qualifications: {
         type: Sequelize.TEXT,  
+      },
+      Pass_year: {
+        type: Sequelize.TEXT,  
       } 
     });
   

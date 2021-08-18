@@ -37,6 +37,9 @@ module.exports = (sequelize, Sequelize) => {
       } ,
       Domains: {
         type: Sequelize.TEXT,  
+      },
+      Domain_duration: {
+        type: Sequelize.TEXT,  
       } 
     });
   

@@ -138,7 +138,10 @@ for(var item of data[0]){
     let listOfTechnologies =[]; 
     t_list.forEach(element => {
       var cc ={
-        "Technologies" : JSON.stringify(element['Technologies']),
+        "Technology" :  element['Technology'] ,
+        "Technology_experience" :  element['Technology_experience'] ,
+        "Technology_level" :  element['Technology_level'] ,
+        "Technology_version" :  element['Technology_version'] ,
         "User_id" : User_id,  
         "Requirement_id":r_id,
         "Project_id" : p_id
@@ -148,6 +151,7 @@ for(var item of data[0]){
       
     SelectedTechTb.bulkCreate(listOfTechnologies)
     .then(data => {
+      console.log("Tech entered " + listOfTechnologies);
        return true;
     })
     .catch(err => {
@@ -161,16 +165,17 @@ for(var item of data[0]){
     let listOfDomains =[]; 
     d_list.forEach(element => {
       var cc ={
-        "Domains" : JSON.stringify(element['Domains']),
+        "Domains" :  element['Domain'] ,
+        "Domain_duration" :  element['Domain_duration'] ,
         "User_id" : User_id,  
         "Requirement_id":r_id,
         "Project_id" : p_id
-      }
+      } 
       listOfDomains.push(cc); 
     });     
     SelectedDomainsTb.bulkCreate(listOfDomains)
     .then(data => {
-      console.log("Domains entered " + data);
+      console.log("Domains entered " + listOfDomains);
       return true;
     })
     .catch(err => {
@@ -182,8 +187,10 @@ for(var item of data[0]){
     let listOfCertification =[]; 
     console.log(req.body.Certification);
     e_list.forEach(element => {
+      console.log("Pass Year :" + element['Pass_year']);
       var cc ={
-        "Qualifications" : JSON.stringify(element['Education']),
+        "Qualifications" :  element['Education'] ,
+        "Pass_year" :  element['Pass_year'] ,
         "User_id" : User_id,  
         "Requirement_id":r_id,
         "Project_id" : p_id
@@ -192,7 +199,7 @@ for(var item of data[0]){
     }); 
     SelectedQualificationsTb.bulkCreate(listOfCertification)
     .then(data => {
-      console.log("Qualifications entered " + data);
+      console.log("Qualifications entered " + listOfCertification);
     })
     .catch(err => {
      
@@ -205,7 +212,8 @@ for(var item of data[0]){
     console.log(req.body.Roles_id);
     r_list.forEach(element => {
       var cc ={
-        "Roles" : JSON.stringify(element['Roles']),
+        "Roles" :  element['Job_title'] ,
+        "Job_duration" :  element['Job_duration'] ,
         "User_id" : User_id,  
         "Requirement_id":r_id,
         "Project_id" : p_id
@@ -214,7 +222,7 @@ for(var item of data[0]){
     }); 
     selectedRolesTb.bulkCreate(listOfRoles)
     .then(data => {
-       console.log("Roles entered " + data);
+       console.log("Roles entered " + listOfRoles);
     })
     .catch(err => {
      

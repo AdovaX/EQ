@@ -74,11 +74,16 @@ getRoles(){
     catchError(this.handleError)
   )
 }
-createRequirement(data): Observable<Project[]>{ 
-
+createRequirement(data,technology_list,domain_list,jobRole_list,education_list,Project_id): Observable<any>{ 
+  data.Technology_id=technology_list;
+  data.Domain_id = domain_list;
+  data.Roles_id = jobRole_list;
+  data.Certification=education_list;
   data.User_id = Number(this.User_id);
   data.Company_id = Number(this.Company_id); 
-return this.http.post<Project[]>(this.REST_API_SERVER + '/project/createassignment', data);
+  data.ProjectId=Project_id;
+  console.log(data);
+return this.http.post<any>(this.REST_API_SERVER + '/project/createassignment', data);
 
 }
 getAssignmentsById(Project_id){

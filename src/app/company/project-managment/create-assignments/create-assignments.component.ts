@@ -3,6 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl,FormArray } from '@angular/forms';
 import {ProjectService} from '../../../Services/project.service';
 import {Router} from "@angular/router";
+import { ListingManagerService } from '../../../Services/listing-manager.service';
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { PopupTechnologyComponent } from '../../popup-technology/popup-technology.component';
+import { PopupEducationComponent } from '../../popup-education/popup-education.component';
+import { PopupDomainComponent } from '../../popup-domain/popup-domain.component';
+import { PopupRoleComponent } from '../../popup-role/popup-role.component';
+
 @Component({
   selector: 'app-create-assignments',
   templateUrl: './create-assignments.component.html',
@@ -22,7 +29,23 @@ export class CreateAssignmentsComponent implements OnInit {
   selectedRoles=[];
   User_id;
   mainTech=[];
-  constructor(  private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService, private formBuilder: FormBuilder,private Router:Router) { 
+  RDomains_List: any[];
+  RJobRoles_List: any[];
+  tech_lists: any[];
+  educations: any[];
+  isDoaminError: boolean;
+  education_list =[];
+  domain_list=[];
+  isJobError: boolean;
+  jobRole_list=[];
+  technology_list=[];
+  techFormGroup: FormGroup;
+  domainFormGroup: FormGroup;
+  jobRoleFormGroup: FormGroup;
+  educationFormGroup: FormGroup;
+  isTechError: boolean;
+  isEduError: boolean;
+  constructor(  private _Activatedroute:ActivatedRoute,public dialog: MatDialog, private ListingManagerService:ListingManagerService, private ProjectService :ProjectService, private formBuilder: FormBuilder,private Router:Router) { 
     this.Project_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
     this.User_id = sessionStorage.getItem('USER_ID');  
   }
@@ -31,7 +54,7 @@ export class CreateAssignmentsComponent implements OnInit {
   Requirement_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Week_duration = new FormControl('', [ Validators.required ]);
   Week_must_time = new FormControl('', [ Validators.required]);
-  Technology_id = new FormControl(this.selectedTechnologies );
+  Technology_id = new FormControl('');
   Domain_id = new FormControl('' );
   Roles_id = new FormControl('' );
   Certification = new FormControl('' );
@@ -40,14 +63,26 @@ export class CreateAssignmentsComponent implements OnInit {
   Hours_per_day = new FormControl('', [ Validators.required ]);
   No_of_resources = new FormControl('', [ Validators.required ]);
   Requirements_description = new FormControl('', [ Validators.required ]);
-  ProjectId = new FormControl('');
+  Technology_name = new FormControl('', [ Validators.required]);
+  Technology_version = new FormControl('', [ Validators.required]);
+  Technology_experience = new FormControl('', [ Validators.required]);
+  Technology_level = new FormControl('EXPERT', [ Validators.required]);
+  Technology_parent = new FormControl('', [ Validators.required]);
+  Domain_name = new FormControl('', [ Validators.required]);
+  Domain_duration = new FormControl('', [ Validators.required]);
+  Job_title = new FormControl('', [ Validators.required]);
+  Job_duration = new FormControl('', [ Validators.required]);
+  Education = new FormControl('', [ Validators.required]);
+  Pass_year = new FormControl('', [ Validators.required]);
+  Available_from = new FormControl('', [ Validators.required]);
+  Available_to = new FormControl('', [ Validators.required]);
 
   ngOnInit(): void {
-    this.findProject();
-    this.getDomains();
-    this.getEducation();
-    this.getTechnology();
-    this.getRoles();
+    this.findProject(); 
+    this.getTechnologyLists();
+    this.getEducationLists();
+    this.getDomainLists();
+    this.getJobRoleLists();
     this.Requirement_Form = this.formBuilder.group({
       Project_name : this.Project_name,
       Requirement_name : this.Requirement_name,
@@ -61,93 +96,36 @@ export class CreateAssignmentsComponent implements OnInit {
       Hours_per_month : this.Hours_per_month,
       Hours_per_day : this.Hours_per_day,
       No_of_resources : this.No_of_resources,
-      Requirements_description : this.Requirements_description, 
-      ProjectId :this.ProjectId
+      Requirements_description : this.Requirements_description,  
+    });
+    this.techFormGroup = this.formBuilder.group({
+      Technology_name : this.Technology_name,  
+      Technology_version : this.Technology_version,  
+      Technology_experience : this.Technology_experience,    
+      Technology_level : this.Technology_level,  
+      Technology_parent:this.Technology_parent
+  
+    });
+    this.domainFormGroup = this.formBuilder.group({
+      Domain_name : this.Domain_name,    
+      Domain_duration : this.Domain_duration,    
+  
+    }); 
+    this.jobRoleFormGroup = this.formBuilder.group({
+      Job_title : this.Job_title,    
+      Job_duration : this.Job_duration,        
+  
+    }); 
+    this.educationFormGroup = this.formBuilder.group({
+      Education : this.Education,    
+      Pass_year : this.Pass_year,        
+  
     });
   }
    
-
-selectTech(e){    
-if (e.target.checked) {
-console.log("checked");
-this.selectedTechnologies.push(e.target.value);
-}else{
-console.log("unchecked");
-this.selectedTechnologies = this.selectedTechnologies.filter(m=>m!==e.target.value);
-}
-console.log(this.selectedTechnologies);
-}
-
-selectDomain(e){    
-if (e.target.checked) {
-console.log("checked");
-this.selectedDomains.push(e.target.value);
-}else{
-console.log("unchecked");
-this.selectedDomains = this.selectedDomains.filter(m=>m!==e.target.value);
-}
-console.log(this.selectedDomains);
-}
-
-selectEducation(e){    
-  if (e.target.checked) {
-  console.log("checked");
-  this.selectedEducation.push(e.target.value);
-  }else{
-  console.log("unchecked");
-  this.selectedEducation = this.selectedEducation.filter(m=>m!==e.target.value);
-  }
-  console.log(this.selectedEducation);
-  }
-
-  selectRole(e){    
-  if (e.target.checked) {
-  console.log("checked");
-  this.selectedRoles.push(e.target.value);
-  }else{
-  console.log("unchecked");
-  this.selectedRoles = this.selectedRoles.filter(m=>m!==e.target.value);
-  }
-  console.log(this.selectedRoles);
-  }
-
-private pushTechnologies(): FormGroup {
-  return new FormGroup({
-    'Technologies': new FormControl(this.selectedTechnologies) 
-  })
-}
-private pushDomains(): FormGroup {
-  return new FormGroup({
-    'Domains': new FormControl(this.selectedDomains) 
-  })
-}
-private pushEducations(): FormGroup {
-  return new FormGroup({
-    'Education': new FormControl(this.selectedEducation) 
-  })
-}
-private pushRoles(): FormGroup {
-  return new FormGroup({
-    'Roles': new FormControl(this.selectedRoles) 
-  })
-}
-  
+ 
 onSubmit(){
-  const Techs = this.Requirement_Form.get('Technology_id') as FormArray;
-  Techs.push(this.pushTechnologies());
-
-  const Domins = this.Requirement_Form.get('Domain_id') as FormArray;
-  Domins.push(this.pushDomains());
-
-  const Educations = this.Requirement_Form.get('Certification') as FormArray;
-  Educations.push(this.pushEducations());
-
-  const Roles = this.Requirement_Form.get('Roles_id') as FormArray;
-  Roles.push(this.pushRoles());
-
-  this.Requirement_Form.patchValue({ProjectId:this.Project_id})
-  
-  console.log(this.Requirement_Form.value);
+   
 
   if (this.Requirement_Form.invalid) {  
     this.submitted =true;
@@ -155,12 +133,11 @@ onSubmit(){
     console.log("Form error" + this.Requirement_Form.errors);
     return;
   }else{  
-
-    let d = this.Requirement_Form.value; 
-    console.log(d);
-    this.ProjectService.createRequirement(this.Requirement_Form.value).subscribe(data =>{
+ 
+    this.ProjectService.createRequirement(this.Requirement_Form.value,this.technology_list,this.domain_list
+      ,this.jobRole_list,this.education_list,this.Project_id).subscribe(data =>{
          console.log(data);
-         this.Router.navigate(['company/Projectmanagement']); 
+         //this.Router.navigate(['company/Projectmanagement']); 
 
 
     }, error => {
@@ -177,77 +154,209 @@ findProject(){
 }, error => {
   console.log(error); 
 });
-}
-getDomains(){
-  this.ProjectService.getDomains().subscribe(data =>{
-    for (let item of data) {
-      this.domainsList.push({
-        Domain: item.Domain
-      });
-    }
-    const removeDupliactes = (values) => {
-      let concatArray = values.map(eachValue => {
-        return Object.values(eachValue).join('')
-      })
-      let filterValues = values.filter((value, index) => {
-        return concatArray.indexOf(concatArray[index]) === index
-      })
-      return filterValues
-    }
-    this.domainsList =removeDupliactes(this.domainsList); 
-    console.log( this.domainsList);
-
-}, error => {
-  console.log(error); 
-});
-}
- 
-
-
-
-
-getTechnology(){
-  this.ProjectService.getTechnology().subscribe(data =>{
-     console.log("Technologies");
-      console.log(data); 
-     this.technologiesList=data;
- 
-}, error => {
-  console.log(error); 
-});
 } 
-
- 
-
-
-getEducation(){
-  this.ProjectService.getEducation().subscribe(data =>{
-   
-    for (let item of data) {
-      this.educationsList.push({
-        Qualification: item.Qualification
-      });
-    }
-    console.log(this.educationsList);
-}, error => {
-  console.log(error); 
-});
-
-}
-getRoles(){
-  this.ProjectService.getRoles().subscribe(data =>{
-   
-    for (let item of data) {
-      this.rolesList.push({
-        Roles: item.Role_name
-      });
-    }
-    console.log(this.rolesList);
-}, error => {
-  console.log(error); 
-});
-
-}
 get f() { return this.Requirement_Form.controls; }
 
+
+
+
+getDomainLists(){
+  this.ListingManagerService.getDomainLists().subscribe(data =>{
+    console.log(data);  
+    this.RDomains_List=data;
+    
+  
+  }); 
+
+}
+getJobRoleLists(){
+  this.ListingManagerService.getJobRoleLists().subscribe(data =>{
+    console.log(data);  
+    this.RJobRoles_List=data; 
+  }); 
+
+}
+getTechnologyLists(){
+  this.ListingManagerService.getTechnologyLists().subscribe(data =>{
+    console.log("----");  
+    console.log(data);  
+    this.tech_lists=data; 
+  }); 
+
+}
+getEducationLists(){
+  this.ListingManagerService.getEducationLists().subscribe(data =>{
+    console.log("----");  
+    console.log(data);  
+    this.educations=data; 
+  }); 
+
+}
+
+educationChange(e): void { 
+  if(e.target.checked){ 
+  const dialogRef = this.dialog.open(PopupEducationComponent, {
+    width: '450px',
+    data: {name: e.target.value}, 
+    hasBackdrop: true,
+    disableClose : true
+  }); 
+  dialogRef.afterClosed().subscribe(result => { 
+   this.isDoaminError =false;
+   if(result.Passout_year != 0){
+    let eduData = {
+      Education : e.target.value,
+      Pass_year : result.Passout_year, 
+    }
+    this.education_list.push(eduData);
+    console.log(this.education_list);  
+   }else{
+    e.target.checked =false;
+   }
+  });
+}else{ 
+  this.education_list = this.education_list.filter(m=>m.Qualification!==e.target.value);
+  console.log(this.education_list);
+} 
+}
+ 
+domainChange(e): void { 
+  if(e.target.checked){ 
+  const dialogRef = this.dialog.open(PopupDomainComponent, {
+    width: '450px',
+    data: {name: e.target.value}, 
+    hasBackdrop: true,
+    disableClose : true
+  }); 
+  dialogRef.afterClosed().subscribe(result => { 
+   this.isDoaminError =false;
+   if(result.Experience > 0){
+    let domainData = {
+      Domain : e.target.value,
+      Domain_duration : result.Experience, 
+    }
+    this.domain_list.push(domainData);
+    console.log(this.domain_list);  
+   }else{
+    e.target.checked =false;
+   }
+  });
+}else{ 
+  this.domain_list = this.domain_list.filter(m=>m.Domain!==e.target.value);
+  console.log(this.domain_list);
+} 
+}
+
+roleChange(e): void { 
+  if(e.target.checked){ 
+  const dialogRef = this.dialog.open(PopupRoleComponent, {
+    width: '450px',
+    data: {name: e.target.value},
+    hasBackdrop: true,
+    disableClose : true
+  }); 
+  dialogRef.afterClosed().subscribe(result => { 
+   this.isJobError =false;
+   if(result.Experience > 0){
+    let jobRoleData = {
+     Job_title : e.target.value,
+     Job_duration : result.Experience, 
+   }
+   this.jobRole_list.push(jobRoleData); 
+   console.log(this.jobRole_list);  
+   }else{
+    e.target.checked =false;
+   }
+  });
+}else{ 
+  this.jobRole_list = this.jobRole_list.filter(m=>m.Job_title!==e.target.value);
+  console.log(this.jobRole_list);
+} 
+}
+
+PopupTechnology(e){
+
+  
+    const dialogRef = this.dialog.open(PopupTechnologyComponent, {
+      width: '100%',
+      height : 'auto',
+      data: {Technology_name: e} 
+    }); 
+    dialogRef.afterClosed().subscribe(result => { 
+      console.log(result); 
+      let techData = {
+        Technology : result.Technology_name,
+        Technology_version : result.Technology_version,
+        Technology_experience : result.Technology_experience,
+        Technology_level : result.Technology_level, 
+      }
+      this.technology_list.push(techData);
+      console.log('==='); 
+      console.log(this.technology_list); 
+    }); 
+}
+
+addTechnology(){
+  if(this.techFormGroup.invalid){
+    this.isTechError =true;
+
+  }else{
+    this.isTechError =false;
+  let techData = {
+    Technology : this.techFormGroup.value.Technology_name,
+    Technology_version : this.techFormGroup.value.Technology_version,
+    Technology_experience : this.techFormGroup.value.Technology_experience,
+    Technology_level : this.techFormGroup.value.Technology_level,
+    Technology_parent : this.techFormGroup.value.Technology_parent
+  }
+  this.technology_list.push(techData);
+  this.techFormGroup.reset();
+  console.log(this.technology_list);
+}
+}
+addDomain(){
+  if(this.domainFormGroup.invalid){
+  this.isDoaminError =true;
+
+}else{
+  this.isDoaminError =false;
+  let domainData = {
+    Domain : this.domainFormGroup.value.Domain_name,
+    Domain_duration : this.domainFormGroup.value.Domain_duration, 
+  }
+  this.domain_list.push(domainData);
+  this.domainFormGroup.reset();
+  console.log(this.domain_list);
+}
+}
+addJobTitle(){
+  if(this.jobRoleFormGroup.invalid){
+  this.isJobError =true;
+
+}else{
+  this.isJobError =false;
+  let jobRoleData = {
+    Job_title : this.jobRoleFormGroup.value.Job_title,
+    Job_duration : this.jobRoleFormGroup.value.Job_duration, 
+  }
+  this.jobRole_list.push(jobRoleData);
+  this.jobRoleFormGroup.reset();
+  console.log(this.jobRole_list);
+}
+}
+addEducation(){
+  if(this.educationFormGroup.invalid){
+  this.isEduError =true;
+
+}else{
+  this.isEduError =false;
+  let eduData = {
+    Education : this.educationFormGroup.value.Education,
+    Pass_year : this.educationFormGroup.value.Pass_year, 
+  }
+  this.education_list.push(eduData);
+  this.educationFormGroup.reset();
+  console.log(this.education_list);
+}
+}
 }
