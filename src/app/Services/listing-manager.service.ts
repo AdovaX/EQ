@@ -145,6 +145,20 @@ getEducationLists(){
 return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getEducationLists/', data);
 
 }
+getEduStreams(){
+  var data = {
+  Company_id : this.Company_id, 
+}
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getEduStreams/', data);
+
+}
+getEduMtech(){
+  var data = {
+  Company_id : this.Company_id, 
+}
+return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getEduMtech/', data);
+
+}
 
 toogleActive(r_id , val){
   var data = {

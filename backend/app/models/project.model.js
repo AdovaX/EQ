@@ -47,9 +47,8 @@ module.exports = (sequelize, Sequelize) => {
         defaultValue : 'NO'
       } ,
       Status: {
-        type: Sequelize.ENUM,
-        values : ['ACTIVE', 'NONACTIVE', 'CANCELL'],
-        defaultValue : 'NONACTIVE'
+        type: Sequelize.INTEGER, 
+        defaultValue : 1
       } 
     });
   

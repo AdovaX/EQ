@@ -39,6 +39,12 @@ module.exports = (sequelize, Sequelize) => {
       Documents: {
         type: Sequelize.STRING, 
       } ,
+      Requirement_start: {
+        type: Sequelize.DATE, 
+      } ,
+      Requirement_end: {
+        type: Sequelize.DATE, 
+      } ,
       Project_id: {
         type: Sequelize.INTEGER,
         allowNull: true,

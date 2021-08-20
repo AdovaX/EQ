@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import {ProjectService} from '../../../Services/project.service';
 import {Router} from "@angular/router"
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-project',
@@ -11,6 +12,8 @@ import {Router} from "@angular/router"
 export class CreateProjectComponent implements OnInit {
   Project_Form: FormGroup; 
   submitted = false; 
+
+  today = moment().format('YYYY-MM-DD'); 
   constructor(private ProjectService :ProjectService, private formBuilder: FormBuilder,private router:Router) { }
 
   Project_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);

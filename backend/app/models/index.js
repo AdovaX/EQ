@@ -57,6 +57,8 @@ db.resourceDomainTbs = require("./resourceDomain.model")(sequelize, Sequelize);
 db.resourceRoleTbs = require("./resourceRoles.model")(sequelize, Sequelize);
 db.resourceTechnologyTbs = require("./resourceTechnology.model")(sequelize, Sequelize);
 db.resourceEducationTbs = require("./resourceEducation.model")(sequelize, Sequelize);
+db.stream_educationTbs = require("./stream_education.model")(sequelize, Sequelize);
+db.mtech_Tbs = require("./mtech.model")(sequelize, Sequelize);
 
   
   

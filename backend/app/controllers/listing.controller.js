@@ -15,9 +15,10 @@ const resourceRoleTbs = db.resourceRoleTbs;
 const resourceDomainTbs = db.resourceDomainTbs;
 const resourceTechnologyTbs = db.resourceTechnologyTbs;
 const resourceEducationTbs = db.resourceEducationTbs;
+const stream_educationTbs = db.stream_educationTbs;
+const mtech_Tbs = db.mtech_Tbs;
 var fs = require('fs');
 const IncomingForm = require('formidable').IncomingForm;
-
 
 exports.checkManagerType =  async(req, res) => {
     if (!req.body.email) {
@@ -622,6 +623,52 @@ exports.getEducationLists = (req, res) => {
   educationTb.findAll({
     order:[
       ['Qualification','ASC']
+    ]
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      var c = {
+        "Status" : "Failed"
+      }
+      res.send(c);
+    });
+};
+exports.getEduStreams = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  stream_educationTbs.findAll({
+    order:[
+      ['Stream_name','ASC']
+    ]
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      var c = {
+        "Status" : "Failed"
+      }
+      res.send(c);
+    });
+};
+exports.getEduMtech = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  } 
+  mtech_Tbs.findAll({
+    order:[
+      ['Mtech_name','ASC']
     ]
   })
     .then(data => {

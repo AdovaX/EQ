@@ -1,3 +1,10 @@
 .right{
     float: right;
 }
+.mat-elevation-z8{
+    width: 100%;
+}
+.dateWidth{
+    color: black;
+    font-weight: bold;
+}

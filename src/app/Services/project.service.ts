@@ -106,4 +106,28 @@ machingResources(Requirement_id):Observable<any>{
 } 
 return this.http.post<any[]>(this.REST_API_SERVER + '/project/ProjectMatching', data);
 }
+toogleActive(Project_id,currentValue){
+  var data = {
+    "Project_id" : Project_id,
+    "Status" : currentValue
+} 
+return this.http.post<any[]>(this.REST_API_SERVER + '/project/updateProjectStatus', data);
+}
+updateStart(fromDate,Project_id){
+  var data = {
+    Company_id : this.Company_id, 
+    Project_id :Project_id,
+    Start_date:fromDate
+  }
+  console.log(data);
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/updateStart/', data);
+}
+updateEnd(toDate,Project_id){
+  var data = {
+    Company_id : this.Company_id, 
+    Project_id :Project_id,
+    End_date:toDate
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/updateEnd/', data);
+}
 }

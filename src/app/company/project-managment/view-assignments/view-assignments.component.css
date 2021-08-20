@@ -1,0 +1,12 @@
+.right{
+    float: right;
+}
+.mat-elevation-z8{
+    width: 100%;
+}
+.pTitle{
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
+    text-transform: capitalize;
+}

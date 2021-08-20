@@ -14,6 +14,10 @@ const SelectedQualificationsTb = db.SelectedQualifications;
 const SelectedTechTb = db.SelectedTech;
 const techcategoryTb = db.techcategory;
 const selectedRolesTb = db.SelectedRoles;
+const resourceRoleTbs = db.resourceRoleTbs;
+const resourceDomainTbs = db.resourceDomainTbs;
+const resourceTechnologyTbs = db.resourceTechnologyTbs;
+const resourceEducationTbs = db.resourceEducationTbs;
 var Sequelize = require("sequelize");
 
 
@@ -130,6 +134,8 @@ for(var item of data[0]){
         "Hours_per_day" : req.body.Hours_per_day,
         "No_of_resources" : req.body.No_of_resources, 
         "Requirements_description": req.body.Requirements_description,  
+        "Requirement_start": req.body.Start_date,  
+        "Requirement_end": req.body.End_date,  
     };   
     
      
@@ -316,7 +322,8 @@ isAddedRequirement()
           });
         });
       };
-  exports.projectMatching =async (req, res) => {
+
+exports.projectMatching =async (req, res) => {
     if (!req.body.Requirement_id) {
       res.status(400).send({
         message: "Content can not be empty!"
@@ -350,14 +357,17 @@ isAddedRequirement()
           required: false,
         
       }]
-    }).then(data =>{
+    }).then(data =>{  
       return data
     }).catch(err =>{
       return err
-    });
-      return data;
+    }); 
+    return data
     }
     requirement_data = await getRequirement_data();
+    let requirement_start = requirement_data.Requirement_start;
+    let Requirement_end = requirement_data.Requirement_end;
+     
 
     let maching_role_users =[];
     let maching_profiles =[];
@@ -367,130 +377,203 @@ isAddedRequirement()
     let No_education_list = 0;
     let number_of_requirements =0;
 
-    // let rolescount = requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles;
-    // console.log("Roles count" + rolescount);
-
-  if(Object.keys(requirement_data.ProjectsTb.SelectedRolesTbs).length > 0){
-  No_roles_list = Object.keys(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles).length; 
-  }
-
-  if(Object.keys(requirement_data.ProjectsTb.SelectedTechnologiesTbs).length > 0){
-  No_technology_lis = Object.keys(requirement_data.ProjectsTb.SelectedTechnologiesTbs[0].Technologies).length; 
-  }
-
-  if(Object.keys(requirement_data.ProjectsTb.SelectedDomainsTbs).length > 0){
-  No_domin_list = Object.keys(requirement_data.ProjectsTb.SelectedDomainsTbs[0].Domains).length; 
-  }
-  if(Object.keys(requirement_data.ProjectsTb.SelectedQualificationsTbs).length > 0){
-  No_education_list = Object.keys(requirement_data.ProjectsTb.SelectedQualificationsTbs[0].Qualifications).length; 
-  }
-
-  
-    
-    async function maching_Role() {  
-      if(No_roles_list > 0){
-        let R_role_list = JSON.parse(requirement_data.ProjectsTb.SelectedRolesTbs[0].Roles);
-        for(const val of R_role_list) {
-          number_of_requirements++;
-          var rol = await rolesTb.findAll({ where: {Role_name : val} })
-          rol.forEach(el => {
-            if(el.Resource_id != null){
-              maching_role_users.push(el.Resource_id);  
-            }
-          });
-      }  
-      }
-       
+    async function maching_Role(){
+      if(Object.keys(requirement_data.ProjectsTb['SelectedRolesTbs']).length > 0){
+       let R_role_list =  requirement_data.ProjectsTb['SelectedRolesTbs'] ;
+       for(const val of R_role_list) { 
+        number_of_requirements++;
+        var rol = await resourceRoleTbs.findAll({ where: {
+          RRole_name : val['Roles'],
+          RRole_duration:{
+            [Op.gte]: val['Job_duration'],
+          }
+        } })
+        rol.forEach(el => {
+          if(el.Resource_id != null){
+            maching_role_users.push(el.Resource_id);  
+          }
+        });
+     } 
+     console.log("Role machers : "+maching_role_users); 
+       }
+     }
+     async function maching_Technology(){
+     if(Object.keys(requirement_data.ProjectsTb['SelectedTechnologiesTbs']).length > 0){
+      let R_technology_list =  requirement_data.ProjectsTb['SelectedTechnologiesTbs'] ;
+      for(const val of R_technology_list) { 
+       number_of_requirements++;
+       var rol = await resourceTechnologyTbs.findAll({ where: {
+        RTechnology_name : val['Technology'],
+        RTechnology_duration : {
+          [Op.gte]: val['Technology_experience'],
+        },
+        RTechnology_level : val['Technology_level'],
+        } })
+       rol.forEach(el => {
+         if(el.Resource_id != null){
+           maching_role_users.push(el.Resource_id);  
+         }
+       });
     } 
-    async function maching_Technology() {  
-      if(No_technology_lis > 0){
-        var R_technology_list = JSON.parse(requirement_data.ProjectsTb.SelectedTechnologiesTbs[0].Technologies);
-        for(const val of R_technology_list) {
-          number_of_requirements++;
-          var tech = await technologyTb.findAll({ where: {Technology_name : val} })
-          tech.forEach(el => {
-            if(el.Resource_id != null){
-              maching_role_users.push(el.Resource_id);  
-            }
-          }); 
-      }  
+    console.log("Tech machers : "+maching_role_users); 
       }
-      
-    } 
-    async function maching_Education() {  
-      if(No_education_list > 0){
-        var R_education_list = JSON.parse(requirement_data.ProjectsTb.SelectedQualificationsTbs[0].Qualifications);
-        for(const val of R_education_list) {
-          number_of_requirements++;
-          var edu = await educationTb.findAll({ where: {Qualification : val} })
-          edu.forEach(el => {
-            if(el.Resource_id != null){
-              maching_role_users.push(el.Resource_id);  
-            }
-          });
-      } 
-      }
-       
-    } 
-    async function maching_Domain() {  
-      if(No_domin_list > 0){
-        var R_domin_list = JSON.parse(requirement_data.ProjectsTb.SelectedDomainsTbs[0].Domains);
-        for(const val of R_domin_list) {
-          number_of_requirements++;
-          var domain = await domainTb.findAll({ where: {Domain : val} });
-          domain.forEach(el => {
-            if(el.Resource_id != null){
-              maching_role_users.push(el.Resource_id);  
-            }
-          });
-   
-      } 
-      }
-       
-    } 
-async function maching_Prepare_Resources() {  
-const counts = {};
-const sampleArray = maching_role_users;
-sampleArray.forEach(function (x) { 
-  counts[x] = (counts[x] || 0) + 1;  
-
-}); 
-let totalCounts = Object.keys(counts).length;
-
-if(totalCounts > 0){ 
-for (const [key, value] of Object.entries(counts)) { 
-
-  var resource = await resourceTb.findAll({ where: {Resource_id : key} });
-  resource.forEach(el => {
-    if(el.Resource_id != null){
-       
-      console.log("Value is " + value + "Resource " +  el.Resource_name);
-      var d = {
-        "Resource" : el,
-        "Matching" :(value/number_of_requirements)*100 
-      }
-      maching_profiles.push(d);  
     }
-  });
-}
-console.log("number_of_requirements: " + number_of_requirements);
-maching_profiles = maching_profiles.sort((a, b) => (a.Matching < b.Matching ? 1 : -1));
-res.send(maching_profiles);
-}else{
-var c = {
-  "status" : false
-}
-res.send(c);
-
-} 
+    async function maching_Education(){
+    if(Object.keys(requirement_data.ProjectsTb['SelectedQualificationsTbs']).length > 0){
+     let R_technology_list =  requirement_data.ProjectsTb['SelectedQualificationsTbs'] ;
+     for(const val of R_technology_list) { 
+      number_of_requirements++;
+      var rol = await resourceEducationTbs.findAll({ where: {
+        REducation : val['Qualifications'],
+        REducation_passyear : {
+          [Op.lte] : val['Pass_year']
+        },
+      } })
+      rol.forEach(el => {
+        if(el.Resource_id != null){
+          maching_role_users.push(el.Resource_id);  
+        }
+      });
+   } 
+   console.log("Education machers : "+maching_role_users); 
+     }
+   }
+   async function maching_Domain(){
+   if(Object.keys(requirement_data.ProjectsTb['SelectedDomainsTbs']).length > 0){
+    let R_technology_list =  requirement_data.ProjectsTb['SelectedDomainsTbs'] ;
+    for(const val of R_technology_list) { 
+     number_of_requirements++;
+     var rol = await resourceDomainTbs.findAll({ where: {
+       RDomain : val['Domains'],
+       RDomain_duration:{
+         [Op.lte] : val['Domain_duration'],
+       }
+      } })
+     rol.forEach(el => {
+       if(el.Resource_id != null){
+         maching_role_users.push(el.Resource_id);  
+       }
+     });
   } 
-
+  console.log("Domains machers : "+maching_role_users); 
+    }
+  }
+  
+  async function resourceAvailability(){ 
+    console.log("Total machers : "+ maching_role_users); 
+       let finalResource=[];
+      for(const val of maching_role_users) {  
+       var rol = await resourceTb.findAll({ where: {Resource_id : val,
+         Available_from:{
+           [Op.gte]: requirement_start,  
+         }
+       } }); 
+       rol.forEach(el => { 
+         if(el.Resource_id!= null && maching_role_users.includes(el.Resource_id)){
+   
+           finalResource.push(el.Resource_id);
+         }
+       });
+    } 
+    maching_role_users=[];
+    maching_role_users = finalResource;
+    console.log("Available machers : "+ maching_role_users); 
+     } 
+     async function matchingResourceData(){ 
+       let resourceLists=[];
+      
+        for(const val of maching_role_users) {  
+         var rol = await resourceTb.findAll({ where: {Resource_id : val, 
+         } }); 
+         rol.forEach(el => {   
+            resourceLists.push(el); 
+        });
+          
+      }  
+      return resourceLists;
+       } 
+   
     await maching_Role();
     await maching_Technology();
     await maching_Education();
     await maching_Domain();
-    await maching_Prepare_Resources();
- 
- 
-
+    await resourceAvailability();
+    let rData = await matchingResourceData();
+    res.send(rData);
+  
     };
+
+
+
+exports.updateProjectStatus = (req, res) => {
+  var dataUpdate= {
+    "Status" : req.body.Status
+  }
+  projectTb.update(dataUpdate, {
+    where: { Project_id: req.body.Project_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          status: 1
+        });
+      } else {
+        res.send({
+          status: 0
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};
+exports.updateStart = (req, res) => {
+  var dataUpdate= {
+    "Start_date" : req.body.Start_date
+  }
+  projectTb.update(dataUpdate, {
+    where: { Project_id: req.body.Project_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          status: 1
+        });
+      } else {
+        res.send({
+          status: 0
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};
+exports.updateEnd = (req, res) => {
+  var dataUpdate= {
+    "End_date" : req.body.End_date
+  }
+  projectTb.update(dataUpdate, {
+    where: { Project_id: req.body.Project_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          status: 1
+        });
+      } else {
+        res.send({
+          status: 0
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};

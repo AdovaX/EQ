@@ -22,6 +22,12 @@ import { CreateAssignmentsComponent } from './create-assignments/create-assignme
 import { ViewAssignmentsComponent } from './view-assignments/view-assignments.component';
 import { ViewProjectsComponent } from './view-projects/view-projects.component';
 import { FindMachingComponent } from './find-maching/find-maching.component';
+import {MatTableModule} from '@angular/material/table'; 
+import { MatSortModule } from '@angular/material/sort'; 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent,],
@@ -38,7 +44,31 @@ import { FindMachingComponent } from './find-maching/find-maching.component';
     MatExpansionModule,
     MatMenuModule,
     MatInputModule,MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatSortModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatPaginatorModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      "backgroundPadding": 5,
+      "radius": 14,
+      "space": -10,
+      "toFixed": 0,
+      "maxPercent": 1000,
+      "outerStrokeGradient": false,
+      "outerStrokeWidth": 4, 
+      "innerStrokeColor": "#fff",
+      "innerStrokeWidth": 4, 
+      "titleFontSize": "14",
+      "imageHeight": 116,
+      "animationDuration": 300,
+      "showUnits": false,
+      "showBackground": false,
+      "showSubtitle":false,
+      "lazy": true
+    })
   ]
 })
 export class ProjectManagmentModule { }

@@ -11,6 +11,9 @@ module.exports = app => {
     router.post("/getAssignmentsById", project.getAssignmentsById); 
     router.post("/getProjectById", project.getProjectById); 
     router.post("/ProjectMatching", project.projectMatching); 
+    router.post("/updateProjectStatus", project.updateProjectStatus); 
+    router.post("/updateStart", project.updateStart); 
+    router.post("/updateEnd", project.updateEnd); 
    
     app.use('/project', router);
 };

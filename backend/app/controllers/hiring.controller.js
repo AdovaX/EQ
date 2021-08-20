@@ -7,8 +7,8 @@ const requirementTb = db.requirement;
 const projectTb = db.project;
 const usersTb = db.user;
 const Op = db.Sequelize.Op;
-const bcrypt = require('bcrypt');
-
+const bcrypt = require('bcrypt'); 
+var moment = require('moment');  
 
 exports.updateProfile = async (req, res) => {
     if (!req.body.HManager_id) {
@@ -207,14 +207,41 @@ exports.updateProfile = async (req, res) => {
   };
   exports.listofProjects = (req, res) => {
     const Company_id = req.body.Company_id;
+    let projectdata=[];
+    let completion=0;
+    const today = moment();
+
    
-    projectTb.findAll({ where: {Company_id :Company_id , Status:'ACTIVE' },
+    projectTb.findAll({ where: {Company_id :Company_id   },
     include: {
       model: companyTb ,
       required: true
     } })
       .then(data => {
-        res.send(data);
+        for(var val in data){ 
+
+          var given = moment(data[val].End_date, "YYYY-MM-DD");
+          var current = moment().startOf('day');
+          completion = moment.duration(given.diff(current)).asDays();
+          if(completion <1){
+            completion = 0; 
+          }
+           
+          var c={
+            "Description":data[val].Description,
+            "End_date":data[val].End_date,
+            "Need_remote":data[val].Need_remote,
+            "Project_id":data[val].Project_id,
+            "Project_location":data[val].Project_location,
+            "Project_name":data[val].Project_name,
+            "Start_date":data[val].Start_date,
+            "Status":data[val].Status,
+            "Remaining":completion,
+          }
+          projectdata.push(c);
+
+        }
+        res.send(projectdata);
       })
       .catch(err => {
         res.status(500).send({

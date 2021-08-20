@@ -40,6 +40,8 @@ export class CreateResourceComponent implements OnInit {
   jobRole_list =[];
   education_list =[];
   educations =[];
+  educationStreams =[];
+  educationMtechs =[];
   isTechError =false;
   isDoaminError =false;
   isJobError =false;
@@ -106,6 +108,8 @@ export class CreateResourceComponent implements OnInit {
     this.getEducationLists();
     this.getDomainLists();
     this.getJobRoleLists();
+    this.getEduStreams();
+    this.getEduMtech();
     this.Resource_Form = this.formBuilder.group({
       Resource_name : this.Resource_name,
       Resource_email : this.Resource_email,
@@ -241,11 +245,14 @@ export class CreateResourceComponent implements OnInit {
 
   getDays(from ,to){ 
 
-    var start = moment(from, 'YYYY-MM-DD'); 
-    var difToday = moment().diff(start, 'days')
-    var end = moment(to, 'YYYY-MM-DD');
-    var totdalDays = end.diff(start, 'days');  
-    let c   = (totdalDays == 1)?  totdalDays +"Day" :  totdalDays+"Days";
+    var end = moment(to, 'YYYY-MM-DD'); 
+    var given = moment(end, "YYYY-MM-DD");
+    var current = moment().startOf('day');
+    var completion = moment.duration(given.diff(current)).asDays();
+    if(completion <1){
+      completion = 0; 
+    } 
+    let c   = (completion < 1)?  completion +"Day" :  completion+"Days";
     return c;
   }
 
@@ -368,9 +375,26 @@ getEducationLists(){
   }); 
 
 }
+
+getEduStreams(){
+  this.ListingManagerService.getEduStreams().subscribe(data =>{
+    console.log("----");  
+    console.log(data);  
+    this.educationStreams=data; 
+  }); 
+
+}
+getEduMtech(){
+  this.ListingManagerService.getEduMtech().subscribe(data =>{
+    console.log("----");  
+    console.log(data);  
+    this.educationMtechs=data; 
+  }); 
+
+}
  
 educationChange(e): void { 
-  if(e.target.checked){ 
+   
   const dialogRef = this.dialog.open(PopupEducationComponent, {
     width: '450px',
     data: {name: e.target.value}, 
@@ -390,10 +414,7 @@ educationChange(e): void {
     e.target.checked =false;
    }
   });
-}else{ 
-  this.education_list = this.education_list.filter(m=>m.Qualification!==e.target.value);
-  console.log(this.education_list);
-} 
+ 
 }
  
 domainChange(e): void { 

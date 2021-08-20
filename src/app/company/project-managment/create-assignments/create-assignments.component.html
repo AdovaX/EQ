@@ -45,7 +45,7 @@
                                  
                                 </div>
                             </div>
-                            <div class="col-sm-4"> 
+                            <div class="col-sm-3"> 
                                 <div class="form-group">
                                  <label for="input-11">Estimated Duration (Weeks)<span class="redColor">*</span> </label>
                                  <input type="number" #eTime class="form-control form-control-square" formControlName="Week_duration"   id="Week_duration" required 
@@ -53,7 +53,7 @@
                                  
                                 </div>
                             </div>
-                            <div class="col-sm-4"> 
+                            <div class="col-sm-3"> 
                                 <div class="form-group">
                                  <label for="input-11">Min Guranteed Duration (Weeks)  </label>
                                  <input type="number" #mgTime class="form-control form-control-square" formControlName="Week_must_time"   id="Week_must_time" required 
@@ -61,7 +61,26 @@
                                  
                                 </div>
                             </div>
-                            <div class="col-sm-4"> </div>
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                 <label for="input-11">Start Date </label>
+                                 <input type="date" #sTime class="form-control form-control-square" 
+                                 formControlName="Start_date"   id="Start_date" required 
+                                 min="{{project_stime}}" 
+                                 max="{{project_etime}}"
+                                 name="Start_date"> 
+                                 
+                                </div>
+                            </div>
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                 <label for="input-11">End Date </label>
+                                 <input type="date" #eTime class="form-control form-control-square" formControlName="End_date"   id="End_date" required 
+                                 name="End_date"  min="{{project_stime}}" max="{{project_etime}}"   > 
+                                 
+                                </div>
+                            </div>
+                             
 
                             <div class="col-sm-4"> 
                                 <div class="form-group">
@@ -467,21 +486,27 @@
                         
                         <div class="row">
                           <div class="col-sm-4">
-                            <p class="reviewP">  Estimated Duration : {{eTime.value}}</p>
+                            <p class="reviewP">  Estimated Duration : {{eTime.value+'Weeks'}}</p>
                           </div>
                           <div class="col-sm-4">
-                            <p class="reviewP">  Min Guranteed Duration : {{mgTime.value}}</p>
+                            <p class="reviewP">  Min Guranteed Duration : {{mgTime.value+'Weeks'}}</p>
                           </div>
                           <div class="col-sm-4">
-                            <p class="reviewP"> Hour/Month : {{hmonth.value}}</p>
+                            <p class="reviewP"> Hour/Month : {{hmonth.value+'Hours'}}</p>
                           </div> 
                         </div>  
                         <div class="row">
                           <div class="col-sm-3">
-                            <p class="reviewP">Hours/Week : {{hWeek.value}}</p>
+                            <p class="reviewP">Start Date : {{sTime.value}}</p>
                           </div> 
                           <div class="col-sm-3">
-                            <p class="reviewP">Hour/Day : {{hDay.value}}</p>
+                            <p class="reviewP">End Date : {{eTime.value}}</p>
+                          </div> 
+                          <div class="col-sm-3">
+                            <p class="reviewP">Hours/Week : {{hWeek.value+'Hours'}}</p>
+                          </div> 
+                          <div class="col-sm-3">
+                            <p class="reviewP">Hour/Day : {{hDay.value+'Hours'}}</p>
                           </div> 
                         </div>  
                         <div class="row">

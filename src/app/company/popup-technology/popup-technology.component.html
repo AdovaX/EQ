@@ -6,20 +6,20 @@
           name="Domain_duration"  placeholder="Version">
          </div>  
         </div>
-        <div class="col-sm-4"> 
+        <div class="col-sm-3"> 
             <div class="form-group">
-              <label for="input-11"> How many years of experience in {{data.Technology_name}} ?<span class="redColor">*</span></label>
+              <label for="input-11"> Experience in {{data.Technology_name}} ?(Years)<span class="redColor">*</span></label>
               <input type="number" class="form-control form-control-square"   id="Technology_name" (change)="getexperience($event)"
               name="Domain_duration"  placeholder="Duration in years">
              </div>  
             </div> 
-        <div class="col-sm-4">  
+        <div class="col-sm-5">  
              <div class="form-group">
                <label for="input-11"> Expertaise Level in {{data.Technology_name}} ?<span class="redColor">*</span></label><br>
                <mat-radio-group aria-label="Select an option" (change)="getlevel($event)"   id="Technology_level" 
                name="Technology_level">
                <mat-radio-button value="BEGGINER" >BEGGINER</mat-radio-button>&nbsp; 
-               <mat-radio-button value="INTERMEDIATE" >MEDIUM</mat-radio-button>&nbsp; 
+               <mat-radio-button value="INTERMEDIATE" >INTERMEDIATE</mat-radio-button>&nbsp; 
                  <mat-radio-button value="EXPERT" [checked]="true">EXPERT</mat-radio-button>
                </mat-radio-group> 
               </div> 

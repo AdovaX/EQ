@@ -45,6 +45,8 @@ export class CreateAssignmentsComponent implements OnInit {
   educationFormGroup: FormGroup;
   isTechError: boolean;
   isEduError: boolean;
+  project_stime :Date;
+project_etime:Date;
   constructor(  private _Activatedroute:ActivatedRoute,public dialog: MatDialog, private ListingManagerService:ListingManagerService, private ProjectService :ProjectService, private formBuilder: FormBuilder,private Router:Router) { 
     this.Project_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
     this.User_id = sessionStorage.getItem('USER_ID');  
@@ -74,8 +76,8 @@ export class CreateAssignmentsComponent implements OnInit {
   Job_duration = new FormControl('', [ Validators.required]);
   Education = new FormControl('', [ Validators.required]);
   Pass_year = new FormControl('', [ Validators.required]);
-  Available_from = new FormControl('', [ Validators.required]);
-  Available_to = new FormControl('', [ Validators.required]);
+  Start_date = new FormControl('', [ Validators.required]);
+  End_date = new FormControl('', [ Validators.required]);
 
   ngOnInit(): void {
     this.findProject(); 
@@ -96,7 +98,9 @@ export class CreateAssignmentsComponent implements OnInit {
       Hours_per_month : this.Hours_per_month,
       Hours_per_day : this.Hours_per_day,
       No_of_resources : this.No_of_resources,
-      Requirements_description : this.Requirements_description,  
+      Requirements_description : this.Requirements_description, 
+      Start_date : this.Start_date, 
+      End_date : this.End_date,  
     });
     this.techFormGroup = this.formBuilder.group({
       Technology_name : this.Technology_name,  
@@ -128,17 +132,15 @@ onSubmit(){
    
 
   if (this.Requirement_Form.invalid) {  
-    this.submitted =true;
-    console.log("Form error");
+    this.submitted =true; 
     console.log("Form error" + this.Requirement_Form.errors);
     return;
   }else{  
  
     this.ProjectService.createRequirement(this.Requirement_Form.value,this.technology_list,this.domain_list
       ,this.jobRole_list,this.education_list,this.Project_id).subscribe(data =>{
-         console.log(data);
-         //this.Router.navigate(['company/Projectmanagement']); 
-
+          
+         this.Router.navigate(['company/Projectmanagement']);  
 
     }, error => {
       console.log(error); 
@@ -147,9 +149,10 @@ onSubmit(){
 
 }
 findProject(){
-  this.ProjectService.searchProjectById(this.Project_id).subscribe(data =>{
-    console.log(data);
+  this.ProjectService.searchProjectById(this.Project_id).subscribe(data =>{ 
     this.Requirement_Form.controls.Project_name.setValue(data['Project_name']);
+    this.project_stime =data['Start_date'];
+    this.project_etime =data['End_date']; 
 
 }, error => {
   console.log(error); 
@@ -162,8 +165,7 @@ get f() { return this.Requirement_Form.controls; }
 
 getDomainLists(){
   this.ListingManagerService.getDomainLists().subscribe(data =>{
-    console.log(data);  
-    this.RDomains_List=data;
+     this.RDomains_List=data;
     
   
   }); 
@@ -171,23 +173,20 @@ getDomainLists(){
 }
 getJobRoleLists(){
   this.ListingManagerService.getJobRoleLists().subscribe(data =>{
-    console.log(data);  
-    this.RJobRoles_List=data; 
+     this.RJobRoles_List=data; 
   }); 
 
 }
 getTechnologyLists(){
   this.ListingManagerService.getTechnologyLists().subscribe(data =>{
-    console.log("----");  
-    console.log(data);  
+     
     this.tech_lists=data; 
   }); 
 
 }
 getEducationLists(){
   this.ListingManagerService.getEducationLists().subscribe(data =>{
-    console.log("----");  
-    console.log(data);  
+      
     this.educations=data; 
   }); 
 
@@ -208,16 +207,14 @@ educationChange(e): void {
       Education : e.target.value,
       Pass_year : result.Passout_year, 
     }
-    this.education_list.push(eduData);
-    console.log(this.education_list);  
+    this.education_list.push(eduData); 
    }else{
     e.target.checked =false;
    }
   });
 }else{ 
   this.education_list = this.education_list.filter(m=>m.Qualification!==e.target.value);
-  console.log(this.education_list);
-} 
+ } 
 }
  
 domainChange(e): void { 
@@ -236,15 +233,13 @@ domainChange(e): void {
       Domain_duration : result.Experience, 
     }
     this.domain_list.push(domainData);
-    console.log(this.domain_list);  
-   }else{
+    }else{
     e.target.checked =false;
    }
   });
 }else{ 
   this.domain_list = this.domain_list.filter(m=>m.Domain!==e.target.value);
-  console.log(this.domain_list);
-} 
+ } 
 }
 
 roleChange(e): void { 
@@ -263,15 +258,13 @@ roleChange(e): void {
      Job_duration : result.Experience, 
    }
    this.jobRole_list.push(jobRoleData); 
-   console.log(this.jobRole_list);  
-   }else{
+    }else{
     e.target.checked =false;
    }
   });
 }else{ 
   this.jobRole_list = this.jobRole_list.filter(m=>m.Job_title!==e.target.value);
-  console.log(this.jobRole_list);
-} 
+ } 
 }
 
 PopupTechnology(e){
@@ -283,16 +276,13 @@ PopupTechnology(e){
       data: {Technology_name: e} 
     }); 
     dialogRef.afterClosed().subscribe(result => { 
-      console.log(result); 
-      let techData = {
+       let techData = {
         Technology : result.Technology_name,
         Technology_version : result.Technology_version,
         Technology_experience : result.Technology_experience,
         Technology_level : result.Technology_level, 
       }
-      this.technology_list.push(techData);
-      console.log('==='); 
-      console.log(this.technology_list); 
+      this.technology_list.push(techData); 
     }); 
 }
 
@@ -310,8 +300,7 @@ addTechnology(){
     Technology_parent : this.techFormGroup.value.Technology_parent
   }
   this.technology_list.push(techData);
-  this.techFormGroup.reset();
-  console.log(this.technology_list);
+  this.techFormGroup.reset(); 
 }
 }
 addDomain(){
@@ -325,8 +314,7 @@ addDomain(){
     Domain_duration : this.domainFormGroup.value.Domain_duration, 
   }
   this.domain_list.push(domainData);
-  this.domainFormGroup.reset();
-  console.log(this.domain_list);
+  this.domainFormGroup.reset(); 
 }
 }
 addJobTitle(){
@@ -340,8 +328,7 @@ addJobTitle(){
     Job_duration : this.jobRoleFormGroup.value.Job_duration, 
   }
   this.jobRole_list.push(jobRoleData);
-  this.jobRoleFormGroup.reset();
-  console.log(this.jobRole_list);
+  this.jobRoleFormGroup.reset(); 
 }
 }
 addEducation(){
@@ -355,8 +342,7 @@ addEducation(){
     Pass_year : this.educationFormGroup.value.Pass_year, 
   }
   this.education_list.push(eduData);
-  this.educationFormGroup.reset();
-  console.log(this.education_list);
+  this.educationFormGroup.reset(); 
 }
 }
 }
