@@ -63,14 +63,12 @@ exports.create =  async(req, res) => {
       C_full_name: req.body.C_full_name,
       Website: req.body.Website,
       No_employees: req.body.No_employees,
-    };
-    const contractorData = { 
-        Contract_phone: req.body.Contract_phone,
-        Contract_designation:  req.body.Contract_designation,
-    };
+    }; 
     const loginData = {
       User_email: req.body.User_email,
-      User_password: passwordHash
+      User_password: passwordHash,
+      User_designation:  req.body.User_designation,
+      User_phonenumber:req.body.User_phone
     };
  
    async function insertCompany() {
@@ -96,25 +94,12 @@ exports.create =  async(req, res) => {
          return err.message ; 
      });
    }
- 
-   async function insertContractor(Company_id,User_id) {
-     contractorData.Company_id = Company_id;
-     contractorData.User_roles_id = Roles_id;
-     contractorData.User_id = User_id;
-     return await  contractorTb.create(contractorData)
-     .then(data => { 
-       return data; 
-     })
-     .catch(err => {
-         return err.message ; 
-     });
-   }
+  
   
    const company =  await insertCompany();
-   const login =  await insertLogin(company.Company_id ,Roles_id);
-   const contractor =  await insertContractor(company.Company_id , login.User_id);
+   const login =  await insertLogin(company.Company_id ,Roles_id); 
 
-   if(contractor.User_id){
+   if(login.User_id){
      var respos = {
        "status" : "Success"
      }
@@ -123,7 +108,7 @@ exports.create =  async(req, res) => {
      var respos = {
        "status" : "Failed"
      }
-     res.status(500).send(login);
+     res.status(500).send(respos);
    } 
    };  
       

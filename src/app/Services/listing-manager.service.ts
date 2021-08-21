@@ -12,7 +12,7 @@ import { map } from "rxjs/operators";
 })
 export class ListingManagerService  {
 
-  private REST_API_SERVER = "http://localhost:8080";
+  private REST_API_SERVER = "http://localhost:8090";
 
   LManager_id = sessionStorage.getItem('LM_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID');  

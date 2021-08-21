@@ -11,7 +11,7 @@ import {Resource} from '../class/Resource';
 })
 export class HiringManagerService  {
 
-  private REST_API_SERVER = "http://localhost:8080";
+  private REST_API_SERVER = "http://localhost:8090";
 
   User_id = sessionStorage.getItem('USER_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID');  

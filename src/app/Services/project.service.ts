@@ -9,7 +9,7 @@ import {Project} from '../class/Project';
 })
 export class ProjectService  {
 
-  private REST_API_SERVER = "http://localhost:8080";
+  private REST_API_SERVER = "http://localhost:8090";
   User_id = sessionStorage.getItem('USER_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID'); 
   constructor(private http: HttpClient) {}
@@ -100,7 +100,7 @@ getProjectById(Project_id){
 } 
 return this.http.post<Project[]>(this.REST_API_SERVER + '/project/getProjectById', data);
 }
-machingResources(Requirement_id):Observable<any>{
+  machingResources(Requirement_id):Observable<any>{
   var data = {
     "Requirement_id" : Requirement_id
 } 

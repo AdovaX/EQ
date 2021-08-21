@@ -15,7 +15,7 @@ export class ContractorService {
   Company_id = sessionStorage.getItem('COMPANY_ID');  
   Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
  
-  private REST_API_SERVER = "http://localhost:8080";
+  private REST_API_SERVER = "http://localhost:8090";
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({

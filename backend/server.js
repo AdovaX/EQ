@@ -4,7 +4,7 @@ const app = express();
 require('./sequalize.js');
 
 var corsOptions = {
-  origin: "http://localhost:4200"
+  origin: ["http://localhost:4200","http://localhost:80"]
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -22,7 +22,7 @@ require("./app/routes/hiring.routes")(app);
 require("./app/routes/project.routes")(app);
 require("./app/routes/users.routes")(app);
 require("./app/routes/fileupload.routes")(app);
- const PORT = process.env.PORT || 8080;
+ const PORT = process.env.PORT || 8090;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
