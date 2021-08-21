@@ -21,7 +21,7 @@ export class CreateProjectComponent implements OnInit {
   Start_date = new FormControl('', [ Validators.required ]);
   End_date = new FormControl('', [ Validators.required]);
   Description = new FormControl('', [ Validators.required, Validators.minLength(3)]);
-  Status = new FormControl('ACTIVE', [ Validators.required ]);
+  Status = new FormControl('1', [ Validators.required ]);
   Need_remote = new FormControl('YES', [ Validators.required ]);
 
   ngOnInit(): void {

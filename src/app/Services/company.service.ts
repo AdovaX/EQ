@@ -13,7 +13,7 @@ export class CompanyService {
 
   User_id = sessionStorage.getItem('USER_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID');  
-  private REST_API_SERVER = "http://3.109.113.141:8090";
+  private REST_API_SERVER = "http://localhost:8090";
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({

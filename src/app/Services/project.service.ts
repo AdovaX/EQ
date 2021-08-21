@@ -9,7 +9,7 @@ import {Project} from '../class/Project';
 })
 export class ProjectService  {
 
-  private REST_API_SERVER = "http://3.109.113.141:8090";
+  private REST_API_SERVER = "http://localhost:8090";
   User_id = sessionStorage.getItem('USER_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID'); 
   constructor(private http: HttpClient) {}
@@ -86,12 +86,12 @@ createRequirement(data,technology_list,domain_list,jobRole_list,education_list,P
 return this.http.post<any>(this.REST_API_SERVER + '/project/createassignment', data);
 
 }
-getAssignmentsById(Project_id){
+getAssignmentsById(Project_id):Observable<any>{
   var data = {
     "Project_id" : Project_id,
     "User_id" : this.User_id
 } 
-return this.http.post<Project[]>(this.REST_API_SERVER + '/project/getAssignmentsById', data);
+return this.http.post<any>(this.REST_API_SERVER + '/project/getAssignmentsById', data);
 }
 getProjectById(Project_id){
   var data = {

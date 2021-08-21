@@ -34,7 +34,9 @@ export class CreateAssignmentsComponent implements OnInit {
   tech_lists: any[];
   educations: any[];
   isDoaminError: boolean;
-  education_list =[];
+  education_list =[]; 
+  educationStreams =[];
+  educationMtechs=[];
   domain_list=[];
   isJobError: boolean;
   jobRole_list=[];
@@ -85,6 +87,8 @@ project_etime:Date;
     this.getEducationLists();
     this.getDomainLists();
     this.getJobRoleLists();
+    this.getEduStreams();
+    this.getEduMtech();
     this.Requirement_Form = this.formBuilder.group({
       Project_name : this.Project_name,
       Requirement_name : this.Requirement_name,
@@ -192,8 +196,25 @@ getEducationLists(){
 
 }
 
+getEduStreams(){
+  this.ListingManagerService.getEduStreams().subscribe(data =>{
+    console.log("----");  
+    console.log(data);  
+    this.educationStreams=data; 
+  }); 
+
+}
+
+getEduMtech(){
+  this.ListingManagerService.getEduMtech().subscribe(data =>{
+    console.log("----");  
+    console.log(data);  
+    this.educationMtechs=data; 
+  }); 
+
+}
 educationChange(e): void { 
-  if(e.target.checked){ 
+   
   const dialogRef = this.dialog.open(PopupEducationComponent, {
     width: '450px',
     data: {name: e.target.value}, 
@@ -207,14 +228,13 @@ educationChange(e): void {
       Education : e.target.value,
       Pass_year : result.Passout_year, 
     }
-    this.education_list.push(eduData); 
+    this.education_list.push(eduData);
+    console.log(this.education_list);  
    }else{
     e.target.checked =false;
    }
   });
-}else{ 
-  this.education_list = this.education_list.filter(m=>m.Qualification!==e.target.value);
- } 
+ 
 }
  
 domainChange(e): void { 

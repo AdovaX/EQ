@@ -8,7 +8,7 @@ import { Resource } from '../class/Resource';
 })
 export class SpocDelegateService {
 
-  private REST_API_SERVER = "http://3.109.113.141:8090"; 
+  private REST_API_SERVER = "http://localhost:8090"; 
   Company_id = sessionStorage.getItem('COMPANY_ID');  
   constructor(private http: HttpClient) { }
   httpOptions = {

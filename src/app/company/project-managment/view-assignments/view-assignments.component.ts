@@ -33,18 +33,24 @@ export class ViewAssignmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  this.getProjectById();
   this.getAssignments();
   }
-getAssignments(){
-this.ProjectService.getAssignmentsById(this.Project_id).subscribe(data =>{
-  this.assignmentLists = data;
-  this.dataSource.data=data;
-  this.projectName = data[0]['ProjectsTb'].Project_name; 
-  console.log(data);
-}, error => {
-console.log(error); 
-});
-}
+  getAssignments(){
+  this.ProjectService.getAssignmentsById(this.Project_id).subscribe(data =>{ 
+    this.assignmentLists = data;
+    this.dataSource.data=data; 
+  }, error => {
+  console.log(error); 
+  });
+  }
+  getProjectById(){
+  this.ProjectService.getProjectById(this.Project_id).subscribe(data =>{ 
+    this.projectName=data['Project_name'];
+  }, error => {
+  console.log(error); 
+  });
+  }
 createAssignment(){
   this.Router.navigate(['/company/Projectmanagement/Createassignment',this.Project_id]); 
 

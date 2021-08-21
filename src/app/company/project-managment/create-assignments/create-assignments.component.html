@@ -317,12 +317,41 @@
                           <div class="row"> 
                             <div class="form-group">
                               <label for="input-11">Education Lists<span class="redColor">*</span> </label><br>
-                              <div class="Acheckbox icheck-inline col-sm-3" *ngFor="let edu of educations; let i=index">
-                                 <label class="container2 "> {{edu.Qualification}}
-                                     <input type="checkbox"  value ="{{edu.Qualification}}" (change)="educationChange($event)">
-                                     <span class="checkmark"></span>
-                                     </label>
-                               </div>  
+                              <div class="row">
+                                <div class="col-sm-4"> 
+                                  <mat-form-field appearance="outline">
+                                    <mat-label>Educational Qualification</mat-label>
+                                    <select matNativeControl required (change)="educationChange($event)">
+                                      <option>Choose education</option>
+                                      <option *ngFor="let edu of educations" [value]="edu.Qualification" >
+                                        {{edu.Qualification}}
+                                      </option> 
+                                    </select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-4"> 
+                                  <mat-form-field appearance="outline">
+                                    <mat-label>Engineering Streams</mat-label>
+                                    <select matNativeControl required (change)="educationChange($event)">
+                                      <option>Choose Streams</option>
+                                      <option *ngFor="let eduStream of educationStreams" [value]="eduStream.Stream_name">
+                                        {{eduStream.Stream_name}}
+                                      </option> 
+                                    </select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-sm-4"> 
+                                  <mat-form-field appearance="outline" >
+                                    <mat-label>Mtech Steams</mat-label>
+                                    <select matNativeControl required (change)="educationChange($event)">
+                                      <option>Choose Steams</option>
+                                      <option *ngFor="let eduMtech of educationMtechs" [value]="eduMtech.Mtech_name">
+                                        {{eduMtech.Mtech_name}}
+                                      </option> 
+                                    </select>
+                                  </mat-form-field>
+                                </div>
+                              </div>   
                              </div> 
                           </div> 
                           <i>Request an extra Education data</i>
