@@ -76,7 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 class ProjectService {
     constructor(http) {
         this.http = http;
-        this.REST_API_SERVER = "http://localhost:8090";
+        this.REST_API_SERVER = "http://3.109.113.141:8090";
         this.User_id = sessionStorage.getItem('USER_ID');
         this.Company_id = sessionStorage.getItem('COMPANY_ID');
         this.httpOptions = {

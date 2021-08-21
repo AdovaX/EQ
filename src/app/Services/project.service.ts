@@ -9,7 +9,7 @@ import {Project} from '../class/Project';
 })
 export class ProjectService  {
 
-  private REST_API_SERVER = "http://localhost:8090";
+  private REST_API_SERVER = "http://3.109.113.141:8090";
   User_id = sessionStorage.getItem('USER_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID'); 
   constructor(private http: HttpClient) {}
