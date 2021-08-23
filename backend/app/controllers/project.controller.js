@@ -365,53 +365,95 @@ exports.projectMatching =async (req, res) => {
     return data
     }
     requirement_data = await getRequirement_data();
-    let requirement_start = requirement_data.Requirement_start;
-    let Requirement_end = requirement_data.Requirement_end;
+    let requirement_start = requirement_data.Requirement_start; 
      
 
-    let maching_role_users =[];
-    let maching_profiles =[];
-    let No_roles_list = 0;
-    let No_technology_lis = 0;
-    let No_domin_list  = 0;
-    let No_education_list = 0;
+    let maching_role_users =[]; 
+    let R_maching = []; 
     let number_of_requirements =0;
-
+    let matching = 0;
+    const roleMatching = 10;
+    const educationMatching = 10;
+    const technologyMatching = 50;
+    const domainMatching =10;
+    const availabilityMatching =15;
+    const isVideoMatching =5; 
+  
     async function maching_Role(){
       if(Object.keys(requirement_data.ProjectsTb['SelectedRolesTbs']).length > 0){
+        let totalRoles =0; 
        let R_role_list =  requirement_data.ProjectsTb['SelectedRolesTbs'] ;
        for(const val of R_role_list) { 
-        number_of_requirements++;
+         
         var rol = await resourceRoleTbs.findAll({ where: {
-          RRole_name : val['Roles'],
-          RRole_duration:{
-            [Op.gte]: val['Job_duration'],
-          }
+          RRole_name : val['Roles'], 
         } })
+        totalRoles = Object.keys(requirement_data.ProjectsTb['SelectedRolesTbs']).length; 
+        let matchingPercentage = roleMatching / totalRoles; 
+        matchingPercentage = matchingPercentage/2; //role,expt
+        console.log("Role divion by " + matchingPercentage);
         rol.forEach(el => {
-          if(el.Resource_id != null){
-            maching_role_users.push(el.Resource_id);  
+          var p = 0;
+          if(el.Resource_id != null){  
+            if(el.RRole_duration >= val['Job_duration']){
+              p++;
+              console.log("Role duration matched "+p); 
+            } 
+            if(el.RRole_name == val['Roles']){
+              p++;
+              console.log("Role name matched "+p); 
+            }
+          maching_role_users.push(el.Resource_id);  
+          var c = {
+            "Resource_id" : el.Resource_id,
+            "Rolemaching" : (matchingPercentage*p)
           }
+          R_maching.push(c); 
+         }
         });
+         
      } 
-     console.log("Role machers : "+maching_role_users); 
+     console.log("Role machers : "+ maching_role_users);  
        }
      }
      async function maching_Technology(){
      if(Object.keys(requirement_data.ProjectsTb['SelectedTechnologiesTbs']).length > 0){
+       
+      totalTechs = Object.keys(requirement_data.ProjectsTb['SelectedTechnologiesTbs']).length; 
+      let matchingPercentage = technologyMatching / totalTechs;
+      matchingPercentage = matchingPercentage/3; //expt,level,version
+      console.log("Tech division by:" +matchingPercentage);
+
       let R_technology_list =  requirement_data.ProjectsTb['SelectedTechnologiesTbs'] ;
       for(const val of R_technology_list) { 
        number_of_requirements++;
        var rol = await resourceTechnologyTbs.findAll({ where: {
-        RTechnology_name : val['Technology'],
-        RTechnology_duration : {
-          [Op.gte]: val['Technology_experience'],
-        },
-        RTechnology_level : val['Technology_level'],
-        } })
+        RTechnology_name : val['Technology'] 
+        } }); 
        rol.forEach(el => {
+        var p = 0;
          if(el.Resource_id != null){
-           maching_role_users.push(el.Resource_id);  
+          if(el.RTechnology_duration == val['Technology_experience'])
+          {
+            p++;
+            console.log("Technology experience matched."+p);
+          }
+          if(el.RTechnology_level == val['Technology_level'])
+          {
+            p++;
+            console.log("Technology level matched."+p);
+          }
+          if(el.RTechnology_version == val['Technology_version'])
+          {
+            p++;
+            console.log("Technology version matched."+p);
+          }
+          var c = {
+            "Resource_id" : el.Resource_id,
+            "Technologymaching" : (matchingPercentage*p)
+          }
+          R_maching.push(c); 
+          maching_role_users.push(el.Resource_id);  
          }
        });
     } 
@@ -421,18 +463,36 @@ exports.projectMatching =async (req, res) => {
     async function maching_Education(){
     if(Object.keys(requirement_data.ProjectsTb['SelectedQualificationsTbs']).length > 0){
      let R_technology_list =  requirement_data.ProjectsTb['SelectedQualificationsTbs'] ;
+     let totalEdu =Object.keys(requirement_data.ProjectsTb['SelectedQualificationsTbs']).length; 
      for(const val of R_technology_list) { 
       number_of_requirements++;
       var rol = await resourceEducationTbs.findAll({ where: {
-        REducation : val['Qualifications'],
-        REducation_passyear : {
-          [Op.lte] : val['Pass_year']
-        },
-      } })
+        REducation : val['Qualifications'] 
+      } });
+
+      let matchingPercentage = educationMatching / totalEdu; 
+      matchingPercentage = matchingPercentage/2; //Education,Pass_year
+      console.log("Education divion by " + matchingPercentage);
+
       rol.forEach(el => {
-        if(el.Resource_id != null){
-          maching_role_users.push(el.Resource_id);  
+        var p =0;
+        if(el.Resource_id != null){ 
+         
+        if(el.REducation_passyear <= val['Pass_year']){
+          p++;
+          console.log("Education pass year"+p);
+         }
+         if(el.REducation == val['Qualifications']){
+           p++;
+           console.log("Education "+p);
+          }
+        var c = {
+          "Resource_id" : el.Resource_id,
+          "Educationmaching" : (matchingPercentage*p)
         }
+        R_maching.push(c); 
+        maching_role_users.push(el.Resource_id); 
+      } 
       });
    } 
    console.log("Education machers : "+maching_role_users); 
@@ -441,23 +501,43 @@ exports.projectMatching =async (req, res) => {
    async function maching_Domain(){
    if(Object.keys(requirement_data.ProjectsTb['SelectedDomainsTbs']).length > 0){
     let R_technology_list =  requirement_data.ProjectsTb['SelectedDomainsTbs'] ;
+    let totalDomain =Object.keys(requirement_data.ProjectsTb['SelectedDomainsTbs']).length; 
     for(const val of R_technology_list) { 
      number_of_requirements++;
      var rol = await resourceDomainTbs.findAll({ where: {
-       RDomain : val['Domains'],
-       RDomain_duration:{
-         [Op.lte] : val['Domain_duration'],
-       }
-      } })
+       RDomain : val['Domains'] 
+      } });
+
+      let matchingPercentage = domainMatching / totalDomain; 
+      matchingPercentage = matchingPercentage/2; //Domain,expt
+      console.log("Domain divion by " + matchingPercentage);
+
      rol.forEach(el => {
-       if(el.Resource_id != null){
-         maching_role_users.push(el.Resource_id);  
+        var p =0;
+       if(el.Resource_id != null){ 
+        if(el.RDomain == val['Domains']){
+          p++;
+          console.log("Domain mached"+p);
+         }
+         if(el.RDomain_duration >= val['Domain_duration']){
+           p++;
+           console.log("Domain duration mached"+p);
+          }
+
+        var c = {
+          "Resource_id" : el.Resource_id,
+          "Domainmaching" : (matchingPercentage*p)
+        }
+        R_maching.push(c); 
+        maching_role_users.push(el.Resource_id); 
        }
      });
   } 
   console.log("Domains machers : "+maching_role_users); 
     }
   }
+   
+
   
   async function resourceAvailability(){ 
     console.log("Total machers : "+ maching_role_users); 
@@ -469,11 +549,24 @@ exports.projectMatching =async (req, res) => {
          }
        } }); 
        rol.forEach(el => { 
-         if(el.Resource_id!= null && maching_role_users.includes(el.Resource_id)){
-   
-           finalResource.push(el.Resource_id);
-         }
-       });
+         if(el.Resource_id!= null && finalResource.includes(el.Resource_id)==false){  
+
+        var c = {
+          "Resource_id" : el.Resource_id,
+          "Availabilitymaching" : availabilityMatching
+        }
+        R_maching.push(c);  
+        if(el.Intro_video != ''){ 
+          var c = {
+            "Resource_id" : el.Resource_id,
+            "Videomaching" : isVideoMatching
+          }
+          R_maching.push(c); 
+          
+        } 
+          finalResource.push(el.Resource_id);
+        }
+      });
     } 
     maching_role_users=[];
     maching_role_users = finalResource;
@@ -482,25 +575,108 @@ exports.projectMatching =async (req, res) => {
      async function matchingResourceData(){ 
        let resourceLists=[];
       
-        for(const val of maching_role_users) {  
-         var rol = await resourceTb.findAll({ where: {Resource_id : val, 
+        for(const element of resourceList) {   
+         var rol = await resourceTb.findAll({ where: {Resource_id : element.Resource_id, 
          } }); 
          rol.forEach(el => {   
-            resourceLists.push(el); 
+           var c = {
+            "Resource_id" : el.Resource_id,
+            "Resource_name" : el.Resource_name,
+            "Resource_rate" : el.Resource_rate,
+             "RoleMatching" :element.RoleMatching,
+             "DomainMatching" : element.DomainMatching,
+             "TechnologyMatching" : element.TechnologyMatching,
+             "EducationMatching" : element.EducationMatching,
+             "Availabilitymaching" : element.Availabilitymaching,
+             "Videomaching" : element.Videomaching,
+             "Matching":element.Matching
+           }
+            resourceLists.push(c); 
         });
           
       }  
       return resourceLists;
        } 
-   
+       
+async function arrangeResource(){
+   let people=[];
+const groupBy = key => array =>
+  array.reduce((objectsByKeyValue, obj) => {
+    const value = obj[key];
+    objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+    return objectsByKeyValue;
+  }, {});
+var groupByBrand = groupBy('Resource_id');
+let datas = groupByBrand(R_maching) ;
+let meData=[];
+
+ 
+for (const [key, value] of Object.entries(datas)) {
+  value.forEach(element => { 
+    people.push(element);
+
+  });
+}
+var roleMach = 0;
+var domainMach = 0;
+var techMach = 0;
+var eduMach = 0;
+var availMach=0;
+var videoMach=0;
+
+    for(var id of maching_role_users){
+      people.forEach(element => {  
+    if(id == element.Resource_id){ 
+      if(element.Rolemaching >=0){
+        roleMach+=element.Rolemaching;  
+      }
+      if(element.Domainmaching >=0){
+        domainMach+=element.Domainmaching;  
+      } 
+      if(element.Technologymaching >=0){
+        techMach+=element.Technologymaching;  
+      } 
+      if(element.Educationmaching >=0){
+        eduMach+=element.Educationmaching;  
+      }
+      if(element.Availabilitymaching >=0){
+        availMach+=element.Availabilitymaching;  
+      } 
+      if(element.Videomaching >=0){
+        videoMach+=element.Videomaching;  
+      } 
+    } 
+
+  });
+  var c = {
+    "Resource_id" : id,
+    "RoleMatching" : roleMach,
+    "DomainMatching" : domainMach,
+    "TechnologyMatching" : techMach,
+    "EducationMatching" : eduMach,
+    "Availabilitymaching" : availMach,
+    "Videomaching" : videoMach,
+    "Matching":(domainMach+techMach+eduMach+availMach+videoMach)
+  }
+  meData.push(c);
+  roleMach=0;
+  domainMach=0;
+  techMach=0;
+  eduMach=0;
+  availMach=0;
+  videoMach=0;
+  }
+  
+ return meData;
+    } 
     await maching_Role();
     await maching_Technology();
     await maching_Education();
     await maching_Domain();
-    await resourceAvailability();
-    let rData = await matchingResourceData();
-    res.send(rData);
-  
+    await resourceAvailability(); 
+    let resourceList = await arrangeResource();
+    let rData = await matchingResourceData(); 
+    res.send(rData); 
     };
 
 
