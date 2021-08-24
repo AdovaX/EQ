@@ -14,6 +14,7 @@ module.exports = app => {
     router.post("/updateProjectStatus", project.updateProjectStatus); 
     router.post("/updateStart", project.updateStart); 
     router.post("/updateEnd", project.updateEnd); 
+    router.post("/getRequirementData", project.getRequirementData); 
    
     app.use('/project', router);
 };

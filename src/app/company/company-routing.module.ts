@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { IntroVideoComponent } from './intro-video/intro-video.component';
 import { TableComponent } from './table/table.component';
 import { EditResourceComponent } from './edit-resource/edit-resource.component';
+import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 
 const routes: Routes = [
     {
@@ -21,6 +22,9 @@ const routes: Routes = [
     }, 
     {
       path : 'Table', component:TableComponent
+    }, 
+    {
+      path : 'TimeSheet', component:TimeSheetComponent
     }, 
     {
       path : 'Edit', component:EditResourceComponent

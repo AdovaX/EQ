@@ -583,6 +583,9 @@ exports.projectMatching =async (req, res) => {
             "Resource_id" : el.Resource_id,
             "Resource_name" : el.Resource_name,
             "Resource_rate" : el.Resource_rate,
+            "Resource_status" : el.Resource_status,
+            "Available_from" : el.Available_from,
+            "Available_to" : el.Available_to,
              "RoleMatching" :element.RoleMatching,
              "DomainMatching" : element.DomainMatching,
              "TechnologyMatching" : element.TechnologyMatching,
@@ -730,6 +733,31 @@ exports.updateStart = (req, res) => {
     });
 };
 exports.updateEnd = (req, res) => {
+  var dataUpdate= {
+    "End_date" : req.body.End_date
+  }
+  projectTb.update(dataUpdate, {
+    where: { Project_id: req.body.Project_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          status: 1
+        });
+      } else {
+        res.send({
+          status: 0
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};
+
+exports.getRequirementData = (req, res) => {
   var dataUpdate= {
     "End_date" : req.body.End_date
   }

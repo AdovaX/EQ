@@ -28,6 +28,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent,],
@@ -50,6 +51,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSlideToggleModule,
     MatDatepickerModule,
     MatPaginatorModule,
+    MatTooltipModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       "backgroundPadding": 5,

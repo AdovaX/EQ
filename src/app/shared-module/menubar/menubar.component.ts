@@ -15,7 +15,7 @@ Title = "";
     this.Role_id = Number(sessionStorage.getItem('ROLE_ID'));
     console.log("R :" + this.Role_id);
     
-     if(this.User_id == null){ 
+     if(this.User_id == null && sessionStorage.getItem('RESOURCE_ID') ==null){ 
       this.router.navigate(['Login']); 
     }
    } 

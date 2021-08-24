@@ -87,6 +87,13 @@
         </a> 
       </li>
 
+      <li [routerLinkActive]="['active']" *ngIf="Role_id == 7">
+        <a [routerLink]="[ '/company/TimeSheet' ]"> 
+          <i class="fa fa-clock-o"></i>
+		  <span>Time Sheet</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+
       <li [routerLinkActive]="['active']"  *ngIf="Role_id <=4">
         <a [routerLink]="[ '/company/Companyupdate' ]"> 
           <i class="zmdi zmdi-assignment-o"></i>

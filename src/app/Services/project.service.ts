@@ -100,7 +100,7 @@ getProjectById(Project_id){
 } 
 return this.http.post<Project[]>(this.REST_API_SERVER + '/project/getProjectById', data);
 }
-  machingResources(Requirement_id):Observable<any>{
+machingResources(Requirement_id):Observable<any>{
   var data = {
     "Requirement_id" : Requirement_id
 } 
@@ -130,4 +130,12 @@ updateEnd(toDate,Project_id){
   }
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/updateEnd/', data);
 }
+
+getRequirementData(Resource_id){
+  return this.http.get<any>(this.REST_API_SERVER + '/project/getRequirementData')
+  .pipe(retry(1),
+    catchError(this.handleError)
+  )
+}
+
 }

@@ -50,7 +50,7 @@ export class EditResourceComponent implements OnInit {
 
   constructor(private _Activatedroute:ActivatedRoute,private formBuilder: FormBuilder,
     private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { 
-    this.R_id =Number(this._Activatedroute.snapshot.paramMap.get("id")) | Number(sessionStorage.getItem('USER_ID'));
+    this.R_id =Number(this._Activatedroute.snapshot.paramMap.get("id")) | Number(sessionStorage.getItem('RESOURCE_ID'));;
 
   }
 
@@ -85,7 +85,7 @@ export class EditResourceComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
+ngOnInit(): void {
 this.getResourceData();
 
  
@@ -152,16 +152,14 @@ this.educationFormGroup = this.formBuilder.group({
   }
   getTechnologyLists(){
     this.ListingManagerService.getTechnologyLists().subscribe(data =>{
-      console.log("----");  
-      console.log(data);  
+       console.log(data);  
       this.tech_lists=data; 
     }); 
   
   }
   getEducationLists(){
     this.ListingManagerService.getEducationLists().subscribe(data =>{
-      console.log("----");  
-      console.log(data);  
+       console.log(data);  
       this.educations=data; 
     }); 
   
@@ -178,8 +176,11 @@ getDomainLists(){
 
 getResourceData(){
   this.ListingManagerService.getResourceData(this.R_id).subscribe(data =>{
+    console.log("----"+this.R_id);  
+    console.log(data);     
     console.log("----");  
-    console.log(data);  
+
+
     let profileData = data;
     let domainData = data['Resource_domainTbs'];
     let educationData = data['Resource_educationTbs'];

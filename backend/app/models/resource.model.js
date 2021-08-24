@@ -53,8 +53,8 @@ module.exports = (sequelize, Sequelize) => {
       },
       Resource_status: {
         type: Sequelize.ENUM,
-        values : ['VERIFIED', 'PENDING', 'NONVERIFIED'],
-        defaultValue : 'PENDING'
+        values : ['AVAILABLE', 'SHORTLISTED', 'INTERVIEWING','ASSIGNED'],
+        defaultValue : 'AVAILABLE'
       },
       Is_remote: {
         type: Sequelize.ENUM,
@@ -65,10 +65,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.DOUBLE
       },
       Available_from: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       Available_to: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       Availability_status: {
         type: Sequelize.ENUM,

@@ -59,6 +59,7 @@ db.resourceTechnologyTbs = require("./resourceTechnology.model")(sequelize, Sequ
 db.resourceEducationTbs = require("./resourceEducation.model")(sequelize, Sequelize);
 db.stream_educationTbs = require("./stream_education.model")(sequelize, Sequelize);
 db.mtech_Tbs = require("./mtech.model")(sequelize, Sequelize);
+db.TimesheetTbs = require("./timesheet.model")(sequelize, Sequelize);
 
   
   

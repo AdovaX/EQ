@@ -13,28 +13,89 @@
         <div class="card-body">     
            
             <div class="table-responsive">
-                <table id="default-datatable" class="table table-bordered">
-                  <thead>
-                      <tr>
-                          <th>No</th>
-                          <th>Name</th>
-                          <th>Rate</th>  
-                          <th>Matching</th>  
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <div *ngIf="noResource"> No Resources are available for this requirement! </div>
-                    <tr *ngFor="let item of Resource_list;let i = index;">
-                        <th>{{ i + 1 }}</th>
-                        <th>{{ item.Resource_name }}</th> 
-                        <th>{{ item.Resource_rate + "₹" }}</th> 
-                        <th>{{ item.Matching }}</th>  
-                        
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+                                                 
 
-                        </tr>
-                    </tbody>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="No" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> No </th>
+                      <td mat-cell *matCellDef="let element;let i =index;"> 
+                        <circle-progress
+                        [percent]="element.Matching" 
+                        [title] ="i+1" 
+                        [outerStrokeColor]="(element.Matching > 75)? 'Green' : (element.Matching >50) ? 'Orange' : 'Red'"
+                         >
+                    </circle-progress>
+                          
+                      </td>
+                    </ng-container> 
 
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Matching" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Matching </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Matching+'%'}} </td>
+                    </ng-container> 
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Resource_name" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Resource_name}} </td>
+                    </ng-container> 
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Resource_rate" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Rate </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Resource_rate}} </td>
+                    </ng-container> 
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Available_from" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Available_from </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Available_from}} </td>
+                    </ng-container> 
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Available_to" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Available_to </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Available_to}} </td>
+                    </ng-container> 
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Status" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Resource_status}} </td>
+                    </ng-container> 
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="Action">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                      <td mat-cell *matCellDef="let element"> 
+                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="Set interview">
+                          <span class="fa fa-hand-peace-o"> </span>   
+                        </button> &nbsp;
+                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="Add Bookmark">
+                          <span class="fa fa-bookmark-o"> </span>   
+                        </button>  &nbsp;
+                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="View Resource">
+                          <span class="fa fa-user"> </span>   
+                        </button>   
+                      </td>
+                    </ng-container> 
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
+                  <mat-paginator [pageSizeOptions]="[5, 10, 50,100]" showFirstLastButtons></mat-paginator>
+
+
+
+
+
+
+
+
+
+ 
                   </div> 
 
 

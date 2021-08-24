@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
           this.company_id = data[0]['Company_id'];
           this.role_id = 7; 
           if(this.role_id){
-            sessionStorage.setItem('USER_ID',String(this.user_id)); 
+            sessionStorage.setItem('RESOURCE_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
             sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
             console.log(this.company_id);
