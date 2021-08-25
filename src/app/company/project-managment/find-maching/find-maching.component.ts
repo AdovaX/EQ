@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-find-maching',
@@ -28,11 +29,15 @@ export class FindMachingComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
 
   } 
-  constructor(private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService) { 
+  constructor(private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService,private snackBar: MatSnackBar) { 
     this.Requirement_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
 
   }
-
+ openSnackBar(message: string, action: string='') {
+      this.snackBar.open(message, action, {
+         duration: 1500,
+      });
+   }
   ngOnInit(): void {
 
     this.getMatchingProfiles();
@@ -55,6 +60,20 @@ export class FindMachingComponent implements OnInit {
 }, error => {
   console.log(error); 
 });
+  }
+  addBookmark(Resource_id){ 
+    this.ProjectService.addBookmark(this.Requirement_id,Resource_id).subscribe(data =>{
+       if(data['Bookmark_id']){
+        this.openSnackBar('Bookmark added')
+
+      }else{
+        console.log('exits');
+      }
+  }, error => {
+    console.log(error); 
+  });
+
+
   }
 
 }

@@ -143,4 +143,21 @@ getRequirementData(Resource_id){
   )
 }
 
+addBookmark(Requirement_id,Resource_id){
+  var data = {
+    Company_id : this.Company_id, 
+    Requirement_id : Requirement_id, 
+    Resource_id :Resource_id,
+    User_id:this.User_id
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/addBookmark/', data);
+}
+getBookmark(){
+  var data = {
+    Company_id : this.Company_id, 
+    User_id:Number(this.User_id)
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/getBookmark/', data);
+
+}
 }

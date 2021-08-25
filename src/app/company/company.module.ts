@@ -45,6 +45,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PopupEducationComponent } from './popup-education/popup-education.component';
 import { EditResourceComponent } from './edit-resource/edit-resource.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -61,7 +62,7 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
     TableComponent,
     PopupEducationComponent,
     EditResourceComponent,
-    TimeSheetComponent
+    TimeSheetComponent 
       ],
   imports: [
     CommonModule,
@@ -88,6 +89,7 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       "backgroundPadding": 5,

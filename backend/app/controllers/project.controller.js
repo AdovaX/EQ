@@ -18,6 +18,7 @@ const resourceRoleTbs = db.resourceRoleTbs;
 const resourceDomainTbs = db.resourceDomainTbs;
 const resourceTechnologyTbs = db.resourceTechnologyTbs;
 const resourceEducationTbs = db.resourceEducationTbs;
+const BookmarkTbs = db.BookmarkTbs;
 var Sequelize = require("sequelize");
 
 
@@ -780,4 +781,69 @@ exports.getRequirementData = (req, res) => {
         message: "Error updating Tutorial with id=" + id
       });
     });
+};
+
+exports.addBookmark = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  var bookmarkdata= {
+    "Requirement_id" : req.body.Requirement_id,
+    "Resource_id" : req.body.Resource_id,
+    "User_id" : req.body.User_id, 
+  }
+  BookmarkTbs.create(bookmarkdata)
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the Tutorial."
+    });
+  });
+};
+exports.getBookmark =async (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  let bookmarkLists=[];
+ 
+  BookmarkTbs.findAll({ where: {
+    User_id : req.body.User_id
+  }, include: {
+    model: resourceTb ,
+    required: false
+  }  })
+  .then(data => {
+
+    for(var val of data){ 
+bookmarkLists.push(val['dataValues'].ResourceTb.Resource_id);
+    }
+ 
+let bookmarks = bookmarkLists.filter((c, index) => {
+  return bookmarkLists.indexOf(c) == index;
+});
+getLists(bookmarks); 
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving tutorials."
+    });
+  }); 
+async function getLists(bookmarks){ 
+      var lists = await resourceTb.findAll({where: {Resource_id: {
+        [Op.in]: bookmarks,
+      }}}); 
+res.send(lists); 
+  }
+
 };

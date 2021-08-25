@@ -6,7 +6,8 @@ import { CreateAssignmentsComponent } from './create-assignments/create-assignme
 import { ViewAssignmentsComponent } from './view-assignments/view-assignments.component';
 import { ViewProjectsComponent } from './view-projects/view-projects.component';
 import { FindMachingComponent } from './find-maching/find-maching.component';
-
+import { BookmarksComponent } from './bookmarks/bookmarks.component';
+  
 const routes: Routes = [
   {path : '' , component:ProjectsComponent},
   {path : 'Projectmanagement' , component:ProjectsComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path : 'Requirements/:id' , component:ViewAssignmentsComponent},
   {path : 'ProjectDetails/:id' , component:ViewProjectsComponent},
   {path : 'Findmaching/:id' , component:FindMachingComponent},
+  {path : 'Bookmarks' , component:BookmarksComponent},
 ];
 
 @NgModule({

@@ -73,10 +73,10 @@
                         <button mat-icon-button color="primary" class="actionBtns" matTooltip="Set interview">
                           <span class="fa fa-hand-peace-o"> </span>   
                         </button> &nbsp;
-                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="Add Bookmark">
+                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="Add Bookmark" (click)=addBookmark(element.Resource_id)>
                           <span class="fa fa-bookmark-o"> </span>   
                         </button>  &nbsp;
-                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="View Resource">
+                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="View Resource"  >
                           <span class="fa fa-user"> </span>   
                         </button>   
                       </td>
@@ -86,14 +86,6 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
                   <mat-paginator [pageSizeOptions]="[5, 10, 50,100]" showFirstLastButtons></mat-paginator>
-
-
-
-
-
-
-
-
 
  
                   </div> 

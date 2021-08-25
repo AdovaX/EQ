@@ -144,6 +144,12 @@
 		  <span>Search</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id >=6" >
+        <a [routerLink]="[ '/company/Projectmanagement/Bookmarks' ]"> 
+          <i class="fa fa-bookmark-o"></i>
+		  <span>Bookmarks</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
     </ul>
 
     

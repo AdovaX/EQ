@@ -65,10 +65,17 @@ db.resourceEducationTbs = require("./resourceEducation.model")(sequelize, Sequel
 db.stream_educationTbs = require("./stream_education.model")(sequelize, Sequelize);
 db.mtech_Tbs = require("./mtech.model")(sequelize, Sequelize);
 db.TimesheetTbs = require("./timesheet.model")(sequelize, Sequelize);
+db.BookmarkTbs = require("./bookmark.model")(sequelize, Sequelize);
 
   
   
   
+ 
+db.requirement.hasMany(db.BookmarkTbs, {foreignKey: 'Requirement_id'});  
+db.BookmarkTbs.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
+
+db.resourceTb.hasMany(db.BookmarkTbs, {foreignKey: 'Resource_id'});  
+db.BookmarkTbs.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
  
 db.resourceTb.hasMany(db.resourceEducationTbs, {foreignKey: 'Resource_id'});  
 db.resourceEducationTbs.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
