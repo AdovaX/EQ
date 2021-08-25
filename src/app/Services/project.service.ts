@@ -9,10 +9,15 @@ import {Project} from '../class/Project';
 })
 export class ProjectService  {
 
-  private REST_API_SERVER = "http://localhost:8090";
+  HOST = window.location.hostname; 
+  REST_API_SERVER = "http://3.109.113.141:8090";
   User_id = sessionStorage.getItem('USER_ID');  
   Company_id = sessionStorage.getItem('COMPANY_ID'); 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    if(this.HOST === 'localhost'){
+       this.REST_API_SERVER = "http://localhost:8090";
+    }
+  }
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

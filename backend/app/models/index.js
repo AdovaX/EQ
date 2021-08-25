@@ -1,4 +1,9 @@
-const dbConfig = require("../../config/db.config");
+var os = require("os"); 
+HOST = os.hostname();   
+var dbConfig = require("../../config/db.configPROD");
+if(HOST == 'MacBook-Air.local'){
+  dbConfig = require("../../config/db.config");
+} 
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
