@@ -4,7 +4,7 @@ const app = express();
 require('./sequalize.js');
 
 var corsOptions = {
-  origin: ["http://localhost:4200","http://localhost:80","http://3.109.113.141:80"]
+  origin: ["http://localhost:4200","http://localhost:80","http://3.109.113.141"]
 };
 app.use(cors(corsOptions));
 app.use(express.json());
