@@ -107,9 +107,7 @@ export class CreateResourceComponent implements OnInit {
     this.getTechnologyLists();
     this.getEducationLists();
     this.getDomainLists();
-    this.getJobRoleLists();
-    this.getEduStreams();
-    this.getEduMtech();
+    this.getJobRoleLists(); 
     this.Resource_Form = this.formBuilder.group({
       Resource_name : this.Resource_name,
       Resource_email : this.Resource_email,
@@ -376,24 +374,27 @@ getEducationLists(){
 
 }
 
-getEduStreams(){
-  this.ListingManagerService.getEduStreams().subscribe(data =>{
+getEduStreams(val,e){
+  this.ListingManagerService.getEduStreams(val).subscribe(data =>{
     console.log("----");  
     console.log(data);  
     this.educationStreams=data; 
-  }); 
-
-}
-getEduMtech(){
-  this.ListingManagerService.getEduMtech().subscribe(data =>{
-    console.log("----");  
-    console.log(data);  
-    this.educationMtechs=data; 
+    console.log(data.length);
+    if(data.length ==0){
+    this.educationChangePopup(e);
+    }
   }); 
 
 }
  
-educationChange(e): void { 
+educationChange(e): void {  
+  console.log(e.target.value);
+  this.getEduStreams(e.target.value ,e);
+ 
+}
+
+ 
+educationChangePopup(e): void { 
    
   const dialogRef = this.dialog.open(PopupEducationComponent, {
     width: '450px',

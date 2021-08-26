@@ -150,9 +150,11 @@ getEducationLists(){
 return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getEducationLists/', data);
 
 }
-getEduStreams(){
+getEduStreams(val){
   var data = {
   Company_id : this.Company_id, 
+  Stream_category:val
+
 }
 return this.http.post<any[]>(this.REST_API_SERVER + '/listing/getEduStreams/', data);
 

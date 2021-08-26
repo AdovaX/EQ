@@ -318,7 +318,7 @@
                             <div class="form-group">
                               <label for="input-11">Education Lists<span class="redColor">*</span> </label><br>
                               <div class="row">
-                                <div class="col-sm-4"> 
+                                <div class="col-sm-6"> 
                                   <mat-form-field appearance="outline">
                                     <mat-label>Educational Qualification</mat-label>
                                     <select matNativeControl required (change)="educationChange($event)">
@@ -329,28 +329,17 @@
                                     </select>
                                   </mat-form-field>
                                 </div>
-                                <div class="col-sm-4"> 
+                                <div class="col-sm-6"> 
                                   <mat-form-field appearance="outline">
                                     <mat-label>Engineering Streams</mat-label>
-                                    <select matNativeControl required (change)="educationChange($event)">
+                                    <select matNativeControl required (change)="educationChangePopup($event)">
                                       <option>Choose Streams</option>
                                       <option *ngFor="let eduStream of educationStreams" [value]="eduStream.Stream_name">
                                         {{eduStream.Stream_name}}
                                       </option> 
                                     </select>
                                   </mat-form-field>
-                                </div>
-                                <div class="col-sm-4"> 
-                                  <mat-form-field appearance="outline" >
-                                    <mat-label>Mtech Steams</mat-label>
-                                    <select matNativeControl required (change)="educationChange($event)">
-                                      <option>Choose Steams</option>
-                                      <option *ngFor="let eduMtech of educationMtechs" [value]="eduMtech.Mtech_name">
-                                        {{eduMtech.Mtech_name}}
-                                      </option> 
-                                    </select>
-                                  </mat-form-field>
-                                </div>
+                                </div> 
                               </div>   
                              </div> 
                           </div> 

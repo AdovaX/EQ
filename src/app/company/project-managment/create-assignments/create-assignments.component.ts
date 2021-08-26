@@ -86,9 +86,7 @@ project_etime:Date;
     this.getTechnologyLists();
     this.getEducationLists();
     this.getDomainLists();
-    this.getJobRoleLists();
-    this.getEduStreams();
-    this.getEduMtech();
+    this.getJobRoleLists(); 
     this.Requirement_Form = this.formBuilder.group({
       Project_name : this.Project_name,
       Requirement_name : this.Requirement_name,
@@ -196,24 +194,27 @@ getEducationLists(){
 
 }
 
-getEduStreams(){
-  this.ListingManagerService.getEduStreams().subscribe(data =>{
+getEduStreams(val,e){
+  this.ListingManagerService.getEduStreams(val).subscribe(data =>{
     console.log("----");  
     console.log(data);  
     this.educationStreams=data; 
+    console.log(data.length);
+    if(data.length ==0){
+    this.educationChangePopup(e);
+    }
   }); 
 
 }
-
-getEduMtech(){
-  this.ListingManagerService.getEduMtech().subscribe(data =>{
-    console.log("----");  
-    console.log(data);  
-    this.educationMtechs=data; 
-  }); 
-
+ 
+educationChange(e): void {  
+  console.log(e.target.value);
+  this.getEduStreams(e.target.value ,e);
+ 
 }
-educationChange(e): void { 
+
+ 
+educationChangePopup(e): void { 
    
   const dialogRef = this.dialog.open(PopupEducationComponent, {
     width: '450px',

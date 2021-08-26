@@ -643,11 +643,16 @@ exports.getEduStreams = (req, res) => {
     });
     return;
   } 
+  console.log(req.body.Stream_category+"popop");
   stream_educationTbs.findAll({
+    where:{
+      Stream_category:req.body.Stream_category
+    }
+  },{
     order:[
       ['Stream_name','ASC']
     ]
-  })
+  },)
     .then(data => {
       res.send(data);
     })

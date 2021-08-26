@@ -7,6 +7,9 @@ module.exports = (sequelize, Sequelize) => {
       }, 
       Stream_name: {
         type: Sequelize.STRING
+      }, 
+      Stream_category: {
+        type: Sequelize.STRING
       },  
     }); 
     return Education;
