@@ -17,6 +17,9 @@ module.exports = app => {
     router.post("/getRequirementData", project.getRequirementData); 
     router.post("/addBookmark", project.addBookmark); 
     router.post("/getBookmark", project.getBookmark); 
-   
+    router.post("/removeBookmark", project.removeBookmark); 
+    router.post("/setInterview", project.setInterview); 
+    router.post("/mailInterview", project.mailInterview); 
+
     app.use('/project', router);
 };

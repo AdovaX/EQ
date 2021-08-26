@@ -78,6 +78,17 @@
                         </mat-form-field>
                       </td>
                     </ng-container>  
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="Action">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                      <td mat-cell *matCellDef="let element"> 
+
+                        <button  mat-stroked-button color="primary"aria-label="Remove" (click)="removeBookmark(element.Resource_id)">
+                         <span class="fa fa-bookmark"> </span> Remove
+                        </button>
+ 
+                      </td>
+                    </ng-container>  
                   
                     <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

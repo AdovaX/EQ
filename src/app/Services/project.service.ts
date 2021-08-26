@@ -3,6 +3,7 @@ import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {Project} from '../class/Project';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -159,5 +160,36 @@ getBookmark(){
   }
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/getBookmark/', data);
 
+}
+removeBookmark(Resource_id){
+  var data = {
+    Company_id : this.Company_id,  
+    Resource_id :Resource_id,
+    User_id:this.User_id
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/removeBookmark/', data);
+}
+setInterview(Requirement_id,Resource_id,Interview_date){
+  var data = {
+    Company_id : this.Company_id,  
+    Resource_id :Resource_id,
+    Requirement_id :Requirement_id,
+    Interview_date :Interview_date,
+    User_id:this.User_id
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/setInterview/', data);
+}
+mailInterview(Requirement_id,Resource_id,interviewForm){
+  var data = {
+    Company_id : this.Company_id,  
+    Resource_id :Resource_id,
+    Requirement_id :Requirement_id,
+    bodymail :interviewForm.bodymail,
+    interviewDate :moment(interviewForm.interviewDate).format('YYYY-MM-DD'),
+    interviewTime :interviewForm.interviewTime,
+    User_id:this.User_id
+  }
+  console.log(data);
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/mailInterview/', data);
 }
 }

@@ -1,0 +1,83 @@
+
+<app-menubar></app-menubar>
+<div class="content-wrapper">
+   <div class="container-fluid">
+
+    <div class="row pt-2 pb-2">
+        <div class="col-sm-6">
+            <h4 class="page-title"> Interview Shedule</h4> 
+       </div> 
+       <div class="col-sm-6">
+       
+   </div>
+       </div> 
+  
+    <div class="card">
+        <div class="card-body">    
+            <p>You are sending mail to {{NAME}}</p>
+            <h6> Interview Date </h6> 
+
+     <form [formGroup]="interviewForm" (ngSubmit)="mailInterview()">
+<div class="row">
+    <div class="col-sm-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Interview Date</mat-label>
+          <input matInput [matDatepicker]="dp3" disabled formControlName="interviewDate" id="interviewDate" name="interviewDate">
+          <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+          <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+    </div>
+    <div class="col-sm-4">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Interview Time</mat-label>
+            <input type="time"  matInput formControlName="interviewTime"  id="interviewTime" name="interviewTime" (change)="test($event)">
+          </mat-form-field>
+    </div>
+</div>
+     <h6> Body </h6>
+
+     <div class="row">
+         <div class="col-sm-12">
+            <!-- <mat-form-field appearance="outline" class="fwidth">
+                <mat-label>Your email body</mat-label>
+                <textarea matInput rows="15" formControlName="bodymail" id="bodymail" name="bodymail"></textarea>
+              </mat-form-field> -->
+              <editor     
+              [formControl]="bodymail" 
+              apiKey="9b9nj42iu5dgy30xgt6fb4o9z29i1na23le5wcvky3gwb617"
+              [init]="{
+                icons: 'material',
+                skin: 'borderless',
+                plugins: 'wordcount',
+                menubar: false,
+                min_height: 150
+              }"
+            ></editor>
+
+         </div>
+     </div><br>
+     <div class="row">
+         <div class="col-sm-12">
+            
+            <div class="rightfloats">
+                <button type="submit" mat-raised-button color="primary">Send <span class="fa fa-send"></span> </button>
+
+            </div>
+
+         </div>
+     </div>
+</form>
+    </div>
+    </div>
+
+
+
+
+
+
+
+        <div class="overlay toggle-menu"></div> 
+    </div>
+    </div> 
+<app-footer></app-footer>

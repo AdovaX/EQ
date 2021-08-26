@@ -33,6 +33,12 @@ module.exports = (sequelize, Sequelize) => {
       Interview_date: {
         type: Sequelize.DATEONLY
       },
+      Interview_time: {
+        type: Sequelize.STRING
+      },
+      Interview_body: {
+        type: Sequelize.TEXT
+      },
       Interview_status: {
         type: Sequelize.ENUM,
         values : ['PASSED', 'FAILLED', 'PENDING'],

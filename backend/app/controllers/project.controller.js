@@ -19,7 +19,10 @@ const resourceDomainTbs = db.resourceDomainTbs;
 const resourceTechnologyTbs = db.resourceTechnologyTbs;
 const resourceEducationTbs = db.resourceEducationTbs;
 const BookmarkTbs = db.BookmarkTbs;
-var Sequelize = require("sequelize");
+const interviewTb = db.interviewTb;
+const userrolesTb = db.userroles;
+var Sequelize = require("sequelize"); 
+var nodemailer = require('nodemailer');
 
 
 
@@ -846,4 +849,170 @@ async function getLists(bookmarks){
 res.send(lists); 
   }
 
+};
+
+exports.removeBookmark = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+ 
+  BookmarkTbs.destroy({
+    where: {  Resource_id:req.body.Resource_id,User_id: req.body.User_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Success"
+        });
+      } else {
+        res.send({
+          message: 'Failed'
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Tutorial with id=" + id
+      });
+    });
+}; 
+
+exports.setInterview   = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  var bookmarkdata= {
+    "Requirement_id" : req.body.Requirement_id,
+    "Resource_id" : req.body.Resource_id,
+    "User_id" : req.body.User_id, 
+    "Interview_date" : req.body.Interview_date, 
+    "Company_id" : req.body.Company_id, 
+  }
+  BookmarkTbs.create(bookmarkdata)
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the Tutorial."
+    });
+  });
+};
+exports.mailInterview = async (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  let Email_ids =[];
+async function getMailIds(data){
+  var R_mail_id = await resourceTb.findOne({ where: {Resource_id : data.Resource_id, 
+  } }); 
+  var m = {
+    "Role" : "Resource",
+    "Mail" : R_mail_id.Resource_Email
+  }
+  Email_ids.push(m); 
+
+  var Hiring_mail_id = await usersTb.findOne({ where: {User_id : data.User_id, 
+  } }); 
+  var m = {
+    "Role" : "Hiring",
+    "Mail" : Hiring_mail_id.User_email
+  }
+   Email_ids.push(m); 
+
+   var Listing_mail_id = await usersTb.findAll({ where: {Company_id : R_mail_id.Company_id, 
+   },
+   include:{
+     model:userrolesTb,
+     required:true, 
+     where: { User_roles_id: 5 }, 
+   }
+   }); 
+    
+   Listing_mail_id.forEach(element => {
+    var m = {
+      "Role" : "Listing",
+      "Mail" : element.User_email
+    }
+     Email_ids.push(m); 
+   }); 
+   
+   mail_Interview(Email_ids);
+   var c = {
+     "Status":true
+   }
+   res.send(c);
+}
+  var interviewData= {
+    "Requirement_id" : req.body.Requirement_id,
+    "Resource_id" : req.body.Resource_id,
+    "User_id" : req.body.User_id, 
+    "Interview_date" : req.body.interviewDate, 
+    "Interview_time" : req.body.interviewTime, 
+    "Company_id" : req.body.Company_id, 
+    "Interview_body":req.body.bodymail
+  }
+  await interviewTb.create(interviewData)
+  .then(data => {
+    return data;
+  }).then(data =>{
+    getMailIds(data);
+
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the Tutorial."
+    });
+  });
+
+async function mail_Interview(Email){
+  console.log("Sending interview invitations");   
+  const myEmail = "admin@expertsq.com";
+  const emailPass = "Sunshine@2021";
+  var resource_mail ="";
+  var cc_mail =[];
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: myEmail,
+      pass: emailPass
+    }
+  });
+
+  Email.forEach(element => { 
+    
+    if(element.Role == 'Resource'){
+      resource_mail = element.Mail
+    }else{
+      cc_mail.push(element.Mail);
+    }  
+  });
+  var mailOptions = {
+    from: myEmail,
+    to: resource_mail,
+    cc:cc_mail,
+    subject: 'INTERVIEW CALL LATTER',
+    html: req.body.bodymail
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response + " || " + resource_mail);
+    }
+  });
+ 
+}
 };

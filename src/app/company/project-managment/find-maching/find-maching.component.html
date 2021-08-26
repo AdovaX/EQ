@@ -70,7 +70,7 @@
                     <ng-container matColumnDef="Action">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                       <td mat-cell *matCellDef="let element"> 
-                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="Set interview">
+                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="Set interview" (click)="setInterview(element.Resource_id,element.Resource_name)">
                           <span class="fa fa-hand-peace-o"> </span>   
                         </button> &nbsp;
                         <button mat-icon-button color="primary" class="actionBtns" matTooltip="Add Bookmark" (click)=addBookmark(element.Resource_id)>

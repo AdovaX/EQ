@@ -30,9 +30,13 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
- 
+import {PopupInterviewDateComponent} from './popup-interview-date/popup-interview-date.component';
+import { InterviewSheduleComponent } from './interview-shedule/interview-shedule.component';
+import { EditorModule } from "@tinymce/tinymce-angular";
+
 @NgModule({
-  declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent, BookmarksComponent,],
+  declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent, 
+    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent],
   imports: [
     CommonModule,
     ProjectManagmentRoutingModule,
@@ -53,6 +57,7 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
     MatDatepickerModule,
     MatPaginatorModule,
     MatTooltipModule, 
+    EditorModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       "backgroundPadding": 5,

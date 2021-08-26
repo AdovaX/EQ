@@ -46,7 +46,7 @@ import { PopupEducationComponent } from './popup-education/popup-education.compo
 import { EditResourceComponent } from './edit-resource/edit-resource.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+ 
 
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -62,7 +62,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     TableComponent,
     PopupEducationComponent,
     EditResourceComponent,
-    TimeSheetComponent 
+    TimeSheetComponent, 
       ],
   imports: [
     CommonModule,

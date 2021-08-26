@@ -15,7 +15,7 @@ export class BookmarksComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource();
   
-  displayedColumns: string[] = ['No','Resource_name','Resource_Designation','Resource_rate','Available_from','Available_to' ];
+  displayedColumns: string[] = ['No','Resource_name','Resource_Designation','Resource_rate','Available_from','Available_to','Action' ];
   
   ngAfterViewInit() { 
     this.dataSource.sort = this.sort;
@@ -32,5 +32,12 @@ export class BookmarksComponent implements OnInit {
     console.log(error); 
   });
   }
-
+  removeBookmark(Resource_id){
+    this.ProjectService.removeBookmark(Resource_id).subscribe(data =>{
+      console.log(data); 
+      this.ngOnInit();
+  }, error => {
+    console.log(error); 
+  });
+  }
 }

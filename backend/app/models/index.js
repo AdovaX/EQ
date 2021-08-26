@@ -34,7 +34,7 @@ db.documentsTb = require("./documents.model.js")(sequelize, Sequelize);
 db.domainTb = require("./domain.model.js")(sequelize, Sequelize);
 db.educationTb = require("./education.model.js")(sequelize, Sequelize);
 db.experinceTb = require("./experience.model.js")(sequelize, Sequelize);
-db.interview = require("./interview.model.js")(sequelize, Sequelize);
+db.interviewTb = require("./interview.model.js")(sequelize, Sequelize);
 db.locations = require("./locations.model.js")(sequelize, Sequelize);
 db.negotiation = require("./negotiation.model.js")(sequelize, Sequelize);
 db.payment = require("./payment.model.js")(sequelize, Sequelize);
@@ -70,6 +70,9 @@ db.BookmarkTbs = require("./bookmark.model")(sequelize, Sequelize);
   
   
   
+ 
+db.userroles.hasMany(db.user, {foreignKey: 'User_roles_id'});  
+db.user.belongsTo(db.userroles, {foreignKey: 'User_roles_id', targetKey: 'User_roles_id'});
  
 db.requirement.hasMany(db.BookmarkTbs, {foreignKey: 'Requirement_id'});  
 db.BookmarkTbs.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});

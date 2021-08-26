@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {ProjectService} from '../../../Services/project.service';
-import {Router} from "@angular/router";
-import { MatSort } from '@angular/material/sort';
-
-import { MatTableDataSource } from '@angular/material/table';
-
+import {Router,NavigationExtras } from "@angular/router";
+import { MatSort } from '@angular/material/sort'; 
+import { MatTableDataSource } from '@angular/material/table'; 
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { PopupInterviewDateComponent } from '../popup-interview-date/popup-interview-date.component';
 
 @Component({
   selector: 'app-find-maching',
@@ -29,7 +29,7 @@ export class FindMachingComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
 
   } 
-  constructor(private _Activatedroute:ActivatedRoute,private ProjectService :ProjectService,private snackBar: MatSnackBar) { 
+  constructor(private _Activatedroute:ActivatedRoute,private router: Router,private ProjectService :ProjectService,private snackBar: MatSnackBar,public dialog: MatDialog) { 
     this.Requirement_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
 
   }
@@ -71,9 +71,28 @@ export class FindMachingComponent implements OnInit {
       }
   }, error => {
     console.log(error); 
-  });
+  }); 
+  }
+  setInterview(Resource_id,Resource_names){
 
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          name: Resource_names,
+          code: Resource_id,
+          r_id:this.Requirement_id
+      }
+  }
+  this.router.navigate(['company/Projectmanagement/InterviewShedule'], navigationExtras);
 
   }
-
+  // setInterview(Resource_id){ 
+  //   const dialogRef = this.dialog.open(PopupInterviewDateComponent, { 
+  //     data: {name: Resource_id}, 
+  //     hasBackdrop: true,
+  //     disableClose : true
+  //   }); 
+  //   dialogRef.afterClosed().subscribe(result => { 
+  //     console.log(result);
+  //   });
+  // }
 }
