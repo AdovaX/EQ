@@ -20,6 +20,8 @@ module.exports = app => {
     router.post("/removeBookmark", project.removeBookmark); 
     router.post("/setInterview", project.setInterview); 
     router.post("/mailInterview", project.mailInterview); 
+    router.post("/getInterviewResources", project.getInterviewResources); 
+    router.post("/changeInterviewStatus", project.changeInterviewStatus); 
 
     app.use('/project', router);
 };

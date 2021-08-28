@@ -80,7 +80,20 @@ module.exports = (sequelize, Sequelize) => {
       },
       Intro_video: {
         type: Sequelize.STRING
-      }
+      },
+      Resource_photo: {
+        type: Sequelize.TEXT
+      },
+      Created_by: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { 
+          model: 'UsersTbs',
+          key: 'User_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
+      } ,
     });
   
     return Resource;

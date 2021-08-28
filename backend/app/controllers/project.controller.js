@@ -1016,3 +1016,61 @@ async function mail_Interview(Email){
  
 }
 };
+exports.getInterviewResources = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  interviewTb.findAll({ where: {
+    User_id : req.body.User_id,
+    Interviewed : 'NO',
+    Interview_status : 'PENDING'
+  } ,
+  include:{
+    model:resourceTb,
+    required:false
+
+  }})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+exports.changeInterviewStatus = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  var interviewStatus = {
+    "Interview_status" : req.body.Interview_status
+  }
+
+  interviewTb.update(interviewStatus, {
+    where: { Resource_id: req.body.Resource_id, Requirement_id:req.body.Requirement_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          Status: true
+        });
+      } else {
+        res.send({
+          Status: false
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};

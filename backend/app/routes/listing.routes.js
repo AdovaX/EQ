@@ -24,6 +24,7 @@ module.exports = app => {
     router.post("/editResource", LManager.editResource);  
     router.post("/getEduStreams", LManager.getEduStreams);  
     router.post("/getEduMtech", LManager.getEduMtech);  
+    router.post("/profilePhotoChange", LManager.profilePhotoChange);  
   
      app.use('/listing', router);
 };

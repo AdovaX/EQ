@@ -268,13 +268,14 @@ async function insertResource() {
     Available_to: fields.Available_to, 
     Company_id: fields.Company_id, 
     Resource_resume:newpath,
-    Intro_video :newvideoPath
+    Intro_video :newvideoPath,
+    Created_by :fields.Created_by,
   };
   console.log(resourceData);
   return await resourceTb.create(resourceData).then(data => {
     return data;
   }).catch(err =>{
-    return res.end("Error");
+    console.log(err); 
   }); 
 } 
 
@@ -393,9 +394,10 @@ async function prepareTechnology(r_id) {
 
   })
   .then((data) =>{
+    var result ="";
     resourceEducationTbs.bulkCreate(data);
     console.log("Education added"); 
-  var result = {
+   result = {
     status : "Success"
   }
    res.send(result);
@@ -403,13 +405,10 @@ async function prepareTechnology(r_id) {
   }).catch((err) =>{
     console.log(err);
 
-  var result = {
+   result = {
     status : "Failed"
   }
-  res.send(result); 
-  });
-
-
+  }); 
   });
   };
 
@@ -804,7 +803,53 @@ exports.getResourceData = (req, res) => {
     });
 };
 
+exports.profilePhotoChange = async(req, res) => { 
 
+  var form = new IncomingForm();  
+  var newpath ="";
+  form.on('file', (field, files) => {
+    console.log("in");
+    console.log(files);
+    if (!files.path) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    } 
+    var oldpath = files.path;
+    newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
+    fs.rename(oldpath, newpath, function (err) {
+      if (err) throw err;
+      console.log("Profile Photo updated");  
+    });  
+
+  }); 
+  form.parse(req, (err, fields, files) => {
+console.log(files);
+  var proData = {
+    "Resource_photo":newpath
+  } 
+  resourceTb.update(proData, {
+    where: { Resource_id: fields.Resource_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          Status: true
+        });
+      } else {
+        res.send({
+          Status: false
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating   with id=" + id
+      });
+    });
+  });
+};
 
 
 exports.editResource= async (req, res) => {

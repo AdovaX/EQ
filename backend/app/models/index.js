@@ -70,6 +70,8 @@ db.BookmarkTbs = require("./bookmark.model")(sequelize, Sequelize);
   
   
   
+db.resourceTb.hasMany(db.interviewTb, {foreignKey: 'Resource_id'});  
+db.interviewTb.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
  
 db.userroles.hasMany(db.user, {foreignKey: 'User_roles_id'});  
 db.user.belongsTo(db.userroles, {foreignKey: 'User_roles_id', targetKey: 'User_roles_id'});

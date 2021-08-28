@@ -41,7 +41,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       Interview_status: {
         type: Sequelize.ENUM,
-        values : ['PASSED', 'FAILLED', 'PENDING'],
+        values : ['PASSED', 'FAILLED', 'PENDING','SHORTLIST','CANCEL'],
         defaultValue : 'PENDING'
       },
       Company_id: {
@@ -63,12 +63,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE', 
-      } ,
-      Short_listed: {
-        type: Sequelize.ENUM,
-        values : ['YES', 'NO', 'PENDING'],
-        defaultValue : 'PENDING'
-      } 
+      }  
     });
   
     return Interview;
