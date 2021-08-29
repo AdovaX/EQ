@@ -12,6 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Expert Q application." });
 });
+  
+ app.use('*/uploads',express.static('uploads'));
 
 require("./app/routes/company.routes")(app);
 require("./app/routes/spoc.routes")(app);

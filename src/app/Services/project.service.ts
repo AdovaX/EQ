@@ -188,8 +188,24 @@ mailInterview(Requirement_id,Resource_id,interviewForm){
     interviewDate :moment(interviewForm.interviewDate).format('YYYY-MM-DD'),
     interviewTime :interviewForm.interviewTime,
     User_id:this.User_id
-  }
-  console.log(data);
+  } 
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/mailInterview/', data);
+}
+getInterviewResources(){
+  var data = {
+    Company_id : this.Company_id,  
+    User_id :this.User_id
+  } 
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/getInterviewResources/', data);
+}
+changeInterviewStatus(Interview_status,Resource_id,Requirement_id){
+  var data = {
+    Resource_id : Resource_id,  
+    Requirement_id :Requirement_id,
+    Company_id :this.Company_id,
+    Interview_status : Interview_status,  
+    User_id :this.User_id
+  } 
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/changeInterviewStatus/', data);
 }
 }

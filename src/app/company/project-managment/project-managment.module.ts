@@ -33,10 +33,14 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import {PopupInterviewDateComponent} from './popup-interview-date/popup-interview-date.component';
 import { InterviewSheduleComponent } from './interview-shedule/interview-shedule.component';
 import { EditorModule } from "@tinymce/tinymce-angular";
+import { InterviewingResourcesListsComponent } from './interviewing-resources-lists/interviewing-resources-lists.component';
+import { MyResourcesComponent } from './my-resources/my-resources.component';
+import { RequestsComponent } from './requests/requests.component';
+import { ApprovedResourcesComponent } from './approved-resources/approved-resources.component';
 
 @NgModule({
   declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent, 
-    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent],
+    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent, InterviewingResourcesListsComponent, MyResourcesComponent, RequestsComponent, ApprovedResourcesComponent],
   imports: [
     CommonModule,
     ProjectManagmentRoutingModule,

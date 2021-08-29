@@ -37,8 +37,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Designation</th>
-                                                    <th>Phone</th>
-                                                    <th>Status</th> 
+                                                    <th>Phone</th> 
                                                     <th>Action</th> 
                                                 </tr>
                                             </thead>
@@ -47,14 +46,13 @@
                                                     <th>{{ item.LManager_name }}</th>
                                                     <td>{{ item.User_email }}</td>
                                                     <td>{{ item.LManager_designation }}</td>
-                                                    <td>{{ item.LManager_phone }}</td>
-                                                    <td>{{ item.LManager_status }}</td> 
+                                                    <td>{{ item.LManager_phone }}</td> 
                                                     <td> 
                                                     <div class="btn-group m-1">
                                                         <button type="button" class="btn btn-outline-primary">
-                                                            <span class="fa fa-edit"> </span> Edit</button>
+                                                            <span class="fa fa-edit"> </span>  </button>
                                                         <button   class="btn btn-outline-danger" (click)="deleteLM(item.LManager_id)">
-                                                            <span class="fa fa-trash"> </span> Delete</button> 
+                                                            <span class="fa fa-trash"> </span>  </button> 
                                                         </div> 
                                                         </td>
                                                  </tr>
@@ -67,6 +65,22 @@
 
                           </div>
                           <div id="piil-14" class="container tab-pane fade">
+
+                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                               <i class="zmdi zmdi-check-circle"></i>
+                              </div>
+                              <div class="alert-message">
+                                <span><strong>Success! </strong> New Listing Manager is created.</span>
+                              </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
                             <form [formGroup]="LM_Form" (ngSubmit)="onSubmit()">
                                 <div class="row"> 
                                     <div class="col-sm-6">
@@ -75,7 +89,7 @@
                                         <input type="text" class="form-control form-control-square" formControlName="LM_fullname" id="LM_fullname" 
                                         name="LM_fullname"  placeholder="Your Delegate fullname">
                                         <div *ngIf="submitted && f.LM_fullname.errors" class="invalid-feedback">
-                                            <div *ngIf="f.LM_fullname.errors.required">First name is a required field.</div> 
+                                            <div *ngIf="f.LM_fullname.errors">First name is a required field.</div> 
                                           </div> 
                                        </div>
                                     </div> 
@@ -85,7 +99,7 @@
                                         <input type="email" class="form-control form-control-square" formControlName="LM_email" id="LM_email" 
                                         name="LM_email"  placeholder="Your Delegate Email ID">
                                         <div *ngIf="submitted && f.LM_email.errors" class="invalid-feedback">
-                                            <div *ngIf="f.LM_email.errors.required">Email ID is a required field.</div> 
+                                            <div *ngIf="f.LM_email.errors">Email ID is a required field.</div> 
                                           </div> 
                                        </div>
                                     </div> 
@@ -95,7 +109,7 @@
                                         <input type="text" class="form-control form-control-square" formControlName="LM_designation" id="LM_designation" 
                                         name="LM_designation"  placeholder="Your Delegate Designation">
                                         <div *ngIf="submitted && f.LM_designation.errors" class="invalid-feedback">
-                                            <div *ngIf="f.LM_designation.errors.required">Designation is a required field.</div> 
+                                            <div *ngIf="f.LM_designation.errors">Designation is a required field.</div> 
                                           </div> 
                                        </div>
                                     </div> 
@@ -115,7 +129,7 @@
                                         <input [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="LM_password" id="LM_password" 
                                         name="LM_password"  placeholder="Your Delegate Password">
                                         <div *ngIf="submitted && f.LM_password.errors" class="invalid-feedback">
-                                            <div *ngIf="f.LM_password.errors.required">Password is a required field.</div> 
+                                            <div *ngIf="f.LM_password.errors">Password is a required field.</div> 
                                           </div> 
                                        </div> 
                                        <div class="icheck-material-primary">
@@ -129,52 +143,23 @@
                                         <input [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="LM_password2" id="LM_password2" 
                                         name="LM_password2"  placeholder="Confirm Password">
                                         <div *ngIf="submitted && f.LM_password2.errors" class="invalid-feedback">
-                                            <div *ngIf="f.LM_password2.errors.required">Password is a required field.</div> 
+                                            <div *ngIf="f.LM_password2.errors">Password is a required field.</div> 
                                           </div> 
                                        </div>
-                                    </div> 
-                                    <div class="col-sm-6">
-                                      <div class="form-group">
-                                        <label for="input-11"> Status<span class="redColor">*</span> </label> 
-                                        <select formControlName="LM_status" class="form-control"  id="default-select" name="LM_status">
-                                             <option value="VERIFIED" selected>Verified</option>
-                                            <option value="NONVERIFIED">Non-Verified</option>
-                                        </select>  
-
-                                        <div *ngIf="submitted && f.LM_status.errors" class="invalid-feedback">
-                                            <div *ngIf="f.LM_status.errors.required">LM_status is a required field.</div> 
-                                          </div> 
-                                       </div>
-                                    </div> 
-                                    <div class="col-sm-6">
+                                    </div>  
+                                    <div class="col-sm-6"></div>
+                                      <div class="col-sm-6">
                                         <div class="btn-group noShodow">
-                                          <div class="form-group"> 
-                                              <label for="input-11">Reset form </label> <br>
+                                          <div class="form-group">  
                                               <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">Reset</button>
                                              </div>
-                                            <div class="form-group"> 
-                                                <label for="input-11">Click to proceed </label> <br>
+                                            <div class="form-group">  
                                                 <button type="submit" class="btn btn-primary btn-square m-1">Create</button>
                                                </div> 
                                         </div> 
                                     </div>  
                                     </div>
 
-                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert">×</button>
-                              <div class="alert-icon">
-                               <i class="zmdi zmdi-check-circle"></i>
-                              </div>
-                              <div class="alert-message">
-                                <span><strong>Success! </strong> New Listing Manager is created.</span>
-                              </div>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
                             </form>
                         </div> 
                         </div>

@@ -38,8 +38,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Designation</th>
-                                                    <th>Phone</th>
-                                                    <th>Status</th> 
+                                                    <th>Phone</th> 
                                                     <th>Action</th> 
                                                 </tr>
                                             </thead>
@@ -48,14 +47,13 @@
                                                     <th>{{ item.Delegate_name }}</th>
                                                     <td>{{ item.Delegate_email }}</td>
                                                     <td>{{ item.Delegate_designation }}</td>
-                                                    <td>{{ item.Delegate_phone }}</td>
-                                                    <td>{{ item.Delegate_status }}</td> 
+                                                    <td>{{ item.Delegate_phone }}</td> 
                                                     <td> 
                                                     <div class="btn-group m-1">
                                                         <button type="button" class="btn btn-outline-primary">
-                                                            <span class="fa fa-edit"> </span> Edit</button>
+                                                            <span class="fa fa-edit"> </span></button>
                                                         <button class="btn btn-outline-danger" (click)="deleteDelegate(item.Delegate_id)">
-                                                            <span class="fa fa-trash"> </span> Delete</button> 
+                                                            <span class="fa fa-trash"> </span></button> 
                                                         </div> 
                                                         </td>
                                                 </tr>
@@ -68,6 +66,22 @@
 
                           </div>
                           <div id="piil-14" class="container tab-pane fade">
+
+                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                               <i class="zmdi zmdi-check-circle"></i>
+                              </div>
+                              <div class="alert-message">
+                                <span><strong>Success! </strong> You have created a Delegate.</span>
+                              </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
                             <form [formGroup]="delegateForm" (ngSubmit)="onSubmit()">
                                 <div class="row"> 
                                     <div class="col-sm-6">
@@ -133,49 +147,21 @@
                                             <div *ngIf="f.Delegate_password2.errors.required">Password is a required field.</div> 
                                           </div> 
                                        </div>
-                                    </div> 
-                                    <div class="col-sm-6">
-                                      <div class="form-group">
-                                        <label for="input-11">Delegate Status<span class="redColor">*</span> </label> 
-                                        <select  class="form-control" formControlName="Delegate_status" id="Delegate_status" name="Delegate_status">
-                                             <option value="VERIFIED">Verified</option>
-                                            <option value="NONVERIFIED">Non-Verified</option>
-                                        </select>
-                                        <div *ngIf="submitted && f.Delegate_status.errors" class="invalid-feedback">
-                                            <div *ngIf="f.Delegate_status.errors.required">Delegate_status is a required field.</div> 
-                                          </div> 
-                                       </div>
-                                    </div> 
-                                    <div class="col-sm-6">
+                                    </div>  
+                                    <div class="col-sm-6"></div>
+                                      <div class="col-sm-6">
                                         <div class="btn-group noShodow">
-                                            <div class="form-group"> 
-                                                <label for="input-11">Click to proceed </label> <br>
-                                                <button type="submit" class="btn btn-primary btn-square m-1">Click to add</button>
+                                          <div class="form-group">  
+                                              <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">Reset</button>
+                                             </div>
+                                            <div class="form-group">  
+                                                <button type="submit" class="btn btn-primary btn-square m-1">Create New</button>
                                                </div> 
-                                            <div class="form-group"> 
-                                                <label for="input-11">Reset form </label> <br>
-                                                <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">Reset</button>
-                                               </div>
                                         </div> 
                                     </div> 
 
                                     </div>
 
-                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert">×</button>
-                              <div class="alert-icon">
-                               <i class="zmdi zmdi-check-circle"></i>
-                              </div>
-                              <div class="alert-message">
-                                <span><strong>Success! </strong> You have created a Delegate.</span>
-                              </div>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
                             </form>
                         </div> 
                         </div>

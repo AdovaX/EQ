@@ -23,18 +23,15 @@
                    </div>
                     <div class="text-center">  
                      <div class="profile-card py-5">
-                       <img src="https://via.placeholder.com/110X110" class="rounded-circle" alt="user avatar">
+                       <img src="{{profile_pic_url}}" class="rounded-circle profilephoto" alt="user avatar" (click)="file.click()" id="profilePic">
+                       <input #file type="file" accept="image/*" (change)="profilePicChange($event)" [hidden]="true">
                      </div>
                      <h5 class="text-uppercase"> 
                       <span *ngIf="User_firstName"> {{User_firstName}}</span>
                       <span *ngIf="User_secondName"> {{User_secondName}}</span>
                       </h5>
                      <p class="">{{User_designation}} at {{Company_name}}</p>  
-                        <div class="list-inline mt-4">
-                         <a href="javascript:void()" class="btn-social btn-social-circle btn-facebook m-1"><i class="fa fa-facebook"></i></a>
-                         <a href="javascript:void()" class="btn-social btn-social-circle btn-twitter m-1"><i class="fa fa-twitter"></i></a>
-                         <a href="javascript:void()" class="btn-social btn-social-circle btn-google-plus m-1"><i class="fa fa-google-plus"></i></a>
-                      </div>
+                      
                     </div>
                  </div>
                </div>  
@@ -51,6 +48,37 @@
                     </div>
                   </div>
                 </div>
+
+                <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <div class="alert-icon">
+                         <i class="zmdi zmdi-check-circle"></i>
+                        </div>
+                        <div class="alert-message">
+                          <span><strong>Success! </strong> Your profile has been updated.</span>
+                        </div>
+                        </div> 
+                    </div>
+                  </div>
+                </div>
+                <div id="notSucess" class="{{invalid ? 'successClass' : 'notSucess'}}">
+                  <div class="row">
+                    <div class="col-sm-12"> 
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert">×</button>
+                          <div class="alert-icon">
+                           <i class="zmdi zmdi-check-circle"></i>
+                          </div>
+                          <div class="alert-message">
+                            <span><strong>Warning! </strong> Invalid details!</span>
+                          </div>
+                          </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="profile-form"> 
                     <div class="pl-lg-4">
@@ -61,7 +89,7 @@
                             <input type="text" id="input-first-name" class="form-control" formControlName="User_firstName_Crl" 
                             placeholder="First name"   >
                             <div *ngIf="submitted && f.User_firstName_Crl.errors" class="invalid-feedback">
-                              <div *ngIf="f.User_firstName_Crl.errors.required">First name is a required field.</div> 
+                              <div *ngIf="f.User_firstName_Crl.errors">First name is a required field.</div> 
                             </div> 
                           </div>
                         </div>
@@ -71,7 +99,7 @@
                             <input type="text" id="input-last-name" class="form-control" formControlName="User_secondName_Crl" 
                             placeholder="Last name"   >
                             <div *ngIf="submitted && f.User_secondName_Crl.errors" class="invalid-feedback">
-                              <div *ngIf="f.User_secondName_Crl.errors.required">Last name is a required field.</div> 
+                              <div *ngIf="f.User_secondName_Crl.errors">Last name is a required field.</div> 
                             </div> 
                           </div>
                         </div>
@@ -83,7 +111,7 @@
                             <input type="text" id="input-username" class="form-control" formControlName="User_phone_Crl" 
                             placeholder="Phone number"   required>
                             <div *ngIf="submitted && f.User_phone_Crl.errors" class="invalid-feedback">
-                              <div *ngIf="f.User_phone_Crl.errors.required">Contact Number is a required field.</div> 
+                              <div *ngIf="f.User_phone_Crl.errors"> Please enter a valid Contact Number.</div> 
                             </div> 
                           </div>
                         </div>
@@ -101,7 +129,7 @@
                             <input type="email" id="input-email" class="form-control" formControlName="User_email_Crl" 
                             placeholder="gracie@example.com"    required>
                             <div *ngIf="submitted && f.User_email_Crl.errors" class="invalid-feedback">
-                              <div *ngIf="f.User_email_Crl.errors.required">Email is a required field.</div> 
+                              <div *ngIf="f.User_email_Crl.errors">Email is not valid.</div> 
                           </div>
                         </div>
                       </div> 
@@ -111,7 +139,7 @@
                             <input type="text" id="input-username" class="form-control" formControlName="User_designation_Crl" 
                             placeholder="Designation"   required>
                             <div *ngIf="submitted && f.User_designation_Crl.errors" class="invalid-feedback">
-                              <div *ngIf="f.User_designation_Crl.errors.required">Designation is a required field.</div> 
+                              <div *ngIf="f.User_designation_Crl.errors">Designation is not valid.</div> 
                           </div>
                         </div> 
                       </div>
@@ -124,36 +152,6 @@
                         </div> 
                         <div class="col-lg-4"> 
                         </div> 
-                      </div>
-                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert">×</button>
-                              <div class="alert-icon">
-                               <i class="zmdi zmdi-check-circle"></i>
-                              </div>
-                              <div class="alert-message">
-                                <span><strong>Success! </strong> Your profile has been updated.</span>
-                              </div>
-                              </div> 
-                          </div>
-                        </div>
-                      </div>
-                      <div id="notSucess" class="{{invalid ? 'successClass' : 'notSucess'}}">
-                        <div class="row">
-                          <div class="col-sm-12"> 
-                              <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <div class="alert-icon">
-                                 <i class="zmdi zmdi-check-circle"></i>
-                                </div>
-                                <div class="alert-message">
-                                  <span><strong>Warning! </strong> Invalid details!</span>
-                                </div>
-                                </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
                     <hr class="my-4"> 

@@ -51,6 +51,7 @@ export class CompanyProfileComponent implements OnInit {
   Company_gmap = new FormControl('',);
   Bank_name = new FormControl('', [ Validators.required]);
   Bank_Branch = new FormControl('', [ Validators.required]);
+  Company_state = new FormControl('', [ Validators.required]);
   Company_GSTIN = new FormControl('', );
   Bank_address = new FormControl('', [ Validators.required]);
   Bank_accountNumber = new FormControl('', [ Validators.required]);
@@ -77,6 +78,7 @@ export class CompanyProfileComponent implements OnInit {
       Company_city : this.Company_city,
       Company_city_address : this.Company_city_address,
       Company_gmap : this.Company_gmap,  
+      Company_state : this.Company_state,  
       Company_GSTIN:this.Company_GSTIN
   
     });

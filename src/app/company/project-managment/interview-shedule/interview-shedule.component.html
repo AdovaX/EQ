@@ -22,7 +22,7 @@
     <div class="col-sm-4">
         <mat-form-field appearance="outline">
           <mat-label>Interview Date</mat-label>
-          <input matInput [matDatepicker]="dp3" disabled formControlName="interviewDate" id="interviewDate" name="interviewDate">
+          <input matInput [value]="todaysDate"  [matDatepicker]="dp3" disabled formControlName="interviewDate" id="interviewDate" name="interviewDate"  >
           <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
           <mat-datepicker #dp3 disabled="false"></mat-datepicker>
         </mat-form-field>
@@ -31,7 +31,7 @@
     <div class="col-sm-4">
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Interview Time</mat-label>
-            <input type="time"  matInput formControlName="interviewTime"  id="interviewTime" name="interviewTime" (change)="test($event)">
+            <input type="time"  matInput formControlName="interviewTime"  id="interviewTime" name="interviewTime"  >
           </mat-form-field>
     </div>
 </div>
@@ -43,17 +43,20 @@
                 <mat-label>Your email body</mat-label>
                 <textarea matInput rows="15" formControlName="bodymail" id="bodymail" name="bodymail"></textarea>
               </mat-form-field> -->
-              <editor     
+              <editor      
               [formControl]="bodymail" 
               apiKey="9b9nj42iu5dgy30xgt6fb4o9z29i1na23le5wcvky3gwb617"
               [init]="{
                 icons: 'material',
                 skin: 'borderless',
-                plugins: 'wordcount',
+                plugins: 'wordcount,numlist,fullpage,spellchecker,paste,link,insertdatetime,code',
                 menubar: false,
-                min_height: 150
-              }"
-            ></editor>
+                min_height: 150,
+                branding: false
+              }" 
+            >
+            Hi
+        </editor>
 
          </div>
      </div><br>

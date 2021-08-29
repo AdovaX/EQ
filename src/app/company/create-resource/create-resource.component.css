@@ -142,3 +142,10 @@ max-height: 600px;
 .lowMargin{
   margin-top: -7px!important;
 }
+.ampm{
+  width:100px
+}
+.inlineb{
+  display:inline-block;
+  padding-left: 0px;
+}

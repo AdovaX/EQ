@@ -37,8 +37,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Designation</th>
-                                                    <th>Phone</th>
-                                                    <th>Status</th> 
+                                                    <th>Phone</th> 
                                                     <th>Action</th> 
                                                 </tr>
                                             </thead>
@@ -47,14 +46,13 @@
                                                     <th>{{ item.HManager_name }}</th>
                                                     <td>{{ item.User_email }}</td>
                                                     <td>{{ item.HManager_designation }}</td>
-                                                    <td>{{ item.HManager_phone }}</td>
-                                                    <td>{{ item.HManager_status }}</td> 
+                                                    <td>{{ item.HManager_phone }}</td> 
                                                     <td> 
                                                     <div class="btn-group m-1">
                                                         <button type="button" class="btn btn-outline-primary">
-                                                            <span class="fa fa-edit"> </span> Edit</button>
+                                                            <span class="fa fa-edit"> </span>  </button>
                                                         <button   class="btn btn-outline-danger" (click)="deleteHM(item.HManager_id)">
-                                                            <span class="fa fa-trash"> </span> Delete</button> 
+                                                            <span class="fa fa-trash"> </span>  </button> 
                                                         </div> 
                                                         </td>
                                                  </tr>
@@ -67,6 +65,23 @@
 
                           </div>
                           <div id="piil-14" class="container tab-pane fade">
+
+
+                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                               <i class="zmdi zmdi-check-circle"></i>
+                              </div>
+                              <div class="alert-message">
+                                <span><strong>Success! </strong> New Hiring Manager is created.</span>
+                              </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
                             <form [formGroup]="HM_Form" (ngSubmit)="onSubmit()">
                                 <div class="row"> 
                                     <div class="col-sm-6">
@@ -132,52 +147,21 @@
                                             <div *ngIf="f.HM_password2.errors.required">Password is a required field.</div> 
                                           </div> 
                                        </div>
-                                    </div> 
-                                    <div class="col-sm-6">
-                                      <div class="form-group">
-                                        <label for="input-11"> Status<span class="redColor">*</span> </label> 
-                                        <select formControlName="HM_status" class="form-control"  id="default-select" name="HM_status">
-                                             <option value="VERIFIED" selected>Verified</option>
-                                            <option value="NONVERIFIED">Non-Verified</option>
-                                        </select>  
-
-                                        <div *ngIf="submitted && f.HM_status.errors" class="invalid-feedback">
-                                            <div *ngIf="f.HM_status.errors.required">HM_status is a required field.</div> 
-                                          </div> 
-                                       </div>
-                                    </div> 
-                                    <div class="col-sm-6">
+                                    </div>  
+                                    <div class="col-sm-6"></div>
+                                      <div class="col-sm-6">
                                         <div class="btn-group noShodow">
-                                            <div class="form-group"> 
-                                                  <br>
+                                            <div class="form-group">  
                                                   <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">Reset</button>
                                                </div> 
-                                            <div class="form-group"> 
-                                                  <br>
+                                            <div class="form-group">  
                                                   <button type="submit" class="btn btn-primary btn-square m-1">
-                                                    Create
-                                                  </button>
-
+                                                    Create New
+                                                  </button> 
                                                </div>
                                         </div> 
                                     </div>  
                                     </div>
-
-                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert">×</button>
-                              <div class="alert-icon">
-                               <i class="zmdi zmdi-check-circle"></i>
-                              </div>
-                              <div class="alert-message">
-                                <span><strong>Success! </strong> New Hiring Manager is created.</span>
-                              </div>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
                             </form>
                         </div> 
                         </div>

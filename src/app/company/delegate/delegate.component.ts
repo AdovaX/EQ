@@ -26,7 +26,7 @@ Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');
   Delegate_phone =new FormControl('', [ Validators.required, Validators.minLength(10)]);
   Delegate_password = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   Delegate_password2 = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-  Delegate_status = new FormControl('', [ Validators.required]);
+  Delegate_status = new FormControl('VERIFIED', [ Validators.required]);
 
   ngOnInit(): void {
     this.get_delegatesList();

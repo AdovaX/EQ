@@ -38,7 +38,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input-11">No Of Employees</label>
-            <input type="number" class="form-control form-control-square" formControlName="No_employees" id="No_employees" name="No_employees" 
+            <input type="number" class="form-control form-control-square" min="0" formControlName="No_employees" id="No_employees" name="No_employees" 
             placeholder="Number of Employees">
             <div *ngIf="registerForm.controls['No_employees'].invalid 
             && (registerForm.controls['No_employees'].dirty || registerForm.controls['No_employees'].touched)"  class="error-message">

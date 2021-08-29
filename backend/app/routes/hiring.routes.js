@@ -10,6 +10,7 @@ module.exports = app => {
     router.post("/createproject", HManager.createProject);   
     router.post("/projectList", HManager.listofProjects);    
     router.post("/searchProjectById", HManager.searchProjectById);   
+    router.post("/myResources", HManager.myResources);   
   
      app.use('/hiring', router);
 };

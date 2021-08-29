@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   isUpdated = false;
   invalid = false;
   updateUserForm: FormGroup;
+  profile_pic_url="https://via.placeholder.com/110X110";
   
     constructor(private ContractorService:ContractorService,private formBuilder: FormBuilder , private SharedService : SharedService) { 
       this.User_id = sessionStorage.getItem('USER_ID');  
@@ -31,7 +32,7 @@ export class ProfileComponent implements OnInit {
     User_firstName_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
     User_secondName_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
     User_phone_Crl = new FormControl('', [ Validators.required, Validators.minLength(10)]);
-    User_phone_Crl2 = new FormControl('', );
+    User_phone_Crl2 = new FormControl('',);
     User_email_Crl =new FormControl('', [ Validators.required, Validators.email]);
     User_designation_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
    
@@ -75,8 +76,17 @@ export class ProfileComponent implements OnInit {
        this.SharedService.getProfileData(User_id).subscribe(data =>{
          console.log(data); 
         let companyData =data['CompanyTb'];
-        let userData =data;  
-        console.log("Name is :" + userData['User_firstname']);
+        let userData =data;   
+
+        let HOST = window.location.hostname; 
+        let REST_API_SERVER = "http://3.109.113.141:8090";
+        if(HOST === 'localhost'){
+        REST_API_SERVER = "http://localhost:8090";
+        }
+
+        if(userData['Profile_photo']){
+          this.profile_pic_url= REST_API_SERVER+"/backend"+ userData['Profile_photo'];
+        }
    
         this.Company_name = companyData.C_short_name;
         this.updateUserForm.controls.User_email_Crl.setValue(userData['User_email']);
@@ -86,11 +96,22 @@ export class ProfileComponent implements OnInit {
         this.updateUserForm.controls.User_secondName_Crl.setValue(userData['User_secondname']);
         this.updateUserForm.controls.User_designation_Crl.setValue(userData['User_designation']);
         this.User_designation = userData['User_designation'];
-        this.User_firstName = userData['User_firstName'];
-        this.User_secondName = userData['User_secondName'];
+        this.User_firstName = userData['User_firstname'];
+        this.User_secondName = userData['User_secondname'];
    
         });
     }
-  
+    profilePicChange(e){
+      console.log(e);
+      this.SharedService.profilePhotoUpdate(e.target.files[0]).subscribe(data =>{
+        console.log(e.target.files[0]);
+         if(data['Status']){
+           console.log("Done");
+          this.getProfileData(this.User_id); 
+        }else{ 
+          console.log("Not Done");
+        }  
+      }); 
+    }
   }
   

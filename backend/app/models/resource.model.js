@@ -18,6 +18,9 @@ module.exports = (sequelize, Sequelize) => {
       Resource_name: {
         type: Sequelize.STRING
       },
+      Resource_salutation: {
+        type: Sequelize.STRING
+      },
       Resource_Experience: {
         type: Sequelize.INTEGER
       },
@@ -61,8 +64,14 @@ module.exports = (sequelize, Sequelize) => {
         values : ['YES', 'NO', 'BOTH'],
         defaultValue : 'BOTH'
       },
+      Resource_location: {
+        type: Sequelize.STRING 
+      },
       Resource_rate: {
         type: Sequelize.DOUBLE
+      },
+      Resource_currency: {
+        type: Sequelize.STRING
       },
       Available_from: {
         type: Sequelize.DATEONLY

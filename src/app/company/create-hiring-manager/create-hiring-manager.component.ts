@@ -20,7 +20,7 @@ export class CreateHiringManagerComponent implements OnInit {
   HM_phone =new FormControl('', [ Validators.required, Validators.minLength(10)]);
   HM_password = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   HM_password2 = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-  HM_status = new FormControl('', [ Validators.required]);
+  HM_status = new FormControl('VERIFIED', [ Validators.required]);
   ngOnInit(): void {
     this.getHManagerList();
     this.HM_Form = this.formBuilder.group({

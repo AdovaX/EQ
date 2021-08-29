@@ -1,0 +1,10 @@
+.mat-elevation-z8{
+    width: 100%;
+}
+.actionBtns{
+
+    border: lightgrey;
+    border-width: 1px;
+    border-style: dashed;
+    margin: 5px;
+}

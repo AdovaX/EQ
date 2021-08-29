@@ -5,6 +5,7 @@ module.exports = app => {
    
     router.post("/updateProfile", users.updateUserProfile);  
     router.post("/getProfileData", users.getProfile);  
+    router.post("/profilePhotoUpdate", users.profilePhotoUpdate);  
   
     //app.use('/spoc/signup', router);
     app.use('/users', router);

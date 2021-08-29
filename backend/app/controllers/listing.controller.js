@@ -17,8 +17,10 @@ const resourceTechnologyTbs = db.resourceTechnologyTbs;
 const resourceEducationTbs = db.resourceEducationTbs;
 const stream_educationTbs = db.stream_educationTbs;
 const mtech_Tbs = db.mtech_Tbs;
+const assignTb = db.assignTb; 
+const requirementTb = db.requirement;
 var fs = require('fs');
-const IncomingForm = require('formidable').IncomingForm;
+const IncomingForm = require('formidable').IncomingForm; 
 
 exports.checkManagerType =  async(req, res) => {
     if (!req.body.email) {
@@ -209,6 +211,7 @@ exports.createResource= async (req, res) => {
   var form = new IncomingForm(); 
   var newpath ="";
   var newvideoPath ="";
+  var Resource_id_db="";
   
   form.on('video', (field, files) => {
     console.log("in:video");
@@ -252,6 +255,7 @@ async function insertResource() {
  
 
   const resourceData = {
+    Resource_salutation: fields.Resource_salutation,
     Resource_name: fields.Resource_name,
     Resource_Experience: fields.Resource_Experience,
     Resource_Email: fields.Resource_Email,
@@ -265,14 +269,17 @@ async function insertResource() {
     Resource_rate: fields.Resource_rate,
     Availability_status: fields.Availability_status, 
     Available_from: fields.Available_from, 
+    Resource_currency: fields.Resource_currency, 
     Available_to: fields.Available_to, 
     Company_id: fields.Company_id, 
     Resource_resume:newpath,
     Intro_video :newvideoPath,
     Created_by :fields.Created_by,
+    Resource_location :fields.Resource_location,
   };
   console.log(resourceData);
   return await resourceTb.create(resourceData).then(data => {
+    Resource_id_db = data.Resource_id;
     return data;
   }).catch(err =>{
     console.log(err); 
@@ -355,7 +362,7 @@ async function prepareTechnology(r_id) {
   insertResource().then((data) =>{ 
     console.log("Resource added"); 
     console.log(data);
-   return  prepareTechnology(data.Resource_id);
+   return  prepareTechnology(Resource_id_db);
 
   })
   .then((data) =>{
@@ -366,7 +373,7 @@ async function prepareTechnology(r_id) {
   })
   .then((data) => {
     
-    return  prepareDomain(data[0].Resource_id);
+    return  prepareDomain(Resource_id_db);
   
   })
   .then((data) =>{
@@ -378,7 +385,7 @@ async function prepareTechnology(r_id) {
   })
   .then((data) =>{
 
-    return prepareRole(data[0].Resource_id);
+    return prepareRole(Resource_id_db);
 
   })
   .then((data) =>{
@@ -390,7 +397,7 @@ async function prepareTechnology(r_id) {
   })
   .then((data) =>{
  
-    return prepareEducation(data[0].Resource_id);
+    return prepareEducation(Resource_id_db);
 
   })
   .then((data) =>{
@@ -1117,6 +1124,125 @@ async function prepareTechnology(r_id) {
         ResourceData.push(c); 
       }); 
         res.send(ResourceData);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+  };
+
+
+  exports.resourceRequests = (req, res) => {
+    if (!req.body.Company_id) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    } 
+  
+    assignTb.findAll({  include:[{
+      model:resourceTb,
+      required:true,
+      where:{
+        Created_by:req.body.Created_by
+      }
+    },
+   {
+     model:requirementTb,
+     required:true,
+     include: {
+       model: companyTb ,
+       required: true
+     }
+   }]  })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+  };
+
+  exports.approveResources = async (req, res) => {
+    
+    var approveData = {
+      "Approved_status" : 'Approved',
+      "Approved_by" :req.body.Approved_by
+    }
+  console.log(req.body);
+    assignTb.update(approveData, {
+      where: { 
+        Resource_id : req.body.Resource_id,Requirement_id:req.body.Requirement_id
+       }
+    }).then(num => {
+      console.log(num);
+        if (num) {
+          updateResourceStatus();
+        } else {
+          res.send({
+            Status: false
+          });
+        }
+      }).catch(err => {
+        console.log(err);
+        res.status(500).send({
+          message: "Error updating Tutorial with id=" + id
+        });
+      });
+      async function updateResourceStatus(){
+        var resourceStat={
+          "Resource_status":'ASSIGNED'
+        }
+
+        assignTb.update(resourceStat, {
+          where: { 
+            Resource_id : req.body.Resource_id
+           }
+        }).then(num => {
+          console.log(num);
+            if (num) {
+              res.send({
+                Status: true
+              });
+            } else {
+              res.send({
+                Status: false
+              });
+            }
+          }).catch(err => {
+            console.log(err);
+            res.status(500).send({
+              message: "Error updating Tutorial with id=" + id
+            });
+          });
+
+
+      }
+  };
+
+  exports.listofApprovedResources = (req, res) => { 
+  
+    assignTb.findAll({ where: {Approved_status:'Approved' , Approved_by:req.body.Approved_by},
+  include:[
+    {model:resourceTb,
+    required:true
+  },
+  {
+    model:requirementTb,
+    required:true,
+    include: {
+      model: companyTb ,
+      required: true
+    }
+  }
+  ] })
+      .then(data => {
+        res.send(data);
       })
       .catch(err => {
         res.status(500).send({

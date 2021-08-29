@@ -21,8 +21,9 @@ const resourceEducationTbs = db.resourceEducationTbs;
 const BookmarkTbs = db.BookmarkTbs;
 const interviewTb = db.interviewTb;
 const userrolesTb = db.userroles;
+const assignTb = db.assignTb;
 var Sequelize = require("sequelize"); 
-var nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer'); 
 
 
 
@@ -917,36 +918,30 @@ exports.mailInterview = async (req, res) => {
 async function getMailIds(data){
   var R_mail_id = await resourceTb.findOne({ where: {Resource_id : data.Resource_id, 
   } }); 
-  var m = {
+  var m1 = {
     "Role" : "Resource",
-    "Mail" : R_mail_id.Resource_Email
+    "Mail" : R_mail_id.Resource_Email, 
   }
-  Email_ids.push(m); 
+  Email_ids.push(m1); 
 
   var Hiring_mail_id = await usersTb.findOne({ where: {User_id : data.User_id, 
   } }); 
-  var m = {
+  var m2 = {
     "Role" : "Hiring",
     "Mail" : Hiring_mail_id.User_email
   }
-   Email_ids.push(m); 
+   Email_ids.push(m2); 
 
-   var Listing_mail_id = await usersTb.findAll({ where: {Company_id : R_mail_id.Company_id, 
-   },
-   include:{
-     model:userrolesTb,
-     required:true, 
-     where: { User_roles_id: 5 }, 
-   }
+   var Listing_mail_id = await usersTb.findOne({ where: {User_id : R_mail_id.Created_by
+   } 
    }); 
-    
-   Listing_mail_id.forEach(element => {
-    var m = {
+     
+    var m3 = {
       "Role" : "Listing",
-      "Mail" : element.User_email
+      "Mail" : Listing_mail_id.User_email
     }
-     Email_ids.push(m); 
-   }); 
+     Email_ids.push(m3); 
+    
    
    mail_Interview(Email_ids);
    var c = {
@@ -981,7 +976,7 @@ async function mail_Interview(Email){
   console.log("Sending interview invitations");   
   const myEmail = "admin@expertsq.com";
   const emailPass = "Sunshine@2021";
-  var resource_mail ="";
+  var to_mail ="";
   var cc_mail =[];
   var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -993,15 +988,15 @@ async function mail_Interview(Email){
 
   Email.forEach(element => { 
     
-    if(element.Role == 'Resource'){
-      resource_mail = element.Mail
+    if(element.Role == 'Listing'){
+      to_mail = element.Mail
     }else{
       cc_mail.push(element.Mail);
     }  
   });
   var mailOptions = {
     from: myEmail,
-    to: resource_mail,
+    to: to_mail,
     cc:cc_mail,
     subject: 'INTERVIEW CALL LATTER',
     html: req.body.bodymail
@@ -1043,7 +1038,7 @@ exports.getInterviewResources = (req, res) => {
       });
     });
 };
-exports.changeInterviewStatus = (req, res) => {
+exports.changeInterviewStatus = async (req, res) => {
   if (!req.body.Company_id) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -1054,14 +1049,18 @@ exports.changeInterviewStatus = (req, res) => {
     "Interview_status" : req.body.Interview_status
   }
 
-  interviewTb.update(interviewStatus, {
+  await interviewTb.update(interviewStatus, {
     where: { Resource_id: req.body.Resource_id, Requirement_id:req.body.Requirement_id }
   })
     .then(num => {
       if (num == 1) {
+        if(req.body.Interview_status == 'PASSED'){
+          assignResources();
+        }else{
         res.send({
           Status: true
         });
+      }
       } else {
         res.send({
           Status: false
@@ -1073,4 +1072,26 @@ exports.changeInterviewStatus = (req, res) => {
         message: "Error updating Tutorial with id=" + id
       });
     });
+
+    async function assignResources(){
+
+      var assignData = {
+        "Requirement_id":req.body.Requirement_id,
+        "Resource_id" : req.body.Resource_id, 
+        "User_id":req.body.User_id,
+
+      } 
+      assignTb.create(assignData)
+      .then(data => {
+        res.send({
+          Status: true
+        });
+      })
+      .catch(err => {
+        res.status(500).send({
+          Status: false
+        });
+      });
+    }
+    
 };

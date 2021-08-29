@@ -47,6 +47,8 @@ export class EditResourceComponent implements OnInit {
   today = moment().format('YYYY-MM-DD'); 
   fileToUpload: File;
   videoFile: File;
+  Resource_cvFile="";
+  Resource_profile_pic="";
 
   constructor(private _Activatedroute:ActivatedRoute,private formBuilder: FormBuilder,
     private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { 
@@ -61,7 +63,7 @@ export class EditResourceComponent implements OnInit {
   Resource_experience =new FormControl('', [ Validators.required, Validators.minLength(10)]);
   Resource_password = new FormControl('', );
   Resource_password2 = new FormControl('',);
-  Resource_status = new FormControl('VERIFIED', [ Validators.required]);
+  Resource_status = new FormControl('AVAILABLE', [ Validators.required]);
   Resource_summery = new FormControl('', [ Validators.required]); 
   Resource_stack = new FormControl('FULL',[Validators.required] );
   isRemote = new FormControl('BOTH',[Validators.required] );
@@ -80,7 +82,7 @@ export class EditResourceComponent implements OnInit {
   Education = new FormControl('', [ Validators.required]);
   Pass_year = new FormControl('', [ Validators.required]);
   Available_from = new FormControl('', [ Validators.required]);
-  Available_to = new FormControl('', [ Validators.required]);
+  Available_to = new FormControl('', [ Validators.required]); 
 
 
 
@@ -111,7 +113,7 @@ this.Resource_Form = this.formBuilder.group({
   Resource_availability : this.Resource_availability, 
   Resource_phone : this.Resource_phone,  
   Available_from : this.Available_from,  
-  Available_to : this.Available_to,  
+  Available_to : this.Available_to,    
 
 }); 
 this.techFormGroup = this.formBuilder.group({
@@ -202,7 +204,9 @@ getResourceData(){
     this.Resource_Form.controls.Resource_availability.setValue(profileData['Availability_status']);
     this.Resource_Form.controls.Resource_phone.setValue(profileData['Resource_phone']);
     this.Resource_Form.controls.Available_from.setValue(profileData['Available_from']);
-    this.Resource_Form.controls.Available_to.setValue(profileData['Available_to']);
+    this.Resource_Form.controls.Available_to.setValue(profileData['Available_to']); 
+    this.Resource_cvFile =  profileData['Resource_resume'];
+    this.Resource_profile_pic = profileData['Resource_photo'];
 
    
   for (var domains of domainData) { 
@@ -267,6 +271,9 @@ onSubmit(){
       console.log(data);
       this.isUpdated = true; 
       console.log("Done"); 
+      setTimeout(() => {
+        this.Router.navigate(['/company/Resources']);
+    }, 3000);
     }, error => {
       console.log(error);
       this.isUpdated = false; 
@@ -278,6 +285,19 @@ onSubmit(){
 handleFileInput(files: FileList) {
   this.fileToUpload = files.item(0);
   console.log(files.item(0).name); 
+}
+profilePhotoChange(files: FileList) { 
+
+  this.ListingManagerService.profilePhotoChange(files.item(0),this.R_id).subscribe(data =>{
+    console.log("profilePhotoChange sent"); 
+    console.log(data);
+  }, error => {
+    console.log(error); 
+  });
+
+
+
+
 }
 
 addTechnology(){

@@ -40,10 +40,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING, 
       } ,
       Requirement_start: {
-        type: Sequelize.DATE, 
+        type: Sequelize.DATEONLY, 
       } ,
       Requirement_end: {
-        type: Sequelize.DATE, 
+        type: Sequelize.DATEONLY, 
       } ,
       Project_id: {
         type: Sequelize.INTEGER,

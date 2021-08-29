@@ -33,8 +33,8 @@ export class ViewAssignmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  this.getProjectById();
   this.getAssignments();
+  this.getProjectById();
   }
   getAssignments(){
   this.ProjectService.getAssignmentsById(this.Project_id).subscribe(data =>{ 
@@ -49,6 +49,7 @@ export class ViewAssignmentsComponent implements OnInit {
     this.projectName=data['Project_name'];
   }, error => {
   console.log(error); 
+  this.ngOnInit();
   });
   }
 createAssignment(){

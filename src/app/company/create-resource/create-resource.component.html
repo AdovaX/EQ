@@ -50,7 +50,7 @@
                                                     <circle-progress
                                                     [percent]="element.completed" 
                                                     [title] ="i+1" 
-                                                    [outerStrokeColor]="(element.completed == 100) ? '#0FFF50' : '#FF5733' "  
+                                                    [outerStrokeColor]="(element.completed == 100) ? '#0FFF50' : (element.completed >= 90) ? 'Orange' : '#FF5733' "  
                                                   ></circle-progress>
                                                       
                                                   </td>
@@ -128,10 +128,7 @@
                                                     </button>  
                                                     <button mat-icon-button color="primary" (click)="introVideo(element.Resource_id)">
                                                       <span class="fa fa-video-camera colorBlue"> </span>  
-                                                    </button>
-                                                    <button mat-icon-button color="primary" >
-                                                      <span class="fa fa-send"> </span>  
-                                                    </button> 
+                                                    </button>  
                                                   </td>
                                                 </ng-container> 
                                               
@@ -154,11 +151,25 @@
                                       <mat-step [stepControl]="Resource_Form"  >
                                            <ng-template matStepLabel>Personal</ng-template>
                                            <div class="row"> 
+                                           
                                            <div class="col-sm-4">
-                                            <div class="form-group">
-                                              <label for="input-11"> Resource name<span class="redColor">*</span> </label>
-                                              <input type="text" class="form-control form-control-square" formControlName="Resource_name" id="Resource_name" 
-                                              name="Resource_name"  placeholder="Your Delegate fullname">
+                                            <label for="input-11"> Resource name<span class="redColor">*</span> </label>
+                                            <div class="form-group">  
+                                              <div class="col-sm-3 inlineb">
+                                                <select class="form-control form-control-sm" id="default-select" formControlName="Resource_salutation">
+                                                  <option value="Mr.">Mr.</option> 
+                                                  <option value="Mrs.">Mrs.</option> 
+                                                  <option value="Miss.">Miss.</option> 
+                                                </select>
+                                                
+                                              </div>
+                                              <div class="col-sm-9 inlineb">
+                                                <input type="text" class="form-control form-control-square" formControlName="Resource_name" id="Resource_name" 
+                                                name="Resource_name"  placeholder="Your Resource fullname">
+                                                
+                                              </div>
+
+                                              
                                               <div *ngIf="submitted && f.Resource_name.errors" class="invalid-feedback">
                                                   <div *ngIf="f.Resource_name.errors.required">Name is a required field.</div> 
                                                 </div> 
@@ -220,59 +231,61 @@
                                         </div>
   
                                           <div id="alignRight">
-                                            <button mat-raised-button color="primary" matStepperNext>Next</button>
+                                            <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
                                           </div>
                                        </mat-step>
                                       <mat-step [stepControl]="Resource_Form"  >
                                            <ng-template matStepLabel>Professional</ng-template>
                                           <div class="row">
 
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-3">
+                                              <label for="input-11"> Rate / Hour <span class="redColor">*</span></label>
                                               <div class="form-group">
-                                                <label for="input-11"> Rate / Hour <span class="redColor">*</span></label>
-                                                <input type="number" class="form-control form-control-square" formControlName="Resource_rate" id="Resource_rate" 
-                                                name="Resource_rate"  placeholder="Rate/Hour">
+                                                <div class="col-sm-4 inlineb">
+                                                  <select class="form-control form-control-sm" id="default-select" formControlName="Resource_currency">
+                                                    <option value="INR">INR</option> 
+                                                    <option value="Dollar">Dollar</option>  
+                                                  </select>
+                                                </div>
+                                                <div class="col-sm-8 inlineb">
+                                                  <input type="number" min="0" class="form-control form-control-square" formControlName="Resource_rate" id="Resource_rate" 
+                                                  name="Resource_rate"  placeholder="Rate/Hour"> 
+                                                </div>
                                                 <div *ngIf="submitted && f.Resource_rate.errors" class="invalid-feedback">
                                                     <div *ngIf="f.Resource_rate.errors.required">rate is a required field.</div> 
                                                   </div> 
                                                </div>
-                                            </div> 
+                                            </div>  
 
-                                      <div class="col-sm-3">
-                                        <div class="form-group">
-                                          <label for="input-11"> Total Experience In Years<span class="redColor">*</span></label>
-                                          <input type="number" class="form-control form-control-square" formControlName="Resource_experience" id="Resource_experience" 
-                                          name="Resource_experience"  placeholder="Total Experience of the resource">
-                                          <div *ngIf="submitted && f.Resource_experience.errors" class="invalid-feedback">
-                                              <div *ngIf="f.Resource_experience.errors">Experience is a required.</div> 
-                                            </div> 
-                                         </div>
-                                      </div>  
+                                          <div class="col-sm-3"> 
+                                            <div class="form-group">
+                                              <label for="input-11"> Location<span class="redColor">*</span></label>
+                                              <input type="text" class="form-control form-control-square" formControlName="Resource_location" id="Resource_location" 
+                                              name="Resource_location"  placeholder="Resource location">
+                                             </div>
+                                               </div>
 
                                       <div class="col-sm-3"> 
                                         <div class="form-group">  
                                           <label for="input-11"> Current Designation<span class="redColor">*</span></label>
 
-                                        <mat-form-field appearance="outline" class="lowMargin" >
-                                          <mat-label>Choose Designation</mat-label>
-                                          <mat-select   formControlName="Resource_designation" id="Resource_designation" name="Resource_designation" >
-                                            <mat-option *ngFor="let role of RJobRoles_List" [value]="role.Role_name">{{role.Role_name}}</mat-option> 
-                                          </mat-select>
-                                        </mat-form-field>  
+                                          <select class="form-control form-control-sm" id="default-select" formControlName="Resource_designation">
+                                            <option *ngFor="let role of RJobRoles_List" value="role.Role_name" >{{role.Role_name}}</option> 
+                                           </select>
+
+   
                                          </div> 
                                            </div> 
 
-                                          <div class="col-sm-4">
+                                          <div class="col-sm-3">
                                             <div class="form-group"> 
-                                        <mat-form-field appearance="outline">
-                                          <mat-label>Resource stack</mat-label>
-                                          <mat-select formControlName="Resource_stack" id="Resource_stack" name="Resource_stack" >
-                                            <mat-option value="FULL">Full stack</mat-option>
-                                            <mat-option value="FRONTEND">Front End</mat-option>
-                                            <mat-option value="BACKEND">Back End</mat-option>
-                                            <mat-option value="OTHERS">Other</mat-option>
-                                          </mat-select>
-                                        </mat-form-field>  
+                                              <label for="input-11"> Resource stack<span class="redColor">*</span></label>
+                                              <select class="form-control form-control-sm" id="default-select" formControlName="Resource_stack">
+                                                <option  value="FULL" >Full stack</option> 
+                                                <option  value="FRONTEND" >Front End</option> 
+                                                <option  value="BACKEND" >Back End</option> 
+                                                <option  value="OTHERS" >Other</option> 
+                                               </select>  
                                               <div *ngIf="submitted && f.Resource_stack.errors" class="invalid-feedback">
                                                   <div *ngIf="f.Resource_stack.errors.required">Resource stack is a required field.</div> 
                                                 </div> 
@@ -281,15 +294,25 @@
 
 
                                           <div class="col-sm-3">
-
                                             <div class="form-group">
-                                              <label for="input-11"> Available from<span class="redColor">*</span></label>
-                                              <input type="date" class="form-control form-control-square" formControlName="Available_from" id="Available_from" 
-                                              name="Available_from"  placeholder="Available from">
+                                              <label for="input-11"> Total Experience(Years)<span class="redColor">*</span></label>
+                                              <input type="number" class="form-control form-control-square" formControlName="Resource_experience" id="Resource_experience" 
+                                              name="Resource_experience"  placeholder="Total Experience of the resource">
+                                              <div *ngIf="submitted && f.Resource_experience.errors" class="invalid-feedback">
+                                                  <div *ngIf="f.Resource_experience.errors">Experience is a required.</div> 
+                                                </div> 
                                              </div>
-                                               </div>
-                                               <div class="col-sm-3">
-     
+                                          </div>  
+
+                                               <div class="col-sm-3"> 
+                                                 <div class="form-group">
+                                                   <label for="input-11"> Available from<span class="redColor">*</span></label>
+                                                   <input type="date" class="form-control form-control-square" formControlName="Available_from" id="Available_from" 
+                                                   name="Available_from"  placeholder="Available from">
+                                                  </div>
+                                                    </div>
+
+                                               <div class="col-sm-3"> 
                                                  <div class="form-group">
                                                    <label for="input-11"> Till<span class="redColor">*</span></label>
                                                    <input type="date" class="form-control form-control-square" formControlName="Available_to" id="Available_to" 
@@ -299,8 +322,8 @@
 
                                           </div> 
                                           <div id="alignRight">
-                                            <button mat-button matStepperPrevious>Back</button>
-                                            <button mat-button matStepperNext>Next</button>
+                                            <button type="button" mat-button matStepperPrevious>Back</button>
+                                            <button type="button" mat-button matStepperNext>Next</button>
                                           </div>
                                        </mat-step>
                                        <mat-step>
@@ -342,7 +365,7 @@
                                           </div> 
                                            </div>
                                            <br>
-                                           <p>Add custome technology <i>(Approval required by Admin)</i> </p> 
+                                           <p>Add Custom technology <i>(Approval required by Admin)</i> </p> 
                                          <div class="row">
                                           <div class="col-sm-3">
 
@@ -371,7 +394,7 @@
                                          <label for="input-11"> Expertise Level<span class="redColor">*</span></label><br>
                                          <mat-radio-group aria-label="Select an option" formControlName="Technology_level" id="Technology_level" 
                                         name="Technology_level">
-                                        <mat-radio-button value="BEGGINER" >BEGINNER</mat-radio-button>&nbsp; 
+                                        <mat-radio-button value="BEGINNER" >BEGINNER</mat-radio-button>&nbsp; 
                                         <mat-radio-button value="INTERMEDIATE" >MEDIUM</mat-radio-button>&nbsp; 
                                           <mat-radio-button value="EXPERT" [checked]="true">EXPERT</mat-radio-button>
                                         </mat-radio-group> 
@@ -397,8 +420,8 @@
                                          </div>
                                         </form> 
                                          <div  id="alignRight">
-                                          <button mat-button matStepperPrevious>Back</button>
-                                          <button mat-button matStepperNext>Next</button>
+                                          <button type="button" mat-button matStepperPrevious>Back</button>
+                                          <button type="button" mat-button matStepperNext>Next</button>
                                          </div>
                                        </mat-step>
                                        <mat-step>
@@ -415,7 +438,7 @@
                                                  </div>  
                                                </div> 
                                             </div> 
-                                           <p>Don't find the required domain ? Add custome domain</p>
+                                           <p>Don't find the required domain ? Add Custom domain</p>
 
                                          <div class="row"> 
                                           <div class="col-sm-4"> 
@@ -475,8 +498,8 @@
                                                 </form>
 
                                          <div id="alignRight">
-                                          <button mat-button matStepperPrevious>Back</button>
-                                          <button mat-button matStepperNext>Next</button>
+                                          <button type="button" mat-button matStepperPrevious>Back</button>
+                                          <button type="button" mat-button matStepperNext>Next</button>
                                          </div>
                                        </mat-step>
                                        <mat-step>
@@ -484,7 +507,7 @@
                                          <form [formGroup]="jobRoleFormGroup" (ngSubmit)="addJobTitle()">
                                           <div class="row"> 
                                             <div class="form-group">
-                                              <label for="input-11">Job Role<span class="redColor">*</span> </label><br>
+                                              <label for="input-11">Previous Roles<span class="redColor">*</span> </label><br>
                                               <div class="Acheckbox icheck-inline col-sm-3" *ngFor="let role of RJobRoles_List; let i=index">
                                                  <label class="container2 "> {{role.Role_name}}
                                                      <input type="checkbox" [checked]="false" value ="{{role.Role_name}}" (change)="roleChange($event)">
@@ -493,7 +516,7 @@
                                                </div>  
                                              </div> 
                                           </div> 
-                                          <p>Don't find the required Title ? Add custome Title</p>
+                                          <p>Don't find the required Title ? Add Custom Title</p>
 
                                          <div class="row"> 
                                           <div class="col-sm-4"> 
@@ -551,8 +574,8 @@
                                          </form>
 
                                          <div id="alignRight">
-                                          <button mat-button matStepperPrevious>Back</button>
-                                          <button mat-button matStepperNext>Next</button>
+                                          <button type="button" mat-button matStepperPrevious>Back</button>
+                                          <button type="button" mat-button matStepperNext>Next</button>
                                          </div>
                                        </mat-step>
 
@@ -650,7 +673,7 @@
                                           </div> 
                                           </form> 
                                         <div id="alignRight">
-                                          <button mat-button matStepperPrevious>Back</button>
+                                          <button type="button" mat-button matStepperPrevious>Back</button>
                                           <button type="button" mat-button matStepperNext>Next</button>
                                         </div>
                                       </mat-step>
@@ -682,7 +705,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                               <div class="form-group">
-                                                <label for="input-11"> Profile summery<span class="redColor">*</span></label> 
+                                                <label for="input-11"> Profile Summary </label> 
                                                 <textarea class="form-control form-control-square" rows="6" formControlName="Resource_summery" id="Resource_designation" 
                                                 name="Resource_summery"  placeholder="Your Delegate Designation"></textarea>
                                                 <div *ngIf="submitted && f.Resource_summery.errors" class="invalid-feedback">

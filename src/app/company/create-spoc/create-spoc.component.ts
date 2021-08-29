@@ -23,7 +23,7 @@ export class CreateSpocComponent implements OnInit {
   Spoc_phone =new FormControl('', [ Validators.required, Validators.minLength(10)]);
   Spoc_password = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   Spoc_password2 = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-  Spoc_status = new FormControl('', [ Validators.required]);
+  Spoc_status = new FormControl('VERIFIED', );
 
   ngOnInit(): void {
     this.getSpocList();

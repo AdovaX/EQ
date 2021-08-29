@@ -75,13 +75,15 @@ export class CreateResourceComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { }
 
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
+  Resource_salutation= new FormControl('Mr.');
+  Resource_currency= new FormControl('INR');
   Resource_email = new FormControl('', [ Validators.required, Validators.email]);
   Resource_designation = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   Resource_experience =new FormControl('', [ Validators.required, Validators.minLength(10)]);
   Resource_password = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   Resource_password2 = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-  Resource_status = new FormControl('VERIFIED', [ Validators.required]);
-  Resource_summery = new FormControl('', [ Validators.required]); 
+  Resource_status = new FormControl('AVAILABLE', [ Validators.required]);
+  Resource_summery = new FormControl(''); 
   Resource_stack = new FormControl('FULL',[Validators.required] );
   isRemote = new FormControl('BOTH',[Validators.required] );
   Resource_rate = new FormControl('', [ Validators.required]);
@@ -100,6 +102,7 @@ export class CreateResourceComponent implements OnInit {
   Pass_year = new FormControl('', [ Validators.required]);
   Available_from = new FormControl('', [ Validators.required]);
   Available_to = new FormControl('', [ Validators.required]);
+  Resource_location = new FormControl('');
 
   ngOnInit(): void {
   
@@ -110,6 +113,7 @@ export class CreateResourceComponent implements OnInit {
     this.getJobRoleLists(); 
     this.Resource_Form = this.formBuilder.group({
       Resource_name : this.Resource_name,
+      Resource_salutation : this.Resource_salutation,
       Resource_email : this.Resource_email,
       Resource_designation : this.Resource_designation,
       Resource_experience : this.Resource_experience, 
@@ -120,10 +124,12 @@ export class CreateResourceComponent implements OnInit {
       Resource_stack : this.Resource_stack,  
       isRemote : this.isRemote,  
       Resource_rate : this.Resource_rate,  
+      Resource_currency : this.Resource_currency,  
       Resource_availability : this.Resource_availability, 
       Resource_phone : this.Resource_phone,  
       Available_from : this.Available_from,  
       Available_to : this.Available_to,  
+      Resource_location : this.Resource_location,  
   
     }); 
     this.techFormGroup = this.formBuilder.group({
@@ -167,9 +173,10 @@ export class CreateResourceComponent implements OnInit {
       this.ListingManagerService.createResource(this.Resource_Form.value , this.technology_list ,this.domain_list,
         this.jobRole_list , this.education_list, this.fileToUpload , this.videoFile).subscribe(data =>{
         console.log("Form Submission sent");
-        console.log(data);
+        console.log(data); 
+        this.getResources();   
+        this.onRefresh();
         this.isUpdated = true; 
-        this.getResources();  
       }, error => {
         console.log(error);
         this.isUpdated = false; 
@@ -177,6 +184,18 @@ export class CreateResourceComponent implements OnInit {
       }); 
     }
   }
+  onRefresh() {
+    this.Router.routeReuseStrategy.shouldReuseRoute = function(){return false;};
+  
+    let currentUrl = this.Router.url + '?';
+  
+    this.Router.navigateByUrl(currentUrl)
+      .then(() => {
+        this.Router.navigated = false;
+        this.Router.navigate([this.Router.url]);
+      });
+    }
+
   addTechnology(){
     if(this.techFormGroup.invalid){
       this.isTechError =true;

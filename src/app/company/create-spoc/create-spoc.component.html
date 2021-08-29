@@ -4,7 +4,7 @@
  
         <div class="row pt-2 pb-2">
             <div class="col-sm-9">
-                <h4 class="page-title">Location Spoc Management</h4> 
+                <h4 class="page-title">Location SPOC Management</h4> 
            </div> 
          </div>   
 
@@ -16,11 +16,11 @@
                         <ul class="nav nav-tabs nav-tabs-info nav-justified"  >
                           <li class="nav-item">
                             <a class="nav-link active" data-toggle="pill" href="#piil-13" ><i class="icon-home"></i> 
-                                <span class="hidden-xs">Current Spoc</span></a>
+                                <span class="hidden-xs">Current SPOC</span></a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link " data-toggle="pill" href="#piil-14"><i class="icon-user"></i> 
-                                <span class="hidden-xs">Create Spoc</span></a>
+                                <span class="hidden-xs">Create SPOC</span></a>
                           </li>
                          
                         </ul>
@@ -38,8 +38,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Designation</th>
-                                                    <th>Phone</th>
-                                                    <th>Status</th> 
+                                                    <th>Phone</th> 
                                                     <th>Action</th> 
                                                 </tr>
                                             </thead>
@@ -48,14 +47,13 @@
                                                     <th>{{ item.Spoc_name }}</th>
                                                     <td>{{ item.Spoc_mail }}</td>
                                                     <td>{{ item.Spoc_designation }}</td>
-                                                    <td>{{ item.Spoc_phone }}</td>
-                                                    <td>{{ item.Spoc_status }}</td> 
+                                                    <td>{{ item.Spoc_phone }}</td> 
                                                     <td> 
                                                     <div class="btn-group m-1">
                                                         <button type="button" class="btn btn-outline-primary">
-                                                            <span class="fa fa-edit"> </span> Edit</button>
+                                                            <span class="fa fa-edit"> </span>  </button>
                                                         <button   class="btn btn-outline-danger" (click)="deleteSpoc(item.Spoc_id)">
-                                                            <span class="fa fa-trash"> </span> Delete</button> 
+                                                            <span class="fa fa-trash"> </span>  </button> 
                                                         </div> 
                                                         </td>
                                                  </tr>
@@ -68,13 +66,29 @@
 
                           </div>
                           <div id="piil-14" class="container tab-pane fade">
+
+                            <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                              <div class="row">
+                                <div class="col-sm-12">
+                                  <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div class="alert-icon">
+                                     <i class="zmdi zmdi-check-circle"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                      <span><strong>Success! </strong> You have created a SPOC.</span>
+                                    </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
                             <form [formGroup]="Spoc_Form" (ngSubmit)="onSubmit()">
                                 <div class="row"> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Spoc Full name<span class="redColor">*</span> </label>
+                                        <label for="input-11">SPOC Full name<span class="redColor">*</span> </label>
                                         <input type="text" class="form-control form-control-square" formControlName="Spoc_fullname" id="Spoc_fullname" 
-                                        name="Spoc_fullname"  placeholder="Your Delegate fullname">
+                                        name="Spoc_fullname"  placeholder="Your SPOC fullname">
                                         <div *ngIf="submitted && f.Spoc_fullname.errors" class="invalid-feedback">
                                             <div *ngIf="f.Spoc_fullname.errors.required">First name is a required field.</div> 
                                           </div> 
@@ -84,7 +98,7 @@
                                       <div class="form-group">
                                         <label for="input-11">Email ID<span class="redColor">*</span></label>
                                         <input type="email" class="form-control form-control-square" formControlName="Spoc_email" id="Spoc_email" 
-                                        name="Spoc_email"  placeholder="Your Delegate Email ID">
+                                        name="Spoc_email"  placeholder="Your SPOC Email ID">
                                         <div *ngIf="submitted && f.Spoc_email.errors" class="invalid-feedback">
                                             <div *ngIf="f.Spoc_email.errors.required">Email ID is a required field.</div> 
                                           </div> 
@@ -92,9 +106,9 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Spoc Designation<span class="redColor">*</span></label>
+                                        <label for="input-11">SPOC Designation<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="Spoc_designation" id="Spoc_designation" 
-                                        name="Spoc_designation"  placeholder="Your Delegate Designation">
+                                        name="Spoc_designation"  placeholder="Your SPOC Designation">
                                         <div *ngIf="submitted && f.Spoc_designation.errors" class="invalid-feedback">
                                             <div *ngIf="f.Spoc_designation.errors.required">Designation is a required field.</div> 
                                           </div> 
@@ -102,9 +116,9 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Spoc Phone<span class="redColor">*</span></label>
+                                        <label for="input-11">SPOC Phone<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="Spoc_phone" id="Spoc_phone" 
-                                        name="Spoc_phone"  placeholder="Your Delegate Designation">
+                                        name="Spoc_phone"  placeholder="Your SPOC Designation">
                                         <div *ngIf="submitted && f.Spoc_phone.errors" class="invalid-feedback">
                                             <div *ngIf="f.Spoc_phone.errors">Valid Number is a required.</div> 
                                           </div> 
@@ -112,9 +126,9 @@
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
-                                        <label for="input-11">Spoc Password<span class="redColor">*</span> </label>
+                                        <label for="input-11">SPOC Password<span class="redColor">*</span> </label>
                                         <input [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="Spoc_password" id="Spoc_password" 
-                                        name="Spoc_password"  placeholder="Your Delegate Password">
+                                        name="Spoc_password"  placeholder="Your SPOC Password">
                                         <div *ngIf="submitted && f.Spoc_password.errors" class="invalid-feedback">
                                             <div *ngIf="f.Spoc_password.errors.required">Password is a required field.</div> 
                                           </div> 
@@ -133,49 +147,19 @@
                                             <div *ngIf="f.Spoc_password2.errors.required">Password is a required field.</div> 
                                           </div> 
                                        </div>
-                                    </div> 
-                                    <div class="col-sm-6">
-                                      <div class="form-group">
-                                        <label for="input-11">Spoc Status<span class="redColor">*</span> </label> 
-                                        <select formControlName="Spoc_status" class="form-control"  id="default-select" name="Spoc_status">
-                                             <option value="VERIFIED" selected>Verified</option>
-                                            <option value="NONVERIFIED">Non-Verified</option>
-                                        </select>  
-
-                                        <div *ngIf="submitted && f.Spoc_status.errors" class="invalid-feedback">
-                                            <div *ngIf="f.Spoc_status.errors.required">Spoc_status is a required field.</div> 
-                                          </div> 
-                                       </div>
-                                    </div> 
+                                    </div>   
+                                    <div class="col-sm-6"></div>
                                     <div class="col-sm-6">
                                         <div class="btn-group noShodow">
-                                            <div class="form-group"> 
-                                                <label for="input-11">Click to proceed </label> <br>
-                                                <button type="submit" class="btn btn-primary btn-square m-1">Click to add</button>
+                                          <div class="form-group">  
+                                              <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">Reset</button>
+                                             </div>
+                                            <div class="form-group">  
+                                                <button type="submit" class="btn btn-primary btn-square m-1">Create new</button>
                                                </div> 
-                                            <div class="form-group"> 
-                                                <label for="input-11">Reset form </label> <br>
-                                                <button type="button" (click)="resetForm()" class="btn btn-primary btn-square m-1">Reset</button>
-                                               </div>
                                         </div> 
                                     </div>  
                                     </div>
-
-                      <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="alert alert-success alert-dismissible cus_success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert">×</button>
-                              <div class="alert-icon">
-                               <i class="zmdi zmdi-check-circle"></i>
-                              </div>
-                              <div class="alert-message">
-                                <span><strong>Success! </strong> You have created a Spoc.</span>
-                              </div>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
                             </form>
                         </div> 
                         </div>

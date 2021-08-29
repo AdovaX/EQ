@@ -138,16 +138,40 @@
 		  <span>Resource Lists</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
-      <li [routerLinkActive]="['active']"  *ngIf="Role_id ==6 || Role_id <=4" >
-        <a [routerLink]="[ '/company/Search' ]"> 
-          <i class="zmdi zmdi-accounts-alt"></i>
-		  <span>Search</span><i class="fa fa-angle-left pull-right"></i>
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id ==6" >
+        <a [routerLink]="[ '/company/Projectmanagement/Interviewing' ]"> 
+          <i class="fa fa-hand-peace-o"></i>
+		  <span>Interview</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
-      <li [routerLinkActive]="['active']"  *ngIf="Role_id >=6" >
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id ==6" >
         <a [routerLink]="[ '/company/Projectmanagement/Bookmarks' ]"> 
           <i class="fa fa-bookmark-o"></i>
 		  <span>Bookmarks</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id ==6" >
+        <a [routerLink]="[ '/company/Projectmanagement/MyResources' ]"> 
+          <i class="zmdi zmdi-accounts-alt"></i>
+		  <span>My Resources</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id ==5" >
+        <a [routerLink]="[ '/company/Projectmanagement/Requests' ]"> 
+          <i class="fa fa-envelope "></i>
+		  <span>Requests</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id ==5" >
+        <a [routerLink]="[ '/company/Projectmanagement/ApprovedResources' ]"> 
+          <i class="fa fa-check "></i>
+		  <span>Approved Requests</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id ==6 || Role_id <=4" >
+        <a [routerLink]="[ '/company/Search' ]"> 
+          <i class="fa fa-search"></i>
+		  <span>Search</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li>
     </ul>

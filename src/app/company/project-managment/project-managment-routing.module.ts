@@ -8,6 +8,10 @@ import { ViewProjectsComponent } from './view-projects/view-projects.component';
 import { FindMachingComponent } from './find-maching/find-maching.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { InterviewSheduleComponent } from './interview-shedule/interview-shedule.component';
+import { InterviewingResourcesListsComponent } from './interviewing-resources-lists/interviewing-resources-lists.component';
+import { MyResourcesComponent } from './my-resources/my-resources.component';
+import { RequestsComponent } from './requests/requests.component';
+import { ApprovedResourcesComponent } from './approved-resources/approved-resources.component';
 
 const routes: Routes = [
   {path : '' , component:ProjectsComponent},
@@ -19,6 +23,10 @@ const routes: Routes = [
   {path : 'Findmaching/:id' , component:FindMachingComponent},
   {path : 'Bookmarks' , component:BookmarksComponent},
   {path : 'InterviewShedule' , component:InterviewSheduleComponent},
+  {path : 'Interviewing' , component:InterviewingResourcesListsComponent},
+  {path : 'MyResources' , component:MyResourcesComponent},
+  {path : 'Requests' , component:RequestsComponent},
+  {path : 'ApprovedResources' , component:ApprovedResourcesComponent},
 ];
 
 @NgModule({

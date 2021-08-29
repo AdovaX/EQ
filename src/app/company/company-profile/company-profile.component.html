@@ -36,7 +36,22 @@
                      </ul> 
                      <div class="tab-content">
                        <div id="tabe-1" class="container tab-pane active">
-                         <p class="usermsg">This information will be publically available.</p>
+                         <p class="usermsg">This information will be publically available.</p> 
+                  <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                          <button type="button" class="close" data-dismiss="alert">×</button>
+                          <div class="alert-icon">
+                           <i class="zmdi zmdi-check-circle"></i>
+                          </div>
+                          <div class="alert-message">
+                            <span><strong>Success! </strong> You have updated your company.</span>
+                          </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
                         <form [formGroup]="Company_Form" (ngSubmit)="onSubmit()">
                             <div class="row"> 
                                 <div class="col-sm-6">
@@ -121,28 +136,31 @@
                                               Update</button>
                                            </div> 
                                     </div> 
-                                </div>  
+                                </div>   
                                 </div>
-
-                  <div id="notSucess" class="{{isUpdated ? 'successClass' : 'notSucess'}}">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="alert alert-success alert-dismissible cus_success" role="alert">
-                          <button type="button" class="close" data-dismiss="alert">×</button>
-                          <div class="alert-icon">
-                           <i class="zmdi zmdi-check-circle"></i>
-                          </div>
-                          <div class="alert-message">
-                            <span><strong>Success! </strong> You have updated your company.</span>
-                          </div>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
                         </form>
                         </div>  
                        <div id="tabe-2" class="container tab-pane">
                         <p class="usermsg">This information will be publically available.</p>
+
+                        <div class="col-sm-12">
+
+                          <div id="notSucess" class="{{branchAdded ? 'successClass' : 'notSucess'}}">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert">×</button>
+                                  <div class="alert-icon">
+                                   <i class="zmdi zmdi-check-circle"></i>
+                                  </div>
+                                  <div class="alert-message">
+                                    <span><strong>Success! </strong> New Branch is added.</span>
+                                  </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
                          <div class="row" *ngIf="hasBranch">
                            <div class="col-sm-4 marg" *ngFor="let branch of branch_List">
                             <mat-card>
@@ -172,7 +190,7 @@
                             </div> 
                             <div class="col-sm-6">
                               <div class="form-group">
-                                <label for="input-11"> GSTIN <span class="redColor">*</span> </label>
+                                <label for="input-11"> GSTIN  </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Company_GSTIN" id="Company_GSTIN" 
                                 name="Company_GSTIN"  placeholder="Company GSTIN  " >
                                 <div *ngIf="submitted && b.Company_GSTIN.errors" class="invalid-feedback">
@@ -187,6 +205,16 @@
                                 name="Company_city_address"  placeholder="Company Legal Entity name"></textarea>
                                 <div *ngIf="submitted && b.Company_city_address.errors" class="invalid-feedback">
                                     <div *ngIf="b.Company_city_address.errors.required">Company City Address is a required field.</div> 
+                                  </div> 
+                               </div>
+                            </div> 
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="input-11"> State  </label>
+                                <input type="text" class="form-control form-control-square" formControlName="Company_state" id="Company_state" 
+                                name="Company_state"  placeholder="Company state  " >
+                                <div *ngIf="submitted && b.Company_state.errors" class="invalid-feedback">
+                                    <div *ngIf="b.Company_state.errors.required">Company state is a required field.</div> 
                                   </div> 
                                </div>
                             </div> 
@@ -210,9 +238,14 @@
                                      </div> 
                               </div> 
                           </div> 
-                          <div class="col-sm-12">
+                          </div> 
+                        </form> 
+                         </div> 
+                       <div id="tabe-3" class="container tab-pane"> 
+                        <p class="usermsgRed">This information will be confidential.</p>
 
-                          <div id="notSucess" class="{{branchAdded ? 'successClass' : 'notSucess'}}">
+                        <div class="col-sm-12"> 
+                          <div id="notSucess" class="{{bankAdded ? 'successClass' : 'notSucess'}}">
                             <div class="row">
                               <div class="col-sm-12">
                                 <div class="alert alert-success alert-dismissible cus_success" role="alert">
@@ -221,18 +254,13 @@
                                    <i class="zmdi zmdi-check-circle"></i>
                                   </div>
                                   <div class="alert-message">
-                                    <span><strong>Success! </strong> New Branch is added.</span>
+                                    <span><strong>Success! </strong> New Bank Account has added.</span>
                                   </div>
                                   </div>
                               </div>
                             </div>
                           </div>
                           </div>
-                          </div> 
-                        </form> 
-                         </div> 
-                       <div id="tabe-3" class="container tab-pane"> 
-                        <p class="usermsgRed">This information will be confidential.</p>
                         <form [formGroup]="Bank_Form" (ngSubmit)="addBank()">         
                           <div class="row" *ngIf="hasBank">
                           <div class="col-sm-4 marg" *ngFor="let bank of bank_List">
@@ -274,7 +302,7 @@
                             <div class="col-sm-6">
                               <div class="form-group">
                                 <label for="input-11"> Account Number<span class="redColor">*</span> </label>
-                                <input type="number" class="form-control form-control-square" formControlName="Bank_accountNumber" id="Bank_accountNumber" 
+                                <input type="text" class="form-control form-control-square" formControlName="Bank_accountNumber" id="Bank_accountNumber" 
                                 name="Bank_accountNumber"  placeholder=" Account Number">
                                 <div *ngIf="submitted && bank.Bank_accountNumber.errors" class="invalid-feedback">
                                     <div *ngIf="bank.Bank_accountNumber.errors.required">Account Number is a required field.</div> 
@@ -285,7 +313,7 @@
                             <div class="col-sm-6">
                               <div class="form-group">
                                 <label for="input-11">Confirm Account Number<span class="redColor">*</span> </label>
-                                <input type="number" class="form-control form-control-square" formControlName="Bank_accountNumber2" id="Bank_accountNumber2" 
+                                <input type="text" class="form-control form-control-square" formControlName="Bank_accountNumber2" id="Bank_accountNumber2" 
                                 name="Bank_accountNumber2"  placeholder=" Account Number">
                                 <div *ngIf="submitted && bank.Bank_accountNumber2.errors" class="invalid-feedback">
                                     <div *ngIf="bank.Bank_accountNumber2.errors.required">Account Number is a required field.</div> 
@@ -327,9 +355,17 @@
                                      </div> 
                               </div> 
                           </div>
-                          <div class="col-sm-12">
+                          </div>
+                          </form>
 
-                          <div id="notSucess" class="{{bankAdded ? 'successClass' : 'notSucess'}}">
+                       </div>
+
+                       <div id="tabe-4" class="container tab-pane"> 
+                        <p class="usermsg">This information will be used for internal purpose.</p>
+
+                        <div class="col-sm-12">
+
+                          <div id="notSucess" class="{{ispreferenceUpdated ? 'successClass' : 'notSucess'}}">
                             <div class="row">
                               <div class="col-sm-12">
                                 <div class="alert alert-success alert-dismissible cus_success" role="alert">
@@ -338,20 +374,13 @@
                                    <i class="zmdi zmdi-check-circle"></i>
                                   </div>
                                   <div class="alert-message">
-                                    <span><strong>Success! </strong> New Bank Account has added.</span>
+                                    <span><strong>Success! </strong> Preferences updated.</span>
                                   </div>
                                   </div>
                               </div>
                             </div>
                           </div>
                           </div>
-                          </div>
-                          </form>
-
-                       </div>
-
-                       <div id="tabe-4" class="container tab-pane"> 
-                        <p class="usermsg">This information will be used for internal purpose.</p>
                         <form [formGroup]="Preferences_Form" (ngSubmit)="UpdatePreferences()"> 
                          <div class="row">
                           <div class="col-sm-12">
@@ -413,9 +442,16 @@
                         </div> 
  
 
-                        <div class="col-sm-12">
+                         </div>
+                         </form>
+                      </div>
+                      
+                      <div id="tabe-5" class="container tab-pane"> 
+                        <p class="usermsgRed">This information will be confidential.</p>
 
-                          <div id="notSucess" class="{{ispreferenceUpdated ? 'successClass' : 'notSucess'}}">
+
+                        <div class="col-sm-12"> 
+                          <div id="notSucess" class="{{govUpdated ? 'successClass' : 'notSucess'}}">
                             <div class="row">
                               <div class="col-sm-12">
                                 <div class="alert alert-success alert-dismissible cus_success" role="alert">
@@ -424,19 +460,13 @@
                                    <i class="zmdi zmdi-check-circle"></i>
                                   </div>
                                   <div class="alert-message">
-                                    <span><strong>Success! </strong> Preferences updated.</span>
+                                    <span><strong>Success! </strong> IDs updated.</span>
                                   </div>
                                   </div>
                               </div>
                             </div>
                           </div>
                           </div>
-                         </div>
-                         </form>
-                      </div>
-                      
-                      <div id="tabe-5" class="container tab-pane"> 
-                        <p class="usermsgRed">This information will be confidential.</p>
                         <div class="row" *ngIf="hasGov">
                           <div class="col-sm-4 marg" *ngFor="let gov of gov_Ids">
                            <mat-card>
@@ -493,25 +523,6 @@
                                    </div> 
                             </div> 
                         </div>
-
-                        <div class="col-sm-12">
-
-                          <div id="notSucess" class="{{govUpdated ? 'successClass' : 'notSucess'}}">
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="alert alert-success alert-dismissible cus_success" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert">×</button>
-                                  <div class="alert-icon">
-                                   <i class="zmdi zmdi-check-circle"></i>
-                                  </div>
-                                  <div class="alert-message">
-                                    <span><strong>Success! </strong> IDs updated.</span>
-                                  </div>
-                                  </div>
-                              </div>
-                            </div>
-                          </div>
-                          </div>
 
                           </div>
 

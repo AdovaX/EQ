@@ -17,6 +17,9 @@ module.exports = (sequelize, Sequelize) => {
       Company_GSTIN: {
         type: Sequelize.STRING
       },
+      Company_state: {
+        type: Sequelize.STRING
+      },
       Company_id: {
         type: Sequelize.INTEGER,
         allowNull: true,

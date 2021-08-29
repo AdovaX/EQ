@@ -21,7 +21,7 @@ export class CreateListingManagerComponent implements OnInit {
   LM_phone =new FormControl('', [ Validators.required, Validators.minLength(10)]);
   LM_password = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   LM_password2 = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-  LM_status = new FormControl('', [ Validators.required]);
+  LM_status = new FormControl('VERIFIED', [ Validators.required]);
   ngOnInit(): void {
     this.getLManagerList();
     this.LM_Form = this.formBuilder.group({

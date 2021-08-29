@@ -215,6 +215,7 @@ exports.create =  async(req, res) => {
       Company_city_address: req.body.Company_city_address,
       Company_gmap: req.body.Company_gmap,
       Company_GSTIN: req.body.Company_GSTIN,
+      Company_state: req.body.Company_state,
       Company_id: req.body.Company_id, 
       User_id: req.body.User_id, 
     };

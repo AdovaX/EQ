@@ -6,6 +6,9 @@ const spocTb = db.spocTb;
 const delegateTb = db.delegateTb;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
+const IncomingForm = require('formidable').IncomingForm; 
+var fs = require('fs');
+const path = require('path')
 
 
 
@@ -78,7 +81,62 @@ exports.getProfile= async (req, res) => {
     res.status(200).send(data);
   }).catch(err => {
     res.status(200).send(err);
-  });   
- 
- 
+  });    
 };  
+
+exports.profilePhotoUpdate = async (req, res) => { 
+
+
+  var form = new IncomingForm();  
+
+ 
+  await profileUpdate();
+
+  async function profileUpdate(){
+ 
+   
+    form.parse(req, async (err, fields, files) => {
+  
+      console.log("USERID" + fields.User_id);  
+      console.log("file" + files.file.path);  
+      console.log("file Name" + JSON.stringify(files.file.name));  
+
+      var oldPath = files.file.path;
+      var newPaths = './uploads/' + Math.floor(Math.random() * 100000) +files.file.name;
+        var rawData = fs.readFileSync(oldPath)
+      
+        fs.writeFile(newPaths, rawData, function(err){
+            if(err) console.log(err)
+            console.log('Successfully uploaded | profile pic')
+        }) 
+
+      var profilePhoto = {
+        "Profile_photo" : newPaths.substring(1)
+
+      }
+  
+    await usersTb.update(profilePhoto, {
+      where: { User_id: fields.User_id }
+    }).then(num => {
+        if (num == 1) {
+          res.send({
+            Status: true
+          });
+        } else {
+          res.send({
+            Status: false
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating Tutorial with id=" + id
+        });
+      });
+  
+    });
+  }
+
+
+
+};

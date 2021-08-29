@@ -77,6 +77,7 @@ addBranches(User_id,Company_id,Branchdata): Observable<any[]>{
       'Company_city_address' :Branchdata.Company_city_address,
       'Company_gmap' :Branchdata.Company_gmap, 
       'Company_GSTIN' :Branchdata.Company_GSTIN, 
+      'Company_state' :Branchdata.Company_state, 
       'Company_id' :Company_id, 
       'User_id' : User_id
   } 

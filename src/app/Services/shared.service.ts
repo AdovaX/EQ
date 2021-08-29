@@ -57,4 +57,13 @@ export class SharedService {
   }
  return this.http.post<Contractor[]>(this.REST_API_SERVER + '/users/getProfileData/', data);
 } 
+profilePhotoUpdate(profile_photo): Observable<any>{
+  const formData: FormData = new FormData();
+
+  formData.append('file', profile_photo);
+  formData.append('User_id', this.User_id);
+ 
+return this.http.post<any>(this.REST_API_SERVER + '/users/profilePhotoUpdate/', formData);
+} 
+
 }

@@ -69,6 +69,12 @@ db.BookmarkTbs = require("./bookmark.model")(sequelize, Sequelize);
 
   
   
+ 
+db.requirement.hasMany(db.assignTb, {foreignKey: 'Requirement_id'});  
+db.assignTb.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
+  
+db.resourceTb.hasMany(db.assignTb, {foreignKey: 'Resource_id'});  
+db.assignTb.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
   
 db.resourceTb.hasMany(db.interviewTb, {foreignKey: 'Resource_id'});  
 db.interviewTb.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});

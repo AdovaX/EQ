@@ -14,8 +14,7 @@ export class ListingManagerService  {
 
   HOST = window.location.hostname; 
   REST_API_SERVER = "http://3.109.113.141:8090";
-
-  LManager_id = sessionStorage.getItem('LM_ID');  
+  
   Company_id = sessionStorage.getItem('COMPANY_ID');  
   User_id = sessionStorage.getItem('USER_ID');  
 
@@ -39,25 +38,8 @@ export class ListingManagerService  {
     window.alert(errorMessage);
     return throwError(errorMessage);
  } 
-
-updateLManagerProfile( profileData): Observable<ListingManager[]>{
-  var profile:any = {
-      'LManager_name' : profileData.LManager_fullname,
-      'User_email' :profileData.User_email,
-      'LManager_designation' :profileData.LManager_designation,
-      'LManager_phone' :profileData.LManager_phone,
-      'User_id' : this.User_id,
-      'LManager_id' : sessionStorage.getItem("LM_ID")
-  }
- return this.http.put<ListingManager[]>(this.REST_API_SERVER + '/listing/updateProfile/', profile);
-} 
  
-getProfileData(LManager_id): Observable<ListingManager[]>{
-  var data = {
-     "User_id" : LManager_id
- }
-return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/listing/getMyCompany', data);
-} 
+  
 getResources(): Observable<any[]>{
   var data = {
      "Company_id" : this.Company_id
@@ -84,6 +66,8 @@ createResource(data , technology_list,domain_list,jobRole_list,education_list, c
   formData.append('file', cv);
   formData.append('video', videoFile);
   formData.append('Resource_name',data.Resource_name);
+  formData.append('Resource_salutation',data.Resource_salutation);
+  formData.append('Resource_currency',data.Resource_currency);
   formData.append('Resource_Experience',data.Resource_experience);
   formData.append('Resource_Email',data.Resource_email);
   formData.append('Resource_Phone',data.Resource_phone);
@@ -102,6 +86,8 @@ createResource(data , technology_list,domain_list,jobRole_list,education_list, c
   formData.append('Domain_List',JSON.stringify(domain_list));
   formData.append('Role_List',JSON.stringify(jobRole_list));
   formData.append('Education_List',JSON.stringify(education_list));
+  formData.append('Created_by',this.User_id);
+  formData.append('Resource_location',data.Resource_location);
  
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/listing/createResource', formData);
 } 
@@ -228,6 +214,16 @@ editResource(data , technology_list,domain_list,jobRole_list,education_list, cv 
  
 return this.http.post<Resource[]>(this.REST_API_SERVER + '/listing/editResource', formData);
 } 
+profilePhotoChange(profile_photo,Resource_id):Observable<any>{
+  const formData: FormData = new FormData();
+
+  formData.append('file', profile_photo);
+  formData.append('Resource_id',Resource_id);
+  console.log(formData);
+
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/profilePhotoChange', formData);
+
+}
 
 profileCompletion(r_id ){
   var data = {
@@ -236,5 +232,30 @@ profileCompletion(r_id ){
   }
   return this.http.post<any[]>(this.REST_API_SERVER + '/listing/profileCompletion/', data);
 }
+resourceRequests(){
+  var data = {
+    Company_id : this.Company_id, 
+    Created_by : this.User_id  
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/resourceRequests/', data);
+}
+approveResources(Resource_id,Requirement_id){
+  var data = {
+    Approved_by : Number(this.User_id), 
+    Requirement_id :Requirement_id,
+    Company_id : Number(this.Company_id),
+    Resource_id:Resource_id  
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/approveResources/', data);
+
+}
+listofApprovedResources(){
+  var data = {
+    Approved_by : Number(this.User_id)  
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/listing/listofApprovedResources/', data);
+
+}
+
 
 }

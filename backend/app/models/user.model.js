@@ -34,9 +34,12 @@
       User_designation: {
         type: Sequelize.STRING,
        }, 
-      User_password: {
-        type: Sequelize.STRING
-      },
+       User_password: {
+         type: Sequelize.STRING
+       },
+       Profile_photo: {
+         type: Sequelize.TEXT
+       },
       Company_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
