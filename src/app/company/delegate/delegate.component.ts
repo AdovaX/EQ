@@ -64,12 +64,11 @@ Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');
       let delegateList =[];
       for (var i = 0; i < data.length; i++) {
         var e = {
-          "Delegate_name" : data[i].Delegate_name,
-          "Delegate_email" : data[i]['UsersTb'].User_email,
-          "Delegate_designation" : data[i].Delegate_designation,
-          "Delegate_phone" : data[i].Delegate_phone,
-          "Delegate_status" : data[i].Delegate_status,
-          "Delegate_id" : data[i].Delegate_id,
+          "User_firstname" : data[i].User_firstname,
+          "User_email" : data[i]['User_email'] ,
+          "User_designation" : data[i].User_designation,
+          "User_phonenumber" : data[i].User_phonenumber, 
+          "User_id" : data[i].User_id,
         }
         delegateList.push(e);
       }   

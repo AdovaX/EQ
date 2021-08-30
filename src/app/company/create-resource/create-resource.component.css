@@ -104,6 +104,9 @@
   margin-left: 0px;
   vertical-align: text-top;
 }
+.novertical{
+  vertical-align:text-bottom;
+}
 .marg{
   margin-bottom: 5px;
 }
@@ -148,4 +151,7 @@ max-height: 600px;
 .inlineb{
   display:inline-block;
   padding-left: 0px;
+}
+.leftspace{
+  padding-left: 5px;
 }

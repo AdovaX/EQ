@@ -66,30 +66,16 @@ exports.CreateDelegate= async (req, res) => {
  }  
  Company_id = req.body.Company_id; 
  var passwordHash = bcrypt.hashSync(req.body.Delegate_password , 10);
- const delegateData = {
-  Delegate_name: req.body.Delegate_name, 
-  Delegate_designation: req.body.Delegate_designation,
-  Delegate_phone: req.body.Delegate_phone, 
-  Company_id: req.body.Company_id,
-  Delegate_status: req.body.Delegate_status 
-};
-const loginData = { 
+  
+const loginData = {
+  User_firstname: req.body.Delegate_name, 
+  User_designation: req.body.Delegate_designation,
+  User_phonenumber: req.body.Delegate_phone, 
+  Company_id: req.body.Company_id,  
  User_email: req.body.Delegate_email, 
  User_password: passwordHash, 
 };
-async function insertDelegate(uid){
-  delegateData.User_id = uid;
-  delegateData.User_roles_id = User_roles_id;
-  
-  delegateTb.create(delegateData)
-  .then(data => {   
-    return data; 
-  })
-  .catch(err => {
-    res.status(400).send(err);  
-    return;
-  });
-}
+ 
 async function insertLogin(Company_id , User_roles_id) {
   loginData.Company_id =Company_id;
   loginData.User_roles_id =User_roles_id;
@@ -104,8 +90,7 @@ async function insertLogin(Company_id , User_roles_id) {
    });
  }
  try {
-  const login =  await insertLogin(Company_id , User_roles_id);
-  const delegate =  await insertDelegate(login.User_id);
+  const login =  await insertLogin(Company_id , User_roles_id); 
     var respos = {
     "status" : "Success"
   }
@@ -124,11 +109,8 @@ exports.getDelegates = async (req, res) => {
     });
     return;
   }  
-  delegateTb.findAll({where : {Company_id:req.body.Company_id, Delegate_active:1},
-    include: {
-      model: usersTb ,
-      required: true
-    }})
+  usersTb.findAll({where : {Company_id:req.body.Company_id, User_status:1,User_roles_id:3},
+    })
     .then(data => {
       res.status(200).send(data); 
 
@@ -155,30 +137,16 @@ exports.CreateSpoc= async (req, res) => {
  }  
 var Company_id = req.body.Company_id; 
  var passwordHash = bcrypt.hashSync(req.body.Spoc_password , 10);
- const SpocData = {
-  Spoc_name: req.body.Spoc_name, 
-  Spoc_designation: req.body.Spoc_designation,
-  Spoc_phone: req.body.Spoc_phone, 
-  Company_id: req.body.Company_id,
-  Spoc_status: req.body.Spoc_status 
-};
+ 
 const loginData = { 
+  User_firstname: req.body.Spoc_name, 
+  User_designation: req.body.Spoc_designation,
+  User_phonenumber: req.body.Spoc_phone, 
+  Company_id: req.body.Company_id, 
  User_email: req.body.Spoc_email, 
  User_password: passwordHash, 
 };
-async function insertSpoc(uid){
-  SpocData.User_id = uid;
-  SpocData.User_roles_id = User_roles_id;
-  
-  spocTb.create(SpocData)
-  .then(data => {   
-    return data; 
-  })
-  .catch(err => {
-    res.status(400).send(err);  
-    return;
-  });
-}
+ 
 async function insertLogin(Company_id , User_roles_id) {
   loginData.Company_id =Company_id;
   loginData.User_roles_id =User_roles_id;
@@ -193,8 +161,7 @@ async function insertLogin(Company_id , User_roles_id) {
    });
  }
  try {
-  const login =  await insertLogin(Company_id , User_roles_id);
-  const delegate =  await insertSpoc(login.User_id);
+  const login =  await insertLogin(Company_id , User_roles_id); 
     var respos = {
     "status" : "Success"
   }
@@ -213,11 +180,8 @@ exports.getSpocs = async (req, res) => {
     });
     return;
   }  
-  spocTb.findAll({where : {Company_id:req.body.Company_id , Spoc_active :1},
-    include: {
-      model: usersTb ,
-      required: true
-    }})
+  usersTb.findAll({where : {Company_id:req.body.Company_id , User_roles_id:4 , User_status:1},
+    })
     .then(data => {
       res.status(200).send(data); 
 
@@ -237,11 +201,11 @@ exports.deleteSpoc = (req, res) => {
     return;
   } 
   var data ={
-    "Spoc_active" : 0, 
+    "User_status" : 0, 
   }
 
-  spocTb.update(data, {
-    where: { Spoc_id: req.body.Spoc_id }
+  usersTb.update(data, {
+    where: { User_id: req.body.User_id }
   }).then(num => {
       if (num == 1) {
         res.send({
@@ -268,11 +232,11 @@ exports.deleteDelegate = (req, res) => {
     return;
   } 
   var data ={
-    "Delegate_active" : 0, 
+    "User_status" : 0, 
   }
 
-  delegateTb.update(data, {
-    where: { Delegate_id: req.body.Delegate_id }
+  usersTb.update(data, {
+    where: { User_id: req.body.User_id }
   }).then(num => {
       if (num == 1) {
         res.send({

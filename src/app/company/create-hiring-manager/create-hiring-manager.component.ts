@@ -19,8 +19,7 @@ export class CreateHiringManagerComponent implements OnInit {
   HM_designation = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   HM_phone =new FormControl('', [ Validators.required, Validators.minLength(10)]);
   HM_password = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-  HM_password2 = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-  HM_status = new FormControl('VERIFIED', [ Validators.required]);
+  HM_password2 = new FormControl('', [ Validators.required, Validators.minLength(2)]); 
   ngOnInit(): void {
     this.getHManagerList();
     this.HM_Form = this.formBuilder.group({
@@ -29,8 +28,7 @@ export class CreateHiringManagerComponent implements OnInit {
       HM_designation : this.HM_designation,
       HM_phone : this.HM_phone, 
       HM_password : this.HM_password,  
-      HM_password2 : this.HM_password2,  
-      HM_status : this.HM_status,  
+      HM_password2 : this.HM_password2,   
   
     }); 
   } 
@@ -58,12 +56,11 @@ console.log(data);
       let HManagersList =[];
       for (var i = 0; i < data.length; i++) {
         var e = {
-          "HManager_name" : data[i]['HManager_name'],
-          "User_email" : data[i]['UsersTb']['User_email'],
-          "HManager_designation" : data[i]['HManager_designation'],
-          "HManager_phone" : data[i]['HManager_phone'],
-          "HManager_status" : data[i]['HManager_status'],
-          "HManager_id" : data[i]['HManager_id'],
+          "User_firstname" : data[i]['User_firstname'],
+          "User_email" : data[i]['User_email'],
+          "User_designation" : data[i]['User_designation'],
+          "User_phonenumber" : data[i]['User_phonenumber'], 
+          "User_id" : data[i]['User_id'],
         }
         HManagersList.push(e);
       } 

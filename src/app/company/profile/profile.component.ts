@@ -30,9 +30,9 @@ export class ProfileComponent implements OnInit {
   
     
     User_firstName_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-    User_secondName_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
+    User_secondName_Crl = new FormControl('');
     User_phone_Crl = new FormControl('', [ Validators.required, Validators.minLength(10)]);
-    User_phone_Crl2 = new FormControl('',);
+    User_phone_Crl2 = new FormControl('');
     User_email_Crl =new FormControl('', [ Validators.required, Validators.email]);
     User_designation_Crl = new FormControl('', [ Validators.required, Validators.minLength(2)]);
    
@@ -54,8 +54,11 @@ export class ProfileComponent implements OnInit {
   
      onSubmit(){
        this.submitted = true;
+       console.log(this.updateUserForm.value);
    
       if (this.updateUserForm.invalid) {  
+        console.log('Form error');
+        console.log(this.updateUserForm.errors);
         return;
       }else{
         this.SharedService.updateUserProfile(this.User_id , this.updateUserForm.value).subscribe(data =>{

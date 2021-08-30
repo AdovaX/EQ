@@ -490,6 +490,39 @@ roleChange(e): void {
   console.log(this.jobRole_list);
 } 
 }
+removeDomain(domainChange){
+
+  for (let [i, user] of this.domain_list.entries()) {
+    if (user.Domain == domainChange) {
+        this.domain_list.splice(i, 1);
+        console.log('deleted domain');
+    }
+ }
+}
+removeRole(roleChange){
+  for (let [i, user] of this.jobRole_list.entries()) {
+    if (user.Job_title == roleChange) {
+        this.jobRole_list.splice(i, 1);
+        console.log('deleted Job_title');
+    }
+ }
+}
+removeEdu(eduChange){
+  for (let [i, user] of this.education_list.entries()) {
+    if (user.Education == eduChange) {
+        this.education_list.splice(i, 1);
+        console.log('deleted Education');
+    }
+ }
+}
+removeTech(tecChange){
+  for (let [i, user] of this.technology_list.entries()) {
+    if (user.Technology == tecChange) {
+        this.technology_list.splice(i, 1);
+        console.log('deleted Technology');
+    }
+ }
+}
 
 PopupTechnology(e){
 

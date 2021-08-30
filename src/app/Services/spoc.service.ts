@@ -64,8 +64,7 @@ createLManager(LManager): Observable<ListingManager[]>{
    "LManager_designation" : LManager.LM_designation,
    "LManager_phone" : LManager.LM_phone,
    "User_password" : LManager.LM_password,
-   "Company_id" : this.Company_id,
-   "LManager_status" : LManager.LM_status,
+   "Company_id" : this.Company_id, 
   }
  return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/spoc/createListingManager/', data);
 } 
@@ -80,7 +79,7 @@ return this.http.post<ListingManager[]>(this.REST_API_SERVER + '/spoc/getListing
 deleteLM(LM_id){
   var LMData ={
     'Company_id':this.Company_id,
-    'LManager_id' : LM_id
+    'User_id' : LM_id
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/spoc/LMDeletion/', LMData);
 }
@@ -92,25 +91,24 @@ createHManager(HManager): Observable<HiringManager[]>{
    "HManager_designation" : HManager.HM_designation,
    "HManager_phone" : HManager.HM_phone,
    "User_password" : HManager.HM_password,
-   "Company_id" : this.Company_id,
-   "HManager_status" : HManager.HM_status,
+   "Company_id" : this.Company_id, 
   }
  return this.http.post<HiringManager[]>(this.REST_API_SERVER + '/spoc/createHiringManager/', data);
 } 
 
 
 
-getHiringManagers(): Observable<HiringManager[]>{
+getHiringManagers(): Observable<any[]>{
   var data = {
      "Company_id" : this.Company_id
  }
-return this.http.post<HiringManager[]>(this.REST_API_SERVER + '/spoc/getHiringManagers', data);
+return this.http.post<any[]>(this.REST_API_SERVER + '/spoc/getHiringManagers', data);
 } 
 
 deleteHM(HM_id){
   var HMData ={
     'Company_id':this.Company_id,
-    'HManager_id' : HM_id
+    'User_id' : HM_id
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/spoc/HMDeletion/', HMData);
 }

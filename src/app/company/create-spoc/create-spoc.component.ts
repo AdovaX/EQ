@@ -60,12 +60,11 @@ export class CreateSpocComponent implements OnInit {
       let spocList =[];
       for (var i = 0; i < data.length; i++) {
         var e = {
-          "Spoc_name" : data[i].Spoc_name,
-          "Spoc_mail" : data[i]['UsersTb'].User_email,
-          "Spoc_designation" : data[i].Spoc_designation,
-          "Spoc_phone" : data[i].Spoc_phone,
-          "Spoc_status" : data[i].Spoc_status,
-          "Spoc_id" : data[i].Spoc_id,
+          "User_firstname" : data[i].User_firstname,
+          "User_email" : data[i]['User_email'] ,
+          "User_designation" : data[i].User_designation,
+          "User_phonenumber" : data[i].User_phonenumber, 
+          "User_id" : data[i].User_id,
         }
         spocList.push(e);
       }  

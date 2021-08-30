@@ -4,6 +4,7 @@ module.exports = {
     PASSWORD: "",
     DB: "eq",
     dialect: "mysql",
+    logging: false,
     pool: {
       max: 5,
       min: 0,

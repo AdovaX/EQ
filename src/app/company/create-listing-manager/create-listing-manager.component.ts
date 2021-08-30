@@ -21,8 +21,7 @@ export class CreateListingManagerComponent implements OnInit {
   LM_phone =new FormControl('', [ Validators.required, Validators.minLength(10)]);
   LM_password = new FormControl('', [ Validators.required, Validators.minLength(2)]);
   LM_password2 = new FormControl('', [ Validators.required, Validators.minLength(2)]);
-  LM_status = new FormControl('VERIFIED', [ Validators.required]);
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.getLManagerList();
     this.LM_Form = this.formBuilder.group({
       LM_fullname : this.LM_fullname,
@@ -30,8 +29,7 @@ export class CreateListingManagerComponent implements OnInit {
       LM_designation : this.LM_designation,
       LM_phone : this.LM_phone, 
       LM_password : this.LM_password,  
-      LM_password2 : this.LM_password2,  
-      LM_status : this.LM_status,  
+      LM_password2 : this.LM_password2,   
   
     }); 
   } 
@@ -59,12 +57,11 @@ export class CreateListingManagerComponent implements OnInit {
       let LManagersList =[];
       for (var i = 0; i < data.length; i++) {
         var e = {
-          "LManager_name" : data[i]['LManager_name'],
-          "User_email" : data[i]['UsersTb'].User_email,
-          "LManager_designation" : data[i]['LManager_designation'],
-          "LManager_phone" : data[i]['LManager_phone'],
-          "LManager_status" : data[i]['LManager_status'],
-          "LManager_id" : data[i]['LManager_id'],
+          "User_firstname" : data[i]['User_firstname'],
+          "User_email" : data[i]['User_email'] ,
+          "User_designation" : data[i]['User_designation'],
+          "User_phonenumber" : data[i]['User_phonenumber'], 
+          "User_id" : data[i]['User_id'],
         }
         LManagersList.push(e);
       }  

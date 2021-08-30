@@ -22,7 +22,7 @@ today = moment().format('YYYY-MM-DD');
 dataSource = new MatTableDataSource();
 
 displayedColumns: string[] = ['No','Status','Project_name', 'Start_date', 
-'End_date','Remaining','Project_location','Action'];
+'End_date','Remaining' ,'Action'];
 
 ngAfterViewInit() { 
   this.dataSource.sort = this.sort;

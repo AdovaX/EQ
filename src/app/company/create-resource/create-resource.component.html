@@ -344,10 +344,9 @@
                                                       <mat-panel-description>
                                                           <div class="row">
                                                               <div class="col-sm-12">
-                                                              <div class="Acheckbox icheck-inline" *ngFor="let technology of techncat['TechnologyTbs']; let j=index">
+                                                              <div class="Acheckbox icheck-inline novertical" *ngFor="let technology of techncat['TechnologyTbs']; let j=index">
                                                               <label class="container">   
-                                                              <!-- <input type="checkbox"  value ="{{technology.Technology_name}}" (change)="selectTech($event)">
-                                                                -->
+                                                               
                                                                     <button mat-raised-button   (click)="PopupTechnology(technology.Technology_name)">
                                                                       {{technology.Technology_name}}
                                                                     </button>
@@ -403,8 +402,8 @@
                                           <div class="col-sm-12" id="goup"> 
                                             <div class="row">
                                               <div class="inlinCol" *ngFor="let technology of technology_list " > 
-                                               <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 ">
-                                                  <span>{{technology.Technology}} </span>  
+                                               <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 " (click)="removeTech(technology.Technology)">
+                                                  <span>{{technology.Technology}} </span>  <span class="fa fa-close fa-2x leftspace"> </span>  
                                                </button>
 
                                              </div>
@@ -469,8 +468,8 @@
                                                     <div class="col-sm-12"> 
                                                       <div class="row">
                                                         <div class="inlinCol" *ngFor="let domain of domain_list " > 
-                                                         <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 ">
-                                                            <span>{{domain.Domain}} </span>  
+                                                         <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 " (click)="removeDomain(domain.Domain)">
+                                                            <span>{{domain.Domain}} </span>   <span class="fa fa-close fa-2x leftspace"> </span>  
                                                          </button> 
                                                        </div>
                                                       </div> 
@@ -545,8 +544,8 @@
                                                     <div class="col-sm-12"> 
                                                       <div class="row">
                                                         <div class="inlinCol" *ngFor="let job of jobRole_list " > 
-                                                         <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 ">
-                                                            <span>{{job.Job_title}} </span>  
+                                                         <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 " (click)="removeRole(job.Job_title)">
+                                                            <span>{{job.Job_title}} </span>   <span class="fa fa-close fa-2x leftspace"> </span> 
                                                          </button> 
                                                        </div>
                                                       </div> 
@@ -645,8 +644,8 @@
                                                      <div class="col-sm-12"> 
                                                        <div class="row">
                                                          <div class="inlinCol" *ngFor="let edu of education_list " > 
-                                                          <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 ">
-                                                             <span>{{edu.Education}} </span>  
+                                                          <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 " (click)="removeEdu(edu.Education)">
+                                                             <span>{{edu.Education}} </span>  <span class="fa fa-close fa-2x leftspace"> </span>
                                                           </button> 
                                                         </div>
                                                        </div> 

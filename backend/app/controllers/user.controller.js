@@ -14,7 +14,7 @@ const path = require('path')
 
 
 exports.updateUserProfile= async (req, res) => {
-    if (req.body.User_id <0 || req.body.User_email =="") {
+    if (!req.body.Company_id) {
      res.status(400).send({
        message: "Content can not be empty!"
      });

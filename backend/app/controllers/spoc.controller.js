@@ -198,17 +198,17 @@ exports.createListingManager = async (req, res) => {
   var Company_id = req.body.Company_id; 
   var passwordHash = bcrypt.hashSync(req.body.User_password , 10);
   var User_roles_id =5;
-  const LData = {
-    LManager_name: req.body.LManager_name,
-    LManager_designation: req.body.LManager_designation,
-    LManager_phone: req.body.LManager_phone,
-    LManager_active: req.body.LManager_active,
-    LManager_status: req.body.LManager_status, 
-    Company_id: req.body.Company_id, 
-  };
+   
+  
+ 
+
   const loginData = { 
     User_email: req.body.User_email, 
     User_password: passwordHash, 
+    User_firstname: req.body.LManager_name,
+    User_designation: req.body.LManager_designation,
+    User_phonenumber: req.body.LManager_phone, 
+    Company_id: req.body.Company_id, 
    };
    
    async function insertLogin(Company_id , User_roles_id) {
@@ -224,25 +224,9 @@ exports.createListingManager = async (req, res) => {
           return err.message ; 
       });
     }
-
-    async function insertListingManager(uid){
-      LData.User_id = uid;
-      LData.User_roles_id = User_roles_id;
-      
-    await LManagerTb.create(LData)
-    .then(data => {
-      return data;
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Tutorial."
-      });
-    });
-    }
+ 
     try {
-      const login =  await insertLogin(Company_id , User_roles_id);
-      const LManager =  await insertListingManager(login.User_id);
+      const login =  await insertLogin(Company_id , User_roles_id); 
         var respos = {
         "status" : "Success"
       } 
@@ -262,13 +246,9 @@ exports.getListingManagers = (req, res) => {
     return;
   }
 
-  LManagerTb.findAll({ where: {
-    Company_id: req.body.Company_id , LManager_active:1
-      },
-      include: {
-        model: usersTb ,
-        required: true
-      }, })
+  usersTb.findAll({ where: {
+    Company_id: req.body.Company_id ,  User_roles_id:5 , User_status:1
+      } , })
     .then(data => {
       res.send(data);
     })
@@ -289,11 +269,11 @@ exports.LMDeletion = (req, res) => {
     return;
   } 
   var data ={
-    "LManager_active" : 0, 
+    "User_status" : 0, 
   }
 
-  LManagerTb.update(data, {
-    where: { LManager_id: req.body.LManager_id }
+  usersTb.update(data, {
+    where: { User_id: req.body.User_id }
   }).then(num => {
       if (num == 1) {
         res.send({
@@ -323,17 +303,12 @@ exports.createHiringManager = async (req, res) => {
   var Company_id = req.body.Company_id; 
   var passwordHash = bcrypt.hashSync(req.body.User_password , 10);
   var User_roles_id =6; 
-  // Create a Tutorial
-  const HData = {
-    HManager_name: req.body.HManager_name, 
-    HManager_designation: req.body.HManager_designation,
-    HManager_phone: req.body.HManager_phone,
-    HManager_active: req.body.HManager_active,
-    HManager_status: req.body.HManager_status, 
-    Company_id: req.body.Company_id, 
-  };
+   
 
   const loginData = { 
+    User_firstname: req.body.HManager_name, 
+    User_designation: req.body.HManager_designation,
+    User_phonenumber: req.body.HManager_phone,
     User_email: req.body.User_email, 
     User_password: passwordHash, 
    };
@@ -351,23 +326,11 @@ exports.createHiringManager = async (req, res) => {
            return err.message ; 
        });
      }
-
-    async function insertHiringManager(uid){
-      HData.User_id = uid;
-      HData.User_roles_id = User_roles_id;
-    await HManagerTb.create(HData)
-    .then(data => {
-      return data;
-    })
-    .catch(err => {
-      return err.message ; 
-    });
-    }
+ 
 
     try {
       const login =  await insertLogin(Company_id , User_roles_id);
-      const HManager =  await insertHiringManager(login.User_id);
-        var respos = {
+         var respos = {
         "status" : "Success"
       } 
         res.send(respos);  
@@ -385,13 +348,9 @@ exports.getHiringManagers = (req, res) => {
     return;
   }
 
-  HManagerTb.findAll({ where: {
-    Company_id: req.body.Company_id , HManager_active:1
-      },
-      include: {
-        model: usersTb ,
-        required: true
-      }, })
+  usersTb.findAll({ where: {
+    Company_id: req.body.Company_id , User_roles_id:6 , User_status:1
+      },  })
     .then(data => {
       res.send(data);
     })
@@ -412,11 +371,11 @@ exports.HMDeletion = (req, res) => {
     return;
   } 
   var data ={
-    "HManager_active" : 0, 
+    "User_status" : 0, 
   }
 
-  HManagerTb.update(data, {
-    where: { HManager_id: req.body.HManager_id }
+  usersTb.update(data, {
+    where: { User_id: req.body.User_id }
   }).then(num => {
       if (num == 1) {
         res.send({

@@ -40,7 +40,7 @@ export class ContractorService {
  
   
 
- createDelegate(delegate): Observable<Delegate[]>{
+ createDelegate(delegate): Observable<any[]>{
      var delegateData = {
       "Delegate_name" : delegate.Delegate_fullname,
       "Delegate_email" : delegate.Delegate_email,
@@ -50,14 +50,14 @@ export class ContractorService {
       "Company_id" : this.Company_id,
       "Delegate_status" : delegate.Delegate_status, 
      }
-    return this.http.post<Delegate[]>(this.REST_API_SERVER + '/contractor/delegateCreation/', delegateData);
+    return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/delegateCreation/', delegateData);
   } 
 
   getDelegatesList(){
     var data ={
       Company_id:this.Company_id
     }
-    return this.http.post<Delegate[]>(this.REST_API_SERVER + '/contractor/delegateList/', data);
+    return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/delegateList/', data);
   
   }
 
@@ -79,19 +79,19 @@ getSpocList(){
  var data ={
    'Company_id':this.Company_id
  }
- return this.http.post<Spoc[]>(this.REST_API_SERVER + '/contractor/spocList/', data);
+ return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/spocList/', data);
 }
 deleteSpoc(Spoc_id){
   var spocData ={
     'Company_id':this.Company_id,
-    'Spoc_id' : Spoc_id
+    'User_id' : Spoc_id
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/contractor/spocDeletion/', spocData);
 }
 deleteDelegate(Delegate_id){
   var delegateData ={
     'Company_id':this.Company_id,
-    'Delegate_id' : Delegate_id
+    'User_id' : Delegate_id
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/contractor/delegateDeletion/', delegateData);
 }

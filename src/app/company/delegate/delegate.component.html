@@ -44,15 +44,15 @@
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let item of delegateData">
-                                                    <th>{{ item.Delegate_name }}</th>
-                                                    <td>{{ item.Delegate_email }}</td>
-                                                    <td>{{ item.Delegate_designation }}</td>
-                                                    <td>{{ item.Delegate_phone }}</td> 
+                                                  <th>{{ item.User_firstname }}</th>
+                                                  <td>{{ item.User_email }}</td>
+                                                  <td>{{ item.User_designation }}</td>
+                                                  <td>{{ item.User_phonenumber }}</td> 
                                                     <td> 
                                                     <div class="btn-group m-1">
                                                         <button type="button" class="btn btn-outline-primary">
                                                             <span class="fa fa-edit"> </span></button>
-                                                        <button class="btn btn-outline-danger" (click)="deleteDelegate(item.Delegate_id)">
+                                                        <button class="btn btn-outline-danger" (click)="deleteDelegate(item.User_id)">
                                                             <span class="fa fa-trash"> </span></button> 
                                                         </div> 
                                                         </td>

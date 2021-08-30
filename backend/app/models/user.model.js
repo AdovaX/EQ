@@ -40,6 +40,10 @@
        Profile_photo: {
          type: Sequelize.TEXT
        },
+       User_status: {
+         type: Sequelize.INTEGER,
+         defaultValue:1
+       },
       Company_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

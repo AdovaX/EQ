@@ -129,7 +129,22 @@ export class CompanyProfileComponent implements OnInit {
   resetBranchForm(){ this.Branch_Form.reset();}
   resetBankForm(){ this.Bank_Form.reset();}
   resetGovForm(){ this.Government_Form.reset();}
-  
+  gotoBankTab(){
+    let element:HTMLElement = document.getElementById('branchTab') as HTMLElement;
+    element.click(); 
+  } 
+  gotoBranchTab(){
+    let element:HTMLElement = document.getElementById('branchTab') as HTMLElement;
+    element.click(); 
+  } 
+  gotoPreferencesTab(){
+    let element:HTMLElement = document.getElementById('branchTab') as HTMLElement;
+    element.click(); 
+  } 
+  gotoGovTab(){
+    let element:HTMLElement = document.getElementById('branchTab') as HTMLElement;
+    element.click(); 
+  }  
   getCompanyData(id){
     var User_id = id;
     this.SharedService.getProfileData(User_id).subscribe(data =>{
