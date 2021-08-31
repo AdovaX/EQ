@@ -270,7 +270,7 @@
                                           <label for="input-11"> Current Designation<span class="redColor">*</span></label>
 
                                           <select class="form-control form-control-sm" id="default-select" formControlName="Resource_designation">
-                                            <option *ngFor="let role of RJobRoles_List" value="role.Role_name" >{{role.Role_name}}</option> 
+                                             <option *ngFor="let role of RJobRoles_List" [value]="role.Role_name" >{{role.Role_name}}</option> 
                                            </select>
 
    
@@ -399,6 +399,13 @@
                                         </mat-radio-group> 
                                         </div> 
                                           </div>
+                                          <div class="col-sm-3">
+
+                                       <div class="form-group">
+                                        <button type="submit" mat-raised-button color="primary">Add</button>
+                                      </div>
+                                          </div> 
+
                                           <div class="col-sm-12" id="goup"> 
                                             <div class="row">
                                               <div class="inlinCol" *ngFor="let technology of technology_list " > 
@@ -409,12 +416,6 @@
                                              </div>
                                             </div> 
                                           </div>
-                                          <div class="col-sm-3">
-
-                                       <div class="form-group">
-                                        <button type="submit" mat-raised-button color="primary">Add</button>
-                                      </div>
-                                          </div> 
  
                                          </div>
                                         </form> 
@@ -705,7 +706,7 @@
                                             <div class="col-sm-12">
                                               <div class="form-group">
                                                 <label for="input-11"> Profile Summary </label> 
-                                                <textarea class="form-control form-control-square" rows="6" formControlName="Resource_summery" id="Resource_designation" 
+                                                <textarea class="form-control form-control-square" rows="6" formControlName="Resource_summery" id="Resource_summery" 
                                                 name="Resource_summery"  placeholder="Your Delegate Designation"></textarea>
                                                 <div *ngIf="submitted && f.Resource_summery.errors" class="invalid-feedback">
                                                     <div *ngIf="f.Resource_summery.errors.required">summery is a required field.</div> 

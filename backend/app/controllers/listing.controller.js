@@ -1142,11 +1142,12 @@ async function prepareTechnology(r_id) {
       return;
     } 
   
-    assignTb.findAll({  include:[{
+    assignTb.findAll({ where:{Approved_status:'Pending'}, 
+      include:[{
       model:resourceTb,
       required:true,
       where:{
-        Created_by:req.body.Created_by
+        Created_by:req.body.Created_by, 
       }
     },
    {
@@ -1196,10 +1197,10 @@ async function prepareTechnology(r_id) {
       });
       async function updateResourceStatus(){
         var resourceStat={
-          "Resource_status":'ASSIGNED'
+          "Resource_status":'SELECTED'
         }
 
-        assignTb.update(resourceStat, {
+        resourceTb.update(resourceStat, {
           where: { 
             Resource_id : req.body.Resource_id
            }

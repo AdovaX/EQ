@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../Services/project.service';
+import { ResourceService } from '../../Services/resource.service';
 
 @Component({
   selector: 'app-time-sheet',
@@ -8,15 +8,16 @@ import { ProjectService } from '../../Services/project.service';
 })
 export class TimeSheetComponent implements OnInit {
 Resource_id =0;
-  constructor(private ProjectService:ProjectService) { 
+  constructor(private ResourceService:ResourceService) { 
 this.Resource_id = Number(sessionStorage.getItem('RESOURCE_ID'));
   }
 
   ngOnInit(): void {
+    this.getProjectData();
   }
 
-getRequirementData(){
-  this.ProjectService.getRequirementData(this.Resource_id).subscribe(data =>{
+getProjectData(){
+  this.ResourceService.getRequirementData().subscribe(data =>{
     console.log(data);   
     }); 
 }

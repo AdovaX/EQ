@@ -180,15 +180,23 @@ setInterview(Requirement_id,Resource_id,Interview_date){
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/setInterview/', data);
 }
 mailInterview(Requirement_id,Resource_id,interviewForm){
+  var ts = interviewForm.interviewTime;
+  var H = +ts.substr(0, 2);
+  var h = (H % 12) || 12;
+  h = Number((h < 10)?("0"+h):h);   
+  var ampm = H < 12 ? " AM" : " PM";
+  ts = h + ts.substr(2, 3) + ampm; 
+ 
   var data = {
     Company_id : this.Company_id,  
     Resource_id :Resource_id,
     Requirement_id :Requirement_id,
     bodymail :interviewForm.bodymail,
     interviewDate :moment(interviewForm.interviewDate).format('YYYY-MM-DD'),
-    interviewTime :interviewForm.interviewTime,
+    interviewTime :ts,
     User_id:this.User_id
   } 
+  console.log(data);
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/mailInterview/', data);
 }
 getInterviewResources(){
@@ -197,6 +205,13 @@ getInterviewResources(){
     User_id :this.User_id
   } 
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/getInterviewResources/', data);
+}
+getapprovedResources(){
+  var data = {
+    Company_id : this.Company_id,  
+    User_id :this.User_id
+  } 
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/getapprovedResources/', data);
 }
 changeInterviewStatus(Interview_status,Resource_id,Requirement_id){
   var data = {
@@ -207,5 +222,22 @@ changeInterviewStatus(Interview_status,Resource_id,Requirement_id){
     User_id :this.User_id
   } 
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/changeInterviewStatus/', data);
+}
+shortListResource(Resource_id,Requirement_id){
+  var data = {
+    Resource_id : Resource_id,  
+    Requirement_id :Requirement_id,
+    Company_id :this.Company_id, 
+    User_id :this.User_id
+  } 
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/shortListResource/', data);
+}
+getShortListResource(){
+  var data = {
+    Company_id : this.Company_id, 
+    User_id:Number(this.User_id)
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/getShortListResource/', data);
+
 }
 }

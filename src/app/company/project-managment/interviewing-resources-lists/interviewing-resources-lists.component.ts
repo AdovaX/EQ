@@ -16,19 +16,16 @@ export class InterviewingResourcesListsComponent implements OnInit {
   User_id=""; 
   updateUserForm: FormGroup; 
   Interview_status=[{
-    value:'PASSED',viewValue:'PASSED'
+    value:'SELECTED',viewValue:'SELECTED'
   },
   {
-    value : 'FAILLED',viewValue:'FAILLED'
-  },
+    value : 'REJECTED',viewValue:'REJECTED'
+  },  
   {
-    value : 'PENDING',viewValue:'PENDING'
-  },
+    value : 'NOINTREST',viewValue:'NOT INTRESTED'
+  }, 
   {
-    value : 'SHORTLIST',viewValue:'SHORTLIST'
-  },
-  {
-    value : 'CANCEL',viewValue:'CANCEL'
+    value : 'INTERVIEWING',viewValue:'INTERVIEWING'
   }];
 
   displayedColumns: string[] = ['No','Resource_name','Resource_Designation','Interview_date','Interview_time','Interview_status','Action'];
@@ -53,9 +50,7 @@ export class InterviewingResourcesListsComponent implements OnInit {
   }
   getInterviewResources(){
     this.ProjectService.getInterviewResources().subscribe(data =>{
-      console.log(data); 
-      this.dataSource.data = data;   
-    
+      this.dataSource.data = data;    
     });
   }
   interviewStatus(e,resource_id,requirement_id){

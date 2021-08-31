@@ -38,7 +38,8 @@ export class RequestsComponent implements OnInit {
   }
   approveResources(Resource_id,Requirement_id){
     this.ListingManagerService.approveResources(Resource_id,Requirement_id).subscribe(data =>{
-      console.log(data);     
+      console.log(data);    
+      this.resourceRequests(); 
     
     });
   }

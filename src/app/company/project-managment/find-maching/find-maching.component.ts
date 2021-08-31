@@ -85,14 +85,18 @@ export class FindMachingComponent implements OnInit {
   this.router.navigate(['company/Projectmanagement/InterviewShedule'], navigationExtras);
 
   }
-  // setInterview(Resource_id){ 
-  //   const dialogRef = this.dialog.open(PopupInterviewDateComponent, { 
-  //     data: {name: Resource_id}, 
-  //     hasBackdrop: true,
-  //     disableClose : true
-  //   }); 
-  //   dialogRef.afterClosed().subscribe(result => { 
-  //     console.log(result);
-  //   });
-  // }
+  shortList(Resource_id){
+    this.ProjectService.shortListResource(Resource_id,this.Requirement_id).subscribe(data =>{
+      console.log(data);
+      if(data[1]){
+        this.openSnackBar('Success | Short listed');
+      }else{
+        this.openSnackBar('Already short listed');
+      } 
+ }, error => {
+   console.log(error); 
+ }); 
+
+  }
+   
 }

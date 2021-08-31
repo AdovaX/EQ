@@ -12,6 +12,7 @@ import { InterviewingResourcesListsComponent } from './interviewing-resources-li
 import { MyResourcesComponent } from './my-resources/my-resources.component';
 import { RequestsComponent } from './requests/requests.component';
 import { ApprovedResourcesComponent } from './approved-resources/approved-resources.component';
+import { ShortListedResourcesComponent } from './short-listed-resources/short-listed-resources.component';
 
 const routes: Routes = [
   {path : '' , component:ProjectsComponent},
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path : 'MyResources' , component:MyResourcesComponent},
   {path : 'Requests' , component:RequestsComponent},
   {path : 'ApprovedResources' , component:ApprovedResourcesComponent},
+  {path : 'ShortLists' , component:ShortListedResourcesComponent},
 ];
 
 @NgModule({

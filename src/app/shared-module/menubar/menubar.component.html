@@ -132,6 +132,12 @@
           <span>Projects</span><i class="fa fa-angle-left pull-right"></i>
         </a> 
       </li> 
+      <li [routerLinkActive]="['active']"  *ngIf="Role_id ==6" >
+        <a [routerLink]="[ '/company/Projectmanagement/ShortLists' ]"> 
+          <i class="fa fa-user-plus"></i>
+		  <span>Short Lists</span><i class="fa fa-angle-left pull-right"></i>
+        </a> 
+      </li>
       <li [routerLinkActive]="['active']" *ngIf="  Role_id <=5">
         <a [routerLink]="[ '/company/Resources' ]"> 
           <i class="zmdi zmdi-accounts-alt"></i>

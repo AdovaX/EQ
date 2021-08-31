@@ -22,6 +22,9 @@ module.exports = app => {
     router.post("/mailInterview", project.mailInterview); 
     router.post("/getInterviewResources", project.getInterviewResources); 
     router.post("/changeInterviewStatus", project.changeInterviewStatus); 
+    router.post("/shortListResource", project.shortListResource); 
+    router.post("/getShortListResource", project.getShortListResource); 
+    router.post("/getapprovedResources", project.getapprovedResources); 
 
     app.use('/project', router);
 };

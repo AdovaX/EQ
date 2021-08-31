@@ -148,4 +148,6 @@ max-height: 600px;
 .reviewP{
   color: black;
   font-size: 14px;
+}.novertical{
+  vertical-align:text-bottom;
 }

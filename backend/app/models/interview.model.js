@@ -41,8 +41,8 @@ module.exports = (sequelize, Sequelize) => {
       },
       Interview_status: {
         type: Sequelize.ENUM,
-        values : ['PASSED', 'FAILLED', 'PENDING','SHORTLIST','CANCEL'],
-        defaultValue : 'PENDING'
+        values : ['SELECTED', 'REJECTED','SHORTLISTED','NOINTREST'],
+        defaultValue : 'SHORTLISTED'
       },
       Company_id: {
         type: Sequelize.INTEGER,

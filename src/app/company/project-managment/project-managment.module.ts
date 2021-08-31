@@ -37,10 +37,11 @@ import { InterviewingResourcesListsComponent } from './interviewing-resources-li
 import { MyResourcesComponent } from './my-resources/my-resources.component';
 import { RequestsComponent } from './requests/requests.component';
 import { ApprovedResourcesComponent } from './approved-resources/approved-resources.component';
+import { ShortListedResourcesComponent } from './short-listed-resources/short-listed-resources.component';
 
 @NgModule({
   declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent, 
-    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent, InterviewingResourcesListsComponent, MyResourcesComponent, RequestsComponent, ApprovedResourcesComponent],
+    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent, InterviewingResourcesListsComponent, MyResourcesComponent, RequestsComponent, ApprovedResourcesComponent, ShortListedResourcesComponent],
   imports: [
     CommonModule,
     ProjectManagmentRoutingModule,

@@ -550,7 +550,7 @@ exports.projectMatching =async (req, res) => {
       for(const val of maching_role_users) {  
        var rol = await resourceTb.findAll({ where: {Resource_id : val,
          Available_from:{
-           [Op.gte]: requirement_start,  
+           [Op.lte]: requirement_start,  
          }
        } }); 
        rol.forEach(el => { 
@@ -664,7 +664,7 @@ var videoMach=0;
     "EducationMatching" : eduMach,
     "Availabilitymaching" : availMach,
     "Videomaching" : videoMach,
-    "Matching":(domainMach+techMach+eduMach+availMach+videoMach)
+    "Matching":Math.round((domainMach+techMach+eduMach+availMach+videoMach))
   }
   meData.push(c);
   roleMach=0;
@@ -915,8 +915,8 @@ exports.mailInterview = async (req, res) => {
     return;
   }
   let Email_ids =[];
-async function getMailIds(data){
-  var R_mail_id = await resourceTb.findOne({ where: {Resource_id : data.Resource_id, 
+async function getMailIds(){
+  var R_mail_id = await resourceTb.findOne({ where: {Resource_id : req.body.Resource_id, 
   } }); 
   var m1 = {
     "Role" : "Resource",
@@ -924,7 +924,7 @@ async function getMailIds(data){
   }
   Email_ids.push(m1); 
 
-  var Hiring_mail_id = await usersTb.findOne({ where: {User_id : data.User_id, 
+  var Hiring_mail_id = await usersTb.findOne({ where: {User_id : req.body.User_id, 
   } }); 
   var m2 = {
     "Role" : "Hiring",
@@ -950,27 +950,40 @@ async function getMailIds(data){
    res.send(c);
 }
   var interviewData= {
-    "Requirement_id" : req.body.Requirement_id,
-    "Resource_id" : req.body.Resource_id,
+    "Requirement_id" : req.body.Requirement_id, 
     "User_id" : req.body.User_id, 
     "Interview_date" : req.body.interviewDate, 
     "Interview_time" : req.body.interviewTime, 
     "Company_id" : req.body.Company_id, 
-    "Interview_body":req.body.bodymail
+    "Interview_body":req.body.bodymail,
+    "Interview_status":'INTERVIEWING'
   }
-  await interviewTb.create(interviewData)
-  .then(data => {
-    return data;
-  }).then(data =>{
-    getMailIds(data);
-
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while creating the Tutorial."
+  await interviewTb.update(interviewData, {
+    where: { Resource_id: req.body.Resource_id }
+  }).then(num => {
+      if (num == 1) {
+        getMailIds(); 
+        updateResourceInterv();
+      } else {
+        res.send({
+          message: `Cannot update  Maybe Tutorial was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
     });
+
+async function updateResourceInterv(){
+  var istatus ={
+    'Resource_status':'INTERVIEWING'
+  }
+  await resourceTb.update(istatus, {
+    where: { Resource_id: req.body.Resource_id }
   });
+}  
 
 async function mail_Interview(Email){
   console.log("Sending interview invitations");   
@@ -1021,7 +1034,7 @@ exports.getInterviewResources = (req, res) => {
   interviewTb.findAll({ where: {
     User_id : req.body.User_id,
     Interviewed : 'NO',
-    Interview_status : 'PENDING'
+    Interview_status : 'INTERVIEWING'
   } ,
   include:{
     model:resourceTb,
@@ -1054,9 +1067,10 @@ exports.changeInterviewStatus = async (req, res) => {
   })
     .then(num => {
       if (num == 1) {
-        if(req.body.Interview_status == 'PASSED'){
+        if(req.body.Interview_status == 'SELECTED'){
           assignResources();
         }else{
+          resourceAvailable();
         res.send({
           Status: true
         });
@@ -1072,6 +1086,14 @@ exports.changeInterviewStatus = async (req, res) => {
         message: "Error updating Tutorial with id=" + id
       });
     });
+    async function resourceAvailable(){
+      var interviewStatus = {
+        "Resource_status" : 'AVAILABLE'
+      }
+      await resourceTb.update(interviewStatus, {
+        where: { Resource_id: req.body.Resource_id}
+      });
+    }
 
     async function assignResources(){
 
@@ -1092,6 +1114,121 @@ exports.changeInterviewStatus = async (req, res) => {
           Status: false
         });
       });
+    } 
+};
+
+// Create and Save a new Tutorial
+exports.shortListResource = async (req, res) => {
+  // Validate request
+  if (!req.body.Resource_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+ 
+  
+async function checkExis(){
+  return await interviewTb.count({ where: {Requirement_id : req.body.Requirement_id,
+    Resource_id: req.body.Resource_id,Company_id: req.body.Company_id,User_id: req.body.User_id,Interview_status:'SHORTLISTED'
+  } 
+  });
+}
+if(checkExis()>0){
+  var c = {
+    Status:false
+  }
+res.send(c);
+}else{
+  interviewTb.findOrCreate({
+    where: { 
+      Requirement_id: req.body.Requirement_id,
+      Resource_id: req.body.Resource_id,
+      Company_id:req.body.Company_id,
+      User_id: req.body.User_id,
+      Interview_status:'SHORTLISTED'
+    },
+    defaults: { 
+      Requirement_id: req.body.Requirement_id,
+      Resource_id: req.body.Resource_id,
+      Company_id:req.body.Company_id,
+      User_id: req.body.User_id,
+      Interview_status:'SHORTLISTED'
     }
-    
+}).then(function(data){//run your calllback here
+    console.log("callback!!");
+    if(data[1]){
+console.log('Created');
+ updateResourceInterview();
+    }else{
+      console.log('Exists');
+    }
+    res.send(data);
+}).catch(function(err){
+  console.log(err)
+}) 
+} 
+async function updateResourceInterview(){
+  var istatus ={
+    'Resource_status':'SHORTLISTED'
+  }
+  await resourceTb.update(istatus, {
+    where: { Resource_id: req.body.Resource_id }
+  });
+}
+};
+exports.getShortListResource = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  interviewTb.findAll({ where: {Company_id:req.body.Company_id,
+  User_id:req.body.User_id , Interview_status:'SHORTLISTED'},include:[{
+    model:resourceTb,
+    required:true,
+  },
+  {
+    model:requirementTb,
+    required:true,
+  }
+]})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+exports.getapprovedResources = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  assignTb.findAll({ where: {
+  User_id:req.body.User_id},include:[{
+    model:resourceTb,
+    required:true,
+  },{
+    model:requirementTb,
+    required:true,
+  } 
+]})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
 };
