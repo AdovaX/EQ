@@ -9,64 +9,66 @@ const Op = db.Sequelize.Op;
 
 exports.mainLogin =  async(req, res) => {
     var email = req.body.User_email;
-    var role = req.body.User_role;
+    var role = 0;
     var password = req.body.User_password;
+ 
+        let existingUsers = await usersTb.count({ where: {User_email:email }});
 
-    if(role < 7){
+    console.log('Roles exist'  + existingUsers);
 
-await usersTb.findAll({where : {User_email:email , User_roles_id : role},include: {
-    model: companyTb ,
-    required: true
-  }})
-.then(data => {
-    if(!data[0]){
-        var respos = {
-            "status" : "false"
-        } 
-        res.send(respos); 
-    } 
-    if(bcrypt.compareSync(password, data[0].User_password)){  
-    res.send(data);
-    }else{
-    var respos = {
-        "status" : "false"
-    }
-    res.send(respos);
-    }
-   
-})
-.catch(err => {
-    res.send(err);
-
-});   
-}else{
-    await resourceTb.findAll({where : {Resource_email:email  },include: {
-        model: companyTb ,
-        required: true
-      }})
-    .then(data => {
-        if(!data[0]){
+    if(existingUsers == 1){
+        await usersTb.findAll({where : {User_email:email },include: {
+            model: companyTb ,
+            required: true
+          }})
+        .then(data => {
+            if(!data[0]){
+                var respos = {
+                    "status" : "false"
+                } 
+                res.send(respos); 
+            } 
+            if(bcrypt.compareSync(password, data[0].User_password)){  
+            res.send(data);
+            }else{
             var respos = {
                 "status" : "false"
+            }
+            res.send(respos);
+            }
+           
+        })
+        .catch(err => {
+            res.send(err);
+        
+        }); 
+    }else{
+        await resourceTb.findAll({where : {Resource_email:email  },include: {
+            model: companyTb ,
+            required: true
+          }})
+        .then(data => {
+            if(!data[0]){
+                var respos = {
+                    "status" : "false"
+                } 
+                res.send(respos); 
             } 
-            res.send(respos); 
-        } 
-        if(bcrypt.compareSync(password, data[0].Resource_Password)){  
-        res.send(data);
-        }else{
-        var respos = {
-            "status" : "false"
-        }
-        res.send(respos);
-        }
-       
-    })
-    .catch(err => {
-        res.send(err);
-    
-    }); 
-
-}
-
+            if(bcrypt.compareSync(password, data[0].Resource_Password)){  
+            res.send(data);
+            }else{
+            var respos = {
+                "status" : "false"
+            }
+            res.send(respos);
+            }
+           
+        })
+        .catch(err => {
+            res.send(err);
+        
+        }); 
+    }
+ 
 
     };   

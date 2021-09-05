@@ -62,8 +62,8 @@ insertCompany(company , contractor): Observable<any>{
   } 
   return this.http.post<any>(this.REST_API_SERVER + '/company/signup/', data);
 }  
-companyLogin(company): Observable<User[]>{ 
-  return this.http.post<User[]>(this.REST_API_SERVER + '/company/login/', company);
+companyLogin(company): Observable<any[]>{ 
+  return this.http.post<any[]>(this.REST_API_SERVER + '/company/login/', company);
 }  
 
 getMyCompany(){

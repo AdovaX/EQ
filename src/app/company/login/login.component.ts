@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({ 
       User_email :['', [Validators.required, Validators.email]],
       User_password :['', [Validators.required,Validators.minLength(2)]],
-      User_role :['', [Validators.required]],
-
+ 
   });
   }
   onSubmit() {    
@@ -47,17 +46,17 @@ export class LoginComponent implements OnInit {
  
        var loginData = new User(); 
        loginData.User_email = this.loginForm.value.User_email;
-       loginData.User_password = this.loginForm.value.User_password;
-       loginData.User_role = this.loginForm.value.User_role;
+       loginData.User_password = this.loginForm.value.User_password; 
        console.log(loginData);
        
        this.CompanyService.companyLogin(loginData).subscribe( data => {
+         console.log(data);
          if(data['status']){
            this.loginstatus=true;
            return;
          }
 
-         if(loginData.User_role < 7){
+         if(data[0].User_roles_id < 7){
           
          console.log("-------");
           console.log(data);

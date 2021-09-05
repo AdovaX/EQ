@@ -19,20 +19,7 @@
             && (loginForm.controls['User_email'].dirty || loginForm.controls['User_email'].touched)"  class="error-message">
             Please enter your Email ID</div>
            </div>
-        </div> 
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label for="input-11">Role</label> <br>
-
-            <mat-form-field appearance="outline" class="roleClass">
-              <mat-label>Choose an option</mat-label> 
-              <mat-select formControlName="User_role" id="User_role" name="User_role" >
-                <mat-option *ngFor="let option of rolesList" [value]="option.User_roles">
-                  {{option.User_role_description}}</mat-option> 
-              </mat-select>
-            </mat-form-field>  
-           </div>
-        </div>  
+        </div>   
           <div class="col-sm-12">
             <div class="form-group">
               <label for="input-11">Password</label>
