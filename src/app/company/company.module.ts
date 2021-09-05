@@ -47,7 +47,7 @@ import { EditResourceComponent } from './edit-resource/edit-resource.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
  
-
+ 
 @NgModule({
   declarations: [RegistrationComponent, 
     //MenubarComponent, 

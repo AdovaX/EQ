@@ -240,4 +240,31 @@ getShortListResource(){
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/getShortListResource/', data);
 
 }
+getTimesheet(){
+  var data = {
+    Company_id : this.Company_id, 
+    User_id:Number(this.User_id)
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/getTimesheet/', data);
+
+}
+approveTimesheet(Resource_id){
+  var data = { 
+    'User_id':Number(this.User_id),
+    'Resource_id':Resource_id
+
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/approveTimesheet/', data);
+
+}
+rejectTimesheet(Resource_id,Rejection_reson){
+  var data = { 
+    'User_id':Number(this.User_id),
+    'Resource_id':Resource_id,
+    "Rejection_reson":Rejection_reson
+
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/project/rejectTimesheet/', data);
+
+}
 }

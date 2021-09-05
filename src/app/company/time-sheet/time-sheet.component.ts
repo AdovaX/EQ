@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceService } from '../../Services/resource.service';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-time-sheet',
@@ -8,7 +9,8 @@ import { ResourceService } from '../../Services/resource.service';
 })
 export class TimeSheetComponent implements OnInit {
 Resource_id =0;
-  constructor(private ResourceService:ResourceService) { 
+projectData =[]; 
+  constructor(private ResourceService:ResourceService,private router:Router) { 
 this.Resource_id = Number(sessionStorage.getItem('RESOURCE_ID'));
   }
 
@@ -18,8 +20,21 @@ this.Resource_id = Number(sessionStorage.getItem('RESOURCE_ID'));
 
 getProjectData(){
   this.ResourceService.getRequirementData().subscribe(data =>{
-    console.log(data);   
+    console.log(data);  
+    this.projectData = data;
     }); 
+}
+calanderView(Project_id,requirement_id,User_id){
+  let navigationExtras: NavigationExtras = {
+    queryParams: {
+      Project_id: Project_id,
+      Requirement_id: requirement_id, 
+      User_id : User_id
+    }
+}
+console.log(navigationExtras);
+   this.router.navigate(['company/Projectmanagement/Calender'],navigationExtras); 
+
 }
 
 }

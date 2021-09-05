@@ -7,6 +7,7 @@ import * as moment from 'moment';
 @Injectable({
   providedIn: 'root'
 })
+ 
 export class ResourceService {
 
   HOST = window.location.hostname; 
@@ -39,4 +40,36 @@ export class ResourceService {
   return this.http.post<any[]>(this.REST_API_SERVER + '/resource/getRequirementData', data);
 
  }
+ updateTimesheet(result){
+   let dates = result.Working_date;
+   dates=dates.replace(/[/]/g, "-");
+  var data = {
+    "Working_date":dates,
+    "Working_hours":result.Working_hours,
+    "Resource_id" : result.Resource_id,
+    "Project_id" : result.Project_id,
+    "Requirement_id":result.Requirement_id,
+    "Comments" : result.Comments,
+    "User_id":result.User_id, 
+} 
+console.log(data + "popop");
+return this.http.post<any[]>(this.REST_API_SERVER + '/resource/updateTimesheet', data);
+
+ }
+
+ getTimesheetResource():Observable<any>{
+  var data = {
+      "Resource_id" : this.Resource_id
+  } 
+  return this.http.post<any[]>(this.REST_API_SERVER + '/resource/getTimesheetResource', data);
+
+ }
+ timesheetOk():Observable<any>{
+  var data = {
+      "Resource_id" : this.Resource_id
+  } 
+  return this.http.post<any[]>(this.REST_API_SERVER + '/resource/timesheetOk', data);
+
+ }
+
 }

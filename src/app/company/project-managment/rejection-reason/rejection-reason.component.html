@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-sm-12">
+        <mat-form-field class="example-full-width">
+            <mat-label>Rejection Reson</mat-label>
+            <textarea matInput placeholder="Ex. It makes me feel..." (change)="getReason($event)"></textarea>
+          </mat-form-field>        
+    </div>
+    <button class="curve2" (click)="onNoClick()">Cancel</button>&nbsp;
+    <button class="curve" (click)="proceed()">Proceed</button>
+
+</div>      

@@ -22,9 +22,12 @@ const BookmarkTbs = db.BookmarkTbs;
 const interviewTb = db.interviewTb;
 const userrolesTb = db.userroles;
 const assignTb = db.assignTb;
+const TimesheetTbs = db.TimesheetTbs;
 var Sequelize = require("sequelize"); 
 var nodemailer = require('nodemailer'); 
 
+const moment = require('moment');
+moment.suppressDeprecationWarnings = true;
 
 
 exports.getDomains = (req, res) => { 
@@ -551,7 +554,9 @@ exports.projectMatching =async (req, res) => {
        var rol = await resourceTb.findAll({ where: {Resource_id : val,
          Available_from:{
            [Op.lte]: requirement_start,  
-         }
+         }, Resource_status:{
+          [Op.ne]: 'SELECTED',  
+        }
        } }); 
        rol.forEach(el => { 
          if(el.Resource_id!= null && finalResource.includes(el.Resource_id)==false){  
@@ -1229,6 +1234,157 @@ exports.getapprovedResources = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+exports.getTimesheet = async (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  var Resource_lists=[];
+
+  async function getResources(saturday){
+  return await TimesheetTbs.findAll({ where: {
+      User_id:req.body.User_id , Resource_approvel:'Approved'},}).then(data => {
+       data.forEach(element => { 
+         Resource_lists.push(element.Resource_id);
+       });
+          return Array.from(new Set(Resource_lists));
+        })
+        .catch(err => {
+         console.log(err);
+        });
+         
+  }
+
+  async function timesheet(resource_list,saturday){
+    let timesheetData = [];
+    let sums = 0;
+    for(var val of resource_list){
+      
+      sums = await TimesheetTbs.sum('Working_hours', { where: { Resource_id:  val,Working_date:{
+        [Op.gte]:saturday
+      } } }).then(sum => { 
+        var c = {
+          'Resource_id' : val,
+          'Hours' : sum
+        }
+        timesheetData.push(c); 
+      })
+    }   
+    sums = 0;
+    return timesheetData;
+  }
+
+
+  async function getLatestSaturday() {
+    let currentDateObj = new Date();
+    currentDateObj.setDate(currentDateObj.getDate() - (currentDateObj.getDay() + 1) % 7);
+    currentDateObj = currentDateObj.toLocaleDateString("zh-Hans-CN");
+    return currentDateObj;
+  }
+
+  async function gatherResourceDatas(timesheetDatas){
+let resource = [];
+    for(var val of timesheetDatas){
+      console.log(val.Resource_id);
+     await resourceTb.findAll({ where: {Resource_id : val.Resource_id },
+        include: {
+          model:assignTb,
+          include: {
+            model:requirementTb,
+            required: true,
+            include: {
+              model:TimesheetTbs,
+              required: true,
+            }
+          }
+        }  
+       }
+      )
+      .then(data => {  
+        var c = {
+          'Resource_id' :data[0].Resource_id, 
+          'Total_hours' :val.Hours,
+          'Resource_name' :data[0].Resource_name,
+          'Resource_Email' :data[0].Resource_Email,
+          'Resource_Designation' :data[0].Resource_Designation,
+          'Resource_rate' :data[0].Resource_rate,
+          'Resource_currency' :data[0].Resource_currency,
+          'AssignTbs' :data[0].AssignTbs, 
+          'RequirementsTbs' :data[0].AssignTbs.RequirementsTbs, 
+
+        }
+        resource.push(c);
+      })
+      .catch(err => {
+       console.log(err);
+      }); 
+    }
+    res.send(resource); 
+
+  }
+
+ let saturday = await getLatestSaturday(); 
+ let uniqueResources =  await getResources(saturday);
+ let timesheetDatas = await timesheet(uniqueResources,saturday);
+ let finalData = gatherResourceDatas(timesheetDatas);
+   
+  
+};
+exports.approveTimesheet = (req, res) => {
+  var approvedata = {
+    "Status" : "Approved"
+  }
+
+  TimesheetTbs.update(approvedata, {
+    where: { User_id: req.body.User_id, Resource_id:req.body.Resource_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          Status: true
+        });
+      } else {
+        res.send({
+          Status: false
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};
+
+exports.rejectTimesheet = (req, res) => {
+  var rejectiondata = {
+    "Status" : "Rejected",
+    "Rejection_reson":req.body.Rejection_reson
+  }
+console.log(rejectiondata)
+  TimesheetTbs.update(rejectiondata, {
+    where: { User_id: req.body.User_id, Resource_id:req.body.Resource_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          Status: true
+        });
+      } else {
+        res.send({
+          Status: false
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
       });
     });
 };

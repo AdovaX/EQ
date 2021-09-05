@@ -1,0 +1,29 @@
+
+<app-menubar></app-menubar>
+<div class="content-wrapper">
+   <div class="container-fluid">
+
+    <div class="row pt-2 pb-2">
+        <div class="col-sm-6">
+            <div class="leftside">
+            <h4 class="page-title">Timesheet Calender </h4> 
+        </div>
+       </div> 
+       <div class="col-sm-6">
+       <div class="rightside">
+        <button mat-raised-button color="primary" (click)="timesheetOk()" matTooltip="On every weekend, you are requested to submit the tiemesheet to your Hiring Manager.">Submit <span class="fa fa-send"></span> </button>
+
+       </div>
+   </div>
+       </div> 
+  
+    <div class="card">
+        <div class="card-body">   
+            <full-calendar [options]="calendarOptions"></full-calendar> 
+            
+</div>
+</div> 
+    <div class="overlay toggle-menu"></div> 
+</div>
+</div> 
+<app-footer></app-footer>

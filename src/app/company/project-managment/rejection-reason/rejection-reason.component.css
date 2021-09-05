@@ -1,0 +1,22 @@
+.example-full-width{
+    width: 100%;
+}
+
+.curve {
+    background: #0069eb;
+    color: #fff;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    padding: 8px 28px;
+    text-decoration: none; 
+}
+.curve2 {
+    background: #f44336;
+    color: #fff;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    padding: 8px 28px;
+    text-decoration: none; 
+}

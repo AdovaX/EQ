@@ -25,6 +25,9 @@ module.exports = app => {
     router.post("/shortListResource", project.shortListResource); 
     router.post("/getShortListResource", project.getShortListResource); 
     router.post("/getapprovedResources", project.getapprovedResources); 
+    router.post("/getTimesheet", project.getTimesheet); 
+    router.post("/approveTimesheet", project.approveTimesheet); 
+    router.post("/rejectTimesheet", project.rejectTimesheet); 
 
     app.use('/project', router);
 };

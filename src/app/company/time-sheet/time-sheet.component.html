@@ -8,13 +8,25 @@
          </div>  
 
 
-         <div class="card">
+         <div class="card" >
             <div class="card-body">
-                <i>Choose project</i>
+                <i>Your active projects</i>
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" *ngFor="let item of projectData">
                         <mat-card>
-                            PROJECT !
+                          <h6>  {{item.RequirementsTb.ProjectsTb.Project_name}}
+                        </h6>
+                        <hr>
+                        <p>
+                        {{item.RequirementsTb.ProjectsTb.Description}}
+                    </p>
+                        <i class="leftfloat"> {{item.RequirementsTb.ProjectsTb.Start_date}}</i>
+                        <i class="rightfloat">  {{item.RequirementsTb.ProjectsTb.End_date}}</i>
+                        <br>
+                    <hr>
+                    <button mat-raised-button color="primary"
+                     (click)="calanderView(item.RequirementsTb.ProjectsTb.Project_id, item.RequirementsTb.Requirement_id,item.RequirementsTb.ProjectsTb.User_id)">Time Sheet Entry</button>
+
 
                         </mat-card>
 

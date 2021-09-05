@@ -51,6 +51,9 @@ module.exports = (sequelize, Sequelize) => {
       Working_hours: {
         type: Sequelize.STRING
       },
+      Comments: {
+        type: Sequelize.STRING
+      },
       Resource_performance: {
         type: Sequelize.STRING
       },
@@ -62,7 +65,12 @@ module.exports = (sequelize, Sequelize) => {
         values : ['Approved', 'Rejected','Pending'],
         defaultValue: 'Pending'
       },
-      Rejection_resaon: {
+      Resource_approvel: { 
+        type: Sequelize.ENUM,
+        values : ['Approved','Pending'],
+        defaultValue: 'Pending'
+      },
+      Rejection_reson: {
         type: Sequelize.TEXT
       },
     });

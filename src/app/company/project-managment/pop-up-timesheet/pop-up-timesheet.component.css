@@ -1,0 +1,9 @@
+.example-full-width{
+    width: 100%;
+}
+.leftfloat{
+float:left;
+}
+.rightfloat{
+    float: right
+}

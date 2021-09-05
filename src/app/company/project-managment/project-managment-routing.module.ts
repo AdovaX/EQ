@@ -13,6 +13,8 @@ import { MyResourcesComponent } from './my-resources/my-resources.component';
 import { RequestsComponent } from './requests/requests.component';
 import { ApprovedResourcesComponent } from './approved-resources/approved-resources.component';
 import { ShortListedResourcesComponent } from './short-listed-resources/short-listed-resources.component';
+import { CalenderComponent } from './calender/calender.component';
+import { ApproveTimesheetComponent } from './approve-timesheet/approve-timesheet.component';
 
 const routes: Routes = [
   {path : '' , component:ProjectsComponent},
@@ -29,6 +31,8 @@ const routes: Routes = [
   {path : 'Requests' , component:RequestsComponent},
   {path : 'ApprovedResources' , component:ApprovedResourcesComponent},
   {path : 'ShortLists' , component:ShortListedResourcesComponent},
+  {path : 'Calender' , component:CalenderComponent},
+  {path : 'ApproveTimeSheet' , component:ApproveTimesheetComponent},
 ];
 
 @NgModule({

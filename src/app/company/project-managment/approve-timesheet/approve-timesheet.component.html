@@ -1,0 +1,78 @@
+
+<app-menubar></app-menubar>
+<div class="content-wrapper">
+   <div class="container-fluid">
+
+    <div class="row pt-2 pb-2">
+        <div class="col-sm-6">
+            <h4 class="page-title">Timesheet  </h4> 
+       </div> 
+       <div class="col-sm-6">
+       
+   </div>
+       </div> 
+  
+    <div class="card">
+        <div class="card-body">   
+            <div class="table-responsive"  > 
+
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" > 
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="No" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No </th>
+                        <td mat-cell *matCellDef="let element;let i =index;"> {{i+1}} </td>
+                      </ng-container> 
+
+                      <ng-container matColumnDef="Resource_name" >
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                          <td mat-cell *matCellDef="let element;let i =index;"> {{element.Resource_name}} </td>
+                        </ng-container> 
+
+                        <ng-container matColumnDef="Approved_status" >
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Approvel </th>
+                            <td mat-cell *matCellDef="let element;let i =index;"> {{element.AssignTbs[0].RequirementsTb.TimesheetTbs[0].Status}} </td>
+                          </ng-container> 
+
+                          <ng-container matColumnDef="Requirement_name" >
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement  </th>
+                              <td mat-cell *matCellDef="let element;let i =index;"> {{element.AssignTbs[0].RequirementsTb.Requirement_name}} </td>
+                            </ng-container> 
+
+                            <ng-container matColumnDef="Total_hours" >
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Total_hours  </th>
+                                <td mat-cell *matCellDef="let element;let i =index;"> {{element.Total_hours}} </td>
+                              </ng-container> 
+                    
+                      <!-- Position Column -->
+                      <ng-container matColumnDef="Action" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+                        <td mat-cell *matCellDef="let element;let i =index;">  
+                          
+                            <button *ngIf="Role_id==6" mat-icon-button color="primary" matTooltip="Approve" class="actionBtns" (click)="approveTimesheet(element.Resource_id)"> 
+                                <span class="fa fa-check"></span>
+                            </button>
+                            <button *ngIf="Role_id==6" mat-icon-button color="primary" matTooltip="View Time sheet" class="actionBtns"> 
+                                <span class="fa fa-clock-o"></span>
+                            </button>
+                            <button *ngIf="Role_id==6" mat-icon-button color="warn" matTooltip="Reject" class="actionBtns" (click)="rejectTimesheet(element.Resource_id)"> 
+                                <span class="fa fa-ban"></span>
+                            </button>
+                            <button *ngIf="Role_id==5" mat-icon-button color="primary" matTooltip="Edit" class="actionBtns"> 
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
+                      </ng-container> 
+  
+ 
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                  <mat-paginator [pageSizeOptions]="[5, 10, 50,100]" showFirstLastButtons></mat-paginator>
+ </div>
+ </div>
+</div> 
+    <div class="overlay toggle-menu"></div> 
+</div>
+</div> 
+<app-footer></app-footer>

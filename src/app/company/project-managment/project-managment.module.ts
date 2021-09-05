@@ -38,13 +38,27 @@ import { MyResourcesComponent } from './my-resources/my-resources.component';
 import { RequestsComponent } from './requests/requests.component';
 import { ApprovedResourcesComponent } from './approved-resources/approved-resources.component';
 import { ShortListedResourcesComponent } from './short-listed-resources/short-listed-resources.component';
+import { CalenderComponent } from './calender/calender.component';
+ 
+import { PopUpTimesheetComponent } from './pop-up-timesheet/pop-up-timesheet.component';
 
+
+import { FullCalendarModule } from '@fullcalendar/angular'; 
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { ApproveTimesheetComponent } from './approve-timesheet/approve-timesheet.component';
+import { RejectionReasonComponent } from './rejection-reason/rejection-reason.component';
+FullCalendarModule.registerPlugins([  
+  dayGridPlugin,
+  interactionPlugin
+]);
 @NgModule({
   declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent, 
-    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent, InterviewingResourcesListsComponent, MyResourcesComponent, RequestsComponent, ApprovedResourcesComponent, ShortListedResourcesComponent],
+    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent, InterviewingResourcesListsComponent, MyResourcesComponent, RequestsComponent, ApprovedResourcesComponent, ShortListedResourcesComponent, CalenderComponent, PopUpTimesheetComponent, ApproveTimesheetComponent, RejectionReasonComponent],
   imports: [
     CommonModule,
     ProjectManagmentRoutingModule,
+    FullCalendarModule,
     ReactiveFormsModule,
     FormsModule,
     SharedModuleModule,
@@ -62,7 +76,7 @@ import { ShortListedResourcesComponent } from './short-listed-resources/short-li
     MatDatepickerModule,
     MatPaginatorModule,
     MatTooltipModule, 
-    EditorModule,
+    EditorModule, 
     NgCircleProgressModule.forRoot({
       // set defaults here
       "backgroundPadding": 5,
