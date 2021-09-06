@@ -229,10 +229,13 @@
                                          </div>
                                       </div>   
                                         </div>
-  
-                                          <div id="alignRight">
-                                            <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
-                                          </div>
+
+                       <div class="alignRight">  
+                        <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                          <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                        </button>  
+                      </div>
+   
                                        </mat-step>
                                       <mat-step [stepControl]="Resource_Form"  >
                                            <ng-template matStepLabel>Professional</ng-template>
@@ -244,7 +247,7 @@
                                                 <div class="col-sm-4 inlineb">
                                                   <select class="form-control form-control-sm" id="default-select" formControlName="Resource_currency">
                                                     <option value="INR">INR</option> 
-                                                    <option value="Dollar">Dollar</option>  
+                                                    <option value="USD">USD</option>  
                                                   </select>
                                                 </div>
                                                 <div class="col-sm-8 inlineb">
@@ -296,7 +299,7 @@
                                           <div class="col-sm-3">
                                             <div class="form-group">
                                               <label for="input-11"> Total Experience(Years)<span class="redColor">*</span></label>
-                                              <input type="number" class="form-control form-control-square" formControlName="Resource_experience" id="Resource_experience" 
+                                              <input type="number" min="1" class="form-control form-control-square" formControlName="Resource_experience" id="Resource_experience" 
                                               name="Resource_experience"  placeholder="Total Experience of the resource">
                                               <div *ngIf="submitted && f.Resource_experience.errors" class="invalid-feedback">
                                                   <div *ngIf="f.Resource_experience.errors">Experience is a required.</div> 
@@ -321,10 +324,16 @@
                                                     </div>
 
                                           </div> 
-                                          <div id="alignRight">
-                                            <button type="button" mat-button matStepperPrevious>Back</button>
-                                            <button type="button" mat-button matStepperNext>Next</button>
-                                          </div>
+
+                       <div class="alignRight"> 
+                        <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                          <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                        </button> &nbsp; 
+                        <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                          <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                        </button>  
+                      </div>
+ 
                                        </mat-step>
                                        <mat-step>
                                          <ng-template matStepLabel>Skills</ng-template>
@@ -419,10 +428,15 @@
  
                                          </div>
                                         </form> 
-                                         <div  id="alignRight">
-                                          <button type="button" mat-button matStepperPrevious>Back</button>
-                                          <button type="button" mat-button matStepperNext>Next</button>
-                                         </div>
+
+                                        <div class="alignRight"> 
+                                         <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                                           <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                                         </button> &nbsp; 
+                                         <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                                           <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                         </button>  
+                                       </div>
                                        </mat-step>
                                        <mat-step>
                                          <ng-template matStepLabel>Domains</ng-template>
@@ -497,10 +511,15 @@
                                                 </div> 
                                                 </form>
 
-                                         <div id="alignRight">
-                                          <button type="button" mat-button matStepperPrevious>Back</button>
-                                          <button type="button" mat-button matStepperNext>Next</button>
-                                         </div>
+
+                                                <div class="alignRight"> 
+                                                  <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                                                    <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                                                  </button> &nbsp; 
+                                                  <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                                                    <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                                  </button>  
+                                                </div>
                                        </mat-step>
                                        <mat-step>
                                          <ng-template matStepLabel>Experience</ng-template>
@@ -573,10 +592,15 @@
                                          </div> 
                                          </form>
 
-                                         <div id="alignRight">
-                                          <button type="button" mat-button matStepperPrevious>Back</button>
-                                          <button type="button" mat-button matStepperNext>Next</button>
-                                         </div>
+
+                                         <div class="alignRight"> 
+                                          <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                                            <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                                          </button> &nbsp; 
+                                          <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                                            <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                          </button>  
+                                        </div>
                                        </mat-step>
 
                                        <mat-step>
@@ -672,10 +696,15 @@
                                                </div>
                                           </div> 
                                           </form> 
-                                        <div id="alignRight">
-                                          <button type="button" mat-button matStepperPrevious>Back</button>
-                                          <button type="button" mat-button matStepperNext>Next</button>
-                                        </div>
+
+                                          <div class="alignRight"> 
+                                           <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                                             <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                                           </button> &nbsp; 
+                                           <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                                             <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                           </button>  
+                                         </div>
                                       </mat-step>
 
                                        <mat-step>
@@ -715,8 +744,7 @@
                                             </div> 
                                           </div>
                                          <div id="alignRight">
-                                          <button mat-button matStepperPrevious>Back</button>
-                                          <button type="button" mat-button matStepperNext>Next</button>
+                                          <button mat-button matStepperPrevious>Back</button> 
                                           <button type="submit" class="btn btn-primary btn-square m-1">Proceed</button>
 
                                          </div>

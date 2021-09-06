@@ -9,3 +9,6 @@
     font-weight: bold;
     width: 130px;
 }
+.pname{
+    white-space: pre-line;
+}

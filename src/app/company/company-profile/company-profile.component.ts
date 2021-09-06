@@ -17,6 +17,10 @@ export class CompanyProfileComponent implements OnInit {
   Government_Form:FormGroup;
   Preferences_Form:FormGroup;
   submitted = false;
+  submittedBranch = false;
+  submittedBank = false;
+  submittedGov = false;
+  submittedPref = false;
   branchAdded = false;
   isUpdated = false;
   invalid = false;
@@ -130,7 +134,7 @@ export class CompanyProfileComponent implements OnInit {
   resetBankForm(){ this.Bank_Form.reset();}
   resetGovForm(){ this.Government_Form.reset();}
   gotoBankTab(){
-    let element:HTMLElement = document.getElementById('branchTab') as HTMLElement;
+    let element:HTMLElement = document.getElementById('bankTab') as HTMLElement;
     element.click(); 
   } 
   gotoBranchTab(){
@@ -138,11 +142,11 @@ export class CompanyProfileComponent implements OnInit {
     element.click(); 
   } 
   gotoPreferencesTab(){
-    let element:HTMLElement = document.getElementById('branchTab') as HTMLElement;
+    let element:HTMLElement = document.getElementById('preferenceTab') as HTMLElement;
     element.click(); 
   } 
   gotoGovTab(){
-    let element:HTMLElement = document.getElementById('branchTab') as HTMLElement;
+    let element:HTMLElement = document.getElementById('govTab') as HTMLElement;
     element.click(); 
   }  
   getCompanyData(id){
@@ -163,7 +167,7 @@ export class CompanyProfileComponent implements OnInit {
      });
  }
  onSubmit(){
-  this.submitted = true;
+  //this.submitted = true;
   console.log(this.Company_Form.value);
 
  if (this.Company_Form.invalid) {  
@@ -178,10 +182,12 @@ export class CompanyProfileComponent implements OnInit {
        this.isUpdated = true; 
      }
      this.getCompanyData(this.User_id);  
+     this.gotoBranchTab();
    }); 
  }  
 }
 addBranch(){
+  this.submittedBranch = true;
   if(this.Branch_Form.invalid){
     this.branchAdded =false;
     return false;
@@ -192,9 +198,10 @@ addBranch(){
          alert("Invalid details!");
       }else{ 
         this.branchAdded =true;
-      }
-      this.Branch_Form.reset();
-      this.getBranches();  
+        this.Branch_Form.reset();
+        this.getBranches(); 
+        this.gotoBankTab();
+      } 
     });
 
   } 
@@ -213,6 +220,7 @@ getBranches(){
 
 }
 addBank(){
+  this.submittedBank = true;
   if(this.Bank_Form.invalid){
     this.bankAdded =false;
     return false;
@@ -226,9 +234,10 @@ addBank(){
          alert("Invalid details!");
       }else{ 
         this.bankAdded =true;
+        this.Bank_Form.reset();
+        this.getBanks();  
+        this.gotoGovTab();
       }
-      this.Bank_Form.reset();
-      this.getBanks();  
     });
 
   }  
@@ -245,6 +254,8 @@ getBanks(){
   }); 
 }
 UpdatePreferences(){
+  
+this.submittedPref = true;
    
   let data = {
     "Enable_masking" : this.isMasked,
@@ -298,16 +309,17 @@ changeTierList(e){
 }
 
 addGovernmentIds(){
-  
+  this.submittedGov = true;
     this.CompanyService.addGovernmentData(this.User_id ,this.Company_id, this.Government_Form.value).subscribe(data =>{
       console.log(data);
        if(data['status'] == "Failed"){ 
          alert("Invalid details!");
       }else{ 
         this.govUpdated =true;
+        this.Government_Form.reset(); 
+        this.getGovernmentData();
+        this.gotoPreferencesTab();
       }
-      this.Government_Form.reset(); 
-      this.getGovernmentData();
     });
  
 }

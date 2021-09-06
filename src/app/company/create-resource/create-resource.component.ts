@@ -15,6 +15,7 @@ import * as XLSX from 'xlsx';
 import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import { PopupEducationComponent } from '../popup-education/popup-education.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
  
 @Component({
   selector: 'app-create-resource',
@@ -72,7 +73,8 @@ export class CreateResourceComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
 
   } 
-  constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,
+    private Router:Router,public dialog: MatDialog,private snackBar: MatSnackBar) { }
 
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Resource_salutation= new FormControl('Mr.');
@@ -158,6 +160,12 @@ export class CreateResourceComponent implements OnInit {
   } 
   get f() { return this.Resource_Form.controls; }
   get techform() { return this.techFormGroup.controls; }
+  openSnackBar(message: string, action: string='') {
+    this.snackBar.open(message, action, {
+      duration: 1500,
+    });
+}
+ 
   onSubmit(){ 
     console.log(this.Resource_Form.value);
     this.submitted = true;
@@ -172,11 +180,13 @@ export class CreateResourceComponent implements OnInit {
      
       this.ListingManagerService.createResource(this.Resource_Form.value , this.technology_list ,this.domain_list,
         this.jobRole_list , this.education_list, this.fileToUpload , this.videoFile).subscribe(data =>{
-        console.log("Form Submission sent");
-        console.log(data); 
+          this.openSnackBar('Your Resource has been added successfully.'); 
+
+          setTimeout(() => { 
         this.getResources();   
         this.onRefresh();
-        this.isUpdated = true; 
+        this.isUpdated = true;  
+          }, 2000);   
       }, error => {
         console.log(error);
         this.isUpdated = false; 

@@ -14,7 +14,7 @@ import * as moment from 'moment';
   styleUrls: ['./view-assignments.component.css']
 })
 export class ViewAssignmentsComponent implements OnInit {
-  Project_id;
+  Project_id =0;
   assignmentLists=[];
   projectName ="";
   today = moment().format('YYYY-MM-DD'); 
@@ -38,6 +38,7 @@ export class ViewAssignmentsComponent implements OnInit {
   }
   getAssignments(){
   this.ProjectService.getAssignmentsById(this.Project_id).subscribe(data =>{ 
+    console.log(data) 
     this.assignmentLists = data;
     this.dataSource.data=data; 
   }, error => {
@@ -46,10 +47,10 @@ export class ViewAssignmentsComponent implements OnInit {
   }
   getProjectById(){
   this.ProjectService.getProjectById(this.Project_id).subscribe(data =>{ 
+    console.log(data)
     this.projectName=data['Project_name'];
   }, error => {
-  console.log(error); 
-  this.ngOnInit();
+  console.log(error);  
   });
   }
 createAssignment(){

@@ -95,7 +95,8 @@ return this.http.post<any>(this.REST_API_SERVER + '/project/createassignment', d
 getAssignmentsById(Project_id):Observable<any>{
   var data = {
     "Project_id" : Project_id,
-    "User_id" : this.User_id
+    "User_id" : this.User_id,
+    "Company_id" : this.Company_id
 } 
 return this.http.post<any>(this.REST_API_SERVER + '/project/getAssignmentsById', data);
 }

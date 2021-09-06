@@ -139,7 +139,7 @@ max-height: 600px;
 .input-group-text{
   padding: 0px;
 }
-#alignRight{
+#alignRight , .alignRight{
   float: right;
 }
 .lowMargin{
@@ -154,4 +154,9 @@ max-height: 600px;
 }
 .leftspace{
   padding-left: 5px;
+}
+
+.btnCustome{
+  min-width:0px;
+  border-radius: 20px;
 }

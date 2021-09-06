@@ -40,7 +40,7 @@
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Number of Resources<span class="redColor">*</span> </label>
-                                 <input type="number" #Nresources class="form-control form-control-square" formControlName="No_of_resources"   id="No_of_resources" required 
+                                 <input type="number" min="1" #Nresources class="form-control form-control-square" formControlName="No_of_resources"   id="No_of_resources" required 
                                  name="No_of_resources"  placeholder="Number of Resources"  > 
                                  
                                 </div>
@@ -48,7 +48,7 @@
                             <div class="col-sm-3"> 
                                 <div class="form-group">
                                  <label for="input-11">Estimated Duration (Weeks)<span class="redColor">*</span> </label>
-                                 <input type="number" #eTime class="form-control form-control-square" formControlName="Week_duration"   id="Week_duration" required 
+                                 <input type="number" min="1" #eTime class="form-control form-control-square" formControlName="Week_duration"   id="Week_duration" required 
                                  name="Week_duration"  placeholder="Week duration"  > 
                                  
                                 </div>
@@ -56,7 +56,7 @@
                             <div class="col-sm-3"> 
                                 <div class="form-group">
                                  <label for="input-11">Min Guranteed Duration (Weeks)  </label>
-                                 <input type="number" #mgTime class="form-control form-control-square" formControlName="Week_must_time"   id="Week_must_time" required 
+                                 <input type="number" min="1" #mgTime class="form-control form-control-square" formControlName="Week_must_time"   id="Week_must_time" required 
                                  name="Week_must_time"  placeholder="Mandatory Duration in Weeks"  > 
                                  
                                 </div>
@@ -85,7 +85,7 @@
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Hour/Month  </label>
-                                 <input type="number" #hmonth class="form-control form-control-square" formControlName="Hours_per_month"   id="Hours_per_month" required 
+                                 <input type="number" min="1" #hmonth class="form-control form-control-square" formControlName="Hours_per_month"   id="Hours_per_month" required 
                                  name="Hours_per_month"  placeholder="Hours per month"   > 
                                  
                                 </div>
@@ -93,7 +93,7 @@
                                 <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Hours/Week </label>
-                                 <input type="number" #hWeek class="form-control form-control-square" formControlName="Hours_per_week"   id="Hours_per_week" required 
+                                 <input type="number" min="1" #hWeek class="form-control form-control-square" formControlName="Hours_per_week"   id="Hours_per_week" required 
                                  name="Hours_per_week"  placeholder="Hours per week" > 
                                  
                                 </div>
@@ -101,8 +101,8 @@
                             <div class="col-sm-4"> 
                                 <div class="form-group">
                                  <label for="input-11">Hour/Day  </label>
-                                 <input type="number" #hDay class="form-control form-control-square" formControlName="Hours_per_day"   id="Hours_per_day" required 
-                                 name="Hours_per_day"  placeholder="Project Name "  > 
+                                 <input type="number" min="1" #hDay class="form-control form-control-square" formControlName="Hours_per_day"   id="Hours_per_day" required 
+                                 name="Hours_per_day"  placeholder="Project Hour/Day "  > 
                                  
                                 </div>
                             </div>
@@ -115,8 +115,9 @@
                             </div> 
                            </div>   
                         <div class="goRight">
-                          <button type="button" mat-raised-button color="primary" matStepperNext>Next 
-                            <span class="fa fa-forward"></span> </button>
+                          <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                            <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                          </button>  
                         </div> 
                     </mat-step>
 
@@ -209,7 +210,7 @@
                            <div class="row">
                              <div class="inlinCol" *ngFor="let technology of technology_list " > 
                               <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 " (click)="removeTech(technology.Technology)">
-                                 <span>{{technology.Technology}} </span>  <span class="fa fa-close fa-2x leftspace"> </span>
+                                 <span>{{technology.Technology}} </span>  <span class="fa fa-close faSize leftspace"> </span>
                               </button>
 
                             </div>
@@ -218,11 +219,16 @@
 
                         </div>
                        </form> 
-                        <div class="goRight">
-                         <button type="button" mat-button matStepperPrevious>Back</button>
-                         <button type="button" mat-raised-button color="primary" matStepperNext>Next 
-                          <span class="fa fa-forward"></span> </button>
-                        </div>
+                        
+                       <div class="goRight"> 
+                        <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                          <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                        </button> &nbsp; 
+                        <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                          <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                        </button>  
+                      </div>
+ 
 
 
 
@@ -260,7 +266,7 @@
                         <div class="form-group">
                          <label for="input-11"> Duration<span class="redColor">*</span></label> 
                              <div class="input-group">
-                               <input type="date" class="form-control form-control-square" formControlName="Domain_duration" id="Domain_duration" 
+                               <input type="number" class="form-control form-control-square" formControlName="Domain_duration" id="Domain_duration" 
                                name="Domain_duration"  placeholder="  Duration in years">                                                      
                                <div class="input-group-append">
                                  <span class="input-group-text">
@@ -276,7 +282,7 @@
                                  <div class="row">
                                    <div class="inlinCol" *ngFor="let domain of domain_list " > 
                                     <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 " (click)="removeDomain(domain.Domain)">
-                                       <span>{{domain.Domain}} </span>   <span class="fa fa-close fa-2x leftspace"> </span> 
+                                       <span>{{domain.Domain}} </span>   <span class="fa fa-close faSize leftspace"> </span> 
                                     </button> 
                                   </div>
                                  </div> 
@@ -303,11 +309,14 @@
                            </div> 
                            </form>
 
-                    <div class="goRight">
-                     <button type="button" mat-button matStepperPrevious>Back</button>
-                     <button type="button" mat-raised-button color="primary" matStepperNext>Next 
-                      <span class="fa fa-forward"></span> </button>
-                    </div>
+                           <div class="goRight"> 
+                            <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                              <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                            </button> &nbsp; 
+                            <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                              <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                            </button>  
+                          </div>
                 </mat-step>
                     <mat-step>
                         <ng-template matStepLabel>Education</ng-template>
@@ -333,7 +342,7 @@
                                 <div class="col-sm-6"> 
                                   <mat-form-field appearance="outline">
                                     <mat-label>Engineering Streams</mat-label>
-                                    <select matNativeControl required (change)="educationChangePopup($event)">
+                                    <select matNativeControl required (change)="educationChange($event)">
                                       <option>Choose Streams</option>
                                       <option *ngFor="let eduStream of educationStreams" [value]="eduStream.Stream_name">
                                         {{eduStream.Stream_name}}
@@ -349,34 +358,24 @@
                           <div class="row"> 
                            <div class="col-sm-4"> 
                              <div class="form-group">
-                               <label for="input-11"> Education<span class="redColor">*</span></label>
-                               <input type="text" class="form-control form-control-square" formControlName="Education" id="Education" 
-                               name="Education"  placeholder="Education name">
+                              <label for="input-11"> Education<span class="redColor">*</span></label>  
+                              <div class="input-group"> 
+                                <input type="text" class="form-control form-control-square" formControlName="Education" id="Education" 
+                                name="Education"  placeholder="Education name">
+                                <div class="input-group-append">
+                                <button type="submit" mat-raised-button color="primary" >Add</button>
+                                </div>
                               </div> 
-                                </div> 
-                                <div class="col-sm-4"> 
-                                  
-                             <div class="form-group">
-                              <label for="input-11"> Completed year<span class="redColor">*</span></label> 
-                                  <div class="input-group">
-                                    <input type="date" class="form-control form-control-square" formControlName="Pass_year" id="Pass_year" 
-                                    name="Pass_year"  placeholder="Completed year">                                                      
-                                    <div class="input-group-append">
-                                      <span class="input-group-text">
-                                        <button type="submit" mat-raised-button color="primary" >Add</button>
-
-                                      </span>
-                                    </div>
-                                    </div>
-                                 </div>
-                                     </div>   
+                               
+                              </div> 
+                                </div>  
 
 
                                      <div class="col-sm-12"> 
                                        <div class="row">
                                          <div class="inlinCol" *ngFor="let edu of education_list " > 
                                           <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 " (click)="removeEdu(edu.Education)">
-                                             <span>{{edu.Education}} </span>  <span class="fa fa-close fa-2x leftspace"> </span>
+                                             <span>{{edu.Education}} </span>  <span class="fa fa-close faSize leftspace"> </span>
                                           </button> 
                                         </div>
                                        </div> 
@@ -402,11 +401,14 @@
                                </div>
                           </div> 
                           </form> 
-                        <div class="goRight">
-                          <button type="button" mat-button matStepperPrevious>Back</button>
-                          <button type="button" mat-raised-button color="primary" matStepperNext>Next 
-                            <span class="fa fa-forward"></span> </button>
-                        </div>
+                          <div class="goRight"> 
+                           <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                             <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                           </button> &nbsp; 
+                           <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                             <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                           </button>  
+                         </div>
                     </mat-step>                 
                 <mat-step>
                     <ng-template matStepLabel>Experience</ng-template>
@@ -437,7 +439,7 @@
                         <div class="form-group">
                          <label for="input-11"> Duration<span class="redColor">*</span></label> 
                              <div class="input-group">
-                               <input type="date" class="form-control form-control-square" formControlName="Job_duration" id="Job_duration" 
+                               <input type="number" class="form-control form-control-square" formControlName="Job_duration" id="Job_duration" 
                                name="Job_duration"  placeholder="Job Duration in years">                                                      
                                <div class="input-group-append">
                                  <span class="input-group-text">
@@ -452,7 +454,7 @@
                                  <div class="row">
                                    <div class="inlinCol" *ngFor="let job of jobRole_list " > 
                                     <button type="button" class="btn-social-text btn-youtube btn-round waves-effect waves-light m-1 " (click)="removeRole(job.Job_title)">
-                                       <span>{{job.Job_title}} </span>     <span class="fa fa-close fa-2x leftspace"> </span>
+                                       <span>{{job.Job_title}} </span>     <span class="fa fa-close faSize leftspace"> </span>
                                     </button> 
                                   </div>
                                  </div> 
@@ -479,10 +481,13 @@
                     </div> 
                     </form>
 
-                    <div class="goRight">
-                     <button type="button" mat-button matStepperPrevious>Back</button>
-                     <button type="button" mat-raised-button color="primary" matStepperNext>Next 
-                      <span class="fa fa-forward"></span> </button>
+                    <div class="goRight"> 
+                      <button type="button" class="btnCustome" mat-raised-button matStepperPrevious   matTooltip="Go back"  >
+                        <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                      </button> &nbsp; 
+                      <button type="button" class="btnCustome" mat-raised-button matStepperNext   matTooltip="Goto next"  >
+                        <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                      </button>  
                     </div>
                 </mat-step>
 

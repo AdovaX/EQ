@@ -140,9 +140,10 @@
 
                                 <div class="col-sm-6">
                                     <div class="btn-group noShodow gorights">  
-                                            <div class="form-group ">   
-                                                <button type="button" class="btn btn-default btn-square m-1" (click)="gotoBranchTab()">
-                                                  Next</button>
+                                            <div class="form-group ">  
+                                              <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto next" (click)="gotoBranchTab()">
+                                                <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                              </button> 
                                                </div> 
                                     </div> 
                                 </div>   
@@ -191,9 +192,9 @@
                               <div class="form-group">
                                 <label for="input-11"> City<span class="redColor">*</span> </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Company_city" id="Company_city" 
-                                name="Company_city"  placeholder="Company Legal Entity name" >
-                                <div *ngIf="submitted && b.Company_city.errors" class="invalid-feedback">
-                                    <div *ngIf="b.Company_city.errors.required">Company City Name is a required field.</div> 
+                                name="Company_city"  placeholder="City name" >
+                                <div *ngIf="submittedBranch && b.Company_city.errors" class="invalid-feedback">
+                                    <div *ngIf="b.Company_city.errors">Company City Name is a required field.</div> 
                                   </div> 
                                </div>
                             </div> 
@@ -202,7 +203,7 @@
                                 <label for="input-11"> GSTIN  </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Company_GSTIN" id="Company_GSTIN" 
                                 name="Company_GSTIN"  placeholder="Company GSTIN  " >
-                                <div *ngIf="submitted && b.Company_GSTIN.errors" class="invalid-feedback">
+                                <div *ngIf="submittedBranch && b.Company_GSTIN.errors" class="invalid-feedback">
                                     <div *ngIf="b.Company_GSTIN.errors.required">Company GSTIN is a required field.</div> 
                                   </div> 
                                </div>
@@ -211,8 +212,8 @@
                               <div class="form-group">
                                 <label for="input-11"> Address<span class="redColor">*</span> </label>
                                 <textarea class="form-control form-control-square" formControlName="Company_city_address" id="Company_city_address" 
-                                name="Company_city_address"  placeholder="Company Legal Entity name"></textarea>
-                                <div *ngIf="submitted && b.Company_city_address.errors" class="invalid-feedback">
+                                name="Company_city_address"  placeholder="Company Branch Address"></textarea>
+                                <div *ngIf="submittedBranch && b.Company_city_address.errors" class="invalid-feedback">
                                     <div *ngIf="b.Company_city_address.errors.required">Company City Address is a required field.</div> 
                                   </div> 
                                </div>
@@ -222,7 +223,7 @@
                                 <label for="input-11"> State  </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Company_state" id="Company_state" 
                                 name="Company_state"  placeholder="Company state  " >
-                                <div *ngIf="submitted && b.Company_state.errors" class="invalid-feedback">
+                                <div *ngIf="submittedBranch && b.Company_state.errors" class="invalid-feedback">
                                     <div *ngIf="b.Company_state.errors.required">Company state is a required field.</div> 
                                   </div> 
                                </div>
@@ -249,13 +250,15 @@
                           </div> 
 
                           <div class="col-sm-6">
-                              <div class="btn-group noShodow gorights">  
-                                      <div class="form-group ">   
-                                          <button type="button" class="btn btn-default btn-square m-1" (click)="gotoBankTab()">
-                                            Next</button>
-                                         </div> 
-                              </div> 
-                          </div> 
+                            <div class="btn-group noShodow gorights">  
+                                    <div class="form-group ">  
+                                      <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto next" (click)="gotoBankTab()">
+                                        <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                      </button> 
+                                       </div> 
+                            </div> 
+                        </div> 
+  
                           </div> 
                         </form> 
                          </div> 
@@ -300,7 +303,7 @@
                                 <label for="input-11"> Bank Name<span class="redColor">*</span> </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Bank_name" id="Bank_name" 
                                 name="Bank_name"  placeholder="Complete Name of the Bank" >
-                                <div *ngIf="submitted && bank.Bank_name.errors" class="invalid-feedback">
+                                <div *ngIf="submittedBank && bank.Bank_name.errors" class="invalid-feedback">
                                     <div *ngIf="bank.Bank_name.errors.required">Bank Name is a required field.</div> 
                                   </div> 
                                </div>
@@ -311,7 +314,7 @@
                                 <label for="input-11"> Branch Name<span class="redColor">*</span> </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Bank_Branch" id="Bank_Branch" 
                                 name="Bank_Branch"  placeholder="  Name of the Branch" >
-                                <div *ngIf="submitted && bank.Bank_Branch.errors" class="invalid-feedback">
+                                <div *ngIf="submittedBank && bank.Bank_Branch.errors" class="invalid-feedback">
                                     <div *ngIf="bank.Bank_Branch.errors.required">Branch Name is a required field.</div> 
                                   </div> 
                                </div>
@@ -322,7 +325,7 @@
                                 <label for="input-11"> Account Number<span class="redColor">*</span> </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Bank_accountNumber" id="Bank_accountNumber" 
                                 name="Bank_accountNumber"  placeholder=" Account Number">
-                                <div *ngIf="submitted && bank.Bank_accountNumber.errors" class="invalid-feedback">
+                                <div *ngIf="submittedBank && bank.Bank_accountNumber.errors" class="invalid-feedback">
                                     <div *ngIf="bank.Bank_accountNumber.errors.required">Account Number is a required field.</div> 
                                   </div> 
                                </div>
@@ -333,7 +336,7 @@
                                 <label for="input-11">Confirm Account Number<span class="redColor">*</span> </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Bank_accountNumber2" id="Bank_accountNumber2" 
                                 name="Bank_accountNumber2"  placeholder=" Account Number">
-                                <div *ngIf="submitted && bank.Bank_accountNumber2.errors" class="invalid-feedback">
+                                <div *ngIf="submittedBank && bank.Bank_accountNumber2.errors" class="invalid-feedback">
                                     <div *ngIf="bank.Bank_accountNumber2.errors.required">Account Number is a required field.</div> 
                                   </div> 
                                </div>
@@ -344,7 +347,7 @@
                                 <label for="input-11"> IFSC<span class="redColor">*</span> </label>
                                 <input type="text" class="form-control form-control-square" formControlName="Bank_IFSC" id="Bank_IFSC" 
                                 name="Bank_IFSC"  placeholder=" Bank IFSC"> 
-                                <div *ngIf="submitted && bank.Bank_IFSC.errors" class="invalid-feedback">
+                                <div *ngIf="submittedBank && bank.Bank_IFSC.errors" class="invalid-feedback">
                                     <div *ngIf="bank.Bank_IFSC.errors.required">Account Number is a required field.</div> 
                                   </div> 
                                </div>
@@ -355,7 +358,7 @@
                                 <label for="input-11"> Branch Adress<span class="redColor">*</span> </label>
                                 <textarea class="form-control form-control-square" formControlName="Bank_address" id="Bank_address" 
                                 name="Bank_address"  placeholder="  Name of the Branch Adress"></textarea>
-                                <div *ngIf="submitted && bank.Bank_address.errors" class="invalid-feedback">
+                                <div *ngIf="submittedBank && bank.Bank_address.errors" class="invalid-feedback">
                                     <div *ngIf="bank.Bank_address.errors.required">Branch Adress is a required field.</div> 
                                   </div> 
                                </div>
@@ -373,15 +376,16 @@
                                      </div> 
                               </div> 
                           </div>
-
                           <div class="col-sm-6">
                               <div class="btn-group noShodow gorights">  
-                                      <div class="form-group ">   
-                                          <button type="button" class="btn btn-default btn-square m-1" (click)="gotoGovTab()">
-                                            Next</button>
+                                      <div class="form-group ">  
+                                        <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto next" (click)="gotoGovTab()">
+                                          <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                        </button> 
                                          </div> 
                               </div> 
                           </div> 
+ 
                           </div>
                           </form>
 
@@ -553,12 +557,13 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="btn-group noShodow gorights">  
-                                    <div class="form-group ">   
-                                        <button type="button" class="btn btn-default btn-square m-1" (click)="gotoPreferencesTab()">
-                                          Next</button>
+                                    <div class="form-group ">  
+                                      <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto next" (click)="gotoPreferencesTab()">
+                                        <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                      </button> 
                                        </div> 
                             </div> 
-                        </div> 
+                        </div>   
 
                           </div>
 

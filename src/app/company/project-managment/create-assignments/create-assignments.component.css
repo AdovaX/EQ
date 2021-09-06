@@ -151,3 +151,11 @@ max-height: 600px;
 }.novertical{
   vertical-align:text-bottom;
 }
+.faSize{
+  font-size: 1.6em;
+}
+
+.btnCustome{
+  min-width:0px;
+  border-radius: 20px;
+}

@@ -9,6 +9,7 @@ import { PopupTechnologyComponent } from '../../popup-technology/popup-technolog
 import { PopupEducationComponent } from '../../popup-education/popup-education.component';
 import { PopupDomainComponent } from '../../popup-domain/popup-domain.component';
 import { PopupRoleComponent } from '../../popup-role/popup-role.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-assignments',
@@ -49,7 +50,8 @@ export class CreateAssignmentsComponent implements OnInit {
   isEduError: boolean;
   project_stime :Date;
 project_etime:Date;
-  constructor(  private _Activatedroute:ActivatedRoute,public dialog: MatDialog, private ListingManagerService:ListingManagerService, private ProjectService :ProjectService, private formBuilder: FormBuilder,private Router:Router) { 
+  constructor(  private _Activatedroute:ActivatedRoute,public dialog: MatDialog, private ListingManagerService:ListingManagerService, 
+    private ProjectService :ProjectService, private formBuilder: FormBuilder,private Router:Router,private snackBar: MatSnackBar) { 
     this.Project_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
     this.User_id = sessionStorage.getItem('USER_ID');  
   }
@@ -123,12 +125,15 @@ project_etime:Date;
   
     }); 
     this.educationFormGroup = this.formBuilder.group({
-      Education : this.Education,    
-      Pass_year : this.Pass_year,        
+      Education : this.Education,          
   
     });
   }
-   
+  openSnackBar(message: string, action: string='') {
+    this.snackBar.open(message, action, {
+      duration: 1500,
+    });
+}
  
 onSubmit(){
    
@@ -141,9 +146,13 @@ onSubmit(){
  
     this.ProjectService.createRequirement(this.Requirement_Form.value,this.technology_list,this.domain_list
       ,this.jobRole_list,this.education_list,this.Project_id).subscribe(data =>{
+        this.openSnackBar('Your requriements have been captured'); 
+        setTimeout(() => {
+          this.Router.navigate(['company/Projectmanagement']);  
+        }, 2000); 
+         
           
-         this.Router.navigate(['company/Projectmanagement']);  
-
+ 
     }, error => {
       console.log(error); 
     });
@@ -200,9 +209,14 @@ getEduStreams(val,e){
     console.log(data);  
     this.educationStreams=data; 
     console.log(data.length);
-    if(data.length ==0){
-    this.educationChangePopup(e);
+     
+    //this.educationChangePopup(e);
+    let eduData = {
+      Education : e.target.value,
+      Pass_year : '', 
     }
+    this.education_list.push(eduData);
+     
   }); 
 
 }
@@ -393,7 +407,7 @@ addEducation(){
   this.isEduError =false;
   let eduData = {
     Education : this.educationFormGroup.value.Education,
-    Pass_year : this.educationFormGroup.value.Pass_year, 
+    Pass_year : '', 
   }
   this.education_list.push(eduData);
   this.educationFormGroup.reset(); 

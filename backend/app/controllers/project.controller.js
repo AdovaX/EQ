@@ -288,8 +288,9 @@ isAddedRequirement()
   exports.getAssignmentsById = (req, res) => {
     const Project_id = req.body.Project_id; 
     const User_id = req.body.User_id; 
+    const Company_id = req.body.Company_id; 
     
-    requirementTb.findAll({ where: {Project_id : Project_id , User_id:User_id},
+    requirementTb.findAll({ where: {Project_id : Project_id , Company_id:Company_id},
       include: {
         model: projectTb ,
         include: {
@@ -312,7 +313,7 @@ isAddedRequirement()
       const Project_id = req.body.Project_id; 
       const User_id = req.body.User_id; 
       
-      projectTb.findOne({ where: {Project_id : Project_id , User_id:User_id},
+      projectTb.findOne({ where: {Project_id : Project_id },
         include: {
           model: requirementTb ,
           include: {

@@ -39,3 +39,7 @@
 .gorights{
   float:right;
 }
+.btnCustome{
+  min-width:0px;
+  border-radius: 20px;
+}
