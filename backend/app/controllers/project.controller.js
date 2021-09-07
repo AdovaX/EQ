@@ -480,17 +480,12 @@ exports.projectMatching =async (req, res) => {
       } });
 
       let matchingPercentage = educationMatching / totalEdu; 
-      matchingPercentage = matchingPercentage/2; //Education,Pass_year
+      matchingPercentage = matchingPercentage; //Education
       console.log("Education divion by " + matchingPercentage);
 
       rol.forEach(el => {
         var p =0;
-        if(el.Resource_id != null){ 
-         
-        if(el.REducation_passyear <= val['Pass_year']){
-          p++;
-          console.log("Education pass year"+p);
-         }
+        if(el.Resource_id != null){  
          if(el.REducation == val['Qualifications']){
            p++;
            console.log("Education "+p);
@@ -596,6 +591,7 @@ exports.projectMatching =async (req, res) => {
             "Resource_rate" : el.Resource_rate,
             "Resource_status" : el.Resource_status,
             "Available_from" : el.Available_from,
+            "Resource_photo" : el.Resource_photo,
             "Available_to" : el.Available_to,
              "RoleMatching" :element.RoleMatching,
              "DomainMatching" : element.DomainMatching,

@@ -834,7 +834,7 @@ exports.profilePhotoChange = async(req, res) => {
   form.parse(req, (err, fields, files) => {
 console.log(files);
   var proData = {
-    "Resource_photo":newpath
+    "Resource_photo":newpath.substring(1)
   } 
   resourceTb.update(proData, {
     where: { Resource_id: fields.Resource_id }
@@ -1116,6 +1116,7 @@ async function prepareTechnology(r_id) {
           "Available_to" : element.Available_to,
           "Availability_status" : element.Availability_status,
           "Resource_resume" : element.Resource_resume,
+          "Resource_photo" : element.Resource_photo,
           "Intro_video" : element.Intro_video,
           "createdAt" : element.createdAt,
           "updatedAt" : element.updatedAt,

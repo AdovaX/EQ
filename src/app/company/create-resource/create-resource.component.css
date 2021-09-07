@@ -117,7 +117,7 @@ table {
 max-height: 600px;
 }
 .dateWidth{
-  width: 130px;
+  width: 110px;
 }
 .mat-elevation-z8 th{
  
@@ -159,4 +159,7 @@ max-height: 600px;
 .btnCustome{
   min-width:0px;
   border-radius: 20px;
+}
+.profilePic{
+  width:25px;
 }

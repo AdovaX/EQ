@@ -59,9 +59,8 @@
                                                 <ng-container matColumnDef="Resource_active">
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                                                   <td mat-cell *matCellDef="let element">  
-                                                    <mat-slide-toggle [checked]="element.Resource_active==1" (click)=toogleActive(element.Resource_id,element.Resource_active)>
-                                                      <span *ngIf="element.Resource_active==1">Active</span> 
-                                                      <span *ngIf="element.Resource_active==0">Inactive</span>
+                                                    <mat-slide-toggle [checked]="element.Resource_active==1" matTooltip="Click to change" (click)=toogleActive(element.Resource_id,element.Resource_active)>
+                                                       
                                                     </mat-slide-toggle>
 
                                                   </td>
@@ -70,7 +69,10 @@
                                                 <!-- Position Column -->
                                                 <ng-container matColumnDef="Resource_name" >
                                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                                                  <td mat-cell *matCellDef="let element"> {{element.Resource_name}} </td>
+                                                  <td mat-cell *matCellDef="let element"> 
+                                                    <img src="{{REST_API_SERVER}}{{element.Resource_photo}}"   alt="" class="profilePic">
+                                                     {{element.Resource_name}}
+                                                  </td>
                                                 </ng-container>
                                               
                                                 <!-- Name Column -->
@@ -387,7 +389,7 @@
                                        <div class="form-group">
                                          <label for="input-11"> Technology Version<span class="redColor">*</span></label>
                                          <input type="text" class="form-control form-control-square" formControlName="Technology_version" id="Technology_version" 
-                                         name="Technology_version"  placeholder="Total Experience of the resource">
+                                         name="Technology_version"  placeholder="Technology Version">
                                         </div>
                                           </div>
                                           <div class="col-sm-2">
@@ -468,7 +470,7 @@
                                              <div class="form-group">
                                               <label for="input-11"> Duration<span class="redColor">*</span></label> 
                                                   <div class="input-group">
-                                                    <input type="date" class="form-control form-control-square" formControlName="Domain_duration" id="Domain_duration" 
+                                                    <input type="number" class="form-control form-control-square" formControlName="Domain_duration" id="Domain_duration" 
                                                     name="Domain_duration"  placeholder="  Duration in years">                                                      
                                                     <div class="input-group-append">
                                                       <span class="input-group-text">
@@ -550,7 +552,7 @@
                                              <div class="form-group">
                                               <label for="input-11"> Duration<span class="redColor">*</span></label> 
                                                   <div class="input-group">
-                                                    <input type="date" class="form-control form-control-square" formControlName="Job_duration" id="Job_duration" 
+                                                    <input type="number" class="form-control form-control-square" formControlName="Job_duration" id="Job_duration" 
                                                     name="Job_duration"  placeholder="Job Duration in years">                                                      
                                                     <div class="input-group-append">
                                                       <span class="input-group-text">
@@ -736,7 +738,7 @@
                                               <div class="form-group">
                                                 <label for="input-11"> Profile Summary </label> 
                                                 <textarea class="form-control form-control-square" rows="6" formControlName="Resource_summery" id="Resource_summery" 
-                                                name="Resource_summery"  placeholder="Your Delegate Designation"></textarea>
+                                                name="Resource_summery"  placeholder="Profile Summary"></textarea>
                                                 <div *ngIf="submitted && f.Resource_summery.errors" class="invalid-feedback">
                                                     <div *ngIf="f.Resource_summery.errors.required">summery is a required field.</div> 
                                                   </div> 

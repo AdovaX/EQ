@@ -57,8 +57,9 @@ export class CreateResourceComponent implements OnInit {
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
-
-
+  HOST = window.location.hostname; 
+  REST_API_SERVER = "http://3.109.113.141:8090";
+  default_profile_pic ="";
 
   displayedColumns: string[] = ['No','Resource_active','Resource_name', 'Resource_Designation', 
   'Resource_rate','Available_from','Available_to','Remaining','Action'];
@@ -74,8 +75,14 @@ export class CreateResourceComponent implements OnInit {
 
   } 
   constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,
-    private Router:Router,public dialog: MatDialog,private snackBar: MatSnackBar) { }
-
+    private Router:Router,public dialog: MatDialog,private snackBar: MatSnackBar) {
+      if(this.HOST === 'localhost'){
+        this.REST_API_SERVER = "http://localhost:8090";
+     }
+     }
+    
+    
+  
   Resource_name = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Resource_salutation= new FormControl('Mr.');
   Resource_currency= new FormControl('INR');
@@ -107,7 +114,7 @@ export class CreateResourceComponent implements OnInit {
   Resource_location = new FormControl('');
 
   ngOnInit(): void {
-  
+    this.default_profile_pic =this.REST_API_SERVER + '/uploads/profile_photo.png';
     this.getResources();
     this.getTechnologyLists();
     this.getEducationLists();
@@ -285,8 +292,7 @@ export class CreateResourceComponent implements OnInit {
 
   getResources(){
     this.ListingManagerService.getResources().subscribe(data =>{
-   
-   console.log(data); 
+    
     this.resourceLists  = data;
     this.dataSource.data =data;
    

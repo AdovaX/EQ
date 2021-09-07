@@ -88,7 +88,7 @@
                                       <div class="form-group">
                                         <label for="input-11"> Full name<span class="redColor">*</span> </label>
                                         <input type="text" class="form-control form-control-square" formControlName="HM_fullname" id="HM_fullname" 
-                                        name="HM_fullname"  placeholder="Your Delegate fullname">
+                                        name="HM_fullname"  placeholder="Your Manager fullname">
                                         <div *ngIf="submitted && f.HM_fullname.errors" class="invalid-feedback">
                                             <div *ngIf="f.HM_fullname.errors.required">First name is a required field.</div> 
                                           </div> 
@@ -98,7 +98,7 @@
                                       <div class="form-group">
                                         <label for="input-11">Email ID<span class="redColor">*</span></label>
                                         <input type="email" class="form-control form-control-square" formControlName="User_email" id="User_email" 
-                                        name="User_email"  placeholder="Your Delegate Email ID">
+                                        name="User_email"  placeholder="Your Manager Email ID">
                                         <div *ngIf="submitted && f.User_email.errors" class="invalid-feedback">
                                             <div *ngIf="f.User_email.errors.required">Email ID is a required field.</div> 
                                           </div> 
@@ -108,7 +108,7 @@
                                       <div class="form-group">
                                         <label for="input-11"> Designation<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="HM_designation" id="HM_designation" 
-                                        name="HM_designation"  placeholder="Your Delegate Designation">
+                                        name="HM_designation"  placeholder="Your Manager Designation">
                                         <div *ngIf="submitted && f.HM_designation.errors" class="invalid-feedback">
                                             <div *ngIf="f.HM_designation.errors.required">Designation is a required field.</div> 
                                           </div> 
@@ -118,7 +118,7 @@
                                       <div class="form-group">
                                         <label for="input-11"> Phone<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="HM_phone" id="HM_phone" 
-                                        name="HM_phone"  placeholder="Your Delegate Designation">
+                                        name="HM_phone"  placeholder="Your Manager Designation">
                                         <div *ngIf="submitted && f.HM_phone.errors" class="invalid-feedback">
                                             <div *ngIf="f.HM_phone.errors">Valid Number is a required.</div> 
                                           </div> 
@@ -128,7 +128,7 @@
                                       <div class="form-group">
                                         <label for="input-11"> Password<span class="redColor">*</span> </label>
                                         <input [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="HM_password" id="HM_password" 
-                                        name="HM_password"  placeholder="Your Delegate Password">
+                                        name="HM_password"  placeholder="Your Manager Password">
                                         <div *ngIf="submitted && f.HM_password.errors" class="invalid-feedback">
                                             <div *ngIf="f.HM_password.errors.required">Password is a required field.</div> 
                                           </div> 

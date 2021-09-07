@@ -34,7 +34,8 @@ export class CompanyProfileComponent implements OnInit {
   bank_List=[];
   isMasked = 0;
   isFreelancer = 0;
-  isTier  = new Array(); 
+  isTier  = []; 
+  isTier2  = []; 
   tierList  = new Array(); 
 
   ispreferenceUpdated = false;
@@ -295,14 +296,17 @@ changeFreelancer(e){
   this.isFreelancer=e.target.value;  
 }
 changeTierList(e){ 
-
+console.log(e.target.value);
+var t =e.target.value;
+console.log("TIER" + t);
   if(e.target.checked){
-    this.isTier.push(e.target.value); 
+    this.isTier2.push(t); 
 
   }else{
 
     this.isTier = this.isTier.filter(m=>m!==e.target.value);
   }       
+  this.isTier =  this.isTier2;
   console.log(this.isTier); 
  
 

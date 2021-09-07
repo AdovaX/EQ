@@ -19,6 +19,9 @@ export class FindMachingComponent implements OnInit {
   Resource_list=[];
   noResource = false;
 
+  HOST = window.location.hostname; 
+  REST_API_SERVER = "http://3.109.113.141:8090";
+  default_profile_pic ="";
   displayedColumns: string[] = ['No','Matching','Resource_name','Resource_rate','Available_from','Available_to','Status','Action'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
@@ -31,6 +34,9 @@ export class FindMachingComponent implements OnInit {
   } 
   constructor(private _Activatedroute:ActivatedRoute,private router: Router,private ProjectService :ProjectService,private snackBar: MatSnackBar,public dialog: MatDialog) { 
     this.Requirement_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
+    if(this.HOST === 'localhost'){
+      this.REST_API_SERVER = "http://localhost:8090";
+   }
 
   }
  openSnackBar(message: string, action: string='') {

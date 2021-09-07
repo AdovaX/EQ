@@ -270,10 +270,13 @@ onSubmit(){
       console.log("Form Submission sent");
       console.log(data);
       this.isUpdated = true; 
-      console.log("Done"); 
+      console.log("Done");  
+    let Role_id = Number(sessionStorage.getItem('ROLE_ID'));
+    if(Role_id > 7){
       setTimeout(() => {
         this.Router.navigate(['/company/Resources']);
-    }, 3000);
+    }, 3000); 
+    }
     }, error => {
       console.log(error);
       this.isUpdated = false; 
