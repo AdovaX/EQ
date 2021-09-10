@@ -15,6 +15,7 @@ import { IntroVideoComponent } from './intro-video/intro-video.component';
 import { TableComponent } from './table/table.component';
 import { EditResourceComponent } from './edit-resource/edit-resource.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
+import { DelegateManagementComponent } from './delegate-management/delegate-management.component';
 
 const routes: Routes = [
     {
@@ -22,6 +23,9 @@ const routes: Routes = [
     }, 
     {
       path : 'Table', component:TableComponent
+    }, 
+    {
+      path : 'DelegateManagement', component:DelegateManagementComponent
     }, 
     {
       path : 'TimeSheet', component:TimeSheetComponent

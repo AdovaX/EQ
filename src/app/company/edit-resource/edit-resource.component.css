@@ -139,3 +139,12 @@
   #alignRight{
     float: right;
   }
+  .profilePic{
+    width: 50px;
+    border-radius: 20px;
+  }
+  .inlineD{
+    display:inline-block;
+    margin:auto;
+    padding:5px;
+  }

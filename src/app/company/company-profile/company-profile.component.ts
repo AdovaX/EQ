@@ -295,10 +295,8 @@ changeMasking(e){
 changeFreelancer(e){
   this.isFreelancer=e.target.value;  
 }
-changeTierList(e){ 
-console.log(e.target.value);
-var t =e.target.value;
-console.log("TIER" + t);
+changeTierList(e){  
+var t =e.target.value; 
   if(e.target.checked){
     this.isTier2.push(t); 
 

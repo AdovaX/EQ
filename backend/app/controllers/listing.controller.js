@@ -914,7 +914,7 @@ async function insertResource() {
     Available_from: fields.Available_from, 
     Available_to: fields.Available_to, 
     Company_id: fields.Company_id, 
-    Resource_resume:newpath,
+    Resource_resume:newpath.substring(1),
     Intro_video :newvideoPath
   };
   if(passwordHash != 0){

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { ContractorService } from '../../Services/contractor.service';
+import {NavigationExtras, Router} from "@angular/router"
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { PopupConfirmationComponent } from '../popup-confirmation/popup-confirmation.component';
 
 @Component({
   selector: 'app-delegate',
@@ -8,8 +11,7 @@ import { ContractorService } from '../../Services/contractor.service';
   styleUrls: ['./delegate.component.css']
 })
 export class DelegateComponent implements OnInit {
-
-Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
+  
   delegateForm: FormGroup; 
   fieldTextType: boolean;
   isUpdated = false;
@@ -18,7 +20,7 @@ Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');
 
   
 
-  constructor(private formBuilder: FormBuilder, private ContractorService:ContractorService) { }
+  constructor(private formBuilder: FormBuilder, private ContractorService:ContractorService,private router:Router,public dialog: MatDialog) { }
 
   Delegate_fullname = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Delegate_email = new FormControl('', [ Validators.required, Validators.email]);
@@ -79,11 +81,27 @@ Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');
 
   }
   deleteDelegate(Delegate_id){
-    this.ContractorService.deleteDelegate(Delegate_id).subscribe(data =>{
-     console.log(data);  
-     this.get_delegatesList();
+
+    const dialogRef = this.dialog.open(PopupConfirmationComponent, {
+      width: '450px',
+      data: {name: ''},
+      hasBackdrop: true,
+      disableClose : true
+    }); 
+    dialogRef.afterClosed().subscribe(result => { 
+      if(result.Confirmation){
+        this.ContractorService.deleteDelegate(Delegate_id).subscribe(data =>{
+          console.log(data);  
+          this.get_delegatesList();
+        
+        }); 
+     }else{
+      this.get_delegatesList(); 
+     }
+    });
+
+
    
-   }); 
 
  }
   resetForm(){ 
@@ -91,5 +109,14 @@ Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');
   }
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
+  }
+  editDelegatePage(User_id){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        User_id: User_id, 
+      }
+  }
+  this.router.navigate(['company/DelegateManagement'], navigationExtras);
+
   }
 }

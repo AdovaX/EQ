@@ -47,6 +47,8 @@ import { EditResourceComponent } from './edit-resource/edit-resource.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { DelegateManagementComponent } from './delegate-management/delegate-management.component';
+import { PopupConfirmationComponent } from './popup-confirmation/popup-confirmation.component';
 
  
 @NgModule({
@@ -63,7 +65,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     TableComponent,
     PopupEducationComponent,
     EditResourceComponent,
-    TimeSheetComponent, 
+    TimeSheetComponent,
+    DelegateManagementComponent,
+    PopupConfirmationComponent, 
       ],
   imports: [
     CommonModule,

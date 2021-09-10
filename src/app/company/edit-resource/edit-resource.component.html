@@ -72,12 +72,12 @@
                       </div> 
                       <div class="col-sm-4">
                         <div class="form-group"> 
-                          <label for="file">Choose Resume</label>
+                          <label for="file">Upload Resume</label>
                           <input type="file"
                                  id="file"
                                  (change)="handleFileInput($event.target.files)"> 
                          </div>
-                         <a  *ngIf="Resource_cvFile"  href="{{Resource_cvFile}}" download>View</a>
+                         <a  *ngIf="Resource_cvFile"  href="{{REST_API_SERVER}}{{Resource_cvFile}}" target="_blank">Current Resume</a>
                       </div>   
                         </div>
 
@@ -156,13 +156,12 @@
                                    name="Available_to"  placeholder="Available from">
                                   </div>
                                     </div>
-                                    <div class="col-sm-3">
-     
-                                      <div class="form-group">
-                                        <label for="input-11"> Profile Photo</label>
+                                    <div class="col-sm-5">
+                                      <label for="input-11"> Profile Photo</label> <br>
+                                      <img *ngIf="Resource_profile_pic" class="profilePic inlineD" src="{{REST_API_SERVER}}{{Resource_profile_pic}}">
+                                      <div class="form-group inlineD">
                                         <input type="file" class="form-control  "   id="Resource_photo" 
-                                        name="Resource_photo" (change)="profilePhotoChange($event.target.files)" >
-                                        <a *ngIf="Resource_profile_pic" href="{{Resource_profile_pic}}">View</a>
+                                        name="Resource_photo" (change)="profilePhotoChange($event.target.files)" > 
                                        </div>
                                     </div>
 

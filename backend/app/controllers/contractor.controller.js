@@ -254,3 +254,64 @@ exports.deleteDelegate = (req, res) => {
       });
     });
 };
+exports.getDelegatesById = (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }  
+  usersTb.findByPk(req.body.User_id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Tutorial with id=" + id
+      });
+    });
+};
+
+exports.editDelegateData = async (req, res) => {
+  if (!req.body.Company_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }  
+  var editDelegate = {
+    "User_firstname" : req.body.User_firstname,
+    "User_email" : req.body.User_email,
+    "User_designation" : req.body.User_designation,
+    "User_phonenumber" : req.body.User_phonenumber, 
+    "Company_id" : req.body.Company_id, 
+  }
+  var passwordHash = 0;
+  if(req.body.User_password){
+    passwordHash = bcrypt.hashSync(req.body.User_password , 10);
+
+  }
+  if(passwordHash != 0){
+     
+    editDelegate['User_password']=passwordHash
+
+  } console.log(editDelegate);
+  await usersTb.update(editDelegate, {
+    where: { User_id: req.body.User_id , Company_id : req.body.Company_id }
+  }).then(num => {
+      if (num == 1) {
+        res.send({
+          Status: true
+        });
+      } else {
+        res.send({
+          Status: false
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
+      });
+    });
+};

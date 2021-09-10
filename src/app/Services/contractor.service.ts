@@ -111,5 +111,33 @@ updateCompany(User_id,Company_id,Companydata): Observable<Company[]>{
  return this.http.put<Company[]>(this.REST_API_SERVER + '/contractor/updateCompany/', Company);
 } 
 
+editDelegate(Delegate_id){
+  var delegateData ={
+    'Company_id':this.Company_id,
+    'User_id' : Delegate_id
+  } 
+  return this.http.put<any>(this.REST_API_SERVER + '/contractor/delegateDeletion/', delegateData);
+}
+getDelegatesById(User_id){
+  var data ={
+   'Company_id':this.Company_id,
+    'User_id':User_id
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/getDelegatesById/', data);
 
+}
+editDelegateData(Delegate , User_id){
+  var data ={
+    "User_firstname" : Delegate.Delegate_fullname,
+    "User_email" : Delegate.Delegate_email,
+    "User_designation" : Delegate.Delegate_designation,
+    "User_phonenumber" : Delegate.Delegate_phone,
+    "User_password" : Delegate.Delegate_password,
+    "Company_id" : this.Company_id, 
+    "User_id" : User_id
+  }
+  console.log(data);
+  return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/editDelegateData/', data);
+
+}
 }
