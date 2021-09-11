@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
-import { ContractorService } from '../../Services/contractor.service';
+ import { ContractorService } from '../../Services/contractor.service';
+import {NavigationExtras, Router} from "@angular/router"
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { PopupConfirmationComponent } from '../popup-confirmation/popup-confirmation.component';
 
 @Component({
   selector: 'app-create-spoc',
@@ -15,7 +18,7 @@ export class CreateSpocComponent implements OnInit {
   Spoc_Data = []; 
   fieldTextType: boolean;
 
-  constructor(private formBuilder: FormBuilder, private ContractorService:ContractorService) { }
+  constructor(private formBuilder: FormBuilder, private ContractorService:ContractorService,private router:Router,public dialog: MatDialog) { }
 
   Spoc_fullname = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   Spoc_email = new FormControl('', [ Validators.required, Validators.email]);
@@ -73,11 +76,25 @@ export class CreateSpocComponent implements OnInit {
 
   }
   deleteSpoc(Spoc_id){
-     this.ContractorService.deleteSpoc(Spoc_id).subscribe(data =>{
-      console.log(data);  
-      this.getSpocList();
-    
+    const dialogRef = this.dialog.open(PopupConfirmationComponent, {
+      width: '450px',
+      data: {name: ''},
+      hasBackdrop: true,
+      disableClose : true
     }); 
+    dialogRef.afterClosed().subscribe(result => { 
+      if(result.Confirmation){
+        this.ContractorService.deleteSpoc(Spoc_id).subscribe(data =>{
+          console.log(data);  
+          this.getSpocList();
+        
+        }); 
+     }else{
+      this.getSpocList(); 
+     }
+    });
+
+ 
 
   }
   resetForm(){ 
@@ -87,4 +104,14 @@ export class CreateSpocComponent implements OnInit {
     this.fieldTextType = !this.fieldTextType;
   }
 
+  editSpoc(User_id){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        User_id: User_id, 
+      }
+  }
+  this.router.navigate(['company/SpocManagement'], navigationExtras);
+
+  }
+  
 }

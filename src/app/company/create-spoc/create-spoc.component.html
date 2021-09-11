@@ -50,7 +50,7 @@
                                                     <td>{{ item.User_phonenumber }}</td> 
                                                     <td> 
                                                     <div class="btn-group m-1">
-                                                        <button type="button" class="btn btn-outline-primary">
+                                                        <button type="button" class="btn btn-outline-primary" (click)="editSpoc(item.User_id)">
                                                             <span class="fa fa-edit"> </span>  </button>
                                                         <button   class="btn btn-outline-danger" (click)="deleteSpoc(item.User_id)">
                                                             <span class="fa fa-trash"> </span>  </button> 

@@ -14,6 +14,8 @@ module.exports = app => {
    router.put("/delegateDeletion", contractor.deleteDelegate);  
    router.post("/getDelegatesById", contractor.getDelegatesById);  
    router.post("/editDelegateData", contractor.editDelegateData);  
+   router.post("/editSpocData", contractor.editSpocData);  
+   router.post("/getSpocById", contractor.getSpocById);  
  
    //app.use('/spoc/signup', router);
    app.use('/contractor', router);

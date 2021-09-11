@@ -49,6 +49,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { DelegateManagementComponent } from './delegate-management/delegate-management.component';
 import { PopupConfirmationComponent } from './popup-confirmation/popup-confirmation.component';
+import { SpocManagementComponent } from './spoc-management/spoc-management.component';
 
  
 @NgModule({
@@ -67,7 +68,8 @@ import { PopupConfirmationComponent } from './popup-confirmation/popup-confirmat
     EditResourceComponent,
     TimeSheetComponent,
     DelegateManagementComponent,
-    PopupConfirmationComponent, 
+    PopupConfirmationComponent,
+    SpocManagementComponent, 
       ],
   imports: [
     CommonModule,

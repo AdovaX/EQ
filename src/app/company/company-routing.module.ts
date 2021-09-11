@@ -16,14 +16,15 @@ import { TableComponent } from './table/table.component';
 import { EditResourceComponent } from './edit-resource/edit-resource.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { DelegateManagementComponent } from './delegate-management/delegate-management.component';
+import { SpocManagementComponent } from './spoc-management/spoc-management.component';
 
 const routes: Routes = [
     {
       path : '', component:RegistrationComponent
     }, 
     {
-      path : 'Table', component:TableComponent
-    }, 
+      path : 'SpocManagement', component:SpocManagementComponent
+    },   
     {
       path : 'DelegateManagement', component:DelegateManagementComponent
     }, 

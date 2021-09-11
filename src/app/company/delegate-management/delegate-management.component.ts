@@ -64,8 +64,15 @@ export class DelegateManagementComponent implements OnInit {
     else{
       this.ContractorService.editDelegateData(this.delegateForm.value , this.User_id).subscribe(data =>{
         console.log(data);
-        this.isUpdated = true;        
-         console.log('done');
+        if(data['Status']){
+          this.isUpdated = true;        
+           console.log('done'); 
+           setTimeout(() => {
+            this.router.navigate(['/company/CreateDelegate']);
+        }, 2000);
+        }else{
+          
+        }
 
      
       }); 

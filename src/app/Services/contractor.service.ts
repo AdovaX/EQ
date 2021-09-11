@@ -126,6 +126,14 @@ getDelegatesById(User_id){
   return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/getDelegatesById/', data);
 
 }
+getSpocById(User_id){
+  var data ={
+   'Company_id':this.Company_id,
+    'User_id':User_id
+  }
+  return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/getSpocById/', data);
+
+}
 editDelegateData(Delegate , User_id){
   var data ={
     "User_firstname" : Delegate.Delegate_fullname,
@@ -138,6 +146,20 @@ editDelegateData(Delegate , User_id){
   }
   console.log(data);
   return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/editDelegateData/', data);
+
+}
+editSpocData(Spoc , User_id){
+  var data ={
+    "User_firstname" : Spoc.Spoc_fullname,
+    "User_email" : Spoc.Spoc_email,
+    "User_designation" : Spoc.Spoc_designation,
+    "User_phonenumber" : Spoc.Spoc_phone,
+    "User_password" : Spoc.Spoc_password,
+    "Company_id" : this.Company_id, 
+    "User_id" : User_id
+  }
+  console.log(data);
+  return this.http.post<any[]>(this.REST_API_SERVER + '/contractor/editSpocData/', data);
 
 }
 }
