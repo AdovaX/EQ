@@ -214,13 +214,14 @@ getapprovedResources(){
   } 
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/getapprovedResources/', data);
 }
-changeInterviewStatus(Interview_status,Resource_id,Requirement_id){
+changeInterviewStatus(Interview_status,Resource_id,Requirement_id , Reason){
   var data = {
     Resource_id : Resource_id,  
     Requirement_id :Requirement_id,
     Company_id :this.Company_id,
     Interview_status : Interview_status,  
-    User_id :this.User_id
+    User_id :this.User_id,
+    Reason:Reason
   } 
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/changeInterviewStatus/', data);
 }

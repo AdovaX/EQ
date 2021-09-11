@@ -1061,9 +1061,10 @@ exports.changeInterviewStatus = async (req, res) => {
     return;
   }
   var interviewStatus = {
-    "Interview_status" : req.body.Interview_status
+    "Interview_status" : req.body.Interview_status,
+    "Reason" : req.body.Reason
   }
-
+console.log(interviewStatus);
   await interviewTb.update(interviewStatus, {
     where: { Resource_id: req.body.Resource_id, Requirement_id:req.body.Requirement_id }
   })

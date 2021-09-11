@@ -2,10 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl,FormArray } from '@angular/forms';
 import {ProjectService} from '../../../Services/project.service';
 import { MatSort } from '@angular/material/sort'; 
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { MatTableDataSource } from '@angular/material/table'; 
 
 import {MatPaginator} from '@angular/material/paginator';
+import { PopupRejectReasonComponent } from '../popup-reject-reason/popup-reject-reason.component';
 
 @Component({
   selector: 'app-interviewing-resources-lists',
@@ -38,7 +40,7 @@ export class InterviewingResourcesListsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
 
   }  
-  constructor(private formBuilder: FormBuilder,private ProjectService:ProjectService) { 
+  constructor(private formBuilder: FormBuilder,private ProjectService:ProjectService,public dialog: MatDialog) { 
 
     this.User_id = sessionStorage.getItem('USER_ID');
   }
@@ -55,9 +57,24 @@ export class InterviewingResourcesListsComponent implements OnInit {
   }
   interviewStatus(e,resource_id,requirement_id){
     console.log(e.value);
-    this.ProjectService.changeInterviewStatus(e.value,resource_id,requirement_id).subscribe(data =>{
-      console.log(data);  
-      this.getInterviewResources(); 
-    });
+    let Reason = "";
+    if(e.value == 'REJECTED'){
+      const dialogRef = this.dialog.open(PopupRejectReasonComponent, {
+        width: '450px',
+        data: {name:''}, 
+        hasBackdrop: true,
+        disableClose : true
+      }); 
+      dialogRef.afterClosed().subscribe(result => { 
+        Reason = result.reason;
+        console.log(Reason);
+        this.ProjectService.changeInterviewStatus(e.value,resource_id,requirement_id,Reason).subscribe(data =>{
+          console.log(data);  
+          this.getInterviewResources(); 
+        });
+      });
+
+    }
+   
   }
 }

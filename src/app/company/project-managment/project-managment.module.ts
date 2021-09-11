@@ -48,13 +48,14 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { ApproveTimesheetComponent } from './approve-timesheet/approve-timesheet.component';
 import { RejectionReasonComponent } from './rejection-reason/rejection-reason.component';
+import { PopupRejectReasonComponent } from './popup-reject-reason/popup-reject-reason.component';
 FullCalendarModule.registerPlugins([  
   dayGridPlugin,
   interactionPlugin
 ]);
 @NgModule({
   declarations: [ProjectsComponent, CreateProjectComponent, CreateAssignmentsComponent, ViewAssignmentsComponent, ViewProjectsComponent, FindMachingComponent, 
-    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent, InterviewingResourcesListsComponent, MyResourcesComponent, RequestsComponent, ApprovedResourcesComponent, ShortListedResourcesComponent, CalenderComponent, PopUpTimesheetComponent, ApproveTimesheetComponent, RejectionReasonComponent],
+    BookmarksComponent,PopupInterviewDateComponent, InterviewSheduleComponent, InterviewingResourcesListsComponent, MyResourcesComponent, RequestsComponent, ApprovedResourcesComponent, ShortListedResourcesComponent, CalenderComponent, PopUpTimesheetComponent, ApproveTimesheetComponent, RejectionReasonComponent, PopupRejectReasonComponent],
   imports: [
     CommonModule,
     ProjectManagmentRoutingModule,

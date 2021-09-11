@@ -1,0 +1,15 @@
+<div class="row"> 
+    <div class="col-sm-12"> 
+        <div class="form-group">
+          
+          <mat-form-field appearance="outline" class="widthfull">
+            <mat-label>Rejection reason</mat-label>
+            <textarea   matInput (change)="getData($event)"></textarea>
+          </mat-form-field>
+         </div> 
+          
+            <button class="curve2" (click)="onNoClick()">No Reason, Reject</button>&nbsp;
+            <button class="curve" (click)="proceed()">Proceed</button>
+        
+           </div>
+ </div>

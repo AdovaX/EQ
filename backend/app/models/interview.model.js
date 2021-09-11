@@ -39,6 +39,9 @@ module.exports = (sequelize, Sequelize) => {
       Interview_body: {
         type: Sequelize.TEXT
       },
+      Reason: {
+        type: Sequelize.TEXT
+      },
       Interview_status: {
         type: Sequelize.ENUM,
         values : ['SELECTED', 'REJECTED','SHORTLISTED','NOINTREST'],
