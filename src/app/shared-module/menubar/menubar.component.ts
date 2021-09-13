@@ -9,11 +9,15 @@ import {Router} from "@angular/router"
 export class MenubarComponent implements OnInit {
 User_id="";
 Role_id=0;
+Company_id=0;
 Title = "";
   constructor(private router:Router ) { 
     this.User_id = sessionStorage.getItem('USER_ID');
     this.Role_id = Number(sessionStorage.getItem('ROLE_ID'));
+    this.Company_id = Number(sessionStorage.getItem('COMPANY_ID'));
     console.log("R :" + this.Role_id);
+    console.log("C :" + this.Company_id);
+    console.log("U :" + this.User_id);
     
      if(this.User_id == null && sessionStorage.getItem('RESOURCE_ID') ==null){ 
       this.router.navigate(['Login']); 

@@ -12,8 +12,7 @@ import { Spoc } from '../class/Spoc';
 })
 export class ContractorService {
   User_id = sessionStorage.getItem('USER_ID');  
-  Company_id = sessionStorage.getItem('COMPANY_ID');  
-  Contractor_id = sessionStorage.getItem('CONTRACTOR_ID');  
+  Company_id = sessionStorage.getItem('COMPANY_ID');   
  
   HOST = window.location.hostname; 
   REST_API_SERVER = "http://3.109.113.141:8090";
@@ -41,6 +40,9 @@ export class ContractorService {
   
 
  createDelegate(delegate): Observable<any[]>{
+
+  this.User_id = sessionStorage.getItem('USER_ID');  
+  this.Company_id = sessionStorage.getItem('COMPANY_ID');  
      var delegateData = {
       "Delegate_name" : delegate.Delegate_fullname,
       "Delegate_email" : delegate.Delegate_email,
@@ -54,6 +56,8 @@ export class ContractorService {
   } 
 
   getDelegatesList(){
+    this.User_id = sessionStorage.getItem('USER_ID');  
+    this.Company_id = sessionStorage.getItem('COMPANY_ID');  
     var data ={
       Company_id:this.Company_id
     }
@@ -62,6 +66,8 @@ export class ContractorService {
   }
 
  createSpoc(spoc): Observable<Spoc[]>{
+  this.User_id = sessionStorage.getItem('USER_ID');  
+  this.Company_id = sessionStorage.getItem('COMPANY_ID');  
   var data = {
    "Spoc_name" : spoc.Spoc_fullname,
    "Spoc_email" : spoc.Spoc_email,
@@ -76,6 +82,8 @@ export class ContractorService {
 } 
 
 getSpocList(){
+  this.User_id = sessionStorage.getItem('USER_ID');  
+  this.Company_id = sessionStorage.getItem('COMPANY_ID');  
  var data ={
    'Company_id':this.Company_id
  }
