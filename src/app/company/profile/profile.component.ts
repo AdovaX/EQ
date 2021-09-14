@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   invalid = false;
   updateUserForm: FormGroup;
   profile_pic_url="https://via.placeholder.com/110X110";
+  uploading =false;
   
     constructor(private ContractorService:ContractorService,private formBuilder: FormBuilder , private SharedService : SharedService) { 
       this.User_id = sessionStorage.getItem('USER_ID');  
@@ -46,8 +47,7 @@ export class ProfileComponent implements OnInit {
         User_designation_Crl : this.User_designation_Crl,  
     
       });  
-       this.getProfileData(this.User_id); 
-       console.log("Compnay"+this.Company_id);
+       this.getProfileData(this.User_id);  
   
      }
      get f() { return this.updateUserForm.controls; }
@@ -80,15 +80,9 @@ export class ProfileComponent implements OnInit {
          console.log(data); 
         let companyData =data['CompanyTb'];
         let userData =data;   
-
-        let HOST = window.location.hostname; 
-        let REST_API_SERVER = "http://3.109.113.141:8090";
-        if(HOST === 'localhost'){
-        REST_API_SERVER = "http://localhost:8090";
-        }
-
+ 
         if(userData['Profile_photo']){
-          this.profile_pic_url= REST_API_SERVER+"/backend"+ userData['Profile_photo'];
+          this.profile_pic_url= userData['Profile_photo'];
         }
    
         this.Company_name = companyData.C_short_name;
@@ -106,6 +100,7 @@ export class ProfileComponent implements OnInit {
     }
     profilePicChange(e){
       console.log(e);
+      this.uploading = true;
       this.SharedService.profilePhotoUpdate(e.target.files[0]).subscribe(data =>{
         console.log(e.target.files[0]);
          if(data['Status']){
@@ -113,7 +108,9 @@ export class ProfileComponent implements OnInit {
           this.getProfileData(this.User_id); 
         }else{ 
           console.log("Not Done");
-        }  
+        } 
+        
+      this.uploading = false; 
       }); 
     }
   }

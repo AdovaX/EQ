@@ -48,16 +48,12 @@ export class EditResourceComponent implements OnInit {
   fileToUpload: File;
   videoFile: File;
   Resource_cvFile="";
-  Resource_profile_pic="";
-  HOST = window.location.hostname; 
-  REST_API_SERVER = "http://3.109.113.141:8090";
+  Resource_profile_pic=""; 
 
   constructor(private _Activatedroute:ActivatedRoute,private formBuilder: FormBuilder,
     private ListingManagerService:ListingManagerService,private Router:Router,public dialog: MatDialog) { 
     this.R_id =Number(this._Activatedroute.snapshot.paramMap.get("id")) | Number(sessionStorage.getItem('RESOURCE_ID'));;
-    if(this.HOST === 'localhost'){
-      this.REST_API_SERVER = "http://localhost:8090";
-   }
+    
 
   }
 
@@ -295,7 +291,7 @@ handleFileInput(files: FileList) {
   console.log(files.item(0).name); 
 }
 profilePhotoChange(files: FileList) { 
-
+  console.log("profilePhotoChange"); 
   this.ListingManagerService.profilePhotoChange(files.item(0),this.R_id).subscribe(data =>{
     console.log("profilePhotoChange sent"); 
     console.log(data);

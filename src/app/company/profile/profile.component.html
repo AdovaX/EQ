@@ -23,8 +23,9 @@
                    </div>
                     <div class="text-center">  
                      <div class="profile-card py-5">
-                       <img src="{{profile_pic_url}}" class="rounded-circle profilephoto" alt="user avatar" (click)="file.click()" id="profilePic">
+                       <img src="{{profile_pic_url}}" class="rounded-circle profilephoto" alt="user avatar" (click)="file.click()" id="profilePic" matTooltip='Click to change'>
                        <input #file type="file" accept="image/*" (change)="profilePicChange($event)" [hidden]="true">
+                       <div *ngIf="uploading">Uploading...</div>
                      </div>
                      <h5 class="text-uppercase"> 
                       <span *ngIf="User_firstName"> {{User_firstName}}</span>

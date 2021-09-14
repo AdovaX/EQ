@@ -21,6 +21,14 @@ const assignTb = db.assignTb;
 const requirementTb = db.requirement;
 var fs = require('fs');
 const IncomingForm = require('formidable').IncomingForm; 
+const AWS = require('aws-sdk');
+const awsConfig= require('../../config/AWS.config');
+const BUCKET_NAME =awsConfig.Bucket_Name;
+
+const s3 = new AWS.S3({
+  accessKeyId: awsConfig.Access_Key_ID,
+  secretAccessKey: awsConfig.Secret_Access_Key, 
+});
 
 exports.checkManagerType =  async(req, res) => {
     if (!req.body.email) {
@@ -224,16 +232,33 @@ exports.createResource= async (req, res) => {
     });  
 
   }); 
+
   form.on('file', (field, files) => {
     console.log("in");
     console.log(files);
 
-    var oldpath = files.path;
-    newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
-    fs.rename(oldpath, newpath, function (err) {
-      if (err) throw err;
-      console.log("Resume uploaded");  
-    });  
+    const uploadFile = (fileName) => { 
+      const fileContent = fs.createReadStream(fileName.path);
+      newpath = Math.floor(Math.random() * 100000)+fileName.name;
+          
+      const params = {
+          Bucket: BUCKET_NAME,
+          Key: newpath,  
+          Body: fileContent
+      };
+       
+      s3.upload(params, function(err, data) {
+          if (err) {
+              throw err;
+          }
+          console.log(`Resume uploaded. ${data.Location}`); 
+          newpath = data.Location;
+
+      });
+
+      newpath = "https://photoseq.s3.amazonaws.com/"+newpath;
+  };
+  uploadFile(files); 
 
   }); 
   
@@ -490,32 +515,44 @@ exports.introVideo = (req, res) => {
 
   form.on('file', (field, files) => {
     console.log("in");
-    
 
-    var oldpath = files.path;
-    var newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
-    var vFile = {
-      "Intro_video" : newpath
-    }
-    fs.rename(oldpath, newpath, function (err) {
-      if (err) throw err;
-      console.log("Intro video uploaded");
-      resourceTb.update(vFile, {
-        where: { Resource_id: Resource_id }
-      }).then(num => {
-          if (num == 1) {
-            res.send({
-              status: true
+    const uploadFile = (fileName) => { 
+      const fileContent = fs.createReadStream(fileName.path);
+      newpath = Math.floor(Math.random() * 100000)+fileName.name;
+          
+      const params = {
+          Bucket: BUCKET_NAME,
+          Key: newpath,  
+          Body: fileContent
+      };
+       
+      s3.upload(params, function(err, data) {
+          if (err) {
+              throw err;
+          }
+          console.log(`Intro_video uploaded. ${data.Location}`); 
+          newpath = data.Location;
+          var vFile = {
+            "Intro_video" : newpath
+          }
+          resourceTb.update(vFile, {
+            where: { Resource_id: Resource_id }
+          }).then(num => {
+              if (num == 1) {
+                res.send({
+                  status: true
+                });
+              } 
+            })
+            .catch(err => {
+              console.log(err);
             });
-          } 
-        })
-        .catch(err => {
-          console.log(err);
-        });
 
-    }); 
-
-
+      });
+ 
+  };
+  uploadFile(files); 
+ 
   }) 
   form.parse(req)
 };
@@ -814,47 +851,73 @@ exports.profilePhotoChange = async(req, res) => {
 
   var form = new IncomingForm();  
   var newpath ="";
-  form.on('file', (field, files) => {
-    console.log("in");
-    console.log(files);
-    if (!files.path) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    } 
-    var oldpath = files.path;
-    newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
-    fs.rename(oldpath, newpath, function (err) {
-      if (err) throw err;
-      console.log("Profile Photo updated");  
-    });  
+  // form.on('file', (field, files) => {
+  //   console.log("in");
+  //   console.log(files);
+  //   if (!files.path) {
+  //     res.status(400).send({
+  //       message: "Content can not be empty!"
+  //     });
+  //     return;
+  //   } 
+  //   var oldpath = files.path;
+  //   newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
+  //   fs.rename(oldpath, newpath, function (err) {
+  //     if (err) throw err;
+  //     console.log("Profile Photo updated");  
+  //   });  
 
-  }); 
+  // }); 
   form.parse(req, (err, fields, files) => {
-console.log(files);
-  var proData = {
-    "Resource_photo":newpath.substring(1)
-  } 
-  resourceTb.update(proData, {
-    where: { Resource_id: fields.Resource_id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          Status: true
-        });
-      } else {
-        res.send({
-          Status: false
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating   with id=" + id
+ console.log(fields.Resource_id);
+    const uploadFile = (fileName) => { 
+      const fileContent = fs.createReadStream(fileName.file.path);
+      newpath = Math.floor(Math.random() * 100000)+fileName.file.name;
+          
+      const params = {
+          Bucket: BUCKET_NAME,
+          Key: newpath,  
+          Body: fileContent
+      };
+       
+      s3.upload(params, function(err, data) {
+          if (err) {
+              throw err;
+          }
+          console.log(`Intro_video uploaded. ${data.Location}`); 
+          newpath = data.Location;
+          var proData = {
+            "Resource_photo":newpath
+          } 
+          resourceTb.update(proData, {
+            where: { Resource_id: fields.Resource_id }
+          })
+            .then(num => {
+              console.log("Profile   updated"); 
+              if (num == 1) {
+                res.send({
+                  Status: true
+                });
+              } else {
+                res.send({
+                  Status: false
+                });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+
       });
-    });
+ 
+  };
+  uploadFile(files);
+
+
+
+
+
+  
   });
 };
 
@@ -868,13 +931,28 @@ exports.editResource= async (req, res) => {
   form.on('file', (field, files) => {
     console.log("in");
     console.log(files);
+ 
+    const uploadFile = async (fileName) => { 
+      const fileContent = fs.createReadStream(fileName.path);
+      newpath = Math.floor(Math.random() * 100000)+fileName.name;
+          
+      const params = {
+          Bucket: BUCKET_NAME,
+          Key: newpath,  
+          Body: fileContent
+      };
+       
+      s3.upload(params, function(err, data) {
+          if (err) {
+              throw err;
+          }
+          console.log(`Resume uploaded. ${data.Location}`); 
+          newpath = data.Location;
 
-    var oldpath = files.path;
-    newpath = './uploads/' + Math.floor(Math.random() * 100000) +files.name;
-    fs.rename(oldpath, newpath, function (err) {
-      if (err) throw err;
-      console.log("Resume updated");  
-    });  
+      });
+      newpath = "https://photoseq.s3.amazonaws.com/"+newpath;
+  };
+  uploadFile(files);  
 
   }); 
   
@@ -914,7 +992,7 @@ async function insertResource() {
     Available_from: fields.Available_from, 
     Available_to: fields.Available_to, 
     Company_id: fields.Company_id, 
-    Resource_resume:newpath.substring(1),
+    Resource_resume:newpath,
     Intro_video :newvideoPath
   };
   if(passwordHash != 0){

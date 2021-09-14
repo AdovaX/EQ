@@ -56,10 +56,8 @@ export class CreateResourceComponent implements OnInit {
   videoFile: File;
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
-  value = 50;
-  HOST = window.location.hostname; 
-  REST_API_SERVER = "http://3.109.113.141:8090";
-  default_profile_pic ="";
+  value = 50;  
+  default_profile_pic ="https://photoseq.s3.ap-south-1.amazonaws.com/profile_photo.png";
 
   displayedColumns: string[] = ['No','Resource_active','Resource_name', 'Resource_Designation', 
   'Resource_rate','Available_from','Available_to','Remaining','Action'];
@@ -76,9 +74,7 @@ export class CreateResourceComponent implements OnInit {
   } 
   constructor(private formBuilder: FormBuilder, private ListingManagerService:ListingManagerService,
     private Router:Router,public dialog: MatDialog,private snackBar: MatSnackBar) {
-      if(this.HOST === 'localhost'){
-        this.REST_API_SERVER = "http://localhost:8090";
-     }
+      
      }
     
     
@@ -113,8 +109,7 @@ export class CreateResourceComponent implements OnInit {
   Available_to = new FormControl('', [ Validators.required]);
   Resource_location = new FormControl('');
 
-  ngOnInit(): void {
-    this.default_profile_pic =this.REST_API_SERVER + '/uploads/profile_photo.png';
+  ngOnInit(): void { 
     this.getResources();
     this.getTechnologyLists();
     this.getEducationLists();
