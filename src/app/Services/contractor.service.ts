@@ -103,20 +103,20 @@ deleteDelegate(Delegate_id){
   } 
   return this.http.put<any>(this.REST_API_SERVER + '/contractor/delegateDeletion/', delegateData);
 }
-updateCompany(User_id,Company_id,Companydata): Observable<Company[]>{
-    
-  var Company:any = {
-      'C_full_name' : Companydata.Company_fullname,
-      'C_short_name' :Companydata.Company_shortname,
-      'Website' :Companydata.Company_website,
-      'No_employees' :Companydata.Company_noemployees,
-      'Founded' :Companydata.Company_found,
-      'About' :Companydata.Company_about,
-      'Company_email' :Companydata.Company_email,
-      'Company_id' : Company_id,
-      'User_id' : User_id
-  } 
- return this.http.put<Company[]>(this.REST_API_SERVER + '/contractor/updateCompany/', Company);
+updateCompany(User_id,Company_id,Companydata , Logo): Observable<Company[]>{
+  const formData: FormData = new FormData();
+  formData.append('file', Logo);
+  formData.append('C_full_name', Companydata.Company_fullname);
+  formData.append('C_short_name', Companydata.Company_shortname);
+  formData.append('Website', Companydata.Company_website);
+  formData.append('No_employees', Companydata.Company_noemployees);
+  formData.append('Founded', Companydata.Company_found);
+  formData.append('About', Companydata.Company_about);
+  formData.append('Company_email', Companydata.Company_email);
+  formData.append('Company_id', Company_id);
+  formData.append('User_id', User_id);
+ 
+ return this.http.put<Company[]>(this.REST_API_SERVER + '/contractor/updateCompany/', formData);
 } 
 
 editDelegate(Delegate_id){

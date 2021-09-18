@@ -41,5 +41,11 @@ Title = "";
     }
 
   }
- 
+  logout(){
+    this.router.navigate(['Login']); 
+  }
+  gotoChat(){
+    this.router.navigate(['company/Chats']); 
+    
+  }
 }

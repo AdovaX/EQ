@@ -12,3 +12,10 @@
 .pname{
     white-space: pre-line;
 }
+
+.badge{
+    padding: 5px;
+    font-weight: 400;
+
+}
+

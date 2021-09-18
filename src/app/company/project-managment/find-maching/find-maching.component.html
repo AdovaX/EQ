@@ -15,32 +15,26 @@
             <div class="table-responsive">
                 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
                                                  
-
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="No" >
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> No </th>
-                      <td mat-cell *matCellDef="let element;let i =index;"> 
-                        <circle-progress
-                        [percent]="element.Matching" 
-                        [title] ="i+1" 
-                        [outerStrokeColor]="(element.Matching > 75)? 'Green' : (element.Matching >50) ? 'Orange' : 'Red'"
-                         >
-                    </circle-progress>
-                          
-                      </td>
-                    </ng-container> 
+ 
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="Matching" >
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Matching </th>
-                      <td mat-cell *matCellDef="let element"> {{element.Matching+'%'}} </td>
+                      <td mat-cell *matCellDef="let element">   
+                        <circle-progress
+                        [percent]="element.Matching" 
+                        [title] ="element.Matching+'%'" 
+                        [outerStrokeColor]="(element.Matching > 75)? 'Green' : (element.Matching >50) ? 'Orange' : 'Red'"
+                         >
+                    </circle-progress>
+                      </td>
                     </ng-container> 
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="Resource_name" >
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                       <td mat-cell *matCellDef="let element"> 
-                        <img src="{{REST_API_SERVER}}{{element.Resource_photo}}"   alt="" class="profilePic">
+                        <img src="{{(element.Resource_photo) ? element.Resource_photo :default_profile_pic }}"   alt="" class="profilePic">
 
                         {{element.Resource_name}} </td>
                     </ng-container> 
@@ -52,14 +46,20 @@
                     </ng-container> 
 
                     <!-- Position Column -->
+                    <ng-container matColumnDef="Resource_Company" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
+                      <td mat-cell *matCellDef="let element"> {{element.CompanyTb.C_short_name}} </td>
+                    </ng-container> 
+
+                    <!-- Position Column -->
                     <ng-container matColumnDef="Available_from" >
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Available_from </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Available From </th>
                       <td mat-cell *matCellDef="let element"> {{element.Available_from}} </td>
                     </ng-container> 
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="Available_to" >
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Available_to </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Available To </th>
                       <td mat-cell *matCellDef="let element"> {{element.Available_to}} </td>
                     </ng-container> 
 
@@ -84,6 +84,10 @@
                         </button>  &nbsp;
                         <button mat-icon-button color="primary" class="actionBtns" matTooltip="View Resource"  >
                           <span class="fa fa-user"> </span>   
+                        </button>   &nbsp;
+                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="Chat with Listing Manager"
+                         (click)="gotoChat(element.Created_by,element.Resource_id ,element.Requirement_id)" >
+                          <span class="fa fa-comments-o"> </span>   
                         </button>   
                       </td>
                     </ng-container> 

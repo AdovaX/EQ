@@ -12,16 +12,23 @@ import {SearchResourceComponent} from './search-resource/search-resource.compone
 import {CreateResourceComponent} from './create-resource/create-resource.component';
 import { ProfileComponent } from './profile/profile.component';
 import { IntroVideoComponent } from './intro-video/intro-video.component';
-import { TableComponent } from './table/table.component';
 import { EditResourceComponent } from './edit-resource/edit-resource.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { DelegateManagementComponent } from './delegate-management/delegate-management.component';
 import { SpocManagementComponent } from './spoc-management/spoc-management.component';
+import { ChatComponent } from './chat/chat.component';
 
+import { ChatHistoryComponent } from './chat-history/chat-history.component';
 const routes: Routes = [
     {
       path : '', component:RegistrationComponent
     }, 
+    {
+      path : 'Chat', component:ChatComponent
+    },
+    {
+      path : 'Chats', component:ChatHistoryComponent
+    },
     {
       path : 'SpocManagement', component:SpocManagementComponent
     },   

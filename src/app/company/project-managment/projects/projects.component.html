@@ -42,8 +42,14 @@
                       
                         <!-- Name Column -->
                         <ng-container matColumnDef="Project_name">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                          <td class="pname" mat-cell *matCellDef="let element"> {{element.Project_name}} &nbsp;</td>
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
+                          <td class="pname" mat-cell *matCellDef="let element"> {{element.Project_name}} &nbsp;
+                            <div class=""> 
+                              <span class="badge badge-light m-1" *ngFor="let req of element.RequirementsTbs">
+                                {{req.Requirement_name}}
+                              </span>  
+                            </div>
+                          </td>
                         </ng-container>
                        
                       

@@ -583,7 +583,10 @@ exports.projectMatching =async (req, res) => {
       
         for(const element of resourceList) {   
          var rol = await resourceTb.findAll({ where: {Resource_id : element.Resource_id, 
-         } }); 
+         } , include: {
+          model: companyTb ,
+          required: true
+        }}); 
          rol.forEach(el => {   
            var c = {
             "Resource_id" : el.Resource_id,
@@ -593,15 +596,19 @@ exports.projectMatching =async (req, res) => {
             "Available_from" : el.Available_from,
             "Resource_photo" : el.Resource_photo,
             "Available_to" : el.Available_to,
+            "Created_by" : el.Created_by,
              "RoleMatching" :element.RoleMatching,
              "DomainMatching" : element.DomainMatching,
              "TechnologyMatching" : element.TechnologyMatching,
              "EducationMatching" : element.EducationMatching,
              "Availabilitymaching" : element.Availabilitymaching,
              "Videomaching" : element.Videomaching,
-             "Matching":element.Matching
+             "Matching":element.Matching,
+             "CompanyTb" :el.CompanyTb,
+             "Requirement_id":requirement_id
            }
             resourceLists.push(c); 
+            console.log(c);
         });
           
       }  

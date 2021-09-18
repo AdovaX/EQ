@@ -207,14 +207,15 @@ exports.updateProfile = async (req, res) => {
   };
   exports.listofProjects = (req, res) => {
     const Company_id = req.body.Company_id;
+    const User_id = req.body.User_id;
     let projectdata=[];
     let completion=0;
     const today = moment();
 
    
-    projectTb.findAll({ where: {Company_id :Company_id   },
+    projectTb.findAll({ where: {User_id :User_id   },
     include: {
-      model: companyTb ,
+      model: requirementTb ,
       required: true
     } })
       .then(data => {
@@ -237,6 +238,7 @@ exports.updateProfile = async (req, res) => {
             "Start_date":data[val].Start_date,
             "Status":data[val].Status,
             "Remaining":completion,
+            "RequirementsTbs" : data[val].RequirementsTbs
           }
           projectdata.push(c);
 

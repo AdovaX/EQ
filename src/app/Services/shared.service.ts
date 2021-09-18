@@ -65,5 +65,23 @@ profilePhotoUpdate(profile_photo): Observable<any>{
  
 return this.http.post<any>(this.REST_API_SERVER + '/users/profilePhotoUpdate/', formData);
 } 
-
+sendMsg(User_id ,LManager_id,Resource_id, Requirement_id,Message_send): Observable<any[]>{
+  var data = {
+    "User_id" : User_id,
+    "LManager_id" : LManager_id,
+    "Message" : Message_send,
+    "Requirement_id" : Requirement_id,
+    "Resource_id" : Resource_id,
+  }
+ return this.http.post<any[]>(this.REST_API_SERVER + '/users/sendMsg/', data);
+} 
+getMsg(User_id ,LManager_id,Resource_id, Requirement_id): Observable<any[]>{
+  var data = {
+    "User_id" : User_id,
+    "LManager_id" : LManager_id, 
+    "Requirement_id" : Requirement_id,
+    "Resource_id" : Resource_id,
+  }
+ return this.http.post<any[]>(this.REST_API_SERVER + '/users/getMsg/', data);
+} 
 }

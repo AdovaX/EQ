@@ -37,6 +37,7 @@ export class CompanyProfileComponent implements OnInit {
   isTier  = []; 
   isTier2  = []; 
   tierList  = new Array(); 
+  fileToUpload: File;
 
   ispreferenceUpdated = false;
   companyTiers:any;
@@ -64,7 +65,7 @@ export class CompanyProfileComponent implements OnInit {
   Bank_IFSC = new FormControl('', [ Validators.required]);
   Enable_masking = new FormControl('', [ Validators.required]);
   Enable_freelancers = new FormControl('', [ Validators.required]);
-  Company_tiers = new FormControl('', [ Validators.required]);
+  Company_tiers = new FormControl('', [ Validators.required]); 
   Company_TAN = new FormControl('', );
   Company_CIN = new FormControl('', );
   Company_PAN = new FormControl('', );
@@ -76,7 +77,7 @@ export class CompanyProfileComponent implements OnInit {
       Company_email : this.Company_email, 
       Company_found : this.Company_found,  
       Company_website : this.Company_website,  
-      Company_about : this.Company_about,  
+      Company_about : this.Company_about 
   
     });
     this.Branch_Form = this.formBuilder.group({
@@ -130,6 +131,11 @@ export class CompanyProfileComponent implements OnInit {
   get b() { return this.Branch_Form.controls; }
   get bank() { return this.Bank_Form.controls; }
 
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(files.item(0).name); 
+}
+ 
   resetForm(){ this.Company_Form.reset();}
   resetBranchForm(){ this.Branch_Form.reset();}
   resetBankForm(){ this.Bank_Form.reset();}
@@ -174,7 +180,7 @@ export class CompanyProfileComponent implements OnInit {
  if (this.Company_Form.invalid) {  
    return;
  }else{
-   this.ContractorService.updateCompany(this.User_id ,this.Company_id, this.Company_Form.value).subscribe(data =>{
+   this.ContractorService.updateCompany(this.User_id ,this.Company_id, this.Company_Form.value , this.fileToUpload).subscribe(data =>{
      console.log(data);
       if(data['status'] == "Failed"){
        this.invalid = true;

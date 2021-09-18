@@ -1,0 +1,74 @@
+.iconsize{
+    width: 50px;
+    font-size: 22px;
+}
+.cRed{
+    color: red;
+}
+.cOrange{
+    color: orange;
+}
+.cBlue{
+    columns: blue;
+}
+.cBlack{
+    color: black;
+}
+.cWhite{
+    color: white;
+}
+.dropdown-lg{
+    margin-left:10px;
+    margin-right:10px;
+}
+ 
+  
+  .icon-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    color: #333333;
+    background: #dddddd;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+  }
+  
+  .icon-button:hover {
+    cursor: pointer;
+  }
+  
+  .icon-button:active {
+    background: #cccccc;
+  }
+  
+  .icon-button__badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 25px;
+    height: 25px;
+    background: red;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+
+  .profileicon{ 
+      border-radius :50%; 
+      background-color: #3f52b5;
+  }
+  .btnicon{
+    border-style: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    display: block;
+  }

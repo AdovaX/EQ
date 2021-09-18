@@ -4,6 +4,9 @@ const usersTb = db.user;
 const contractorTb = db.contractownerTb;
 const spocTb = db.spocTb;
 const delegateTb = db.delegateTb;
+const ChatTbs = db.ChatTbs;
+
+
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 const IncomingForm = require('formidable').IncomingForm; 
@@ -106,7 +109,7 @@ exports.profilePhotoUpdate = async (req, res) => {
         var newname = Math.floor(Math.random() * 100000)+fileName.file.name;
             
         const params = {
-            Bucket: BUCKET_NAME,
+            Bucket: BUCKET_NAME+'/Profile_Photos',
             Key: newname,  
             Body: fileContent
         };
@@ -115,7 +118,7 @@ exports.profilePhotoUpdate = async (req, res) => {
             if (err) {
                 throw err;
             }
-            console.log(`File uploaded successfully. ${data.Location}`);
+            console.log(`Profile Photos successfully. ${data.Location}`);
             console.log(data);
             var profilePhoto = {
               "Profile_photo" : data.Location  
@@ -148,3 +151,66 @@ exports.profilePhotoUpdate = async (req, res) => {
   }
   
 };
+
+
+exports.sendMsg= async (req, res) => {
+  if (!req.body.User_id) {
+   res.status(400).send({
+     message: "Content can not be empty!"
+   });
+   return;
+ }  
+ var msgs = {
+  "Sender_id" : req.body.User_id,
+  "Reciver_id" : req.body.LManager_id,
+  "Message" : req.body.Message,
+  "Requirement_id" : req.body.Requirement_id,
+  "Resource_id" : req.body.Resource_id,
+ }
+  
+ await ChatTbs.create(msgs)
+ .then(data => {
+   res.send(data);
+ })
+ .catch(err => {
+   res.status(500).send({
+     message:
+       err.message || "Some error occurred while creating the Tutorial."
+   });
+ });  
+};  
+
+exports.getMsg= async (req, res) => {
+  if (!req.body.User_id) {
+   res.status(400).send({
+     message: "Content can not be empty!"
+   });
+   return;
+ }    
+await ChatTbs.findAll({ where: 
+  {
+    [Op.or]: [{
+                Sender_id: req.body.User_id,
+                Reciver_id:req.body.LManager_id,
+                Requirement_id:req.body.Requirement_id,
+                Resource_id:req.body.Resource_id, 
+                }, 
+                {
+                Sender_id: req.body.LManager_id, 
+                Requirement_id:req.body.Requirement_id,
+                Resource_id:req.body.Resource_id,
+                Reciver_id:req.body.User_id,
+                }, 
+    ] 
+}  
+}).then(data => { 
+   res.send(data);
+ })
+ .catch(err => {
+   console.log(err);
+   res.status(500).send({
+     message:
+       err.message || "Some error occurred while creating the Tutorial."
+   });
+ });  
+};  

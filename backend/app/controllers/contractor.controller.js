@@ -6,49 +6,75 @@ const spocTb = db.spocTb;
 const delegateTb = db.delegateTb;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
+var fs = require('fs');
+const IncomingForm = require('formidable').IncomingForm; 
+const AWS = require('aws-sdk');
+const awsConfig= require('../../config/AWS.config');
+const BUCKET_NAME =awsConfig.Bucket_Name;
 
+const s3 = new AWS.S3({
+  accessKeyId: awsConfig.Access_Key_ID,
+  secretAccessKey: awsConfig.Secret_Access_Key, 
+});
    
 exports.updateCompany = async (req, res) => {
-  if (!req.body.C_full_name) {
-   res.status(400).send({
-     message: "Content can not be empty!"
-   });
-   return;
- } 
- const companyData = {
-     C_short_name: req.body.C_short_name,
-     C_full_name: req.body.C_full_name,
-     Website: req.body.Website,
-     No_employees: req.body.No_employees,
-     Founded : req.body.Founded,
-     About : req.body.About,
-     Company_email : req.body.Company_email,  
 
+  var form = new IncomingForm(); 
+
+  form.parse(req, async (err, fields, files) => {
+    const uploadFile = (fileName) => { 
+      const fileContent = fs.createReadStream(fileName.file.path);
+      var newname = Math.floor(Math.random() * 100000)+fileName.file.name;
+          
+      const params = {
+          Bucket: BUCKET_NAME+'/Logos',
+          Key: newname,  
+          Body: fileContent
+      };
+       
+      s3.upload(params, function(err, data) {
+          if (err) {
+              throw err;
+          }
+          console.log(`Logo uploaded successfully. ${data.Location}`);
+
+          const companyData = {
+            C_short_name: fields.C_short_name,
+            C_full_name: fields.C_full_name,
+            Website: fields.Website,
+            No_employees: fields.No_employees,
+            Founded : fields.Founded,
+            About : fields.About,
+            Company_email : fields.Company_email,  
+            Company_logo : data.Location,
+       
+         };
+         
+           companyTb.update(companyData, {
+            where: { Company_id: fields.Company_id }
+          }).then(num => {
+              if (num == 1) {
+               res.send({
+                 status: true
+               });
+              } else {
+                res.status(200).send("Updated successfully");
+              }
+            })
+            .catch(err => {
+              res.status(500).send({
+                message: "Error updating Tutorial with id="
+              });
+            });
+
+
+      });
   };
-  async function updateCompanyProfile() {
-     return await companyTb.update(companyData, {
-         where: { Company_id: req.body.Company_id }
-       }).then(num => {
-           if (num == 1) {
-            res.send({
-              status: true
-            });
-           } else {
-            res.send({
-              status: false
-            });
-           }
-         })
-         .catch(err => {
-           res.status(500).send({
-             message: "Error updating Tutorial with id="
-           });
-         });
-   }
-   const isUpdated =  await updateCompanyProfile();
-   if(isUpdated){
-     res.status(200).send("Updated successfully");
-   }
+  uploadFile(files);
+  });
+ 
+   
+   
 };  
    
  

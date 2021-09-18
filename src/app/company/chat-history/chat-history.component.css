@@ -1,0 +1,103 @@
+:root {
+    --font-body: Poppins, sans-serif;
+    --secondary: #eef7fe;
+    --primary: #22215b;
+    --primary-light: #2f2f31;
+}
+ 
+ul {
+    list-style: none;
+}
+button {
+    font-family: inherit;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+.card {
+    background: #fff; 
+    display: flex; 
+    border-radius: 30px;
+    padding: 10px 30px;
+}
+.card__info__place {
+    font-size: 14px;
+    color: var(--primary-light);
+}
+.card__info__time {
+    font-size: 20px;
+    color: var(--primary);
+}
+.card__info__date {
+    font-size: 14px;
+    color: var(--primary-light);
+}
+.card__weather {
+    margin-left: auto;
+    display: flex;
+    align-items: center; 
+    float:right;
+}
+.card__weather__temp {
+    font-size: 30px;
+}
+.card__weather__icon {
+    animation: move 1s infinite alternate ease-in-out;
+}
+@keyframes move {
+    to {
+        transform: translateY(-10px);
+   }
+}
+.goright{
+    float:right;
+}
+.chatbuttons{
+    border-style: dotted;
+    border-width: 1px;
+    border-color: blue;
+}
+.goleft{
+    float:left;
+}
+.media{
+    cursor: pointer;
+} 
+.chattime{
+    font-size: 10px;
+    display: block;
+    margin: auto;
+}
+.chatpic{
+    width:30px;
+    border-radius:50%;
+    margin:auto;
+    display:block;
+    padding-top: 10px;
+}
+.widthfull{
+    width:100%;
+}
+.topup{
+    position:relative;
+    top: -10px;
+}
+.chatsection{
+    max-height: 350px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.chatheads{
+    max-height: 450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.cuspadding{
+    padding:1px;
+}
+.valgin{
+    vertical-align:middle;
+}
+.rightmsg p {
+    color: black;
+}

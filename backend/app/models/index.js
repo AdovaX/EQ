@@ -67,9 +67,16 @@ db.stream_educationTbs = require("./stream_education.model")(sequelize, Sequeliz
 db.mtech_Tbs = require("./mtech.model")(sequelize, Sequelize);
 db.TimesheetTbs = require("./timesheet.model")(sequelize, Sequelize);
 db.BookmarkTbs = require("./bookmark.model")(sequelize, Sequelize);
+db.ChatTbs = require("./chat.model")(sequelize, Sequelize);
 
   
   
+ 
+db.user.hasMany(db.ChatTbs, {foreignKey: 'Reciver_id'});  
+db.ChatTbs.belongsTo(db.user, {foreignKey: 'Reciver_id', targetKey: 'User_id'});
+
+db.user.hasMany(db.ChatTbs, {foreignKey: 'Sender_id'});  
+db.ChatTbs.belongsTo(db.user, {foreignKey: 'Sender_id', targetKey: 'User_id'});
  
 db.user.hasMany(db.TimesheetTbs, {foreignKey: 'User_id'});  
 db.TimesheetTbs.belongsTo(db.user, {foreignKey: 'User_id', targetKey: 'User_id'});
@@ -183,7 +190,7 @@ db.project.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Compan
 db.companyTb.hasOne(db.requirement, {foreignKey: 'Company_id'});  
 db.requirement.belongsTo(db.companyTb, {foreignKey: 'Company_id', targetKey: 'Company_id'});
 
-db.project.hasOne(db.requirement, {foreignKey: 'Project_id'});  
+db.project.hasMany(db.requirement, {foreignKey: 'Project_id'});  
 db.requirement.belongsTo(db.project, {foreignKey: 'Project_id', targetKey: 'Project_id'});
 
 db.requirement.hasOne(db.SelectedTech, {foreignKey: 'Requirement_id'});  

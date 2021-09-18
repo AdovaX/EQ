@@ -8,6 +8,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { PopupInterviewDateComponent } from '../popup-interview-date/popup-interview-date.component';
+import { PopupConfirmationComponent } from '../../popup-confirmation/popup-confirmation.component';
 
 @Component({
   selector: 'app-find-maching',
@@ -18,11 +19,9 @@ export class FindMachingComponent implements OnInit {
   Requirement_id;
   Resource_list=[];
   noResource = false;
-
-  HOST = window.location.hostname; 
-  REST_API_SERVER = "http://3.109.113.141:8090";
-  default_profile_pic ="";
-  displayedColumns: string[] = ['No','Matching','Resource_name','Resource_rate','Available_from','Available_to','Status','Action'];
+ 
+  default_profile_pic ="https://photoseq.s3.ap-south-1.amazonaws.com/profile_photo.png";
+  displayedColumns: string[] = ['Matching','Resource_name','Resource_Company','Resource_rate','Available_from','Available_to','Status','Action'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,9 +33,7 @@ export class FindMachingComponent implements OnInit {
   } 
   constructor(private _Activatedroute:ActivatedRoute,private router: Router,private ProjectService :ProjectService,private snackBar: MatSnackBar,public dialog: MatDialog) { 
     this.Requirement_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
-    if(this.HOST === 'localhost'){
-      this.REST_API_SERVER = "http://localhost:8090";
-   }
+    
 
   }
  openSnackBar(message: string, action: string='') {
@@ -104,5 +101,24 @@ export class FindMachingComponent implements OnInit {
  }); 
 
   }
-   
+  gotoChat(LManager_id,Resource_id,Requirement_id){
+
+    sessionStorage.setItem('LManager_id',LManager_id); 
+    sessionStorage.setItem('Resource_id',Resource_id); 
+    sessionStorage.setItem('Requirement_id',Requirement_id); 
+
+    const dialogRef = this.dialog.open(PopupConfirmationComponent, {
+      width: '450px',
+      data: {name: 'Please communicate with each other with Manners.'},
+      hasBackdrop: true,
+      disableClose : true
+    }); 
+    dialogRef.afterClosed().subscribe(result => { 
+      if(result.Confirmation){
+        this.router.navigate(['company/Chat']);  
+     } 
+    });
+    
+
+  }
 }

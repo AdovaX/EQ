@@ -13,11 +13,19 @@ export interface DialogData {
 })
 export class PopupConfirmationComponent implements OnInit {
   Confirmation =false;
+  msgs ="";
    constructor(
      public dialogRef: MatDialogRef<DelegateComponent>,
-     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+      if(this.data.name ==''){
+        this.msgs ='Are you sure ?'; 
+       }else{
+        this.msgs =this.data.name;  
+       }
+     }
  
    ngOnInit(): void {
+    
    }
    onNoClick(): void {
       

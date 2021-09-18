@@ -41,6 +41,7 @@ import { ShortListedResourcesComponent } from './short-listed-resources/short-li
 import { CalenderComponent } from './calender/calender.component';
  
 import { PopUpTimesheetComponent } from './pop-up-timesheet/pop-up-timesheet.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 import { FullCalendarModule } from '@fullcalendar/angular'; 
@@ -77,6 +78,7 @@ FullCalendarModule.registerPlugins([
     MatDatepickerModule,
     MatPaginatorModule,
     MatTooltipModule, 
+    MatChipsModule,
     EditorModule, 
     NgCircleProgressModule.forRoot({
       // set defaults here

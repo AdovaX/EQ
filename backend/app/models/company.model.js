@@ -32,6 +32,9 @@ module.exports = (sequelize, Sequelize) => {
       About: {
         type: Sequelize.TEXT
       },
+      Company_logo: {
+        type: Sequelize.TEXT
+      },
       Eq_rating: {
         type: Sequelize.INTEGER
       },

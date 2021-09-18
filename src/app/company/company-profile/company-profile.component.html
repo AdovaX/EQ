@@ -64,7 +64,7 @@
                                       </div> 
                                    </div>
                                 </div>  
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                   <div class="form-group">
                                     <label for="input-11">Company short name<span class="redColor">*</span> </label>
                                     <input type="text" class="form-control form-control-square" formControlName="Company_shortname" id="Company_shortname" 
@@ -74,7 +74,7 @@
                                       </div> 
                                    </div>
                                 </div>  
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                   <div class="form-group">
                                     <label for="input-11">Number of employees<span class="redColor">*</span> </label>
                                     <input type="number" min="0" class="form-control form-control-square" formControlName="Company_noemployees" id="Company_noemployees" 
@@ -84,7 +84,7 @@
                                       </div> 
                                    </div>
                                 </div>  
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                   <div class="form-group">
                                     <label for="input-11">Company Email ID<span class="redColor">*</span> </label>
                                     <input type="email" class="form-control form-control-square" formControlName="Company_email" 
@@ -94,7 +94,7 @@
                                       </div> 
                                    </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                   <div class="form-group">
                                     <label for="input-11">Founded On </label>
                                     <input type="date" class="form-control form-control-square" formControlName="Company_found" id="Company_found" 
@@ -104,7 +104,7 @@
                                       </div> 
                                    </div>
                                 </div> 
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                   <div class="form-group">
                                     <label for="input-11">Website<span class="redColor">*</span> </label>
                                     <input type="text" class="form-control form-control-square" formControlName="Company_website" id="Company_website" 
@@ -123,7 +123,14 @@
                                         <div *ngIf="f.Company_about.errors.required">About data is not valid.</div> 
                                       </div> 
                                    </div>
-                                </div>    
+                                </div>  
+                                <div class="col-sm-12">
+                                  <div class="form-group">
+                                    <label for="input-11">Company Logo </label> <br>
+                                    <input type="file" (change)="handleFileInput($event.target.files)"> 
+                                   </div>
+
+                                </div>  
 
                                 <div class="col-sm-6">
                                     <div class="btn-group noShodow">

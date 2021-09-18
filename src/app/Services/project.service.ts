@@ -42,11 +42,12 @@ export class ProjectService  {
 return this.http.post<Project[]>(this.REST_API_SERVER + '/hiring/createproject', data);
   
 }
-getProjects(): Observable<Project[]>{ 
+getProjects(): Observable<any[]>{ 
 var data = {
-    "Company_id" : this.Company_id
+    "Company_id" : this.Company_id,
+    "User_id":this.User_id
 } 
-return this.http.post<Project[]>(this.REST_API_SERVER + '/hiring/projectList', data);
+return this.http.post<any[]>(this.REST_API_SERVER + '/hiring/projectList', data);
 }
 searchProjectById(Project_id){
   var data = {
@@ -268,5 +269,5 @@ rejectTimesheet(Resource_id,Rejection_reson){
   }
   return this.http.post<any[]>(this.REST_API_SERVER + '/project/rejectTimesheet/', data);
 
-}
+} 
 }

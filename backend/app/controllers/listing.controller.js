@@ -242,7 +242,7 @@ exports.createResource= async (req, res) => {
       newpath = Math.floor(Math.random() * 100000)+fileName.name;
           
       const params = {
-          Bucket: BUCKET_NAME,
+          Bucket: BUCKET_NAME+'/Resume',
           Key: newpath,  
           Body: fileContent
       };
@@ -521,7 +521,7 @@ exports.introVideo = (req, res) => {
       newpath = Math.floor(Math.random() * 100000)+fileName.name;
           
       const params = {
-          Bucket: BUCKET_NAME,
+          Bucket: BUCKET_NAME+'/Videos',
           Key: newpath,  
           Body: fileContent
       };
@@ -875,7 +875,7 @@ exports.profilePhotoChange = async(req, res) => {
       newpath = Math.floor(Math.random() * 100000)+fileName.file.name;
           
       const params = {
-          Bucket: BUCKET_NAME,
+          Bucket: BUCKET_NAME+'/Profile_Photos',
           Key: newpath,  
           Body: fileContent
       };
@@ -884,7 +884,7 @@ exports.profilePhotoChange = async(req, res) => {
           if (err) {
               throw err;
           }
-          console.log(`Intro_video uploaded. ${data.Location}`); 
+          console.log(`Resource_photouploaded. ${data.Location}`); 
           newpath = data.Location;
           var proData = {
             "Resource_photo":newpath
@@ -937,7 +937,7 @@ exports.editResource= async (req, res) => {
       newpath = Math.floor(Math.random() * 100000)+fileName.name;
           
       const params = {
-          Bucket: BUCKET_NAME,
+          Bucket: BUCKET_NAME+'/Resume',
           Key: newpath,  
           Body: fileContent
       };

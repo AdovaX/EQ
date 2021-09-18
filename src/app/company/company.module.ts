@@ -40,6 +40,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatBadgeModule} from '@angular/material/badge';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PopupEducationComponent } from './popup-education/popup-education.component';
@@ -50,6 +51,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { DelegateManagementComponent } from './delegate-management/delegate-management.component';
 import { PopupConfirmationComponent } from './popup-confirmation/popup-confirmation.component';
 import { SpocManagementComponent } from './spoc-management/spoc-management.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatHistoryComponent } from './chat-history/chat-history.component';
 
  
 @NgModule({
@@ -69,13 +72,16 @@ import { SpocManagementComponent } from './spoc-management/spoc-management.compo
     TimeSheetComponent,
     DelegateManagementComponent,
     PopupConfirmationComponent,
-    SpocManagementComponent, 
+    SpocManagementComponent,
+    ChatComponent,
+    ChatHistoryComponent, 
       ],
   imports: [
     CommonModule,
     CompanyRoutingModule,
     MatRadioModule,
     MatTooltipModule,
+    MatBadgeModule,
     MatSelectModule,
     RecaptchaModule,
     ReactiveFormsModule,

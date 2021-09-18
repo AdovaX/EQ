@@ -211,7 +211,27 @@
   </ul>
   <ul class="navbar-nav align-items-center right-nav-link">
     <li class="nav-item dropdown-lg">
-      <a [routerLink]="[ '/company/Login']"><i class="icon-power mr-2"></i> Logout </a>
+      <button type="button" class="fa fa-comments-o icon-button cWhite" matBadge="15" matBadgeColor="warn" (click)="gotoChat()"> 
+       </button> 
+    </li>  
+    <li class="nav-item dropdown-lg">
+      <button type="button" class="fa fa-bell-o icon-button cWhite" matBadge="15" matBadgeColor="warn"> 
+       </button> 
+    </li>  
+    <li class="nav-item dropdown-lg">
+      <button type="button" class="fa fa-envelope icon-button cWhite" matBadge="15" matBadgeColor="warn"> 
+       </button> 
+    </li>       
+    <li class="nav-item dropdown-lg">
+      <button mat-button [matMenuTriggerFor]="menu" class="btnicon"> 
+        <img src="https://image.flaticon.com/icons/svg/145/145867.svg" class="img-responsive profileicon" alt> 
+      </button>
+      <mat-menu #menu="matMenu">
+      <button mat-menu-item> <span class="fa fa-gears"></span> Settings</button>
+      <button mat-menu-item (click)="logout()"><span class="fa fa-power-off"></span>  Log out</button>
+      </mat-menu>
+        <!-- <a [routerLink]="[ '/company/Login']" class="cRed">      
+      <img src="https://image.flaticon.com/icons/svg/145/145867.svg" class="img-responsive profileicon" alt></a> -->
     </li> 
       </ul>   
 </nav>
