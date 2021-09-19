@@ -68,13 +68,13 @@ export class InterviewingResourcesListsComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => { 
         Reason = result.reason;
         console.log(Reason);
-        this.ProjectService.changeInterviewStatus(e.value,resource_id,requirement_id,Reason).subscribe(data =>{
-          console.log(data);  
-          this.getInterviewResources(); 
-        });
+        
       });
 
     }
-   
+    this.ProjectService.changeInterviewStatus(e.value,resource_id,requirement_id,Reason).subscribe(data =>{
+      console.log(data);  
+      this.getInterviewResources(); 
+    });
   }
 }
