@@ -14,12 +14,16 @@ export class IntroVideoComponent implements OnInit {
   name ="";
   disable_btn = true;
   previewFiles="";
+  uploading = false;
+  videoExists = false;
+  videoURL="";
   constructor(private _Activatedroute:ActivatedRoute,private ListingManagerService:ListingManagerService,private Router:Router) { 
     this.Resource_id =Number(this._Activatedroute.snapshot.paramMap.get("id"));
 
   }
 
   ngOnInit(): void {
+    this.get_introVideo();
   }
 
   onSelect(files) {
@@ -34,13 +38,26 @@ export class IntroVideoComponent implements OnInit {
 
 
 onSubmit(){ 
+  this.uploading = true;
   this.ListingManagerService.introVideo(this.fileName,this.Resource_id).subscribe(data =>{
    if(data.status==true){ 
+    this.uploading = false;
     this.Router.navigate(['/company/Resources']); 
    }  
  
  }); 
 
+} 
+get_introVideo(){
+  this.ListingManagerService.get_introVideo(this.Resource_id).subscribe(data =>{
+    console.log(data)
+    if(data.Intro_video==""){  
+      this.videoExists = false;
+    }else{ 
+      this.videoExists = true;
+      this.videoURL = data.Intro_video;
+    }
+  
+  }); 
 }
-
 }

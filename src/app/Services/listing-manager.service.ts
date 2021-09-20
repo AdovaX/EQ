@@ -100,6 +100,14 @@ introVideo(fileToUpload, Resource_id): Observable<any> {
       formData.append('Resource_id',Resource_id);
   return  this.http.post<any>(this.REST_API_SERVER +'/listing/introVideo', formData);
 }
+get_introVideo( Resource_id): Observable<any> {
+   
+  var introVideo ={
+    'Company_id':this.Company_id,
+    'Resource_id' : Resource_id
+  } 
+  return  this.http.post<any>(this.REST_API_SERVER +'/listing/get_introVideo', introVideo);
+}
 getDomainLists(){
   var data = {
   Company_id : this.Company_id

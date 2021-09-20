@@ -353,15 +353,19 @@ exports.projectMatching =async (req, res) => {
           include: [{
               model: selectedRolesTb,   
               required: false, 
+              where:{Requirement_id: requirement_id}
           },{
             model: SelectedDomainsTb, 
             required: false, 
+            where:{Requirement_id: requirement_id}
         },{
           model: SelectedTechTb, 
           required: false, 
+          where:{Requirement_id: requirement_id}
       },{
         model: SelectedQualificationsTb, 
         required: false, 
+        where:{Requirement_id: requirement_id}
     }],
           required: false,
         
@@ -374,6 +378,7 @@ exports.projectMatching =async (req, res) => {
     return data
     }
     requirement_data = await getRequirement_data();
+    //res.send(requirement_data);
     let requirement_start = requirement_data.Requirement_start; 
      
 
@@ -430,7 +435,7 @@ exports.projectMatching =async (req, res) => {
        
       totalTechs = Object.keys(requirement_data.ProjectsTb['SelectedTechnologiesTbs']).length; 
       let matchingPercentage = technologyMatching / totalTechs;
-      matchingPercentage = matchingPercentage/3; //expt,level,version
+      matchingPercentage = matchingPercentage/2; //expt,level,version
       console.log("Tech division by:" +matchingPercentage);
 
       let R_technology_list =  requirement_data.ProjectsTb['SelectedTechnologiesTbs'] ;
@@ -452,11 +457,11 @@ exports.projectMatching =async (req, res) => {
             p++;
             console.log("Technology level matched."+p);
           }
-          if(el.RTechnology_version == val['Technology_version'])
-          {
-            p++;
-            console.log("Technology version matched."+p);
-          }
+          // if(el.RTechnology_version == val['Technology_version'])
+          // {
+          //   p++;
+          //   console.log("Technology version matched."+p);
+          // }
           var c = {
             "Resource_id" : el.Resource_id,
             "Technologymaching" : (matchingPercentage*p)
@@ -506,7 +511,9 @@ exports.projectMatching =async (req, res) => {
    if(Object.keys(requirement_data.ProjectsTb['SelectedDomainsTbs']).length > 0){
     let R_technology_list =  requirement_data.ProjectsTb['SelectedDomainsTbs'] ;
     let totalDomain =Object.keys(requirement_data.ProjectsTb['SelectedDomainsTbs']).length; 
+    
     for(const val of R_technology_list) { 
+      console.log('Total Domains '+ val['Domains'] );
      number_of_requirements++;
      var rol = await resourceDomainTbs.findAll({ where: {
        RDomain : val['Domains'] 
@@ -607,8 +614,7 @@ exports.projectMatching =async (req, res) => {
              "CompanyTb" :el.CompanyTb,
              "Requirement_id":requirement_id
            }
-            resourceLists.push(c); 
-            console.log(c);
+            resourceLists.push(c);  
         });
           
       }  
@@ -673,7 +679,7 @@ var videoMach=0;
     "EducationMatching" : eduMach,
     "Availabilitymaching" : availMach,
     "Videomaching" : videoMach,
-    "Matching":Math.round((domainMach+techMach+eduMach+availMach+videoMach))
+    "Matching":Math.round((roleMach+domainMach+techMach+eduMach+availMach+videoMach))
   }
   meData.push(c);
   roleMach=0;

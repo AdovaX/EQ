@@ -21,7 +21,7 @@ export class FindMachingComponent implements OnInit {
   noResource = false;
  
   default_profile_pic ="https://photoseq.s3.ap-south-1.amazonaws.com/profile_photo.png";
-  displayedColumns: string[] = ['Matching','Resource_name','Resource_Company','Resource_rate','Available_from','Available_to','Status','Action'];
+  displayedColumns: string[] = ['Matching','Resource_name','Resource_Company','Company_tier','Resource_rate','Available_from','Available_to','Status','Action'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

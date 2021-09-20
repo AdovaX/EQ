@@ -287,7 +287,7 @@ export class CreateResourceComponent implements OnInit {
 
   getResources(){
     this.ListingManagerService.getResources().subscribe(data =>{
-    
+    console.log(data);
     this.resourceLists  = data;
     this.dataSource.data =data;
    

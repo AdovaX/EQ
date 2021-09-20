@@ -83,7 +83,7 @@ FullCalendarModule.registerPlugins([
     NgCircleProgressModule.forRoot({
       // set defaults here
       "backgroundPadding": 5,
-      "radius": 14,
+      "radius": 20,
       "space": -10,
       "toFixed": 0,
       "maxPercent": 1000,

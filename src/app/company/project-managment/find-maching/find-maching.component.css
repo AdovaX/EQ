@@ -12,3 +12,7 @@
     width:25px;
     border-radius: 20px;
   }
+ 
+  ::ng-deep .mat-tooltip {
+    white-space: pre-line;  
+  }

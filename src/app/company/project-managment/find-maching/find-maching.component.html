@@ -18,9 +18,14 @@
  
 
                     <!-- Position Column -->
-                    <ng-container matColumnDef="Matching" >
+                    <ng-container matColumnDef="Matching"  >
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Matching </th>
-                      <td mat-cell *matCellDef="let element">   
+                      <td mat-cell *matCellDef="let element"  matTooltip="Availability : {{element.Availabilitymaching}}%
+                      Domain : {{element.DomainMatching}}%
+                      Education : {{element.EducationMatching}}%
+                      Role : {{element.RoleMatching}}%
+                      Technology : {{element.TechnologyMatching}}%
+                      Intro Video : {{element.Videomaching}}%">   
                         <circle-progress
                         [percent]="element.Matching" 
                         [title] ="element.Matching+'%'" 
@@ -52,6 +57,12 @@
                     </ng-container> 
 
                     <!-- Position Column -->
+                    <ng-container matColumnDef="Company_tier" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tier </th>
+                      <td mat-cell *matCellDef="let element"> {{element.CompanyTb.Company_tier}} </td>
+                    </ng-container> 
+
+                    <!-- Position Column -->
                     <ng-container matColumnDef="Available_from" >
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Available From </th>
                       <td mat-cell *matCellDef="let element"> {{element.Available_from}} </td>
@@ -73,22 +84,28 @@
                     <ng-container matColumnDef="Action">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                       <td mat-cell *matCellDef="let element"> 
-                        <!-- <button mat-icon-button color="primary" class="actionBtns" matTooltip="Short list" c>
-                          <span class="fa fa-user-plus"> </span>   
-                        </button> &nbsp; -->
+                        
                         <button mat-icon-button color="primary" class="actionBtns" matTooltip="Short list" (click)="shortList(element.Resource_id)">
                           <span class="fa fa-user-plus"> </span>   
-                        </button> &nbsp;
-                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="Add Bookmark" (click)=addBookmark(element.Resource_id)>
-                          <span class="fa fa-bookmark-o"> </span>   
-                        </button>  &nbsp;
-                        <button mat-icon-button color="primary" class="actionBtns" matTooltip="View Resource"  >
-                          <span class="fa fa-user"> </span>   
-                        </button>   &nbsp;
+                        </button> &nbsp; 
                         <button mat-icon-button color="primary" class="actionBtns" matTooltip="Chat with Listing Manager"
                          (click)="gotoChat(element.Created_by,element.Resource_id ,element.Requirement_id)" >
                           <span class="fa fa-comments-o"> </span>   
                         </button>   
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                          <span class="fa fa-ellipsis-v"></span>
+                        </button>
+                        <mat-menu #menu="matMenu"> 
+
+                          <button mat-menu-item   (click)="addBookmark(element.Resource_id)">
+                            <span class="fa fa-bookmark-o"> Bookmark </span>  
+                          </button> 
+
+                          <button mat-menu-item   (click)="addBookmark(element.Resource_id)">
+                            <span class="fa fa-user"> View Resource </span>  
+                          </button> 
+
+                        </mat-menu>
                       </td>
                     </ng-container> 
                   

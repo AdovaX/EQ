@@ -4,7 +4,11 @@
  
         <div class="row pt-2 pb-2">
             <div class="col-sm-9">
-                <h4 class="page-title">Introduction Video</h4> 
+                <h4 class="page-title">Introduction Video 
+                  <a *ngIf="videoExists" matTooltip="Exisiting video" href="{{videoURL}}" target="download"> 
+                    <span class="fa fa-eye"></span>  
+                  </a>
+                </h4>  
            </div> 
          </div>   
           <ngx-dropzone (change)="onSelect($event)" accept="video/mp4"> 
@@ -15,6 +19,8 @@
           <ngx-dropzone-video-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of previewFiles" [file]="f">
              
           </ngx-dropzone-video-preview>
+          <br>
+          <p *ngIf="uploading">File is being uploaded.Please wait...</p>
           <br>
 
           <button mat-raised-button color="primary" [disabled]= "disable_btn" (click)="onSubmit()">Proceed</button>

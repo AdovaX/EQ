@@ -46,6 +46,10 @@ module.exports = (sequelize, Sequelize) => {
       },
       Tiers_maching: {
         type: Sequelize.STRING
+      },
+      Company_tier: {
+        type: Sequelize.INTEGER,
+        defaultValue:5
       }
     });
   

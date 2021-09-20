@@ -925,19 +925,20 @@ exports.profilePhotoChange = async(req, res) => {
 exports.editResource= async (req, res) => {
 
   var form = new IncomingForm(); 
-  var newpath ="";
-  var newvideoPath ="";
+  var newpath =""; 
+  const RESUME_BUCKET = BUCKET_NAME+'/Resume';
+  console.log(RESUME_BUCKET)
    
   form.on('file', (field, files) => {
     console.log("in");
-    console.log(files);
- 
+    console.log("File size : "+files.size);
+    if(files.size > 0){ 
     const uploadFile = async (fileName) => { 
       const fileContent = fs.createReadStream(fileName.path);
       newpath = Math.floor(Math.random() * 100000)+fileName.name;
           
       const params = {
-          Bucket: BUCKET_NAME+'/Resume',
+          Bucket: RESUME_BUCKET,
           Key: newpath,  
           Body: fileContent
       };
@@ -947,13 +948,13 @@ exports.editResource= async (req, res) => {
               throw err;
           }
           console.log(`Resume uploaded. ${data.Location}`); 
-          newpath = data.Location;
-
+          newpath = data.Location; 
       });
-      newpath = "https://photoseq.s3.amazonaws.com/"+newpath;
+      newpath = "https://photoseq.s3.amazonaws.com/Resume/"+newpath;
   };
-  uploadFile(files);  
 
+  uploadFile(files);   
+}
   }); 
   
     
@@ -991,14 +992,13 @@ async function insertResource() {
     Availability_status: fields.Availability_status, 
     Available_from: fields.Available_from, 
     Available_to: fields.Available_to, 
-    Company_id: fields.Company_id, 
-    Resource_resume:newpath,
-    Intro_video :newvideoPath
+    Company_id: fields.Company_id,  
   };
-  if(passwordHash != 0){
-     
-    resourceData['Resource_Password']=passwordHash
-
+  if(passwordHash != 0){ 
+    resourceData['Resource_Password']=passwordHash 
+  } 
+  if(newpath != ""){ 
+    resourceData['Resource_resume']=newpath 
   } 
   console.log(resourceData);
   return await resourceTb.update(resourceData,{
@@ -1167,6 +1167,7 @@ async function prepareTechnology(r_id) {
 
       data.forEach(element => { 
         profilecount = Object.keys(element['dataValues']).length;
+        console.log(Object.keys(element['dataValues']));
         completed =0;
           for (var colName in element['dataValues']) { 
         if(element[colName]){
@@ -1307,7 +1308,7 @@ async function prepareTechnology(r_id) {
 
   exports.listofApprovedResources = (req, res) => { 
   
-    assignTb.findAll({ where: {Approved_status:'Approved' , Approved_by:req.body.Approved_by},
+  assignTb.findAll({ where: {Approved_status:'Approved' , Approved_by:req.body.Approved_by},
   include:[
     {model:resourceTb,
     required:true
@@ -1328,6 +1329,18 @@ async function prepareTechnology(r_id) {
         res.status(500).send({
           message:
             err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+  };
+
+  exports.get_introVideo = (req, res) => { 
+    resourceTb.findByPk(req.body.Resource_id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Tutorial with id=" + id
         });
       });
   };

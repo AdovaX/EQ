@@ -28,6 +28,7 @@ module.exports = app => {
     router.post("/resourceRequests", LManager.resourceRequests);  
     router.post("/approveResources", LManager.approveResources);  
     router.post("/listofApprovedResources", LManager.listofApprovedResources);  
+    router.post("/get_introVideo", LManager.get_introVideo);  
   
      app.use('/listing', router);
 };
