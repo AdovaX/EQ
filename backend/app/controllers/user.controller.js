@@ -4,8 +4,8 @@ const usersTb = db.user;
 const contractorTb = db.contractownerTb;
 const spocTb = db.spocTb;
 const delegateTb = db.delegateTb;
-const ChatTbs = db.ChatTbs;
-
+const ChatTbs = db.ChatTbs; 
+var Sequelize = require("sequelize"); 
 
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
@@ -214,3 +214,77 @@ await ChatTbs.findAll({ where:
    });
  });  
 };  
+
+exports.getTotalMessages = (req, res) => { 
+
+  ChatTbs.findAll({ where: {
+    Reciver_id : req.body.User_id
+  } })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+exports.getChatHistory = (req, res) => { 
+
+  ChatTbs.findAll({
+    attributes: ['Sender_id'],
+    group: ['Sender_id'], 
+     where: {
+    Reciver_id : req.body.User_id
+  },
+  include: {
+    model: usersTb ,
+    required: false,
+    where: {
+      User_id: {[Op.col]: 'ChatTbs.Sender_id'}
+    } ,
+    include: {
+      model: companyTb ,
+      required: false,
+    }
+  }  })
+    .then(data => {
+      data.map(data => data.Sender_id)
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+exports.getSingleChat = (req, res) => { 
+ 
+  ChatTbs.findAll({ where:  {
+    [Op.or]: [{
+                Sender_id: req.body.Sender_id,
+                Reciver_id:req.body.User_id, 
+                }, 
+                {
+                Sender_id: req.body.User_id,  
+                Reciver_id:req.body.Sender_id, 
+                }, 
+    ] 
+}  ,
+  include: {
+    model: usersTb ,
+    required: false,
+  }})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};

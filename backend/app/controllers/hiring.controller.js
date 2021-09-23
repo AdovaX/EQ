@@ -213,10 +213,13 @@ exports.updateProfile = async (req, res) => {
     const today = moment();
 
    
-    projectTb.findAll({ where: {User_id :User_id   },
+    projectTb.findAll({ where: {User_id :User_id},
     include: {
       model: requirementTb ,
-      required: true
+      required: false,
+      where: {
+        Project_id: {[Op.col]: 'ProjectsTbs.Project_id'}
+      } 
     } })
       .then(data => {
         for(var val in data){ 

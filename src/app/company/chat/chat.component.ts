@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SharedService} from '../../Services/shared.service';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
-
+import {ChatServiceService} from '../../Services/chat-service.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -22,17 +22,24 @@ export class ChatComponent implements OnInit {
   submitted = false;
   msgs=[];
 
-  constructor(private formBuilder: FormBuilder,private SharedService:SharedService) { }
+  constructor(private formBuilder: FormBuilder,private SharedService:SharedService,private ChatServiceService:ChatServiceService) { }
 
   Message_send = new FormControl('',);
 
 
   ngOnInit(): void {
+  //this.ChatServiceService.sendMessage('hey');
+    this.getMessages();
     this.getLManager_details();
     this.getMsg();
     this.Msg_Form = this.formBuilder.group({
-      Message_send : this.Message_send, 
-  
+      Message_send : this.Message_send,  
+    });
+  }
+  getMessages(){
+    console.log('server msg req')
+    this.ChatServiceService.getMessages().subscribe(data =>{
+      console.log(data);  
     });
   }
 
@@ -57,24 +64,23 @@ export class ChatComponent implements OnInit {
   getMsg(){
     this.SharedService.getMsg(this.User_id ,this.LManager_id,this.Resource_id, this.Requirement_id).subscribe(data =>{
       console.log(data); 
-      this.msgs = data;
-         
+      this.msgs = data; 
     });
   }
   sendMsg(){
-    this.submitted = true;
-
-    if(this.Msg_Form.invalid && this.Msg_Form.value.Message_send== ''){
+    console.log('Clicked');
+    this.submitted = true; 
+    if(this.Msg_Form.invalid || this.Msg_Form.value.Message_send== ''){
       return;
     }else{
+      this.ChatServiceService.sendMessage(this.Msg_Form.value.Message_send,this.LManager_id);  
       console.log("done");
       this.submitted = false;
       this.SharedService.sendMsg(this.User_id ,this.LManager_id,this.Resource_id, this.Requirement_id,this.Msg_Form.value.Message_send).subscribe(data =>{
       
         this.Msg_Form.controls.Message_send.setValue('');
         this.getMsg(); 
-      });
-
+      }); 
     } 
   }
   keyDownFunction(event) {

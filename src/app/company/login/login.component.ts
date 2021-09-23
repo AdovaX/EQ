@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../Services/company.service';
 import { User } from '../../class/User';
 import {Router} from "@angular/router"
- 
+import {ChatServiceService} from '../../Services/chat-service.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   role_id=0;
   company_id =0;
 
-  constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder,private router:Router ) { 
+  constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder,private router:Router,private ChatServiceService:ChatServiceService ) { 
     sessionStorage.clear();
     localStorage.clear();
 
@@ -63,11 +64,12 @@ export class LoginComponent implements OnInit {
           this.user_id = data[0]['User_id'];
           this.company_id = data[0]['Company_id'];
           this.role_id = data[0]['User_roles_id']; 
+          this.ChatServiceService.startRoom(this.user_id); 
           if(this.role_id){
             sessionStorage.setItem('USER_ID',String(this.user_id)); 
             sessionStorage.setItem("ROLE_ID", String(this.role_id)); 
-            sessionStorage.setItem("COMPANY_ID", String(this.company_id)); 
-            console.log(this.company_id);
+            sessionStorage.setItem("COMPANY_ID", String(this.company_id));  
+            console.log(this.company_id); 
             this.router.navigate(['company/Dashboard']); 
 
           } 

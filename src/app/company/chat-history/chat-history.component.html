@@ -15,71 +15,19 @@
           
                             <div class="card-body cuspadding">
                                 <div class="chatheads">
-                              <div class="media align-items-center">
-                               <img src="https://via.placeholder.com/110X110" class="rounded customer-img" alt="user avatar">
-                                <div class="media-body ml-3">
-                                  <h6 class="mb-0 ">Nik Jhonson</h6>
-                                  <p class="mb-0 ">jhon@xyz.com</p>
-                                </div>
-                                <button mat-icon-button class="btn btn-sm btn-round btn-white" >
+                                    <div *ngFor="let item of msgs"> 
+                                    <div class="media align-items-center" (click)="getSingleChat(item.UsersTb.User_id)">
+                                    <img src="{{item.UsersTb.Profile_photo}}" class="rounded customer-img" alt="user avatar">
+                                    <div class="media-body ml-3">
+                                    <h6 class="mb-0 ">{{item.UsersTb.User_firstname}}</h6>
+                                    <p class="mb-0 ">{{item.UsersTb.CompanyTb.C_short_name}}</p>
+                                    </div>
+                                    <button mat-icon-button class="btn btn-sm btn-round btn-white" (click)="getSingleChat(item.UsersTb.User_id)" >
                                     <span class="fa fa-comments-o fa-2x"></span>
-                                  </button> 
-                              </div>
-                              <hr class="">
-                              <div class="media align-items-center">
-                               <img src="https://via.placeholder.com/110X110" class="rounded customer-img" alt="user avatar">
-                                <div class="media-body ml-3">
-                                  <h6 class="mb-0 ">David Sinora</h6>
-                                  <p class="mb-0 ">david@xyz.com</p>
-                                </div>
-                                <button mat-icon-button class="btn btn-sm btn-round btn-white" >
-                                    <span class="fa fa-comments-o fa-2x"></span>
-                                  </button> 
-                              </div>
-                              <hr class="">
-                              <div class="media align-items-center">
-                               <img src="https://via.placeholder.com/110X110" class="rounded customer-img" alt="user avatar">
-                                <div class="media-body ml-3">
-                                  <h6 class="mb-0 ">Rabata lun</h6>
-                                  <p class="mb-0 ">lun@xyz.com</p>
-                                </div>
-                                <button mat-icon-button class="btn btn-sm btn-round btn-white" >
-                                    <span class="fa fa-comments-o fa-2x"></span>
-                                  </button> 
-                              </div>
-                               <hr class="">
-                              <div class="media align-items-center">
-                               <img src="https://via.placeholder.com/110X110" class="rounded customer-img" alt="user avatar">
-                                <div class="media-body ml-3">
-                                  <h6 class="mb-0 ">Selina Ketty</h6>
-                                  <p class="mb-0 ">selina@xyz.com</p>
-                                </div>
-                                <button mat-icon-button class="btn btn-sm btn-round btn-white" >
-                                    <span class="fa fa-comments-o fa-2x"></span>
-                                  </button> 
-                              </div>
-                              <hr class="">
-                              <div class="media align-items-center">
-                               <img src="https://via.placeholder.com/110X110" class="rounded customer-img" alt="user avatar">
-                                <div class="media-body ml-3">
-                                  <h6 class="mb-0 ">Bumtila</h6>
-                                  <p class="mb-0 ">bumtila@xyz.com</p>
-                                </div>
-                                <button mat-icon-button class="btn btn-sm btn-round btn-white" >
-                                    <span class="fa fa-comments-o fa-2x"></span>
-                                  </button> 
-                              </div> 
-                              <hr class="">
-                              <div class="media align-items-center">
-                               <img src="https://via.placeholder.com/110X110" class="rounded customer-img" alt="user avatar">
-                                <div class="media-body ml-3">
-                                  <h6 class="mb-0 ">Bumtila</h6>
-                                  <p class="mb-0 ">bumtila@xyz.com</p>
-                                </div>
-                                <button mat-icon-button class="btn btn-sm btn-round btn-white" >
-                                    <span class="fa fa-comments-o fa-2x"></span>
-                                  </button> 
-                              </div> 
+                                    </button> 
+                                    </div>
+                                    <hr class="">  
+                                    </div> 
                             </div> 
                  
                             </div>
@@ -90,112 +38,61 @@
 
 
 
-                        <div class="card  bg-white">
-          
-                            <div class="card-body cuspadding">
-                                <div class="chatheader">
-                                    <div id="photo"  >
-                                      <div class="row">
-                                        <div class="col-sm-1">
-                                            <img style="vertical-align:middle;display: flex;"   src="https://image.flaticon.com/icons/svg/145/145867.svg" class="chatpic ">
+                        <div class="card  bg-white"  style="background-image: url('https://backgroundcheckall.com/wp-content/uploads/2017/12/whatsapp-chat-background.jpg');"> 
+                        <div class="card-body cuspadding"> 
+                        <div class="chatsection">
+                        <div class="bgimg" >
+                         
+                        <div *ngIf="clickHistory != true"> 
+                            <section class="chat"> 
+                                <div class="messages-chat">
+        
 
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <h5 > Thomas Jose
-                                            </h5>
-
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <h5 >   | Team Lead | </h5>
-
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <h5 >  2021-09-21 </h5>
-
-                                        </div>
-                                    </div>
-                                      </div>
-  
-                                </div>
-                                <div class="chatsection">
-                                
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="" class="chatpic "> 
-                                     </div>
-                                    <div class="col-sm-10"> 
-                                        <div class="rightmsg">
-                                          <p>Hi there ...
-                                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus iure sequi harum atque necessitatibus, sunt reiciendis dignissimos molestiae impedit porro tempora placeat excepturi enim? Nostrum blanditiis aut quas modi totam.
-                                          </p>
-                                        </div><i class="chattime">12.00pm</i> 
-                
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="" class="chatpic "> 
-                                         
-                                    </div>
-                                    <div class="col-sm-10"> 
-                                        <div class="rightmsg">
-                                          <p>Hi there ...
-                                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus iure sequi harum atque necessitatibus, sunt reiciendis dignissimos molestiae impedit porro tempora placeat excepturi enim? Nostrum blanditiis aut quas modi totam.
-                                          </p>
-                                        </div><i class="chattime">12.00pm</i> 
-                
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="" class="chatpic "> 
-                                    </div>
-                                    <div class="col-sm-10"> 
-                                        <div class="rightmsg">
-                                          <p>Hi there ...
-                                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus iure sequi harum atque necessitatibus, sunt reiciendis dignissimos molestiae impedit porro tempora placeat excepturi enim? Nostrum blanditiis aut quas modi totam.
-                                          </p>
-                                        </div><i class="chattime">12.00pm</i> 
-                
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="" class="chatpic "> 
-                                    </div>
-                                    <div class="col-sm-10"> 
-                                        <div class="rightmsg">
-                                          <p>Hi there ...
-                                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus iure sequi harum atque necessitatibus, sunt reiciendis dignissimos molestiae impedit porro tempora placeat excepturi enim? Nostrum blanditiis aut quas modi totam.
-                                          </p>
-                                        </div><i class="chattime">12.00pm</i> 
-                
-                                    </div>
-                                </div>
-                                <hr>
-                                    
+                          <div *ngFor="let msg of history">
+                            <div *ngIf="msg.Sender_id == User_id">
+                           <div class="message" >
+                            <div class="photo" style="background-image: url('{{msg.UsersTb.Profile_photo}}');">
+                              <div class="online"></div>
                             </div>
-
-
-        <div class="sendsec">
-            <div class="row">
-               <div class="col-sm-12"> 
-                    <mat-form-field appearance="outline" class="widthfull">
-                        <mat-label>Type your message here...</mat-label>
-                        <textarea matInput   autocomplete="off"></textarea>
-                        <button mat-mini-fab color="primary" matSuffix  class="topup"> <span class="fa fa-send"></span> </button>
-                      </mat-form-field>
- 
-               </div>
-            </div> 
-
-        </div>
-
-
+                            <p class="text"> {{msg.Message}} </p>
+                          </div>  
+                          <p class="time"> {{msg.createdAt |   date:'medium'}}</p> 
+                        </div> 
+                        <div *ngIf="msg.Reciver_id == User_id"> 
+                          <div class="message text-only">
+                            <div class="response">
+                              <p class="text"> {{msg.Message}}</p>
                             </div>
+                            <div class="photo" style="background-image: url('https://image.flaticon.com/icons/svg/145/145867.svg');">
+                                <div class="online"></div>
+                              </div>
+                          </div>  
+                          <p class="response-time time"> {{msg.createdAt |   date:'medium'}}</p> 
+                          </div>
+
+                        </div> 
+                        </div>
+                        </section>
+                    </div> 
+                        </div>
+                        </div>
+                        <div class="sendsec" *ngIf="clickHistory != true">
+                            <div class="row">
+                               <div class="col-sm-12"> 
+                                    <mat-form-field appearance="outline" class="widthfull">
+                                        <mat-label>Type your message here...</mat-label>
+                                        <textarea matInput   autocomplete="off"></textarea>
+                                        <button mat-mini-fab color="primary" matSuffix  class="topup"> <span class="fa fa-send"></span> </button>
+                                      </mat-form-field> 
+                               </div>
+                            </div> 
+                
+                        </div>
+
+
+                         
+
+                        </div>
                         </div>
 
 

@@ -53,7 +53,7 @@ import { PopupConfirmationComponent } from './popup-confirmation/popup-confirmat
 import { SpocManagementComponent } from './spoc-management/spoc-management.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatHistoryComponent } from './chat-history/chat-history.component';
-
+import {ChatServiceService} from '../Services/chat-service.service';
  
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -127,6 +127,8 @@ import { ChatHistoryComponent } from './chat-history/chat-history.component';
   ],
   entryComponents: [PopupDomainComponent,PopupTechnologyComponent],
   exports:[CommonModule],
+  providers: [ChatServiceService],
+
 
 })
 export class CompanyModule { }

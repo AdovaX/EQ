@@ -84,4 +84,24 @@ getMsg(User_id ,LManager_id,Resource_id, Requirement_id): Observable<any[]>{
   }
  return this.http.post<any[]>(this.REST_API_SERVER + '/users/getMsg/', data);
 } 
+getTotalMessages(User_id){
+  var data = {
+    "User_id" : User_id, 
+  }
+ return this.http.post<any[]>(this.REST_API_SERVER + '/users/getTotalMessages/', data); 
+}
+getChatHistory(){
+  var data = {
+    "User_id" : this.User_id, 
+  }
+ return this.http.post<any[]>(this.REST_API_SERVER + '/users/getChatHistory/', data); 
+}
+getSingleChat(Sender_id){
+  var data = {
+    "Sender_id" : Sender_id, 
+    "User_id" : this.User_id, 
+  }
+ return this.http.post<any[]>(this.REST_API_SERVER + '/users/getSingleChat/', data); 
+
+}
 }
