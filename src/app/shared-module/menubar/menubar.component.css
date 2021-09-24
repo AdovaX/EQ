@@ -63,6 +63,7 @@
   .profileicon{ 
       border-radius :50%; 
       background-color: #3f52b5;
+      width:100%;
   }
   .btnicon{
     border-style: none;

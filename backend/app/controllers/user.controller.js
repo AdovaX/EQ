@@ -6,6 +6,8 @@ const spocTb = db.spocTb;
 const delegateTb = db.delegateTb;
 const ChatTbs = db.ChatTbs; 
 var Sequelize = require("sequelize"); 
+const requirementTb = db.requirement;
+const resourceTb = db.resourceTb;
 
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
@@ -73,9 +75,7 @@ exports.getProfile= async (req, res) => {
      message: "Content can not be empty!"
    });
    return;
- }  
- 
-
+ }   
  await usersTb.findOne({
     where: {
       User_id: req.body.User_id
@@ -215,13 +215,18 @@ await ChatTbs.findAll({ where:
  });  
 };  
 
-exports.getTotalMessages = (req, res) => { 
+exports.getTotalMessages =async (req, res) => { 
 
-  ChatTbs.findAll({ where: {
-    Reciver_id : req.body.User_id
+  await ChatTbs.count({ where: {
+    Reciver_id : req.body.User_id,
+    Status : 'Unseen'
   } })
     .then(data => {
-      res.send(data);
+      console.log("COUNT" + data);
+      var c = {
+        'Count' : data
+      }
+      res.send(c);
     })
     .catch(err => {
       res.status(500).send({
@@ -230,28 +235,38 @@ exports.getTotalMessages = (req, res) => {
       });
     });
 };
-exports.getChatHistory = (req, res) => { 
-
-  ChatTbs.findAll({
-    attributes: ['Sender_id'],
-    group: ['Sender_id'], 
+exports.getChatHistory =async (req, res) => { 
+uids = [];
+await ChatTbs.findAll({  
      where: {
-    Reciver_id : req.body.User_id
-  },
-  include: {
-    model: usersTb ,
-    required: false,
-    where: {
-      User_id: {[Op.col]: 'ChatTbs.Sender_id'}
-    } ,
-    include: {
-      model: companyTb ,
-      required: false,
-    }
-  }  })
-    .then(data => {
-      data.map(data => data.Sender_id)
-      res.send(data);
+      [Op.or]: [{
+        Sender_id: req.body.User_id, 
+        }, 
+        { 
+        Reciver_id:req.body.User_id,
+        }, 
+] 
+  }, 
+  })
+    .then(data => {  
+      if(data.length > 0){ 
+      var datas = [];
+      data.forEach(element => {
+        var c = {
+          'Sender_id' : element.Sender_id,
+          'Reciver_id' : element.Reciver_id,
+          'Requirement_id' : element.Requirement_id,
+          'Resource_id' : element.Resource_id,
+        }
+        datas.push(c);
+      });  
+        usersData(datas);  
+      }else{
+        var c = {
+          'Count' : 0
+        }
+        res.send(c);
+      }
     })
     .catch(err => {
       res.status(500).send({
@@ -259,6 +274,56 @@ exports.getChatHistory = (req, res) => {
           err.message || "Some error occurred while retrieving tutorials."
       });
     });
+
+    async function usersData(val){ 
+      var uniqueRequirementIds = [];
+      var uniqueUsers = [];
+      var uniqueResources = [];
+
+      val.forEach(el =>{
+        if(!uniqueRequirementIds.includes(el.Requirement_id)){  
+          uniqueRequirementIds.push(el.Requirement_id);  
+       }
+       console.log('uniqueRequirementIds'+ uniqueRequirementIds)
+       if(!uniqueUsers.includes(el.Sender_id)){  
+        uniqueUsers.push(el.Sender_id);  
+      }
+      console.log('uniqueUsers'+ uniqueUsers);
+      if(!uniqueResources.includes(el.Resource_id)){  
+        uniqueResources.push(el.Resource_id);  
+     }
+     console.log('uniqueResources'+ uniqueResources);
+      })
+      await usersTb.findAll({ where: {
+        User_id : {
+          [Op.or]: uniqueUsers
+        }
+      }, 
+      include: 
+        [{
+          model: requirementTb ,
+          required: true,
+          where: {Requirement_id: {
+            [Op.or]:uniqueRequirementIds
+          } }  
+        },
+        {
+         model: companyTb ,
+         required: false
+       }
+      ], 
+     }).then(data => {
+       console.log(data)
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving tutorials."
+          });
+        }); 
+      //res.send(val);  
+    }
 };
 
 exports.getSingleChat = (req, res) => { 
@@ -285,6 +350,37 @@ exports.getSingleChat = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+exports.msgSeen = (req, res) => { 
+  var Seen = {
+
+    "Status" : 'Seen',  
+  } 
+  ChatTbs.update(Seen, {
+    where: { 
+      Requirement_id : req.body.Requirement_id, 
+      Resource_id : req.body.Resource_id, 
+      Sender_id : req.body.Sender_id, 
+      User_id : req.body.User_id,
+    }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          Status: true
+        });
+      } else {
+        res.send({
+          Status: false
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + id
       });
     });
 };

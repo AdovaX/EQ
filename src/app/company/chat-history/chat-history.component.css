@@ -321,7 +321,7 @@ button {
   }
   
   .chat .messages-chat .text {
-    margin: 0 35px;
+    margin: 0 10px;
     background-color: #f6f6f6;
     padding: 15px;
     border-radius: 12px;
@@ -334,9 +334,9 @@ button {
   
   .time {
     font-size: 10px;
-    color:lightgrey;
+    color:black;
     margin-bottom:10px;
-    margin-left: 85px;
+    margin-left: 5px;
   }
   
   .response-time {

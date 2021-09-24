@@ -11,6 +11,7 @@ module.exports = app => {
     router.post("/getTotalMessages", users.getTotalMessages);  
     router.post("/getChatHistory", users.getChatHistory);  
     router.post("/getSingleChat", users.getSingleChat);  
+    router.post("/msgSeen", users.msgSeen);  
   
     //app.use('/spoc/signup', router);
     app.use('/users', router);

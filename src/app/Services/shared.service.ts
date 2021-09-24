@@ -101,7 +101,15 @@ getSingleChat(Sender_id){
     "Sender_id" : Sender_id, 
     "User_id" : this.User_id, 
   }
- return this.http.post<any[]>(this.REST_API_SERVER + '/users/getSingleChat/', data); 
-
+ return this.http.post<any[]>(this.REST_API_SERVER + '/users/getSingleChat/', data);  
+}
+msgSeen(Requirement_id,Resource_id,Sender_id){
+  var data = {
+    "Requirement_id" : Requirement_id, 
+    "Resource_id" : Resource_id, 
+    "Sender_id" : Sender_id, 
+    "User_id" : this.User_id, 
+  }
+ return this.http.post<any[]>(this.REST_API_SERVER + '/users/msgSeen/', data);  
 }
 }

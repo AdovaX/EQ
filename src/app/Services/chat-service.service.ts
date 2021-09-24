@@ -59,4 +59,8 @@ startRoom(User_id){
   //this.socket.emit('Leave_room', this.User_id); 
   this.socket.emit('room', User_id); 
 } 
+leaveRoom(User_id){
+  console.log('Leave Room is : ' + this.User_id);
+  this.socket.emit('Leave_room', this.User_id);  
+} 
 }

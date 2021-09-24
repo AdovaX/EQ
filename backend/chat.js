@@ -37,14 +37,23 @@ io.on('connection', (socket) => {
 
 
       socket.on('room', async function(roomname) {
-          let room = roomname+"ROOM";
-        socket.join(room);
-        console.log('user in room : ' + room); 
-        console.log(socket.rooms);
-        //const clients = await io.in(room).allSockets();
-        //console.log(clients); 
-        console.log(io.of("/").sockets.size);
-    });
+        let room = roomname+"ROOM";
+      socket.join(room);
+      console.log('user in room : ' + room); 
+      console.log(socket.rooms);
+      //const clients = await io.in(room).allSockets();
+      //console.log(clients); 
+      console.log(io.of("/").sockets.size);
+  });
+  socket.on('Leave_room', async function(roomname) {
+      let room = roomname+"ROOM";
+    socket.leave(room);
+    console.log('left room : ' + room); 
+    console.log(socket.rooms);
+    //const clients = await io.in(room).allSockets();
+    //console.log(clients); 
+    console.log(io.of("/").sockets.size);
+});
     
 
     

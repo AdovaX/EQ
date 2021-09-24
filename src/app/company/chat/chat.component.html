@@ -38,7 +38,7 @@
                           <div *ngFor="let msg of msgs">
                             <div *ngIf="msg.Sender_id == User_id">
                            <div class="message" >
-                            <div class="photo" style="background-image: url({{LManager_photo}});">
+                            <div class="photo" style="background-image: url({{User_photo}});">
                               <div class="online"></div>
                             </div>
                             <p class="text"> {{msg.Message}} </p>

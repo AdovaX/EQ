@@ -16,6 +16,7 @@ export class ChatComponent implements OnInit {
   LManager_name = "";
   LManager_company = "";
   LManager_photo = "";
+  User_photo =sessionStorage.getItem('USER_PHOTO');
 
 
   Msg_Form:FormGroup;
@@ -27,8 +28,7 @@ export class ChatComponent implements OnInit {
   Message_send = new FormControl('',);
 
 
-  ngOnInit(): void {
-  //this.ChatServiceService.sendMessage('hey');
+  ngOnInit(): void { 
     this.getMessages();
     this.getLManager_details();
     this.getMsg();
@@ -39,7 +39,8 @@ export class ChatComponent implements OnInit {
   getMessages(){
     console.log('server msg req')
     this.ChatServiceService.getMessages().subscribe(data =>{
-      console.log(data);  
+      console.log(data); 
+       this.getMsg();
     });
   }
 

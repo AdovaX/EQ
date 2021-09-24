@@ -15,6 +15,7 @@ Role_id=0;
 Company_id=0; 
 Title = "";
 totalMsgs=0;
+userPhoto = 'https://image.flaticon.com/icons/svg/145/145867.svg';
   constructor(private router:Router,private ChatServiceService:ChatServiceService,private snackBar: MatSnackBar , private SharedService :SharedService ) { 
     this.User_id = sessionStorage.getItem('USER_ID');
     this.Role_id = Number(sessionStorage.getItem('ROLE_ID'));
@@ -41,13 +42,15 @@ totalMsgs=0;
       this.Title = "RESOURCE";  
     }else{ 
       this.router.navigate(['Login']); 
-    }
+    }  
+    
     this.ChatServiceService.startRoom(this.User_id); 
     this.getMessages();
     this.getTotalMessages();
 
   }
   logout(){
+    this.ChatServiceService.leaveRoom(this.User_id); 
     this.router.navigate(['Login']); 
   }
   gotoChat(){
@@ -59,6 +62,8 @@ totalMsgs=0;
       console.log(data);  
       if(data['id'] ==this.User_id){
         this.openSnackBar('New Message Recived'); 
+        this.getTotalMessages();
+
       }
     });
   }
@@ -68,10 +73,8 @@ totalMsgs=0;
     });
 }
 getTotalMessages(){
-  this.SharedService.getTotalMessages(this.User_id).subscribe(data =>{
-    console.log(data);  
-    let countMsgs = Object.keys(data).length; 
-    this.totalMsgs = countMsgs;
+  this.SharedService.getTotalMessages(this.User_id).subscribe(data =>{ 
+    this.totalMsgs = data['Count'];
   });
 }
 }
