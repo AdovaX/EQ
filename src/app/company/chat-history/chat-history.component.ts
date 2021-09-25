@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild ,AfterViewChecked} from '@angular/core';
 import {SharedService} from '../../Services/shared.service';
 import {ChatServiceService} from '../../Services/chat-service.service';
+import {MenubarComponent} from '../../shared-module/menubar/menubar.component';
 
 @Component({
   selector: 'app-chat-history',
@@ -13,7 +14,7 @@ export class ChatHistoryComponent implements OnInit, AfterViewChecked {
   history =[];
   clickHistory =true;
   inputMgs="";
-  User_id = sessionStorage.getItem('USER_ID');
+  User_id = Number(sessionStorage.getItem('USER_ID'));
   Requirement_id=0;
   Resource_id=0;
   Sender_id=0;
@@ -21,6 +22,7 @@ export class ChatHistoryComponent implements OnInit, AfterViewChecked {
   nomsgs =false;
   @ViewChild('msg') inputName;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild(MenubarComponent) MenubarComponent;
 
   constructor(private SharedService:SharedService,private ChatServiceService:ChatServiceService) { }
 
@@ -64,19 +66,28 @@ export class ChatHistoryComponent implements OnInit, AfterViewChecked {
       }
     });
   }
-  getSingleChat(Sender_id){
+  getSingleChat(Sender_id , Requirement_id){
+    console.log('Fetch' + Sender_id);
     this.clickHistory =false;
     this.newMsg = false;
-    this.SharedService.getSingleChat(Sender_id).subscribe(data =>{
+    this.SharedService.getSingleChat(Sender_id , Requirement_id).subscribe(data =>{
+      console.log('--------')
       console.log(data);  
       this.history= data; 
       this.scrollToBottom();
-      this.msgSeen(this.Requirement_id,this.Resource_id,Sender_id);
       
-      this.Requirement_id = data[0].Requirement_id;
+      this.Requirement_id = Requirement_id;
       this.Resource_id = data[0].Resource_id;
-      this.Sender_id = data[0].Sender_id; 
-      console.log('set chat values')
+      if(data[0].Sender_id == this.User_id){
+        this.Sender_id = data[0].Reciver_id;  
+      }else{
+        this.Sender_id = data[0].Sender_id;  
+      }
+      console.log('set chat values:-');
+      console.log('Sender_id' + Sender_id);
+      console.log('Resource_id' + this.Resource_id);
+      console.log('Requirement_id' + this.Requirement_id);
+      this.msgSeen(this.Requirement_id,this.Resource_id,Sender_id); 
 
     });
   }
@@ -93,7 +104,16 @@ export class ChatHistoryComponent implements OnInit, AfterViewChecked {
       console.log('Requirement_id' + this.Requirement_id);
       console.log('inputMgs' + this.inputMgs);
      return;
-    }else{
+    }else if(this.User_id == this.Sender_id){
+      console.log('SAME ID : USER SENDER');
+      console.log('Userid' + this.User_id);
+      console.log('Sender_id' + this.Sender_id);
+      console.log('Resource_id' + this.Resource_id);
+      console.log('Requirement_id' + this.Requirement_id);
+      console.log('inputMgs' + this.inputMgs);
+      return; 
+    }
+    else{
       console.log('Userid' + this.User_id);
       console.log('Sender_id' + this.Sender_id);
       console.log('Resource_id' + this.Resource_id);
@@ -102,10 +122,13 @@ export class ChatHistoryComponent implements OnInit, AfterViewChecked {
 
       this.ChatServiceService.sendMessage(this.inputMgs,this.Sender_id);   
       this.SharedService.sendMsg(this.User_id ,this.Sender_id,this.Resource_id, this.Requirement_id,this.inputMgs).subscribe(data =>{ 
-        this.getSingleChat(this.Sender_id); 
+        this.getSingleChat(this.Sender_id,this.Requirement_id); 
       }); 
 
-    } 
-
+    }  
   } 
+  getTotalMessages(){
+    this.SharedService.getTotalMessages(this.User_id).subscribe(data =>{  
+    });
+  }
 }

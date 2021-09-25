@@ -72,6 +72,9 @@ db.ChatTbs = require("./chat.model")(sequelize, Sequelize);
   
   
  
+db.resourceTb.hasMany(db.ChatTbs, {foreignKey: 'Resource_id'});  
+db.ChatTbs.belongsTo(db.resourceTb, {foreignKey: 'Resource_id', targetKey: 'Resource_id'});
+ 
 db.requirement.hasMany(db.ChatTbs, {foreignKey: 'Requirement_id'});  
 db.ChatTbs.belongsTo(db.requirement, {foreignKey: 'Requirement_id', targetKey: 'Requirement_id'});
  

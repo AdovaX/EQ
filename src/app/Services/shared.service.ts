@@ -96,10 +96,11 @@ getChatHistory(){
   }
  return this.http.post<any[]>(this.REST_API_SERVER + '/users/getChatHistory/', data); 
 }
-getSingleChat(Sender_id){
+getSingleChat(Sender_id , Requirement_id){
   var data = {
     "Sender_id" : Sender_id, 
     "User_id" : this.User_id, 
+    "Requirement_id" : Requirement_id
   }
  return this.http.post<any[]>(this.REST_API_SERVER + '/users/getSingleChat/', data);  
 }
@@ -108,7 +109,7 @@ msgSeen(Requirement_id,Resource_id,Sender_id){
     "Requirement_id" : Requirement_id, 
     "Resource_id" : Resource_id, 
     "Sender_id" : Sender_id, 
-    "User_id" : this.User_id, 
+    "User_id" : Number(this.User_id), 
   }
  return this.http.post<any[]>(this.REST_API_SERVER + '/users/msgSeen/', data);  
 }

@@ -16,14 +16,14 @@
                             <div class="card-body cuspadding">
                                 <div class="chatheads">
                                     <div *ngFor="let item of msgs"> 
-                                    <div class="media align-items-center" (click)="getSingleChat(item.User_id)">
+                                    <div class="media align-items-center" (click)="getSingleChat(item.User_id ,item.RequirementsTb.Requirement_id  )">
                                     <img src="{{item.Profile_photo}}" class="rounded customer-img" alt="user avatar">
                                     <div class="media-body ml-3">
                                     <h6 class="mb-0 ">{{item.RequirementsTb.Requirement_name}}</h6>
                                     <p class="mb-0 ">{{item.CompanyTb.C_short_name}}</p>
                                     <p *ngIf="newMsg">New msgs</p>
                                     </div>
-                                    <button mat-icon-button class="btn btn-sm btn-round btn-white" (click)="getSingleChat(item.User_id)" >
+                                    <button mat-icon-button class="btn btn-sm btn-round btn-white" (click)="getSingleChat(item.User_id,item.RequirementsTb.Requirement_id )" >
                                     <span class="fa fa-comments-o fa-2x"></span>
                                     </button> 
                                     </div>

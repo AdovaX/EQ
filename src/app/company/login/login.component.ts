@@ -22,6 +22,10 @@ export class LoginComponent implements OnInit {
   company_id =0;
 
   constructor(private CompanyService:CompanyService,private formBuilder: FormBuilder,private router:Router,private ChatServiceService:ChatServiceService ) { 
+    
+    sessionStorage.setItem('USER_ID',String(0)); 
+    sessionStorage.setItem("ROLE_ID", String(0)); 
+    sessionStorage.setItem("COMPANY_ID", String(0));  
     sessionStorage.clear();
     localStorage.clear();
 

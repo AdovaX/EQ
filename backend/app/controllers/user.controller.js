@@ -166,8 +166,10 @@ exports.sendMsg= async (req, res) => {
   "Message" : req.body.Message,
   "Requirement_id" : req.body.Requirement_id,
   "Resource_id" : req.body.Resource_id,
+  "Sender_seen" : 1,
+  "Reciver_seen" : 0,
  }
-  
+    
  await ChatTbs.create(msgs)
  .then(data => {
    res.send(data);
@@ -219,7 +221,7 @@ exports.getTotalMessages =async (req, res) => {
 
   await ChatTbs.count({ where: {
     Reciver_id : req.body.User_id,
-    Status : 'Unseen'
+    Reciver_seen : 0
   } })
     .then(data => {
       console.log("COUNT" + data);
@@ -269,10 +271,7 @@ await ChatTbs.findAll({
       }
     })
     .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
-      });
+     console.log(err);
     });
 
     async function usersData(val){ 
@@ -294,6 +293,13 @@ await ChatTbs.findAll({
      }
      console.log('uniqueResources'+ uniqueResources);
       })
+ 
+    //   uniqueUsers = uniqueUsers.filter(function(item) {
+    //     return item !== Number(req.body.User_id)
+    // }) 
+    //   console.log('uniqueUsers After removing'+ req.body.User_id+ "is" + uniqueUsers);
+
+
       await usersTb.findAll({ where: {
         User_id : {
           [Op.or]: uniqueUsers
@@ -312,62 +318,68 @@ await ChatTbs.findAll({
          required: false
        }
       ], 
-     }).then(data => {
-       console.log(data)
+     }).then(data => { 
           res.send(data);
         })
         .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || "Some error occurred while retrieving tutorials."
-          });
+         console.log(err);
         }); 
       //res.send(val);  
     }
 };
 
-exports.getSingleChat = (req, res) => { 
- 
-  ChatTbs.findAll({ where:  {
+exports.getSingleChat = async (req, res) => {  
+  console.log(req.body);
+  await ChatTbs.findAll({ where:  {
     [Op.or]: [{
                 Sender_id: req.body.Sender_id,
                 Reciver_id:req.body.User_id, 
+                Requirement_id : req.body.Requirement_id
                 }, 
                 {
                 Sender_id: req.body.User_id,  
                 Reciver_id:req.body.Sender_id, 
+                Requirement_id : req.body.Requirement_id
+                }, 
+                {
+                Sender_id: req.body.User_id, 
+                Requirement_id : req.body.Requirement_id   
+                }, 
+                {  
+                Reciver_id:req.body.Sender_id, 
+                Requirement_id : req.body.Requirement_id
                 }, 
     ] 
 }  ,
-  include: {
+  include: [{
     model: usersTb ,
     required: false,
-  }})
-    .then(data => {
+  },
+  {
+    model: resourceTb ,
+    required: true,
+  }
+]}).then(data => {
       res.send(data);
     })
     .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
-      });
+     console.log(err);
     });
 };
 
-exports.msgSeen = (req, res) => { 
-  var Seen = {
-
-    "Status" : 'Seen',  
-  } 
-  ChatTbs.update(Seen, {
-    where: { 
+exports.msgSeen = async (req, res) => { 
+  var Seen = { 
+    "Reciver_seen" : 1,  
+  }  
+  console.log(req.body)
+  await ChatTbs.update(Seen, {
+    where: {  
       Requirement_id : req.body.Requirement_id, 
-      Resource_id : req.body.Resource_id, 
-      Sender_id : req.body.Sender_id, 
-      User_id : req.body.User_id,
+      Resource_id : req.body.Resource_id,  
+       
     }
-  })
-    .then(num => {
+  }).then(num => {
+    console.log(num);
       if (num == 1) {
         res.send({
           Status: true
@@ -379,8 +391,6 @@ exports.msgSeen = (req, res) => {
       }
     })
     .catch(err => {
-      res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
-      });
+      console.log(err);
     });
 };

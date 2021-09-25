@@ -4,14 +4,17 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
-      },
-      Status: {
-        type: Sequelize.ENUM,
-        values : ['Seen', 'Unseen'],
-        defaultValue : 'Unseen' 
-      },
+      }, 
       Message: {
         type: Sequelize.TEXT
+      },
+      Sender_seen: {
+        type: Sequelize.INTEGER,        
+        defaultValue : 1 
+      },
+      Reciver_seen: {
+        type: Sequelize.INTEGER,
+        defaultValue : 1 
       },
       Sender_id: {
         type: Sequelize.INTEGER,
