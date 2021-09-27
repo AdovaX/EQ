@@ -88,7 +88,7 @@
                                       <div class="form-group">
                                         <label for="input-11">Delegate Full name<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="Delegate_fullname" id="Delegate_fullname" 
-                                        name="Delegate_fullname"  placeholder="Your Delegate fullname">
+                                        name="Delegate_fullname"  placeholder="Full Name">
                                         <div *ngIf="submitted && f.Delegate_fullname.errors" class="invalid-feedback">
                                             <div *ngIf="f.Delegate_fullname.errors.required">First name is a required field.</div> 
                                           </div> 
@@ -98,7 +98,7 @@
                                       <div class="form-group">
                                         <label for="input-11">Email ID<span class="redColor">*</span></label>
                                         <input type="email" class="form-control form-control-square" formControlName="Delegate_email" id="Delegate_email" 
-                                        name="Delegate_email"  placeholder="Your Delegate Email ID">
+                                        name="Delegate_email"  placeholder="Email ID">
                                         <div *ngIf="submitted && f.Delegate_email.errors" class="invalid-feedback">
                                             <div *ngIf="f.Delegate_email.errors.required">Email ID is a required field.</div> 
                                           </div> 
@@ -108,7 +108,7 @@
                                       <div class="form-group">
                                         <label for="input-11">Delegate Designation<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="Delegate_designation" id="Delegate_designation" 
-                                        name="Delegate_designation"  placeholder="Your Delegate Designation">
+                                        name="Delegate_designation"  placeholder="Designation">
                                         <div *ngIf="submitted && f.Delegate_designation.errors" class="invalid-feedback">
                                             <div *ngIf="f.Delegate_designation.errors.required">Designation is a required field.</div> 
                                           </div> 
@@ -118,7 +118,7 @@
                                       <div class="form-group">
                                         <label for="input-11">Delegate Phone<span class="redColor">*</span></label>
                                         <input type="text" class="form-control form-control-square" formControlName="Delegate_phone" id="Delegate_phone" 
-                                        name="Delegate_phone"  placeholder="Your Delegate Phone">
+                                        name="Delegate_phone"  placeholder="Phone Number">
                                         <div *ngIf="submitted && f.Delegate_phone.errors" class="invalid-feedback">
                                             <div *ngIf="f.Delegate_phone.errors.required">Phone is a required field.</div> 
                                           </div> 
@@ -128,15 +128,11 @@
                                       <div class="form-group">
                                         <label for="input-11">Delegate Password<span class="redColor">*</span> </label>
                                         <input [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="Delegate_password" id="Delegate_password" 
-                                        name="Delegate_password"  placeholder="Your Delegate Password">
+                                        name="Delegate_password"  placeholder="Password">
                                         <div *ngIf="submitted && f.Delegate_password.errors" class="invalid-feedback">
                                             <div *ngIf="f.Delegate_password.errors.required">Password is a required field.</div> 
                                           </div> 
                                        </div>
-                                       <div class="icheck-material-primary">
-                                        <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
-                                        <label for="primary">Hide password</label>
-                                    </div> 
                                     </div> 
                                     <div class="col-sm-6">
                                       <div class="form-group">
@@ -147,7 +143,13 @@
                                             <div *ngIf="f.Delegate_password2.errors.required">Password is a required field.</div> 
                                           </div> 
                                        </div>
-                                    </div>  
+                                    </div> 
+                                    <div class="col-sm-6"> 
+                                        <div class="icheck-material-primary">
+                                          <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
+                                          <label for="primary">Hide password</label>
+                                      </div>  
+                                    </div> 
                                     <div class="col-sm-6"></div>
                                       <div class="col-sm-6">
                                         <div class="btn-group noShodow">

@@ -167,7 +167,11 @@ export class CreateResourceComponent implements OnInit {
       duration: 1500,
     });
 }
- 
+passwordMatchCheck(){
+  if(this.Resource_Form.value.Resource_password != this.Resource_Form.value.Resource_password2 ){
+    alert("Password do not match!");
+  }
+}
   onSubmit(){ 
     console.log(this.Resource_Form.value);
     this.submitted = true;
@@ -296,8 +300,7 @@ export class CreateResourceComponent implements OnInit {
   } 
   updateFrom(e,r_id){
     let fromDate = e.value;
-    fromDate =  moment(fromDate).format('YYYY-MM-DD');
-    console.log(fromDate);
+    fromDate =  moment(fromDate).format('YYYY-MM-DD'); 
     this.ListingManagerService.updateFrom(fromDate,r_id).subscribe(data =>{
       console.log(data); 
       this.getResources();  
@@ -307,8 +310,7 @@ export class CreateResourceComponent implements OnInit {
   }
   updateTo(e,r_id){
     let toDate = e.value;
-    toDate =  moment(toDate).format('YYYY-MM-DD');
-    console.log(toDate);
+    toDate =  moment(toDate).format('YYYY-MM-DD'); 
     this.ListingManagerService.updateTo(toDate,r_id).subscribe(data =>{
       console.log(data);  
       this.getResources(); 
@@ -332,8 +334,7 @@ export class CreateResourceComponent implements OnInit {
   } 
 
   deleteResource(Resource_id){ 
-    this.ListingManagerService.deleteResource(Resource_id).subscribe(data =>{
-     console.log(data);  
+    this.ListingManagerService.deleteResource(Resource_id).subscribe(data =>{ 
      this.getResources();
    
    }); 
@@ -346,8 +347,7 @@ export class CreateResourceComponent implements OnInit {
     currentValue =1;
 
    }
-  this.ListingManagerService.toogleActive(Resource_id,currentValue).subscribe(data =>{
-    console.log(data);  
+  this.ListingManagerService.toogleActive(Resource_id,currentValue).subscribe(data =>{ 
     this.getResources();
   
   });
@@ -359,8 +359,7 @@ export class CreateResourceComponent implements OnInit {
  
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    console.log(files.item(0).name); 
+    this.fileToUpload = files.item(0); 
 }
  
  

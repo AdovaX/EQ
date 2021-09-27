@@ -156,6 +156,10 @@ export class CompanyProfileComponent implements OnInit {
     let element:HTMLElement = document.getElementById('govTab') as HTMLElement;
     element.click(); 
   }  
+  gotoGeneralTab(){
+    let element:HTMLElement = document.getElementById('genaralTab') as HTMLElement;
+    element.click(); 
+  }  
   getCompanyData(id){
     var User_id = id;
     this.SharedService.getProfileData(User_id).subscribe(data =>{

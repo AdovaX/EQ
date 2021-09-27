@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import {SpocService} from '../../Services/spoc.service';
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {PopupConfirmationComponent} from '../popup-confirmation/popup-confirmation.component';
+
 @Component({
   selector: 'app-create-hiring-manager',
   templateUrl: './create-hiring-manager.component.html',
@@ -12,7 +15,7 @@ export class CreateHiringManagerComponent implements OnInit {
   submitted = false;
   HM_Data = []; 
   fieldTextType: boolean;
-  constructor(private formBuilder: FormBuilder, private SpocService:SpocService) { }
+  constructor(private formBuilder: FormBuilder, private SpocService:SpocService,private dialog:MatDialog) { }
 
   HM_fullname = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   User_email = new FormControl('', [ Validators.required, Validators.email]);
@@ -72,11 +75,21 @@ console.log(data);
   } 
 
   deleteHM(HM_id){ 
-    this.SpocService.deleteHM(HM_id).subscribe(data =>{
-     console.log(data);  
-     this.getHManagerList();
-   
-   }); 
+ 
+    const dialogRef = this.dialog.open(PopupConfirmationComponent, {
+      width: '450px',
+      data: {name: 'Are you sure ?'},
+      hasBackdrop: true,
+      disableClose : true
+    }); 
+    dialogRef.afterClosed().subscribe(result => { 
+      if(result.Confirmation){
+        this.SpocService.deleteHM(HM_id).subscribe(data =>{
+         console.log(data);  
+         this.getHManagerList(); 
+       });   
+     } 
+    }); 
 
  }
 

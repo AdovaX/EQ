@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import {SpocService} from '../../Services/spoc.service';
+import {PopupConfirmationComponent} from '../popup-confirmation/popup-confirmation.component';
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-listing-manager',
@@ -13,7 +15,7 @@ export class CreateListingManagerComponent implements OnInit {
   submitted = false;
   LM_Data = []; 
   fieldTextType: boolean;
-  constructor(private formBuilder: FormBuilder, private SpocService:SpocService) { }
+  constructor(private formBuilder: FormBuilder, private SpocService:SpocService,private dialog:MatDialog) { }
 
   LM_fullname = new FormControl('', [ Validators.required, Validators.minLength(3)]);
   LM_email = new FormControl('', [ Validators.required, Validators.email]);
@@ -72,12 +74,20 @@ export class CreateListingManagerComponent implements OnInit {
   } 
 
   deleteLM(LM_id){ 
-    this.SpocService.deleteLM(LM_id).subscribe(data =>{
-     console.log(data);  
-     this.getLManagerList();
-   
-   }); 
-
+    const dialogRef = this.dialog.open(PopupConfirmationComponent, {
+      width: '450px',
+      data: {name: 'Are you sure ?'},
+      hasBackdrop: true,
+      disableClose : true
+    }); 
+    dialogRef.afterClosed().subscribe(result => { 
+      if(result.Confirmation){
+        this.SpocService.deleteLM(LM_id).subscribe(data =>{
+          console.log(data);  
+          this.getLManagerList(); 
+        });   
+     } 
+    });   
  }
 
   resetForm(){ 

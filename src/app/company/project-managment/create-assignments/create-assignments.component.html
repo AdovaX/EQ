@@ -75,7 +75,7 @@
                             <div class="col-sm-3"> 
                                 <div class="form-group">
                                  <label for="input-11">End Date </label>
-                                 <input type="date" #eTime class="form-control form-control-square" formControlName="End_date"   id="End_date" required 
+                                 <input type="date" #epTime class="form-control form-control-square" formControlName="End_date"   id="End_date" required 
                                  name="End_date"  min="{{project_stime}}" max="{{project_etime}}"   > 
                                  
                                 </div>
@@ -524,7 +524,7 @@
                             <p class="reviewP">Start Date : {{sTime.value}}</p>
                           </div> 
                           <div class="col-sm-3">
-                            <p class="reviewP">End Date : {{eTime.value}}</p>
+                            <p class="reviewP">End Date : {{epTime.value}}</p>
                           </div> 
                           <div class="col-sm-3">
                             <p class="reviewP">Hours/Week : {{hWeek.value+'Hours'}}</p>

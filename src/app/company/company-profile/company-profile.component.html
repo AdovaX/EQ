@@ -14,7 +14,7 @@
                    <div class="card-body"> 
                      <ul class="nav nav-tabs nav-tabs-primary">
                       <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#tabe-1"><i class="zmdi zmdi-assignment-o"></i> 
+                        <a class="nav-link active" data-toggle="tab" id="genaralTab" href="#tabe-1"><i class="zmdi zmdi-assignment-o"></i> 
                            <span class="hidden-xs">General Information </span></a>
                       </li> 
                       <li class="nav-item">
@@ -258,7 +258,10 @@
 
                           <div class="col-sm-6">
                             <div class="btn-group noShodow gorights">  
-                                    <div class="form-group ">  
+                                    <div class="form-group "> 
+                                      <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto back" (click)="gotoGeneralTab()">
+                                        <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                                      </button>  
                                       <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto next" (click)="gotoBankTab()">
                                         <span class="zmdi zmdi-chevron-right fa-2x"></span> 
                                       </button> 
@@ -362,7 +365,7 @@
 
                             <div class="col-sm-6">
                               <div class="form-group">
-                                <label for="input-11"> Branch Adress<span class="redColor">*</span> </label>
+                                <label for="input-11"> Branch Address<span class="redColor">*</span> </label>
                                 <textarea class="form-control form-control-square" formControlName="Bank_address" id="Bank_address" 
                                 name="Bank_address"  placeholder="  Name of the Branch Adress"></textarea>
                                 <div *ngIf="submittedBank && bank.Bank_address.errors" class="invalid-feedback">
@@ -386,6 +389,9 @@
                           <div class="col-sm-6">
                               <div class="btn-group noShodow gorights">  
                                       <div class="form-group ">  
+                                        <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto back" (click)="gotoBranchTab()">
+                                          <span class="zmdi zmdi-chevron-left fa-2x"></span> 
+                                        </button> 
                                         <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto next" (click)="gotoGovTab()">
                                           <span class="zmdi zmdi-chevron-right fa-2x"></span> 
                                         </button> 
@@ -397,92 +403,6 @@
                           </form>
 
                        </div>
-
-                       <div id="tabe-4" class="container tab-pane"> 
-                        <p class="usermsg">For internal use only.</p>
-
-                        <div class="col-sm-12">
-
-                          <div id="notSucess" class="{{ispreferenceUpdated ? 'successClass' : 'notSucess'}}">
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="alert alert-success alert-dismissible cus_success" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert">×</button>
-                                  <div class="alert-icon">
-                                   <i class="zmdi zmdi-check-circle"></i>
-                                  </div>
-                                  <div class="alert-message">
-                                    <span><strong>Success! </strong> Preferences updated.</span>
-                                  </div>
-                                  </div>
-                              </div>
-                            </div>
-                          </div>
-                          </div>
-                        <form [formGroup]="Preferences_Form" (ngSubmit)="UpdatePreferences()"> 
-                         <div class="row">
-                          <div class="col-sm-12">
- 
-                            <table class="table table-borderless"> 
-                              <tbody>
-                                <tr>
-                                  <th scope="row">
-                                    
-                                    <label for="primary">Enable Resource Name Masking</label> &nbsp;
-                                  </th>
-                                  <td>
-                                    <div class="  icheck-inline" *ngFor="let masking of Options">
-                                     <input type="radio" id="inline-radio-primary{{masking.id}}" name="masking" [value]="masking.id" [checked]="masking.id ==isMasked" (change)="changeMasking($event)" >
-                                     <label for="inline-radio-primary">{{masking.name}}</label>
-                                   </div> 
-                                     
-                                  </td> 
-                                </tr>
-                                 <tr>  
-                                    <th>
-                                      <label for="primary">Freelancer can apply ?</label>  &nbsp;
-                                      
-                                    </th>
-                                    <th>
-                                      <div class="  icheck-inline" *ngFor="let item of Options">
-                                        <input type="radio" id="inline-primary{{item.id}}" name="freelancer" [value]="item.id" [checked]="item.id ==isFreelancer" (change)="changeFreelancer($event)"  >
-                                        <label for="inline-radio-primary">{{item.name}}</label>
-                                      </div> 
-                                    </th>
-                                  </tr>
-                                  <tr>
-                                    <th>
-                                      Tier of companies to deal with<span class="redColor">*</span> &nbsp;
-                                      
-                                    </th>
-                                    <th> 
-                                      <div class="  icheck-inline" *ngFor="let tier of companyTiers">
-                                        <input type="checkbox" id="inline{{tier.id}}" name="tier" [value]="tier.id" [checked]="doesExist(tier.id)" (change)="changeTierList($event)" > &nbsp; 
-                                        <label for="inline-radio-primary"> {{tier.name}} </label>
-                                      </div> 
-                                      
-                                    </th>
-                                  </tr>
-                              </tbody>
-                            </table>
-
-                            
-                          </div> 
-                          <div class="col-sm-12">
-                            <div class="btn-group noShodow gorights">
-                              
-                                <div class="form-group">   
-                                    <button type="submit" class="btn btn-primary btn-square m-1">
-                                      Update
-                                    </button>
-                                   </div> 
-                            </div> 
-                        </div> 
- 
-
-                         </div>
-                         </form>
-                      </div>
                       
                       <div id="tabe-5" class="container tab-pane"> 
                         <p class="usermsgRed">Confidential information.</p>
@@ -565,6 +485,9 @@
                         <div class="col-sm-6">
                             <div class="btn-group noShodow gorights">  
                                     <div class="form-group ">  
+                                      <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto back" (click)="gotoBankTab()">
+                                        <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                      </button> 
                                       <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto next" (click)="gotoPreferencesTab()">
                                         <span class="zmdi zmdi-chevron-right fa-2x"></span> 
                                       </button> 
@@ -576,6 +499,96 @@
 
                         </form>
 
+                      </div>
+
+
+                      <div id="tabe-4" class="container tab-pane"> 
+                        <p class="usermsg">For internal use only.</p>
+
+                        <div class="col-sm-12">
+
+                          <div id="notSucess" class="{{ispreferenceUpdated ? 'successClass' : 'notSucess'}}">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="alert alert-success alert-dismissible cus_success" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert">×</button>
+                                  <div class="alert-icon">
+                                   <i class="zmdi zmdi-check-circle"></i>
+                                  </div>
+                                  <div class="alert-message">
+                                    <span><strong>Success! </strong> Preferences updated.</span>
+                                  </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        <form [formGroup]="Preferences_Form" (ngSubmit)="UpdatePreferences()"> 
+                         <div class="row">
+                          <div class="col-sm-12">
+ 
+                            <table class="table table-borderless"> 
+                              <tbody>
+                                <tr>
+                                  <th scope="row">
+                                    
+                                    <label for="primary">Enable Resource Name Masking</label> &nbsp;
+                                  </th>
+                                  <td>
+                                    <div class="  icheck-inline" *ngFor="let masking of Options">
+                                     <input type="radio" id="inline-radio-primary{{masking.id}}" name="masking" [value]="masking.id" [checked]="masking.id ==isMasked" (change)="changeMasking($event)" >
+                                     <label for="inline-radio-primary">{{masking.name}}</label>
+                                   </div> 
+                                     
+                                  </td> 
+                                </tr>
+                                 <tr>  
+                                    <th>
+                                      <label for="primary">Freelancer can apply ?</label>  &nbsp;
+                                      
+                                    </th>
+                                    <th>
+                                      <div class="  icheck-inline" *ngFor="let item of Options">
+                                        <input type="radio" id="inline-primary{{item.id}}" name="freelancer" [value]="item.id" [checked]="item.id ==isFreelancer" (change)="changeFreelancer($event)"  >
+                                        <label for="inline-radio-primary">{{item.name}}</label>
+                                      </div> 
+                                    </th>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Tier of companies to deal with<span class="redColor">*</span> &nbsp;
+                                      
+                                    </th>
+                                    <th> 
+                                      <div class="  icheck-inline" *ngFor="let tier of companyTiers">
+                                        <input type="checkbox" id="inline{{tier.id}}" name="tier" [value]="tier.id" [checked]="doesExist(tier.id)" (change)="changeTierList($event)" > &nbsp; 
+                                        <label for="inline-radio-primary"> {{tier.name}} </label>
+                                      </div> 
+                                      
+                                    </th>
+                                  </tr>
+                              </tbody>
+                            </table>
+
+                            
+                          </div> 
+                          <div class="col-sm-12">
+                            <div class="btn-group noShodow gorights">
+                              
+                                <div class="form-group">   
+                                  <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto back" (click)="gotoGovTab()">
+                                    <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                  </button> 
+                                    <button type="submit" class="btn btn-primary btn-square m-1">
+                                      Update
+                                    </button>
+                                   </div> 
+                            </div> 
+                        </div> 
+ 
+
+                         </div>
+                         </form>
                       </div>
                      </div>
                    </div>
