@@ -1,0 +1,39 @@
+.popicon{
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+.nametitle h4{
+    color: black;
+    text-align: center;
+    margin: 5px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.nametitle p{
+    color: black;
+    text-align: center;
+    margin: 5px; 
+    text-transform: capitalize;
+}
+.descriptions{
+    color: black;
+    text-align: center;
+    margin: 5px;   
+    font-style: italic;
+}
+.goright{
+    float:right;
+}
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+  .skillsclass{ 
+    display: inline-block;
+    margin-right: 10px;
+    border-width: 1px;
+    border-style: ridge;
+    padding: 3px;
+  }

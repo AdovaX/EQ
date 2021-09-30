@@ -12,6 +12,7 @@ module.exports = app => {
     router.post("/getChatHistory", users.getChatHistory);  
     router.post("/getSingleChat", users.getSingleChat);  
     router.post("/msgSeen", users.msgSeen);  
+    router.post("/getResourceProfileData", users.getResourceProfileData);  
   
     //app.use('/spoc/signup', router);
     app.use('/users', router);

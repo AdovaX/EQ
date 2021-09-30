@@ -367,9 +367,9 @@
                               <div class="form-group">
                                 <label for="input-11"> Branch Address<span class="redColor">*</span> </label>
                                 <textarea class="form-control form-control-square" formControlName="Bank_address" id="Bank_address" 
-                                name="Bank_address"  placeholder="  Name of the Branch Adress"></textarea>
+                                name="Bank_address"  placeholder="  Name of the Branch Address"></textarea>
                                 <div *ngIf="submittedBank && bank.Bank_address.errors" class="invalid-feedback">
-                                    <div *ngIf="bank.Bank_address.errors.required">Branch Adress is a required field.</div> 
+                                    <div *ngIf="bank.Bank_address.errors.required">Branch Address is a required field.</div> 
                                   </div> 
                                </div>
                             </div> 
@@ -486,7 +486,7 @@
                             <div class="btn-group noShodow gorights">  
                                     <div class="form-group ">  
                                       <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto back" (click)="gotoBankTab()">
-                                        <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                        <span class="zmdi zmdi-chevron-left fa-2x"></span> 
                                       </button> 
                                       <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto next" (click)="gotoPreferencesTab()">
                                         <span class="zmdi zmdi-chevron-right fa-2x"></span> 
@@ -577,7 +577,7 @@
                               
                                 <div class="form-group">   
                                   <button type="button" class="btnCustome" mat-raised-button   matTooltip="Goto back" (click)="gotoGovTab()">
-                                    <span class="zmdi zmdi-chevron-right fa-2x"></span> 
+                                    <span class="zmdi zmdi-chevron-left fa-2x"></span> 
                                   </button> 
                                     <button type="submit" class="btn btn-primary btn-square m-1">
                                       Update

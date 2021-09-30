@@ -9,6 +9,12 @@ var Sequelize = require("sequelize");
 const requirementTb = db.requirement;
 const resourceTb = db.resourceTb;
 
+const resourceRoleTbs = db.resourceRoleTbs;
+const resourceDomainTbs = db.resourceDomainTbs;
+const resourceTechnologyTbs = db.resourceTechnologyTbs;
+const resourceEducationTbs = db.resourceEducationTbs;
+
+
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 const IncomingForm = require('formidable').IncomingForm; 
@@ -394,3 +400,43 @@ exports.msgSeen = async (req, res) => {
       console.log(err);
     });
 };
+
+exports.getResourceProfileData = async (req, res) => { 
+  if (!req.body.User_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  await  resourceTb.findAll({where:{Resource_id:req.body.Resource_id},
+    include: [{
+      model: companyTb ,
+      required: true,
+    },
+    {
+      model: resourceRoleTbs ,
+      required: true,
+    },
+    {
+      model: resourceDomainTbs ,
+      required: true,
+    },
+    {
+      model: resourceTechnologyTbs ,
+      required: true,
+    },
+    {
+      model: resourceEducationTbs ,
+      required: true,
+    }
+  ]})
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+};
+
+
+

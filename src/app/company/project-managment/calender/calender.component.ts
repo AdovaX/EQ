@@ -6,6 +6,7 @@ import { PopUpTimesheetComponent } from '../pop-up-timesheet/pop-up-timesheet.co
 import {ResourceService} from '../../../Services/resource.service';
 import { ActivatedRoute,Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
  
  
@@ -28,7 +29,7 @@ export class CalenderComponent implements OnInit {
  
    
  
-  constructor(public dialog: MatDialog,private ResourceService:ResourceService,private route: ActivatedRoute,private Router:Router) { 
+  constructor(public dialog: MatDialog,private ResourceService:ResourceService,private route: ActivatedRoute,private Router:Router,private snackBar: MatSnackBar) { 
     this.route.queryParams.subscribe(params => {
       console.log(params);
       this.Project_id = params.Project_id;
@@ -90,7 +91,8 @@ export class CalenderComponent implements OnInit {
     "User_id":this.User_id 
      }
      this.ResourceService.updateTimesheet(timeSheetData).subscribe(data =>{
-      console.log(data);  
+      console.log(data);   
+      this.openSnackBar('Time sheet submited successfully!')
       this.getTimesheetResource();
   }, error => {
     console.log(error); 
@@ -109,4 +111,9 @@ export class CalenderComponent implements OnInit {
   });
 
   }
+  openSnackBar(message: string, action: string='') {
+       this.snackBar.open(message, action, {
+          duration: 1500,
+       });
+    }
 }

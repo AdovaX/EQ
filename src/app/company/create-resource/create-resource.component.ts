@@ -16,7 +16,8 @@ import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import { PopupEducationComponent } from '../popup-education/popup-education.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
- 
+import { PopupResourceProfileComponent } from '../popup-resource-profile/popup-resource-profile.component';
+
 @Component({
   selector: 'app-create-resource',
   templateUrl: './create-resource.component.html',
@@ -172,6 +173,18 @@ passwordMatchCheck(){
     alert("Password do not match!");
   }
 }
+viewResourceProfile(id){
+console.log(id);
+  const dialogRef = this.dialog.open(PopupResourceProfileComponent, {
+    width: '650px',
+    data: {Resource_id: id}, 
+    hasBackdrop: true,
+    disableClose : false
+  }); 
+  dialogRef.afterClosed().subscribe(result => { 
+    
+  }); 
+}
   onSubmit(){ 
     console.log(this.Resource_Form.value);
     this.submitted = true;
@@ -304,7 +317,6 @@ passwordMatchCheck(){
     this.ListingManagerService.updateFrom(fromDate,r_id).subscribe(data =>{
       console.log(data); 
       this.getResources();  
-   
     });
 
   }

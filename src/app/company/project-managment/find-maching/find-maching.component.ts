@@ -9,6 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { PopupInterviewDateComponent } from '../popup-interview-date/popup-interview-date.component';
 import { PopupConfirmationComponent } from '../../popup-confirmation/popup-confirmation.component';
+import { PopupResourceProfileComponent } from '../../popup-resource-profile/popup-resource-profile.component';
 
 @Component({
   selector: 'app-find-maching',
@@ -46,6 +47,19 @@ export class FindMachingComponent implements OnInit {
     this.getMatchingProfiles();
    
   }
+  viewResourceProfile(id){
+    console.log(id);
+      const dialogRef = this.dialog.open(PopupResourceProfileComponent, {
+        width: '650px',
+        data: {Resource_id: id ,Requirement_id : this.Requirement_id}, 
+        hasBackdrop: true,
+        disableClose : false
+      }); 
+      dialogRef.afterClosed().subscribe(result => { 
+        
+      }); 
+    }
+    
   getMatchingProfiles(){
     this.ProjectService.machingResources(this.Requirement_id).subscribe(data =>{
     console.log(data);

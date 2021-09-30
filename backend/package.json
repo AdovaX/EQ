@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "SERVER": "nodemon server.js",
     "CHAT": "nodemon chat.js",
-    "start": "concurrently \"npm:SERVER\" \"npm:CHAT\""
+    "CRON": "nodemon cron.js",
+    "start": "concurrently \"npm:SERVER\" \"npm:CHAT\" \"npm:CRON\""
   },
   "author": "Deepak Dev",
   "license": "ISC",
@@ -24,6 +25,7 @@
     "moment": "^2.29.1",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
+    "node-cron": "^3.0.0",
     "nodemailer": "^6.6.2",
     "nodemon": "^2.0.7",
     "promise": "^8.1.0",

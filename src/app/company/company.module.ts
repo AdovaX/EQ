@@ -54,6 +54,7 @@ import { SpocManagementComponent } from './spoc-management/spoc-management.compo
 import { ChatComponent } from './chat/chat.component';
 import { ChatHistoryComponent } from './chat-history/chat-history.component';
 import {ChatServiceService} from '../Services/chat-service.service';
+import { PopupResourceProfileComponent } from './popup-resource-profile/popup-resource-profile.component';
  
 @NgModule({
   declarations: [RegistrationComponent, 
@@ -74,7 +75,8 @@ import {ChatServiceService} from '../Services/chat-service.service';
     PopupConfirmationComponent,
     SpocManagementComponent,
     ChatComponent,
-    ChatHistoryComponent, 
+    ChatHistoryComponent,
+    PopupResourceProfileComponent, 
       ],
   imports: [
     CommonModule,

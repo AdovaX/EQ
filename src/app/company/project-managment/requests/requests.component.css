@@ -9,3 +9,8 @@
     border-style: dashed;
     margin: 5px;
 }
+
+.profilePic{
+    width:25px;
+    border-radius: 20px;
+  }

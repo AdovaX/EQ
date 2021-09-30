@@ -5,6 +5,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
+import {MatDialog,MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { PopupResourceProfileComponent } from '../../popup-resource-profile/popup-resource-profile.component';
+
 @Component({
   selector: 'app-short-listed-resources',
   templateUrl: './short-listed-resources.component.html',
@@ -22,7 +26,7 @@ export class ShortListedResourcesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   
   } 
-  constructor(private ProjectService :ProjectService , private Router:Router) { }
+  constructor(private ProjectService :ProjectService , private Router:Router,private snackBar: MatSnackBar,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.ProjectService.getShortListResource().subscribe(data =>{
@@ -44,4 +48,17 @@ console.log("Set interview");
   this.Router.navigate(['company/Projectmanagement/InterviewShedule'], navigationExtras);
 
   }
+
+  viewResourceProfile(id){
+    console.log(id);
+      const dialogRef = this.dialog.open(PopupResourceProfileComponent, {
+        width: '650px',
+        data: {Resource_id: id ,Requirement_id : 0}, 
+        hasBackdrop: true,
+        disableClose : false
+      }); 
+      dialogRef.afterClosed().subscribe(result => { 
+        
+      }); 
+    }
 }

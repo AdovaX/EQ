@@ -113,4 +113,11 @@ msgSeen(Requirement_id,Resource_id,Sender_id){
   }
  return this.http.post<any[]>(this.REST_API_SERVER + '/users/msgSeen/', data);  
 }
+getResourceProfileData(Resource_id){
+  var data = { 
+    "Resource_id" : Resource_id,  
+    "User_id" : Number(this.User_id), 
+  }
+ return this.http.post<any[]>(this.REST_API_SERVER + '/users/getResourceProfileData/', data);  
+}
 }

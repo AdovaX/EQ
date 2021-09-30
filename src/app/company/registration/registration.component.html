@@ -17,7 +17,7 @@
         <div class="col-sm-8">
           <div class="form-group">
             <label for="input-11">Company Name</label>
-            <input type="text" class="form-control form-control-square" formControlName="C_full_name" id="C_full_name" name="C_full_name" placeholder="Company Legel Name">
+            <input type="text" class="form-control form-control-square" formControlName="C_full_name" id="C_full_name" name="C_full_name" placeholder="Company Legal Name">
 
             <div *ngIf="registerForm.controls['C_full_name'].invalid 
             && (registerForm.controls['C_full_name'].dirty || registerForm.controls['C_full_name'].touched)"  class="error-message">
@@ -90,10 +90,7 @@
             <label for="input-11">Password</label>
             <input  [type]="fieldTextType ? 'text' : 'password'" class="form-control form-control-square" formControlName="User_password" id="User_password" 
             name="User_password" placeholder="Password For Your Account" autocomplete="off"> 
-            <div class="icheck-material-primary">
-              <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
-              <label for="primary">Hide password</label>
-            </div> 
+            
             <div *ngIf="registerForm.controls['User_password'].invalid 
             && (registerForm.controls['User_password'].dirty || registerForm.controls['User_password'].touched)"  class="error-message">
             Password a required field.</div>
@@ -109,6 +106,12 @@
             Confirm Password a required field.</div>
            </div>
         </div> 
+        <div class="col-sm-12">
+          <div class="icheck-material-primary">
+            <input type="checkbox" id="primary" checked="" (click)="toggleFieldTextType()">
+            <label for="primary">Hide password</label>
+          </div> 
+        </div>
         <div class="col-sm-6">
           <div class="form-group">
             <re-captcha
