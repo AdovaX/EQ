@@ -5,7 +5,7 @@ let server = http.Server(app);
 let socketIO = require('socket.io');
 let io = socketIO(server,{
     cors: {
-        origin: "http://localhost:4200",
+        origin: ["http://localhost:4200","http://3.109.113.141:80"],
         methods: ["GET", "POST"]
       }
 }); 
